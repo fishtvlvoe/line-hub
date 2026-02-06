@@ -118,6 +118,10 @@ final class Plugin {
         $settings_api = new API\Settings_API();
         $settings_api->register_routes();
 
+        // 註冊 User API
+        $user_api = new API\User_API();
+        $user_api->register_routes();
+
         // 其他 REST API 端點將在後續實作
         // API\Webhook_API::register_routes();
         // API\Login_API::register_routes();
