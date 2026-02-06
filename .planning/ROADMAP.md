@@ -49,11 +49,11 @@ Plans:
   3. 用戶可以主動解除 LINE 綁定
   4. 同一個 LINE UID 不能綁定多個 WordPress 帳號（防止重複綁定）
   5. 用戶綁定後，display_name 和 picture_url 自動同步
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: Database schema and UserService
-- [ ] 02-02: Binding API endpoints
+- [ ] 02-01-PLAN.md — UserService 核心邏輯（查詢、綁定、解除綁定、NSL fallback）
+- [ ] 02-02-PLAN.md — 用戶綁定 REST API 端點（GET/DELETE binding）
 
 ### Phase 3: OAuth Authentication
 **Goal**: 用戶可以透過 LINE 安全登入 WordPress
@@ -150,7 +150,7 @@ Phases execute in numeric order: 1 (done) -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Settings Foundation | 2/2 | Complete | 2026-02-06 |
-| 2. User Management | 0/2 | Not started | - |
+| 2. User Management | 0/2 | Planned | - |
 | 3. OAuth Authentication | 0/3 | Not started | - |
 | 4. Notification System | 0/3 | Not started | - |
 | 5. Webhook Center | 0/3 | Not started | - |
