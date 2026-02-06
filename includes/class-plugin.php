@@ -114,11 +114,14 @@ final class Plugin {
      * 註冊 REST API 路由
      */
     public function register_rest_routes(): void {
-        // REST API 端點將在後續實作
+        // 註冊 Settings API
+        $settings_api = new API\Settings_API();
+        $settings_api->register_routes();
+
+        // 其他 REST API 端點將在後續實作
         // API\Webhook_API::register_routes();
         // API\Login_API::register_routes();
         // API\Binding_API::register_routes();
-        // API\Settings_API::register_routes();
         // API\Notifications_API::register_routes();
     }
 
