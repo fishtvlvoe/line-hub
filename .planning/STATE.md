@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-06)
 
 **Core value:** 成為 WordPress 的 LINE 整合中樞，提供完整的 LINE 登入、通知、Webhook 和第三方外掛串接功能
-**Current focus:** Phase 3 - OAuth Authentication
+**Current focus:** Phase 3 - OAuth Authentication (COMPLETE)
 
 ## Current Position
 
-Phase: 3 of 7 (OAuth Authentication)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-02-07 - Completed 03-02-PLAN.md (OAuth Authentication Flow)
+Phase: 3 of 7 (OAuth Authentication) - COMPLETE
+Plan: 3 of 3 in current phase
+Status: Phase complete
+Last activity: 2026-02-07 - Completed 03-03-PLAN.md (User Login/Registration Service)
 
-Progress: [######░░░░] 60%
+Progress: [#######░░░] 70%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6 (Phase 1: 2 + Phase 2: 2 + Phase 3: 2)
-- Average duration: 1m 45s (Phase 2-3)
-- Total execution time: 6m 41s (Phase 2-3)
+- Total plans completed: 7 (Phase 1: 2 + Phase 2: 2 + Phase 3: 3)
+- Average duration: 1m 58s (Phase 2-3)
+- Total execution time: 9m 41s (Phase 2-3)
 
 **By Phase:**
 
@@ -29,10 +29,10 @@ Progress: [######░░░░] 60%
 |-------|-------|-------|----------|
 | 1. Settings Foundation | 2/2 | pre-completed | N/A |
 | 2. User Management | 2/2 | 2m 36s | 1m 18s |
-| 3. OAuth Authentication | 2/3 | 4m 05s | 2m 03s |
+| 3. OAuth Authentication | 3/3 | 7m 05s | 2m 22s |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (1m 21s), 02-02 (1m 15s), 03-01 (1m 54s), 03-02 (2m 11s)
+- Last 5 plans: 02-02 (1m 15s), 03-01 (1m 54s), 03-02 (2m 11s), 03-03 (3m 00s)
 - Trend: Consistent execution speed
 
 *Updated after each plan completion*
@@ -57,8 +57,11 @@ Recent decisions affecting current work:
 - [03-01]: State 過期時間 5 分鐘 - 用戶決策增強安全性
 - [03-01]: ID Token 驗證使用 LINE verify endpoint - 簡單且權威
 - [03-02]: 錯誤訊息使用中文對應表提升用戶體驗
-- [03-02]: 暫時顯示除錯頁面直到 LoginService 實作完成
 - [03-02]: 使用 wp_redirect 取代 header() 確保 WordPress 相容性
+- [03-03]: Username 格式：line_ 前綴，純中文名使用 user_ + random hash
+- [03-03]: 預設角色：subscriber for LINE-created accounts
+- [03-03]: Email 表單過期時間：10 分鐘（長於 OAuth state 的 5 分鐘）
+- [03-03]: 同 Email = 同人：自動綁定 LINE 到現有 WordPress 帳號
 
 ### Pending Todos
 
@@ -70,6 +73,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-07 02:41
-Stopped at: Completed 03-02-PLAN.md (OAuth Authentication Flow)
+Last session: 2026-02-07 02:48
+Stopped at: Completed Phase 3 (OAuth Authentication)
 Resume file: None
