@@ -18,4 +18,11 @@
 | #1155 | 7:51 PM | 🟣 | LINE Hub database schema created with four tables for user bindings, webhooks, settings, and notifications | ~636 |
 | #1154 | " | 🟣 | Created LINE Hub plugin main class with singleton pattern and WordPress lifecycle management | ~659 |
 | #1152 | " | 🟣 | PSR-4 autoloader implemented for LineHub plugin with WordPress class naming convention support | ~411 |
+
+### Feb 7, 2026
+
+| ID | Time | T | Title | Read |
+|----|------|---|-------|------|
+| #1440 | 12:47 AM | 🔴 | Fixed autoloader failing to load class names containing underscores | ~474 |
+| #1405 | 12:42 AM | 🔵 | LINE Hub plugin main class structure follows singleton pattern with modular service architecture | ~616 |
 </claude-mem-context>
