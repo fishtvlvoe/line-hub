@@ -17,7 +17,7 @@ Requirements for initial release (v1.0 - 3 weeks). Each maps to roadmap phases.
 - [ ] **AUTH-06**: 同步 LINE 頭像到 WordPress
 - [ ] **AUTH-07**: Access Token 安全儲存（加密）
 - [ ] **AUTH-08**: 支援 LINE 內部瀏覽器特殊設定（bot_prompt, initial_amr_display）
-- [ ] **AUTH-09**: State Token CSRF 防護（10 分鐘過期）
+- [ ] **AUTH-09**: State Token CSRF 防護（5 分鐘過期）
 - [ ] **AUTH-10**: 登入後重定向到原始頁面
 
 ### User Management (用戶管理)
@@ -224,4 +224,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-07*
-*Last updated: 2026-02-07 after ROADMAP creation*
+*Last updated: 2026-02-07 after Phase 3 plan revision*
