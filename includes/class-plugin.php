@@ -64,6 +64,10 @@ final class Plugin {
         // WordPress 初始化
         add_action('init', [$this, 'on_init'], 15);
 
+        // OAuth 認證路由
+        add_action('init', [$this, 'register_auth_routes'], 15);
+        add_action('template_redirect', [$this, 'handle_auth_requests'], 10);
+
         // REST API 初始化
         add_action('rest_api_init', [$this, 'register_rest_routes'], 10);
 
@@ -108,6 +112,51 @@ final class Plugin {
 
         // 觸發自訂 Hook
         do_action('line_hub/init');
+    }
+
+    /**
+     * 註冊 OAuth 認證路由
+     *
+     * 路由：
+     * - /line-hub/auth/         - 發起 OAuth 認證
+     * - /line-hub/auth/callback - LINE 回調端點
+     */
+    public function register_auth_routes(): void {
+        // 添加 rewrite rules
+        add_rewrite_rule(
+            '^line-hub/auth/?$',
+            'index.php?line_hub_auth=1',
+            'top'
+        );
+        add_rewrite_rule(
+            '^line-hub/auth/callback/?$',
+            'index.php?line_hub_auth=callback',
+            'top'
+        );
+
+        // 註冊 query vars
+        add_filter('query_vars', function ($vars) {
+            $vars[] = 'line_hub_auth';
+            return $vars;
+        });
+    }
+
+    /**
+     * 處理 OAuth 認證請求
+     *
+     * 在 template_redirect 時檢查是否為認證請求
+     */
+    public function handle_auth_requests(): void {
+        $auth_action = get_query_var('line_hub_auth');
+
+        if (empty($auth_action)) {
+            return;
+        }
+
+        // 處理認證請求
+        $callback = new Auth\AuthCallback();
+        $callback->handleRequest();
+        exit;
     }
 
     /**
