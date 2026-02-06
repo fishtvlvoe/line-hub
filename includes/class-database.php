@@ -20,7 +20,7 @@ class Database {
     /**
      * 資料庫版本
      */
-    const DB_VERSION = '1.0.0';
+    const DB_VERSION = '1.0.1';
 
     /**
      * 初始化資料庫
@@ -118,16 +118,15 @@ class Database {
 
         $sql = "CREATE TABLE {$table_name} (
             id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            setting_group varchar(50) NOT NULL,
             setting_key varchar(100) NOT NULL,
             setting_value longtext NOT NULL,
-            setting_type varchar(50) DEFAULT 'general',
-            description text DEFAULT NULL,
-            is_encrypted tinyint(1) DEFAULT 0,
+            encrypted tinyint(1) DEFAULT 0,
             created_at datetime DEFAULT CURRENT_TIMESTAMP,
             updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY  (id),
-            UNIQUE KEY setting_key (setting_key),
-            KEY setting_type (setting_type)
+            UNIQUE KEY setting_group_key (setting_group, setting_key),
+            KEY setting_group (setting_group)
         ) {$charset_collate};";
 
         dbDelta($sql);

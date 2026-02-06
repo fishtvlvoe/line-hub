@@ -7,6 +7,9 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
+| #1290 | 8:51 PM | ✅ | Database version incremented from 1.0.0 to 1.0.1 in LINE Hub Database class | ~490 |
+| #1289 | " | 🔄 | Refactored line_hub_settings table schema to use composite setting_group + setting_key structure | ~449 |
+| #1288 | " | 🟣 | Implemented LINE Hub database schema with four specialized tables and version control | ~716 |
 | #1266 | 8:43 PM | 🟣 | Settings management API and service layer implemented for LINE Hub plugin | ~416 |
 | #1265 | " | 🟣 | PSR-4 autoloader implemented with kebab-case file naming convention for LINE Hub plugin | ~466 |
 | #1264 | " | 🟣 | Settings API endpoint activated in LINE Hub plugin REST API registration | ~414 |
