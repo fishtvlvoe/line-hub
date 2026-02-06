@@ -1,0 +1,50 @@
+# WordPress
+wp-config.php
+wp-content/uploads/
+wp-content/blogs.dir/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+wp-content/cache/
+wp-content/cache/*
+sitemap.xml
+*.log
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Composer
+vendor/
+composer.lock
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+
+# Build
+dist/
+build/
+*.zip
+
+# Environment
+.env
+.env.local
+
+# Testing
+coverage/
+.phpunit.result.cache
+
+# Temporary
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*~
