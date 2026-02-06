@@ -9,24 +9,24 @@ Requirements for initial release (v1.0 - 3 weeks). Each maps to roadmap phases.
 
 ### Authentication (LINE 登入系統)
 
-- [ ] **AUTH-01**: 用戶可以透過 LINE OAuth 2.0 登入
-- [ ] **AUTH-02**: 系統可以從 ID Token 擷取用戶 Email
-- [ ] **AUTH-03**: Email 無效時提供強制重新授權（force_reauth）
-- [ ] **AUTH-04**: Email 無效時提供手動輸入選項
-- [ ] **AUTH-05**: 自動建立 WordPress 帳號（username, email, display_name）
-- [ ] **AUTH-06**: 同步 LINE 頭像到 WordPress
-- [ ] **AUTH-07**: Access Token 安全儲存（加密）
-- [ ] **AUTH-08**: 支援 LINE 內部瀏覽器特殊設定（bot_prompt, initial_amr_display）
-- [ ] **AUTH-09**: State Token CSRF 防護（5 分鐘過期）
-- [ ] **AUTH-10**: 登入後重定向到原始頁面
+- [x] **AUTH-01**: 用戶可以透過 LINE OAuth 2.0 登入
+- [x] **AUTH-02**: 系統可以從 ID Token 擷取用戶 Email
+- [x] **AUTH-03**: Email 無效時提供強制重新授權（force_reauth）
+- [x] **AUTH-04**: Email 無效時提供手動輸入選項
+- [x] **AUTH-05**: 自動建立 WordPress 帳號（username, email, display_name）
+- [x] **AUTH-06**: 同步 LINE 頭像到 WordPress
+- [x] **AUTH-07**: Access Token 安全儲存（加密）
+- [x] **AUTH-08**: 支援 LINE 內部瀏覽器特殊設定（bot_prompt, initial_amr_display）
+- [x] **AUTH-09**: State Token CSRF 防護（5 分鐘過期）
+- [x] **AUTH-10**: 登入後重定向到原始頁面
 
 ### User Management (用戶管理)
 
-- [ ] **USER-01**: LINE UID ↔ WordPress User ID 綁定關係儲存
-- [ ] **USER-02**: 用戶可以查詢自己的 LINE 綁定狀態
-- [ ] **USER-03**: 用戶可以解除 LINE 綁定
-- [ ] **USER-04**: 用戶資料同步（display_name, picture_url, email）
-- [ ] **USER-05**: 防止重複綁定（UNIQUE 索引）
+- [x] **USER-01**: LINE UID ↔ WordPress User ID 綁定關係儲存
+- [x] **USER-02**: 用戶可以查詢自己的 LINE 綁定狀態
+- [x] **USER-03**: 用戶可以解除 LINE 綁定
+- [x] **USER-04**: 用戶資料同步（display_name, picture_url, email）
+- [x] **USER-05**: 防止重複綁定（UNIQUE 索引）
 
 ### Notifications (通知系統)
 
