@@ -13,7 +13,7 @@ LINE Hub 將從已建立的設定系統基礎（Phase 1 已完成），逐步建
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Settings Foundation** - 設定系統基礎建設（已完成）
-- [ ] **Phase 2: User Management** - 用戶綁定與資料管理
+- [x] **Phase 2: User Management** - 用戶綁定與資料管理（已完成）
 - [ ] **Phase 3: OAuth Authentication** - LINE 登入認證系統
 - [ ] **Phase 4: Notification System** - 通知發送與模板管理
 - [ ] **Phase 5: Webhook Center** - Webhook 接收與處理中心
@@ -43,17 +43,18 @@ Plans:
 **Goal**: 用戶可以管理 LINE 綁定關係
 **Depends on**: Phase 1
 **Requirements**: USER-01, USER-02, USER-03, USER-04, USER-05
+**Status**: COMPLETE (2026-02-07)
 **Success Criteria** (what must be TRUE):
-  1. 系統可以儲存 LINE UID 與 WordPress User ID 的綁定關係
-  2. 用戶可以在前台查看自己的 LINE 綁定狀態（已綁定/未綁定）
-  3. 用戶可以主動解除 LINE 綁定
-  4. 同一個 LINE UID 不能綁定多個 WordPress 帳號（防止重複綁定）
-  5. 用戶綁定後，display_name 和 picture_url 自動同步
-**Plans**: 2 plans
+  1. 系統可以儲存 LINE UID 與 WordPress User ID 的綁定關係 ✓
+  2. 用戶可以在前台查看自己的 LINE 綁定狀態（已綁定/未綁定） ✓
+  3. 用戶可以主動解除 LINE 綁定 ✓
+  4. 同一個 LINE UID 不能綁定多個 WordPress 帳號（防止重複綁定） ✓
+  5. 用戶綁定後，display_name 和 picture_url 自動同步 ✓
+**Plans**: 2 plans (completed)
 
 Plans:
-- [ ] 02-01-PLAN.md — UserService 核心邏輯（查詢、綁定、解除綁定、NSL fallback）
-- [ ] 02-02-PLAN.md — 用戶綁定 REST API 端點（GET/DELETE binding）
+- [x] 02-01-PLAN.md — UserService 核心邏輯（查詢、綁定、解除綁定、NSL fallback）
+- [x] 02-02-PLAN.md — 用戶綁定 REST API 端點（GET/DELETE binding）
 
 ### Phase 3: OAuth Authentication
 **Goal**: 用戶可以透過 LINE 安全登入 WordPress
@@ -150,7 +151,7 @@ Phases execute in numeric order: 1 (done) -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Settings Foundation | 2/2 | Complete | 2026-02-06 |
-| 2. User Management | 0/2 | Planned | - |
+| 2. User Management | 2/2 | Complete | 2026-02-07 |
 | 3. OAuth Authentication | 0/3 | Not started | - |
 | 4. Notification System | 0/3 | Not started | - |
 | 5. Webhook Center | 0/3 | Not started | - |
