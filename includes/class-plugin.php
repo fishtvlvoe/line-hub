@@ -118,8 +118,9 @@ final class Plugin {
      * 註冊 OAuth 認證路由
      *
      * 路由：
-     * - /line-hub/auth/         - 發起 OAuth 認證
-     * - /line-hub/auth/callback - LINE 回調端點
+     * - /line-hub/auth/              - 發起 OAuth 認證
+     * - /line-hub/auth/callback      - LINE 回調端點
+     * - /line-hub/auth/email-submit  - Email 表單提交
      */
     public function register_auth_routes(): void {
         // 添加 rewrite rules
@@ -131,6 +132,12 @@ final class Plugin {
         add_rewrite_rule(
             '^line-hub/auth/callback/?$',
             'index.php?line_hub_auth=callback',
+            'top'
+        );
+        // Email 表單提交路由
+        add_rewrite_rule(
+            '^line-hub/auth/email-submit/?$',
+            'index.php?line_hub_auth=email-submit',
             'top'
         );
 
@@ -153,7 +160,14 @@ final class Plugin {
             return;
         }
 
-        // 處理認證請求
+        // 處理 Email 表單提交
+        if ($auth_action === 'email-submit') {
+            $login_service = new Services\LoginService();
+            $login_service->handleEmailSubmit();
+            exit;
+        }
+
+        // 處理認證請求（發起認證、callback）
         $callback = new Auth\AuthCallback();
         $callback->handleRequest();
         exit;

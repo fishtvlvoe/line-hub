@@ -186,12 +186,9 @@ class AuthCallback {
             'expires_in'    => $tokens['expires_in'] ?? 0,
         ];
 
-        // TODO: 由 Plan 03-03 實作 - 呼叫 LoginService::handleUser($user_data, $tokens)
-        // $login_service = new \LineHub\Services\LoginService();
-        // $login_service->handleUser($user_data, $tokens_for_service);
-
-        // 臨時處理：顯示除錯資訊（等待 LoginService 實作）
-        $this->showDebugPage($user_data);
+        // 呼叫 LoginService 處理用戶登入/註冊
+        $login_service = new \LineHub\Services\LoginService();
+        $login_service->handleUser($user_data, $tokens_for_service);
     }
 
     /**
@@ -265,53 +262,4 @@ class AuthCallback {
         );
     }
 
-    /**
-     * 顯示除錯頁面（臨時，等待 LoginService 實作）
-     *
-     * @param array $user_data 用戶資料
-     * @return void
-     */
-    private function showDebugPage(array $user_data): void {
-        $masked_id = substr($user_data['userId'], 0, 4) . '****' . substr($user_data['userId'], -4);
-        $display_name = esc_html($user_data['displayName'] ?: 'N/A');
-        $email = esc_html($user_data['email'] ?: '（未提供）');
-
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        wp_die(
-            sprintf(
-                '<div style="max-width: 500px; margin: 50px auto; padding: 30px; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, sans-serif;">
-                    <div style="background: #d1fae5; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
-                        <h2 style="margin: 0 0 15px; color: #065f46;">OAuth 流程完成</h2>
-                        <p style="margin: 0; color: #047857;">等待 LoginService 實作（Plan 03-03）</p>
-                    </div>
-                    <div style="background: #f3f4f6; border-radius: 8px; padding: 20px;">
-                        <h3 style="margin: 0 0 15px; color: #1f2937;">用戶資料</h3>
-                        <table style="width: 100%%; border-collapse: collapse;">
-                            <tr>
-                                <td style="padding: 8px 0; color: #6b7280;">LINE User ID</td>
-                                <td style="padding: 8px 0; color: #1f2937; font-family: monospace;">%s</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 8px 0; color: #6b7280;">顯示名稱</td>
-                                <td style="padding: 8px 0; color: #1f2937;">%s</td>
-                            </tr>
-                            <tr>
-                                <td style="padding: 8px 0; color: #6b7280;">Email</td>
-                                <td style="padding: 8px 0; color: #1f2937;">%s</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <p style="margin-top: 20px; text-align: center;">
-                        <a href="%s" style="color: #2563eb; text-decoration: none;">返回首頁</a>
-                    </p>
-                </div>',
-                $masked_id,
-                $display_name,
-                $email,
-                esc_url(home_url('/'))
-            ),
-            __('OAuth 完成', 'line-hub'),
-            ['response' => 200]
-        );
-    }
 }
