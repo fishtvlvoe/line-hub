@@ -7,5 +7,7 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
+| #1267 | 8:44 PM | 🟣 | SettingsService and Settings API implemented with encryption and caching for LINE Hub plugin | ~600 |
+| #1266 | 8:43 PM | 🟣 | Settings management API and service layer implemented for LINE Hub plugin | ~416 |
 | #1260 | 8:42 PM | 🟣 | Implemented Settings REST API with schema validation and sensitive data masking | ~687 |
 </claude-mem-context>
