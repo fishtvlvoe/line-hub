@@ -50,7 +50,7 @@ class Settings_API {
                         'required' => false,
                         'type' => 'string',
                         'description' => '設定群組（不提供則返回所有群組）',
-                        'enum' => SettingsService::get_all_groups(),
+                        'validate_callback' => [$this, 'validate_group'],
                     ],
                 ],
             ],
@@ -67,7 +67,7 @@ class Settings_API {
                         'required' => true,
                         'type' => 'string',
                         'description' => '設定群組',
-                        'enum' => SettingsService::get_all_groups(),
+                        'validate_callback' => [$this, 'validate_group'],
                     ],
                     'settings' => [
                         'required' => true,
@@ -89,11 +89,39 @@ class Settings_API {
                         'required' => false,
                         'type' => 'string',
                         'description' => '設定群組（不提供則返回所有群組的 schema）',
-                        'enum' => SettingsService::get_all_groups(),
+                        'validate_callback' => [$this, 'validate_group'],
                     ],
                 ],
             ],
         ]);
+    }
+
+    /**
+     * 驗證設定群組是否有效
+     *
+     * @param mixed $value 要驗證的值
+     * @param \WP_REST_Request $request 請求物件
+     * @param string $param 參數名稱
+     * @return bool|\WP_Error
+     */
+    public function validate_group($value, $request, $param) {
+        // 如果沒有提供 group 參數（可選參數），直接通過
+        if (empty($value)) {
+            return true;
+        }
+
+        // 驗證是否為有效的群組名稱
+        $valid_groups = SettingsService::get_all_groups();
+
+        if (!in_array($value, $valid_groups, true)) {
+            return new \WP_Error(
+                'invalid_group',
+                sprintf('無效的設定群組。有效值：%s', implode(', ', $valid_groups)),
+                ['status' => 400]
+            );
+        }
+
+        return true;
     }
 
     /**
