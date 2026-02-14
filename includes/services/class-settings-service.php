@@ -42,6 +42,13 @@ class SettingsService {
                 'default' => '',
                 'description' => 'LINE Channel Access Token',
             ],
+            'liff_id' => [
+                'type' => 'string',
+                'required' => false,
+                'encrypted' => false,
+                'default' => '',
+                'description' => 'LIFF App ID',
+            ],
         ],
         'login' => [
             'force_reauth' => [

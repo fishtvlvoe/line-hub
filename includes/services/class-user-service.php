@@ -23,6 +23,8 @@ class UserService {
     /**
      * 透過 LINE UID 查詢對應的 WordPress User ID
      *
+     * 包含 NSL fallback：先查 wp_line_hub_users，找不到再查 wp_social_users
+     *
      * @param string $line_uid LINE 用戶唯一識別碼
      * @return int|null 找到返回 WordPress User ID，找不到返回 null
      */
@@ -30,6 +32,7 @@ class UserService {
         global $wpdb;
         $table_name = $wpdb->prefix . 'line_hub_users';
 
+        // 1. 先查詢 LINE Hub 用戶表
         $user_id = $wpdb->get_var(
             $wpdb->prepare(
                 "SELECT user_id FROM {$table_name} WHERE line_uid = %s AND status = 'active' LIMIT 1",
@@ -37,7 +40,51 @@ class UserService {
             )
         );
 
-        return $user_id ? (int) $user_id : null;
+        if ($user_id) {
+            return (int) $user_id;
+        }
+
+        // 2. Fallback: 查詢 NSL (Nextend Social Login) 的 wp_social_users 表
+        $nsl_table = $wpdb->prefix . 'social_users';
+
+        $table_exists = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT COUNT(1) FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
+                DB_NAME,
+                $nsl_table
+            )
+        );
+
+        if (!$table_exists) {
+            return null;
+        }
+
+        $nsl_user_id = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT user_id FROM {$nsl_table} WHERE identifier = %s AND type = 'line' LIMIT 1",
+                $line_uid
+            )
+        );
+
+        return $nsl_user_id ? (int) $nsl_user_id : null;
+    }
+
+    /**
+     * 檢查用戶是否有直接的 LINE Hub 綁定（不含 NSL fallback）
+     *
+     * @param int $user_id WordPress 用戶 ID
+     * @return bool
+     */
+    public static function hasDirectBinding(int $user_id): bool {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'line_hub_users';
+
+        return (bool) $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT COUNT(*) FROM {$table_name} WHERE user_id = %d AND status = 'active'",
+                $user_id
+            )
+        );
     }
 
     /**
@@ -229,6 +276,11 @@ class UserService {
         );
 
         if ($result !== false) {
+            // 清除 LINE 相關 meta
+            delete_user_meta($user_id, 'line_hub_avatar_url');
+            delete_user_meta($user_id, 'line_hub_login_method');
+            delete_user_meta($user_id, 'line_hub_is_friend');
+
             /**
              * 解除綁定後觸發
              *
