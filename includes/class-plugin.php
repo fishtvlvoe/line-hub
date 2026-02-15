@@ -78,6 +78,9 @@ final class Plugin {
         // REST API 初始化
         add_action('rest_api_init', [$this, 'register_rest_routes'], 10);
 
+        // Webhook Cron 處理（Phase 5）
+        add_action('line_hub_process_webhook', [$this, 'process_webhook_events'], 10, 1);
+
         // Admin 初始化
         if (is_admin()) {
             add_action('admin_menu', [$this, 'register_admin_menu'], 30);
@@ -245,8 +248,11 @@ final class Plugin {
         $user_api = new API\User_API();
         $user_api->register_routes();
 
+        // 註冊 Webhook API（Phase 5）
+        $webhook_receiver = new Webhook\WebhookReceiver();
+        $webhook_receiver->registerRoutes();
+
         // 其他 REST API 端點將在後續實作
-        // API\Webhook_API::register_routes();
         // API\Login_API::register_routes();
         // API\Binding_API::register_routes();
         // API\Notifications_API::register_routes();
@@ -705,5 +711,17 @@ final class Plugin {
         })();
         </script>
         <?php
+    }
+
+    /**
+     * 處理 Webhook 事件（Cron Handler）
+     *
+     * 由 wp_schedule_single_event 觸發
+     *
+     * @param array $events 事件陣列
+     */
+    public function process_webhook_events(array $events): void {
+        $dispatcher = new Webhook\EventDispatcher();
+        $dispatcher->processEvents($events);
     }
 }
