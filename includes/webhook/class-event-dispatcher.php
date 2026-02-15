@@ -73,7 +73,13 @@ class EventDispatcher {
                 break;
 
             case 'postback':
-                do_action('line_hub/webhook/postback', $event);
+                // 提取參數（與 buygo-line-notify hook 格式一致）
+                $line_uid = $event['source']['userId'] ?? '';
+                $user_id = null;
+                if (!empty($line_uid)) {
+                    $user_id = UserService::getUserByLineUid($line_uid);
+                }
+                do_action('line_hub/webhook/postback', $event, $line_uid, $user_id);
                 break;
 
             case 'join':
@@ -115,17 +121,25 @@ class EventDispatcher {
             return;
         }
 
-        // 通用訊息 hook
+        // 提取通用參數（與 buygo-line-notify hook 格式一致）
+        $line_uid = $event['source']['userId'] ?? '';
+        $user_id = null;
+        if (!empty($line_uid)) {
+            $user_id = UserService::getUserByLineUid($line_uid);
+        }
+        $message_id = $event['message']['id'] ?? '';
+
+        // 通用訊息 hook（1 個參數，方便不需要展開參數的監聽者）
         do_action('line_hub/webhook/message', $event);
 
-        // 細分類型 hook
+        // 細分類型 hook（text 和 image 傳 4 個參數，與 BuyGo handler 相容）
         switch ($message_type) {
             case 'text':
-                do_action('line_hub/webhook/message/text', $event);
+                do_action('line_hub/webhook/message/text', $event, $line_uid, $user_id, $message_id);
                 break;
 
             case 'image':
-                do_action('line_hub/webhook/message/image', $event);
+                do_action('line_hub/webhook/message/image', $event, $line_uid, $user_id, $message_id);
                 break;
 
             case 'video':
