@@ -20,7 +20,7 @@ class Database {
     /**
      * 資料庫版本
      */
-    const DB_VERSION = '1.0.1';
+    const DB_VERSION = '1.0.2';
 
     /**
      * 初始化資料庫
@@ -98,7 +98,7 @@ class Database {
             KEY event_type (event_type),
             KEY line_uid (line_uid),
             KEY user_id (user_id),
-            KEY webhook_event_id (webhook_event_id),
+            UNIQUE KEY webhook_event_id (webhook_event_id),
             KEY received_at (received_at),
             KEY processed (processed)
         ) {$charset_collate};";

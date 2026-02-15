@@ -196,31 +196,15 @@ class WebhookReceiver {
     /**
      * 記錄事件到資料庫
      *
+     * 委託給 WebhookLogger 統一處理（含自動清理舊記錄）
+     *
      * @param array $event 事件資料
      */
     private function logEvent(array $event): void {
-        global $wpdb;
-        $table = $wpdb->prefix . 'line_hub_webhooks';
-
-        $event_id = $event['webhookEventId'] ?? '';
         $event_type = $event['type'] ?? 'unknown';
         $line_uid = $event['source']['userId'] ?? null;
 
-        // 嘗試找出對應的 WP User ID
-        $user_id = null;
-        if (!empty($line_uid)) {
-            $user_id = \LineHub\Services\UserService::getUserByLineUid($line_uid);
-        }
-
-        $wpdb->insert($table, [
-            'webhook_event_id' => $event_id,
-            'event_type' => $event_type,
-            'line_uid' => $line_uid,
-            'user_id' => $user_id,
-            'payload' => wp_json_encode($event),
-            'processed' => 0,
-            'received_at' => current_time('mysql'),
-        ]);
+        WebhookLogger::log($event_type, $event, $line_uid);
     }
 
     /**
