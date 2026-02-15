@@ -34,7 +34,15 @@ class EventDispatcher {
      */
     public function processEvents(array $events): void {
         foreach ($events as $event) {
-            $this->dispatchEvent($event);
+            try {
+                $this->dispatchEvent($event);
+            } catch (\Throwable $e) {
+                error_log(sprintf(
+                    '[LINE Hub EventDispatcher] 事件處理失敗: %s (event_id: %s)',
+                    $e->getMessage(),
+                    $event['webhookEventId'] ?? 'unknown'
+                ));
+            }
         }
     }
 
@@ -49,9 +57,6 @@ class EventDispatcher {
         if (empty($type)) {
             return;
         }
-
-        // 更新資料庫記錄為已處理
-        $this->markAsProcessed($event);
 
         // 通用 hook（所有事件都觸發）
         do_action('line_hub/webhook/event', $event);
@@ -107,6 +112,9 @@ class EventDispatcher {
                 do_action('line_hub/webhook/unknown', $event);
                 break;
         }
+
+        // 事件分發完成後才標記為已處理（確保失敗的事件可重試）
+        $this->markAsProcessed($event);
     }
 
     /**
@@ -189,7 +197,7 @@ class EventDispatcher {
             update_user_meta($user_id, 'line_hub_followed_at', current_time('mysql'));
 
             // 記錄 log
-            if (defined('WP_DEBUG') && WP_DEBUG) {
+            if (defined('LINE_HUB_DEBUG') && LINE_HUB_DEBUG) {
                 error_log(sprintf(
                     '[LINE Hub] User %d (LINE UID: %s) 加為好友',
                     $user_id,
@@ -220,7 +228,7 @@ class EventDispatcher {
             update_user_meta($user_id, 'line_hub_unfollowed_at', current_time('mysql'));
 
             // 記錄 log
-            if (defined('WP_DEBUG') && WP_DEBUG) {
+            if (defined('LINE_HUB_DEBUG') && LINE_HUB_DEBUG) {
                 error_log(sprintf(
                     '[LINE Hub] User %d (LINE UID: %s) 取消好友',
                     $user_id,

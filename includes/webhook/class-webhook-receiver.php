@@ -84,7 +84,7 @@ class WebhookReceiver {
         // 5. 檢查是否為 Verify Event（replyToken 全是 0）
         $first_event = $events[0] ?? [];
         $reply_token = $first_event['replyToken'] ?? '';
-        if ($reply_token === str_repeat('0', 64)) {
+        if ($reply_token === str_repeat('0', 32) || $reply_token === str_repeat('0', 64)) {
             // Verify Event，直接回應成功
             return new \WP_REST_Response(['success' => true], 200);
         }
@@ -148,12 +148,19 @@ class WebhookReceiver {
      * @return bool
      */
     private function verifySignature(string $body, string $signature): bool {
+        // 空簽名直接拒絕
+        if (empty($signature)) {
+            error_log('[LINE Hub Webhook] 錯誤：缺少 X-Line-Signature header');
+            return false;
+        }
+
         // 取得 Channel Secret
         $channel_secret = SettingsService::get('general', 'channel_secret', '');
 
-        // 開發環境：如果沒有設定 channel_secret 且 WP_DEBUG 開啟，跳過驗證但記錄 warning
-        if (empty($channel_secret) && defined('WP_DEBUG') && WP_DEBUG) {
-            error_log('[LINE Hub Webhook] 警告：開發環境跳過簽名驗證（請設定 channel_secret）');
+        // 開發環境：明確設定 LINE_HUB_SKIP_SIGNATURE_VERIFY 才跳過驗證
+        // 注意：不使用 WP_DEBUG，因為正式站台可能遺忘關閉
+        if (empty($channel_secret) && defined('LINE_HUB_SKIP_SIGNATURE_VERIFY') && LINE_HUB_SKIP_SIGNATURE_VERIFY) {
+            error_log('[LINE Hub Webhook] 警告：跳過簽名驗證（LINE_HUB_SKIP_SIGNATURE_VERIFY 已啟用）');
             return true;
         }
 

@@ -51,18 +51,26 @@ class WebhookLogger {
             $user_id = \LineHub\Services\UserService::getUserByLineUid($line_uid);
         }
 
-        // 插入記錄
-        $result = $wpdb->insert($table, [
-            'webhook_event_id' => $event_data['webhookEventId'] ?? '',
-            'event_type' => $event_type,
-            'line_uid' => $line_uid,
-            'user_id' => $user_id,
-            'payload' => wp_json_encode($event_data),
-            'processed' => 0,
-            'received_at' => current_time('mysql'),
-        ]);
+        // 插入記錄（INSERT IGNORE 防止 webhook_event_id 重複時報錯）
+        $webhook_event_id = $event_data['webhookEventId'] ?? '';
+        $payload = wp_json_encode($event_data);
+        $received_at = current_time('mysql');
 
-        if ($result === false) {
+        $wpdb->query($wpdb->prepare(
+            "INSERT IGNORE INTO {$table}
+            (webhook_event_id, event_type, line_uid, user_id, payload, processed, received_at)
+            VALUES (%s, %s, %s, %s, %s, %d, %s)",
+            $webhook_event_id ?: null,
+            $event_type,
+            $line_uid,
+            $user_id,
+            $payload,
+            0,
+            $received_at
+        ));
+
+        if ($wpdb->insert_id === 0 && !empty($webhook_event_id)) {
+            // INSERT IGNORE 跳過了重複記錄
             return false;
         }
 
@@ -94,7 +102,7 @@ class WebhookLogger {
             );
 
             // 記錄清理動作（如果開啟 debug）
-            if (defined('WP_DEBUG') && WP_DEBUG) {
+            if (defined('LINE_HUB_DEBUG') && LINE_HUB_DEBUG) {
                 error_log(sprintf(
                     '[LINE Hub WebhookLogger] 已清理 %d 筆舊記錄（保留最新 %d 筆）',
                     $delete_count,
