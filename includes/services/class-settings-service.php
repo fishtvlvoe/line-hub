@@ -49,6 +49,57 @@ class SettingsService {
                 'default' => '',
                 'description' => 'LIFF App ID',
             ],
+            // Task 3: 進階設定欄位
+            'nsl_compat_mode' => [
+                'type' => 'boolean',
+                'required' => false,
+                'encrypted' => false,
+                'default' => false,
+                'description' => 'NSL 相容模式（同時從 wp_social_users 查詢）',
+            ],
+            'nsl_auto_migrate' => [
+                'type' => 'boolean',
+                'required' => false,
+                'encrypted' => false,
+                'default' => false,
+                'description' => '自動遷移 NSL 用戶到 LineHub',
+            ],
+            'login_button_text' => [
+                'type' => 'string',
+                'required' => false,
+                'encrypted' => false,
+                'default' => '用 LINE 帳號登入',
+                'description' => '登入按鈕文字',
+            ],
+            'login_button_positions' => [
+                'type' => 'string',
+                'required' => false,
+                'encrypted' => false,
+                'default' => '',
+                'description' => '登入按鈕顯示位置（JSON 陣列）',
+            ],
+            'login_button_size' => [
+                'type' => 'string',
+                'required' => false,
+                'encrypted' => false,
+                'default' => 'medium',
+                'enum' => ['small', 'medium', 'large'],
+                'description' => '登入按鈕大小',
+            ],
+            'require_email_verification' => [
+                'type' => 'boolean',
+                'required' => false,
+                'encrypted' => false,
+                'default' => false,
+                'description' => '強制 Email 驗證',
+            ],
+            'allowed_email_domains' => [
+                'type' => 'string',
+                'required' => false,
+                'encrypted' => false,
+                'default' => '',
+                'description' => '允許的 Email 網域（逗號分隔）',
+            ],
         ],
         'login' => [
             'force_reauth' => [
