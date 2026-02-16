@@ -188,6 +188,7 @@ if (!defined('ABSPATH')) {
     <script src="https://static.line-scdn.net/liff/edge/versions/2.24.0/sdk.js"></script>
     <script>
         const LIFF_ID = <?php echo wp_json_encode($liff_id); ?>;
+        const LIFF_REDIRECT = <?php echo wp_json_encode($redirect); ?>;
 
         function updateStatus(text) {
             document.getElementById('liffStatus').textContent = text;
@@ -233,7 +234,11 @@ if (!defined('ABSPATH')) {
                 // Step 2: Check login status
                 if (!liff.isLoggedIn()) {
                     updateStatus('正在導向 LINE 登入...');
-                    liff.login({ redirectUri: window.location.href });
+                    // 儲存 redirect 到 sessionStorage，避免 LIFF login 過程中遺失
+                    if (LIFF_REDIRECT) {
+                        sessionStorage.setItem('liff_redirect', LIFF_REDIRECT);
+                    }
+                    liff.login({ redirectUri: window.location.origin + '/line-hub/liff/' });
                     return;
                 }
 
@@ -263,6 +268,17 @@ if (!defined('ABSPATH')) {
                 updateStatus('正在建立帳號...');
                 document.getElementById('liffToken').value = accessToken;
                 document.getElementById('liffIsFriend').value = isFriend ? '1' : '0';
+
+                // 從 sessionStorage 恢復 redirect（LIFF login 過程中 PHP 端可能遺失）
+                var savedRedirect = sessionStorage.getItem('liff_redirect');
+                if (savedRedirect) {
+                    var redirectInput = document.querySelector('#liffForm input[name="redirect"]');
+                    if (redirectInput && (!redirectInput.value || redirectInput.value === window.location.origin + '/')) {
+                        redirectInput.value = savedRedirect;
+                    }
+                    sessionStorage.removeItem('liff_redirect');
+                }
+
                 document.getElementById('liffForm').submit();
 
             } catch (err) {
@@ -272,9 +288,12 @@ if (!defined('ABSPATH')) {
                 // Token 過期或被撤銷 → 清除快取，重新登入
                 if (msg.indexOf('revoked') !== -1 || msg.indexOf('expired') !== -1 || msg.indexOf('invalid') !== -1) {
                     updateStatus('登入已過期，正在重新登入...');
+                    if (LIFF_REDIRECT) {
+                        sessionStorage.setItem('liff_redirect', LIFF_REDIRECT);
+                    }
                     liff.logout();
                     setTimeout(function() {
-                        liff.login({ redirectUri: window.location.href });
+                        liff.login({ redirectUri: window.location.origin + '/line-hub/liff/' });
                     }, 500);
                     return;
                 }
