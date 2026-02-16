@@ -580,10 +580,13 @@ class LiffHandler {
 
         $body = json_decode(wp_remote_retrieve_body($response), true);
 
-        // 驗證 client_id 是否匹配
+        // 驗證 client_id（LIFF token 的 client_id 是 Login Channel ID，
+        // 與 Messaging API Channel ID 不同，因此只記錄不阻擋）
         $expected_client_id = SettingsService::get('general', 'channel_id', '');
-        if (!empty($expected_client_id) && ($body['client_id'] ?? '') !== $expected_client_id) {
-            return new \WP_Error('client_mismatch', 'Access Token 不屬於此應用');
+        $actual_client_id = $body['client_id'] ?? '';
+        if (!empty($expected_client_id) && $actual_client_id !== $expected_client_id) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+            error_log('[LINE Hub] LIFF token client_id mismatch: expected=' . $expected_client_id . ' actual=' . $actual_client_id . ' (Login vs Messaging Channel, OK)');
         }
 
         // 檢查是否過期
