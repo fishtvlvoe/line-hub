@@ -561,9 +561,9 @@ class LiffHandler {
      * 驗證 LIFF Access Token
      *
      * @param string $access_token LIFF Access Token
-     * @return true|\WP_Error 成功返回 true，失敗返回 WP_Error
+     * @return bool|\WP_Error 成功返回 true，失敗返回 WP_Error
      */
-    private function verifyAccessToken(string $access_token): true|\WP_Error {
+    private function verifyAccessToken(string $access_token) {
         $response = wp_remote_get(
             self::VERIFY_ENDPOINT . '?access_token=' . urlencode($access_token),
             ['timeout' => self::REQUEST_TIMEOUT]
