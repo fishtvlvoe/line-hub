@@ -72,11 +72,11 @@ class SettingsService {
                 'description' => '登入按鈕文字',
             ],
             'login_button_positions' => [
-                'type' => 'string',
+                'type' => 'array',
                 'required' => false,
                 'encrypted' => false,
-                'default' => '',
-                'description' => '登入按鈕顯示位置（JSON 陣列）',
+                'default' => [],
+                'description' => '登入按鈕顯示位置',
             ],
             'login_button_size' => [
                 'type' => 'string',

@@ -61,19 +61,20 @@ class SettingsPage {
         }
 
         $plugin_url = plugin_dir_url(dirname(dirname(__FILE__)));
+        $version = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0';
 
         wp_enqueue_style(
             'line-hub-admin-tabs',
             $plugin_url . 'assets/css/admin-tabs.css',
             [],
-            '1.0.0'
+            $version
         );
 
         wp_enqueue_script(
             'line-hub-admin-tabs',
             $plugin_url . 'assets/js/admin-tabs.js',
             [],
-            '1.0.0',
+            $version,
             true
         );
     }
@@ -191,7 +192,7 @@ class SettingsPage {
                     <code style="background: #fff; padding: 8px 12px; display: inline-block; border: 1px solid #ddd;">
                         <?php echo esc_html($site_url . '/line-hub/auth/callback'); ?>
                     </code>
-                    <button class="button button-small" onclick="navigator.clipboard.writeText('<?php echo esc_js($site_url . '/line-hub/auth/callback'); ?>')">複製</button>
+                    <button class="button button-small line-hub-copy-btn" data-copy="<?php echo esc_attr($site_url . '/line-hub/auth/callback'); ?>">複製</button>
                 </p>
 
                 <p style="margin-top: 15px;"><strong>LIFF Endpoint URL</strong>（填入 LIFF App 設定）：</p>
@@ -199,7 +200,7 @@ class SettingsPage {
                     <code style="background: #fff; padding: 8px 12px; display: inline-block; border: 1px solid #ddd;">
                         <?php echo esc_html($site_url . '/line-hub/liff/'); ?>
                     </code>
-                    <button class="button button-small" onclick="navigator.clipboard.writeText('<?php echo esc_js($site_url . '/line-hub/liff/'); ?>')">複製</button>
+                    <button class="button button-small line-hub-copy-btn" data-copy="<?php echo esc_attr($site_url . '/line-hub/liff/'); ?>">複製</button>
                 </p>
             </div>
 
@@ -548,7 +549,7 @@ class SettingsPage {
                                 </td>
                                 <td>
                                     <?php
-                                    $time_diff = human_time_diff(strtotime($event['received_at']), current_time('timestamp'));
+                                    $time_diff = human_time_diff(strtotime($event['received_at']), time());
                                     echo esc_html($time_diff . ' 前');
                                     ?>
                                 </td>
@@ -560,7 +561,7 @@ class SettingsPage {
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <button type="button" class="button button-small" onclick="togglePayload(<?php echo esc_js($event['id']); ?>)">查看 Payload</button>
+                                    <button type="button" class="button button-small" data-toggle-payload="<?php echo esc_attr($event['id']); ?>">查看 Payload</button>
                                     <div id="payload-<?php echo esc_attr($event['id']); ?>" style="display: none; margin-top: 10px; padding: 10px; background: #f5f5f5; border: 1px solid #ddd; border-radius: 3px;">
                                         <pre style="overflow-x: auto; font-size: 12px; max-height: 300px;"><?php echo esc_html(json_encode(json_decode($event['payload']), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)); ?></pre>
                                     </div>
@@ -570,14 +571,7 @@ class SettingsPage {
                     </tbody>
                 </table>
 
-                <script>
-                function togglePayload(id) {
-                    const el = document.getElementById('payload-' + id);
-                    if (el) {
-                        el.style.display = el.style.display === 'none' ? 'block' : 'none';
-                    }
-                }
-                </script>
+                <!-- togglePayload 和 copy 邏輯已移至 admin-tabs.js -->
             <?php endif; ?>
         </div>
         <?php
@@ -724,7 +718,7 @@ if ($user_id) {
         $positions = isset($_POST['login_button_positions']) && is_array($_POST['login_button_positions'])
             ? array_map('sanitize_text_field', $_POST['login_button_positions'])
             : [];
-        SettingsService::set('general', 'login_button_positions', json_encode($positions));
+        SettingsService::set('general', 'login_button_positions', $positions);
 
         // 重新導向回設定頁面
         $redirect_url = add_query_arg(
@@ -771,18 +765,20 @@ if ($user_id) {
      */
     private function show_admin_notices(): void {
         // 儲存成功/失敗訊息
-        if (isset($_GET['updated'])) {
-            $class = $_GET['updated'] === 'true' ? 'notice-success' : 'notice-error';
-            $message = $_GET['updated'] === 'true' ? '設定已儲存' : '儲存設定時發生錯誤';
+        $updated = sanitize_key($_GET['updated'] ?? '');
+        if ($updated !== '') {
+            $class = $updated === 'true' ? 'notice-success' : 'notice-error';
+            $message = $updated === 'true' ? '設定已儲存' : '儲存設定時發生錯誤';
             printf('<div class="notice %s is-dismissible"><p>%s</p></div>', esc_attr($class), esc_html($message));
         }
 
         // 測試連線結果
-        if (isset($_GET['test_result'])) {
-            if ($_GET['test_result'] === 'success') {
-                echo '<div class="notice notice-success is-dismissible"><p>✅ Access Token 驗證成功！</p></div>';
+        $test_result = sanitize_key($_GET['test_result'] ?? '');
+        if ($test_result !== '') {
+            if ($test_result === 'success') {
+                echo '<div class="notice notice-success is-dismissible"><p>Access Token 驗證成功</p></div>';
             } else {
-                echo '<div class="notice notice-error is-dismissible"><p>❌ Access Token 驗證失敗，請檢查設定是否正確</p></div>';
+                echo '<div class="notice notice-error is-dismissible"><p>Access Token 驗證失敗，請檢查設定是否正確</p></div>';
             }
         }
     }

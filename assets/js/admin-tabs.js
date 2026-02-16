@@ -1,7 +1,7 @@
 /**
  * LINE Hub Admin Tabs JavaScript
  *
- * Tab 切換邏輯（純 Vanilla JS）
+ * Tab 切換視覺回饋、複製按鈕、Payload 展開
  *
  * @package LineHub
  * @since 1.0.0
@@ -10,46 +10,40 @@
 (function() {
     'use strict';
 
-    /**
-     * 初始化 Tab 系統
-     */
-    function initTabs() {
-        const tabs = document.querySelectorAll('.line-hub-tab a');
-
-        if (!tabs.length) {
-            return;
-        }
-
-        // 監聽 Tab 點擊
-        tabs.forEach(function(tab) {
-            tab.addEventListener('click', function(e) {
-                // 如果是導航到其他頁面，允許預設行為
-                // 這裡只是加上視覺回饋
-                const parent = tab.closest('.line-hub-tab');
-
-                // 移除所有 active 狀態
+    function init() {
+        // Tab 點擊視覺回饋（頁面導航前的瞬間 active 效果）
+        document.querySelectorAll('.line-hub-tab a').forEach(function(tab) {
+            tab.addEventListener('click', function() {
                 document.querySelectorAll('.line-hub-tab').forEach(function(t) {
                     t.classList.remove('active');
                 });
-
-                // 加上當前 active 狀態
+                var parent = tab.closest('.line-hub-tab');
                 if (parent) {
                     parent.classList.add('active');
                 }
             });
         });
 
-        // 根據 URL 參數設定當前 Tab
-        const urlParams = new URLSearchParams(window.location.search);
-        const currentTab = urlParams.get('tab') || 'getting-started';
+        // 複製按鈕（data-copy 屬性）
+        document.addEventListener('click', function(e) {
+            var btn = e.target.closest('.line-hub-copy-btn');
+            if (btn && btn.dataset.copy) {
+                navigator.clipboard.writeText(btn.dataset.copy).then(function() {
+                    var original = btn.textContent;
+                    btn.textContent = '已複製';
+                    setTimeout(function() { btn.textContent = original; }, 1500);
+                });
+            }
+        });
 
-        // 設定對應的 Tab 為 active
-        tabs.forEach(function(tab) {
-            const href = tab.getAttribute('href');
-            if (href && href.includes('tab=' + currentTab)) {
-                const parent = tab.closest('.line-hub-tab');
-                if (parent) {
-                    parent.classList.add('active');
+        // Webhook Payload 展開/收合（data-toggle-payload 屬性）
+        document.addEventListener('click', function(e) {
+            var btn = e.target.closest('[data-toggle-payload]');
+            if (btn) {
+                var id = btn.dataset.togglePayload;
+                var el = document.getElementById('payload-' + id);
+                if (el) {
+                    el.style.display = el.style.display === 'none' ? 'block' : 'none';
                 }
             }
         });
@@ -57,8 +51,8 @@
 
     // DOM Ready
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initTabs);
+        document.addEventListener('DOMContentLoaded', init);
     } else {
-        initTabs();
+        init();
     }
 })();
