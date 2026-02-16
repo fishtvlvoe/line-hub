@@ -68,8 +68,9 @@ final class Plugin {
         add_action('init', [$this, 'register_auth_routes'], 15);
         add_action('template_redirect', [$this, 'handle_auth_requests'], 10);
 
-        // LIFF 路由
+        // LIFF 路由（parse_request 攔截 + rewrite rule 備用）
         add_action('init', [$this, 'register_liff_routes'], 15);
+        add_action('parse_request', [$this, 'intercept_liff_requests'], 1);
         add_action('template_redirect', [$this, 'handle_liff_requests'], 10);
 
         // Rewrite rules 自動刷新
@@ -213,7 +214,30 @@ final class Plugin {
     }
 
     /**
-     * 處理 LIFF 請求
+     * 在 parse_request 階段攔截 LIFF 請求
+     *
+     * 直接比對 URL 路徑，不依賴 rewrite rules（防止 rewrite rules 被清除時 LIFF 404）
+     *
+     * @param \WP $wp WordPress 主物件
+     */
+    public function intercept_liff_requests(\WP $wp): void {
+        $request = trim($wp->request, '/');
+
+        if ($request !== 'line-hub/liff') {
+            return;
+        }
+
+        // 設定 query var，讓 handle_liff_requests 也能正常工作
+        $wp->query_vars['line_hub_liff'] = '1';
+
+        // 直接處理 LIFF 請求
+        $handler = new Liff\LiffHandler();
+        $handler->handleRequest();
+        exit;
+    }
+
+    /**
+     * 處理 LIFF 請求（rewrite rules 備用路徑）
      */
     public function handle_liff_requests(): void {
         $liff_action = get_query_var('line_hub_liff');

@@ -55,6 +55,9 @@ class LiffHandler {
      * @return void
      */
     public function handleRequest(): void {
+        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+        error_log('[LINE Hub] LIFF handleRequest: method=' . ($_SERVER['REQUEST_METHOD'] ?? 'unknown') . ' redirect=' . ($_GET['redirect'] ?? $_POST['redirect'] ?? 'NONE') . ' logged_in=' . (is_user_logged_in() ? 'yes' : 'no'));
+
         // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Email 表單提交（帶 liff_email_token）
@@ -88,9 +91,15 @@ class LiffHandler {
             );
         }
 
-        // 取得重定向 URL
+        // 取得重定向 URL（優先級：GET 參數 > cookie > 預設首頁）
         // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         $redirect = isset($_GET['redirect']) ? wp_unslash($_GET['redirect']) : '';
+        if (empty($redirect) && !empty($_COOKIE['liff_redirect'])) {
+            // LIFF login 過程中 URL 參數丟失，從 cookie 恢復
+            $redirect = sanitize_text_field(wp_unslash($_COOKIE['liff_redirect']));
+            // 清除 cookie
+            setcookie('liff_redirect', '', time() - 3600, '/', '', is_ssl(), true);
+        }
         $redirect = $this->resolveRedirectUrl($redirect);
 
         // 如果用戶已登入且已綁定 LINE，直接重定向
@@ -139,10 +148,17 @@ class LiffHandler {
             return;
         }
 
-        // 取得重定向 URL
+        // 取得重定向 URL（優先級：POST 參數 > cookie > 預設首頁）
         $redirect = isset($_POST['redirect'])
             ? wp_unslash($_POST['redirect'])
             : '';
+        if (empty($redirect) && !empty($_COOKIE['liff_redirect'])) {
+            $redirect = sanitize_text_field(wp_unslash($_COOKIE['liff_redirect']));
+        }
+        // 清除 cookie（不論來源）
+        if (!empty($_COOKIE['liff_redirect'])) {
+            setcookie('liff_redirect', '', time() - 3600, '/', '', is_ssl(), true);
+        }
         $redirect = $this->resolveRedirectUrl($redirect);
 
         // Step 1: 驗證 Access Token
