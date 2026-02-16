@@ -73,6 +73,19 @@ add_action('plugins_loaded', function() {
 }, 20);
 
 /**
+ * 在外掛列表頁面加入「設定」連結
+ */
+add_filter('plugin_action_links_' . LINE_HUB_BASENAME, function($links) {
+    $settings_link = sprintf(
+        '<a href="%s">%s</a>',
+        admin_url('admin.php?page=line-hub-settings'),
+        __('設定', 'line-hub')
+    );
+    array_unshift($links, $settings_link);
+    return $links;
+});
+
+/**
  * 顯示管理員通知（如果有衝突）
  */
 add_action('admin_notices', function() {

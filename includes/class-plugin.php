@@ -115,6 +115,11 @@ final class Plugin {
 
         // FluentCart 產品頁整合（登入提示）
         Integration\FluentCartConnector::init();
+
+        // 後台設定頁面
+        if (is_admin()) {
+            Admin\SettingsPage::init();
+        }
     }
 
     /**
@@ -262,8 +267,8 @@ final class Plugin {
      * 註冊後台選單
      */
     public function register_admin_menu(): void {
-        // 後台選單將在後續實作
-        // Admin\Settings_Page::register_menu();
+        // 選單由各個 Admin 類別自己註冊
+        // 這個 hook 主要用於確保執行時機正確
     }
 
     /**

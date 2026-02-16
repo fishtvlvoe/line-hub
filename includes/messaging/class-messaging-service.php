@@ -44,7 +44,7 @@ class MessagingService {
      * 建構函式
      */
     public function __construct() {
-        $this->channelAccessToken = SettingsService::get('general', 'channel_access_token', '');
+        $this->channelAccessToken = SettingsService::get('general', 'access_token', '');
     }
 
     /**
@@ -365,8 +365,8 @@ class MessagingService {
             return false;
         }
 
-        // 使用 LINE API 的 /v2/oauth/verify 端點驗證 token
-        $url = 'https://api.line.me/v2/oauth/verify';
+        // 使用 LINE Messaging API 的 /v2/bot/info 端點驗證 token
+        $url = 'https://api.line.me/v2/bot/info';
         $args = [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->channelAccessToken,
@@ -377,10 +377,21 @@ class MessagingService {
         $response = wp_remote_get($url, $args);
 
         if (is_wp_error($response)) {
+            error_log('[LINE Hub] Token 驗證失敗：' . $response->get_error_message());
             return false;
         }
 
         $statusCode = wp_remote_retrieve_response_code($response);
-        return $statusCode === 200;
+
+        // 200 表示 token 有效
+        if ($statusCode === 200) {
+            return true;
+        }
+
+        // 記錄錯誤訊息以便除錯
+        $body = wp_remote_retrieve_body($response);
+        error_log('[LINE Hub] Token 驗證失敗 (HTTP ' . $statusCode . ')：' . $body);
+
+        return false;
     }
 }

@@ -1,336 +1,143 @@
-# LINE Hub — Phase 5：Webhook 接收中心
+# 明日測試計畫 — BuyGo + LineHub 整合測試
 
-> 更新日期：2026-02-15
-> 前置完成：Phase 4 通知系統、Phase 4B BuyGo 接入
-
----
-
-## 核心設計原則（必須遵守）
-
-> **LineHub 只做「接收、驗證、分發」，業務處理透過 WordPress hooks 讓外部外掛接手**
-
-- LineHub 不知道什麼是「商品上架」「訂單」「圖片處理」
-- LineHub 收到 Webhook 事件後，透過 `do_action()` 廣播，BuyGo 自己監聽處理
-- LineHub 自己只處理：follow/unfollow（更新好友狀態）、基礎指令（/help, /id）
+> 日期：2026-02-17
+> 範圍：本機完整測試（產品上架 + LINE 通知 + Webhook 流程）
+> 環境：https://test.buygo.me（本機外連）
 
 ---
 
-## 目標架構
+## 前置檢查清單
 
-```
-LINE 伺服器
-  → POST /wp-json/line-hub/v1/webhook
-    → WebhookReceiver（驗證 HMAC 簽名、立即回 200）
-      → EventDispatcher（分類事件、透過 WordPress hooks 分發）
-        → line_hub/webhook/message/text   → BuyGo 監聽（商品上架等）
-        → line_hub/webhook/message/image  → BuyGo 監聽（圖片上傳）
-        → line_hub/webhook/postback       → BuyGo 監聯（Flex 按鈕）
-        → line_hub/webhook/follow         → LineHub 自己處理（更新好友狀態）
-        → line_hub/webhook/unfollow       → LineHub 自己處理（標記取消好友）
-```
+在開始測試前，確認以下項目：
+
+### 環境啟動
+- [ ] Local by Flywheel 已啟動（buygo.local）
+- [ ] ngrok / cloudflare tunnel 已啟動（test.buygo.me 可連）
+- [ ] WordPress 已登入（facemarketin@gmail.com / nms149149）
+
+### 外掛啟用確認
+- [ ] BuyGo Plus One（buygo-plus-one）已啟用
+- [ ] LINE Hub（line-hub）已啟用
+- [ ] FluentCart 已啟用
+- [ ] buygo-line-notify 已停用（測試 LineHub 獨立運作）
+
+### LINE 設定確認
+- [ ] LINE Hub 設定頁：Channel ID、Channel Secret、LIFF ID 已填入
+- [ ] LINE Developers Console：Webhook URL 設為 `https://test.buygo.me/wp-json/line-hub/v1/webhook`
+- [ ] LINE Developers Console：Webhook 已開啟（Use webhook = ON）
 
 ---
 
-## 要建立的檔案（全部在 line-hub 內）
+## 測試流程
 
-### 1. `line-hub/includes/webhook/class-webhook-receiver.php`
+### Phase A：LINE 登入測試（5 分鐘）
 
-**職責**：REST API 端點 + HMAC 簽名驗證
+1. **LIFF 登入**
+   - 手機打開 `https://liff.line.me/2008622068-iU4Z1lk4`
+   - 確認能正確登入 WordPress
+   - 確認歡迎 Toast 顯示
+
+2. **OAuth 登入**
+   - 瀏覽器打開 `https://test.buygo.me/line-hub/auth/`
+   - 確認 LINE Login 授權流程正常
+   - 確認 callback 後成功建立/綁定帳號
+
+3. **帳號綁定確認**
+   - WordPress 個人資料頁（/wp-admin/profile.php）
+   - 確認 LINE 綁定區塊顯示正確資訊
+   - 確認 LINE UID、頭像、顯示名稱
+
+### Phase B：Webhook Verify 測試（2 分鐘）
+
+1. LINE Developers Console → Webhook settings → 點 **Verify**
+2. 預期結果：回應 200 OK（Success）
+3. 檢查 WordPress 端無 error log
+
+### Phase C：產品上架測試（10 分鐘）
+
+**完整流程：LINE 圖片 → 選擇類型 → 輸入資訊 → 建立商品**
+
+1. **發送商品圖片**
+   - 用 LINE 發送一張商品圖片給 OA
+   - 預期：收到「請選擇商品類型」Flex Message（按鈕）
+
+2. **選擇商品類型**
+   - 點擊 Flex 按鈕（例：一般商品）
+   - 預期：收到「請依照格式輸入商品資訊」的說明
+
+3. **輸入商品資訊**
+   - 輸入格式化文字（商品名稱、價格、數量等）
+   - 預期：商品建立成功，收到確認訊息含商品連結
+
+4. **驗證商品**
+   - BuyGo 後台 → 商品管理 → 確認新商品出現
+   - FluentCart 前台 → 確認商品頁面正常
+
+### Phase D：通知測試（5 分鐘）
+
+1. **關鍵字回覆**
+   - LINE 輸入 `/help` → 預期：收到使用說明
+   - LINE 輸入 `/ID` → 預期：收到帳號資訊
+   - LINE 輸入 `/綁定` → 預期：收到綁定資訊
+
+2. **Follow/Unfollow**
+   - 取消好友 → 重新加好友
+   - 預期：收到歡迎訊息
+
+### Phase E：驗證 Webhook 記錄（3 分鐘）
+
+1. 檢查 `wp_line_hub_webhooks` 資料表
+   - 確認所有事件都有記錄
+   - 確認 `processed = 1`
+   - 確認沒有重複記錄
+
+---
+
+## 除錯工具
+
+如果有問題，可用以下方式除錯：
 
 ```php
-namespace LineHub\Webhook;
+// wp-config.php 加入（測試完記得移除）
+define('LINE_HUB_DEBUG', true);
+define('LINE_HUB_SKIP_SIGNATURE_VERIFY', false); // 正式測試不要跳過
 
-class WebhookReceiver {
-    // 註冊 REST API 端點
-    public function registerRoutes(): void {
-        register_rest_route('line-hub/v1', '/webhook', [
-            'methods' => 'POST',
-            'callback' => [$this, 'handleWebhook'],
-            'permission_callback' => '__return_true',
-        ]);
-    }
-
-    // 處理 Webhook 請求
-    public function handleWebhook(\WP_REST_Request $request) {
-        // 1. 取得 request body（raw）
-        // 2. 驗證 HMAC 簽名（channel_secret 從 SettingsService 讀取）
-        // 3. 解析 JSON body
-        // 4. 檢查 verify event（replyToken 全是 0）→ 直接回 200
-        // 5. 立即回 200 OK（LINE 要求 1 秒內回應）
-        // 6. 排隊到 WordPress Cron 處理事件（避免阻塞回應）
-    }
-
-    // HMAC-SHA256 簽名驗證
-    private function verifySignature(string $body, string $signature): bool {
-        $channelSecret = SettingsService::get('general', 'channel_secret', '');
-        $hash = hash_hmac('sha256', $body, $channelSecret, true);
-        return hash_equals(base64_encode($hash), $signature);
-    }
-}
+// 查看 error log
+tail -f /Users/fishtv/Local\ Sites/buygo/app/public/wp-content/debug.log
 ```
-
-**HMAC 簽名驗證規則**：
-- Header 名稱嘗試順序：`x-line-signature` → `X-LINE-Signature` → `HTTP_X_LINE_SIGNATURE`
-- channel_secret 從 `SettingsService::get('general', 'channel_secret')` 讀取
-- 正式環境必須驗證；開發環境（`WP_DEBUG=true`）如果沒有 channel_secret 可跳過但要記 warning log
-
-**Cron 排隊機制**：
-- Hook 名稱：`line_hub_process_webhook`
-- 使用 `wp_schedule_single_event(time(), 'line_hub_process_webhook', [$events])`
-- 這樣 LINE 能在 1 秒內收到 200 OK
-
-### 2. `line-hub/includes/webhook/class-event-dispatcher.php`
-
-**職責**：事件分類 + WordPress hooks 分發
-
-```php
-namespace LineHub\Webhook;
-
-class EventDispatcher {
-    // 處理事件陣列（由 Cron 觸發）
-    public function processEvents(array $events): void {
-        foreach ($events as $event) {
-            $this->dispatchEvent($event);
-        }
-    }
-
-    // 分發單一事件
-    private function dispatchEvent(array $event): void {
-        $type = $event['type'] ?? '';
-        $replyToken = $event['replyToken'] ?? '';
-        $source = $event['source'] ?? [];
-
-        // 通用 hook（所有事件都觸發）
-        do_action('line_hub/webhook/event', $event);
-
-        switch ($type) {
-            case 'message':
-                $this->dispatchMessage($event);
-                break;
-            case 'follow':
-                $this->handleFollow($event);
-                do_action('line_hub/webhook/follow', $event);
-                break;
-            case 'unfollow':
-                $this->handleUnfollow($event);
-                do_action('line_hub/webhook/unfollow', $event);
-                break;
-            case 'postback':
-                do_action('line_hub/webhook/postback', $event);
-                break;
-        }
-    }
-
-    // 訊息事件再細分
-    private function dispatchMessage(array $event): void {
-        $messageType = $event['message']['type'] ?? '';
-
-        // 通用訊息 hook
-        do_action('line_hub/webhook/message', $event);
-
-        // 細分類型 hook
-        switch ($messageType) {
-            case 'text':
-                do_action('line_hub/webhook/message/text', $event);
-                break;
-            case 'image':
-                do_action('line_hub/webhook/message/image', $event);
-                break;
-            case 'sticker':
-                do_action('line_hub/webhook/message/sticker', $event);
-                break;
-            // 其他類型...
-        }
-    }
-
-    // LineHub 自己處理 follow（更新好友狀態）
-    private function handleFollow(array $event): void {
-        $lineUid = $event['source']['userId'] ?? '';
-        if (empty($lineUid)) return;
-
-        // 透過 UserService 查找 WP User ID
-        $userId = UserService::getUserIdByLineUid($lineUid);
-        if ($userId) {
-            update_user_meta($userId, 'line_hub_is_friend', '1');
-        }
-    }
-
-    // LineHub 自己處理 unfollow（標記取消好友）
-    private function handleUnfollow(array $event): void {
-        $lineUid = $event['source']['userId'] ?? '';
-        if (empty($lineUid)) return;
-
-        $userId = UserService::getUserIdByLineUid($lineUid);
-        if ($userId) {
-            update_user_meta($userId, 'line_hub_is_friend', '0');
-        }
-    }
-}
-```
-
-### 3. `line-hub/includes/webhook/class-webhook-logger.php`
-
-**職責**：記錄 Webhook 事件（除錯用）
-
-```php
-namespace LineHub\Webhook;
-
-class WebhookLogger {
-    // 記錄事件到 wp_line_hub_webhooks 表
-    public static function log(string $eventType, array $eventData, ?string $lineUid = null): void {
-        global $wpdb;
-        $table = $wpdb->prefix . 'line_hub_webhooks';
-
-        $wpdb->insert($table, [
-            'event_type' => $eventType,
-            'event_id' => $eventData['webhookEventId'] ?? '',
-            'line_uid' => $lineUid ?? ($eventData['source']['userId'] ?? ''),
-            'payload' => wp_json_encode($eventData),
-            'created_at' => current_time('mysql'),
-        ]);
-
-        // 保留最近 200 筆，清理舊記錄
-        self::cleanup();
-    }
-
-    // 清理超過 200 筆的舊記錄
-    private static function cleanup(): void {
-        global $wpdb;
-        $table = $wpdb->prefix . 'line_hub_webhooks';
-        $count = (int) $wpdb->get_var("SELECT COUNT(*) FROM {$table}");
-        if ($count > 200) {
-            $delete_count = $count - 200;
-            $wpdb->query("DELETE FROM {$table} ORDER BY id ASC LIMIT {$delete_count}");
-        }
-    }
-}
-```
-
-### 4. 修改 `line-hub/includes/class-plugin.php`
-
-**新增內容**：
-- `require_once` 載入 webhook 目錄下的 3 個類別
-- 在 `rest_api_init` hook 中註冊 WebhookReceiver 路由
-- 註冊 Cron hook：`add_action('line_hub_process_webhook', [EventDispatcher, 'processEvents'])`
-
----
-
-## 不要做的事
-
-- **不要搬移 BuyGo 的 LineWebhookHandler**（那是 BuyGo 的業務邏輯）
-- **不要搬移 BuyGo 的 LineKeywordResponder**（那是 BuyGo 的關鍵字回應）
-- **不要在 LineHub 裡處理商品上架、圖片上傳等業務**
-- **不要修改 BuyGo 的任何檔案**（Phase 5 只建 LineHub 側）
-- **不要建立 Admin UI**（那是 Phase 7）
-- **不要去重新實作 BuyGo 已有的功能**
-
----
-
-## 去重機制
-
-使用 Webhook event ID 去重：
-- LINE 每個 Webhook 事件都帶有 `webhookEventId`
-- 在 `handleWebhook()` 中，先檢查這個 ID 是否已在 `wp_line_hub_webhooks` 表中
-- 已存在則跳過，不存在才處理
-
-```php
-private function isDuplicate(string $eventId): bool {
-    global $wpdb;
-    $table = $wpdb->prefix . 'line_hub_webhooks';
-    return (bool) $wpdb->get_var($wpdb->prepare(
-        "SELECT COUNT(*) FROM {$table} WHERE event_id = %s", $eventId
-    ));
-}
-```
-
----
-
-## wp_line_hub_webhooks 表結構
-
-這張表在 Phase 1 資料庫建立時已經存在，確認結構：
 
 ```sql
-CREATE TABLE wp_line_hub_webhooks (
-    id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-    event_type VARCHAR(50) NOT NULL,
-    event_id VARCHAR(100) DEFAULT '',
-    line_uid VARCHAR(50) DEFAULT '',
-    payload LONGTEXT,
-    created_at DATETIME NOT NULL,
-    PRIMARY KEY (id),
-    KEY event_type (event_type),
-    KEY event_id (event_id),
-    KEY created_at (created_at)
-);
+-- 查看 Webhook 記錄
+SELECT * FROM wp_line_hub_webhooks ORDER BY id DESC LIMIT 20;
+
+-- 查看用戶綁定
+SELECT * FROM wp_line_hub_users ORDER BY id DESC LIMIT 10;
 ```
 
 ---
 
-## 執行步驟
+## Claude Code 使用建議（避免 Prompt is too long）
 
-1. **讀取** LineHub 的 SettingsService 確認 channel_secret 讀取方式
-   - `/Users/fishtv/Development/line-hub/includes/services/class-settings-service.php`
-
-2. **讀取** LineHub 的 UserService 確認 getUserIdByLineUid 方法
-   - `/Users/fishtv/Development/line-hub/includes/services/class-user-service.php`
-
-3. **讀取** LineHub 的 Database 確認 webhooks 表結構
-   - `/Users/fishtv/Development/line-hub/includes/class-database.php`
-
-4. **讀取** LineHub 的 Plugin 載入器了解 autoloader 和 hook 註冊方式
-   - `/Users/fishtv/Development/line-hub/includes/class-plugin.php`
-
-5. **建立** `class-webhook-receiver.php`
-6. **建立** `class-event-dispatcher.php`
-7. **建立** `class-webhook-logger.php`
-8. **修改** `class-plugin.php` 加入 webhook 模組的載入和 hook 註冊
-
-9. PHP syntax check：`php -l` 所有新建和修改的檔案
-10. Git commit（在 line-hub 目錄）
+1. **開新 session**：明天測試直接開新對話
+2. **給這份文件**：告訴 Claude「讀取 line-hub/.planning/HANDOFF-NEXT-SESSION.md」
+3. **逐 Phase 測試**：每個 Phase 是獨立的，一個 Phase 完成後可以 `/compact`
+4. **問題截圖**：遇到問題直接貼截圖，Claude 可以直接分析
+5. **不要開子代理做測試**：測試階段主要是人工操作 + 看 log，不需要平行子代理
 
 ---
 
-## Hook 參考表（BuyGo 未來要監聽的）
+## 整合點快速參考
 
-| Hook 名稱 | 觸發時機 | 參數 |
-|-----------|---------|------|
-| `line_hub/webhook/event` | 所有事件 | `$event` (array) |
-| `line_hub/webhook/message` | 所有訊息 | `$event` (array) |
-| `line_hub/webhook/message/text` | 文字訊息 | `$event` (array) |
-| `line_hub/webhook/message/image` | 圖片訊息 | `$event` (array) |
-| `line_hub/webhook/message/sticker` | 貼圖 | `$event` (array) |
-| `line_hub/webhook/follow` | 加好友 | `$event` (array) |
-| `line_hub/webhook/unfollow` | 移除好友 | `$event` (array) |
-| `line_hub/webhook/postback` | Postback | `$event` (array) |
+| BuyGo Hook | LineHub 觸發點 | 參數數量 |
+|------------|---------------|---------|
+| `line_hub/webhook/message/text` | EventDispatcher | 4 |
+| `line_hub/webhook/message/image` | EventDispatcher | 4 |
+| `line_hub/webhook/postback` | EventDispatcher | 3 |
+| `line_hub/webhook/follow` | EventDispatcher | 1 |
+| `line_hub/webhook/unfollow` | EventDispatcher | 1 |
 
----
-
-## LineHub 可用的服務
-
-```php
-// 設定
-use LineHub\Services\SettingsService;
-SettingsService::get('general', 'channel_secret');
-SettingsService::get('general', 'access_token');
-
-// 用戶
-use LineHub\Services\UserService;
-UserService::getUserIdByLineUid(string $lineUid): ?int;
-UserService::getLineUid(int $userId): ?string;
-
-// 訊息發送
-use LineHub\Messaging\MessagingService;
-$service = new MessagingService();
-$service->replyMessage(string $replyToken, array $messages);
-```
-
----
-
-## 環境資訊
-
-- line-hub：`/Users/fishtv/Development/line-hub/`
-- buygo-plus-one：`/Users/fishtv/Development/buygo-plus-one/`（參考用，不修改）
-- Autoloader 命名規則：CamelCase 類名 → `class-kebab-case.php`
-  - 例：`WebhookReceiver` → `class-webhook-receiver.php`
-  - 例：`EventDispatcher` → `class-event-dispatcher.php`
-- 繁體中文回應
+| BuyGo 發送方式 | 優先 | Fallback |
+|---------------|------|---------|
+| `LineMessagingFacade::send_reply()` | LineHub MessagingService | buygo-line-notify |
+| `LineMessagingFacade::send_flex()` | LineHub MessagingService | buygo-line-notify |
+| `NotificationService::pushText()` | LineHub MessagingService | buygo-line-notify |
