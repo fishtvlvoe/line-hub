@@ -21,6 +21,57 @@ if (!defined('ABSPATH')) {
 class UserService {
 
     /**
+     * NSL 表列名對映快取（每個請求只檢測一次）
+     *
+     * NSL (Nextend Social Login) 不同版本的 wp_social_users 表結構不同：
+     * - 舊版：user_id, date
+     * - 新版：ID, register_date, login_date
+     *
+     * @var array|null ['wp_user_id' => 'ID'|'user_id', 'created' => '...', 'updated' => '...']
+     */
+    private static ?array $nsl_columns = null;
+
+    /**
+     * 動態檢測 NSL 表的列名
+     *
+     * @return array|null 列名對映，表不存在返回 null
+     */
+    private static function detectNslColumns(): ?array {
+        if (self::$nsl_columns !== null) {
+            return self::$nsl_columns;
+        }
+
+        global $wpdb;
+        $nsl_table = $wpdb->prefix . 'social_users';
+
+        // 檢查表是否存在
+        $table_exists = $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT COUNT(1) FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
+                DB_NAME,
+                $nsl_table
+            )
+        );
+
+        if (!$table_exists) {
+            self::$nsl_columns = [];
+            return [];
+        }
+
+        // 取得所有列名
+        $columns = $wpdb->get_col("SHOW COLUMNS FROM {$nsl_table}");
+        $column_set = array_flip($columns);
+
+        self::$nsl_columns = [
+            'wp_user_id' => isset($column_set['user_id']) ? 'user_id' : 'ID',
+            'created'    => isset($column_set['register_date']) ? 'register_date' : (isset($column_set['date']) ? 'date' : 'register_date'),
+            'updated'    => isset($column_set['login_date']) ? 'login_date' : (isset($column_set['date']) ? 'date' : 'login_date'),
+        ];
+
+        return self::$nsl_columns;
+    }
+
+    /**
      * 透過 LINE UID 查詢對應的 WordPress User ID
      *
      * 包含 NSL fallback：先查 wp_line_hub_users，找不到再查 wp_social_users
@@ -45,23 +96,17 @@ class UserService {
         }
 
         // 2. Fallback: 查詢 NSL (Nextend Social Login) 的 wp_social_users 表
-        $nsl_table = $wpdb->prefix . 'social_users';
-
-        $table_exists = $wpdb->get_var(
-            $wpdb->prepare(
-                "SELECT COUNT(1) FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
-                DB_NAME,
-                $nsl_table
-            )
-        );
-
-        if (!$table_exists) {
+        $nsl_cols = self::detectNslColumns();
+        if (empty($nsl_cols)) {
             return null;
         }
 
+        $nsl_table = $wpdb->prefix . 'social_users';
+        $uid_col = $nsl_cols['wp_user_id'];
+
         $nsl_user_id = $wpdb->get_var(
             $wpdb->prepare(
-                "SELECT user_id FROM {$nsl_table} WHERE identifier = %s AND type = 'line' LIMIT 1",
+                "SELECT `{$uid_col}` FROM {$nsl_table} WHERE identifier = %s AND type = 'line' LIMIT 1",
                 $line_uid
             )
         );
@@ -117,30 +162,24 @@ class UserService {
         }
 
         // Fallback: 查詢 NSL (Nextend Social Login) 的 wp_social_users 表
-        $nsl_table = $wpdb->prefix . 'social_users';
-
-        // 先檢查 NSL 表是否存在
-        $table_exists = $wpdb->get_var(
-            $wpdb->prepare(
-                "SELECT COUNT(1) FROM information_schema.tables WHERE table_schema = %s AND table_name = %s",
-                DB_NAME,
-                $nsl_table
-            )
-        );
-
-        if (!$table_exists) {
+        $nsl_cols = self::detectNslColumns();
+        if (empty($nsl_cols)) {
             return null;
         }
 
-        // 查詢 NSL 表
+        $nsl_table = $wpdb->prefix . 'social_users';
+        $uid_col = $nsl_cols['wp_user_id'];
+        $created_col = $nsl_cols['created'];
+        $updated_col = $nsl_cols['updated'];
+
         $nsl_binding = $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT ID as id, user_id, identifier as line_uid,
+                "SELECT social_users_id as id, `{$uid_col}` as user_id, identifier as line_uid,
                         NULL as display_name, NULL as picture_url,
                         NULL as email, 0 as email_verified, 'active' as status,
-                        date as created_at, date as updated_at
+                        `{$created_col}` as created_at, `{$updated_col}` as updated_at
                  FROM {$nsl_table}
-                 WHERE user_id = %d AND type = 'line'
+                 WHERE `{$uid_col}` = %d AND type = 'line'
                  LIMIT 1",
                 $user_id
             )

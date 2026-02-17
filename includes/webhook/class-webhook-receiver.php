@@ -24,15 +24,9 @@ if (!defined('ABSPATH')) {
  * - HMAC-SHA256 簽名驗證
  * - 處理 LINE Verify Event
  * - 事件去重（webhook_event_id）
- * - 立即回應 200 OK（1 秒內）
- * - 排隊到 WordPress Cron 處理事件
+ * - 同步處理事件（確保即時回應）
  */
 class WebhookReceiver {
-    /**
-     * Cron Hook 名稱
-     */
-    private const CRON_HOOK = 'line_hub_process_webhook';
-
     /**
      * 註冊 REST API 路由
      */
@@ -105,15 +99,14 @@ class WebhookReceiver {
             $events_to_process[] = $event;
         }
 
-        // 7. 立即回應 200 OK（LINE 要求 1 秒內回應）
-        $response = new \WP_REST_Response(['success' => true], 200);
-
-        // 8. 如果有事件需要處理，排隊到 Cron
+        // 7. 直接同步處理事件（不依賴 WP Cron）
         if (!empty($events_to_process)) {
-            $this->scheduleProcessing($events_to_process);
+            $dispatcher = new EventDispatcher();
+            $dispatcher->processEvents($events_to_process);
         }
 
-        return $response;
+        // 8. 回應 200 OK
+        return new \WP_REST_Response(['success' => true], 200);
     }
 
     /**
@@ -214,16 +207,4 @@ class WebhookReceiver {
         WebhookLogger::log($event_type, $event, $line_uid);
     }
 
-    /**
-     * 排隊事件到 WordPress Cron 處理
-     *
-     * 立即排程（time()），不阻塞 HTTP 回應
-     *
-     * @param array $events 事件陣列
-     */
-    private function scheduleProcessing(array $events): void {
-        // 使用 wp_schedule_single_event 立即排程
-        // 這樣 Webhook 可以立即回應 200 OK，事件在背景處理
-        wp_schedule_single_event(time(), self::CRON_HOOK, [$events]);
-    }
 }

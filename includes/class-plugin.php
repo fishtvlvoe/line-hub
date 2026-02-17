@@ -389,7 +389,14 @@ final class Plugin {
      * @param mixed $id_or_email 用戶 ID、Email 或 WP_Comment
      * @return array 修改後的 avatar 參數
      */
+    private static bool $avatar_override_active = false;
+
     public function override_avatar_with_line(array $args, $id_or_email): array {
+        // 防止無限遞迴：getPictureUrl() fallback 會調用 get_avatar_url() → 再觸發此 filter
+        if (self::$avatar_override_active) {
+            return $args;
+        }
+
         $user_id = 0;
 
         if (is_numeric($id_or_email)) {
@@ -413,6 +420,8 @@ final class Plugin {
             return $args;
         }
 
+        self::$avatar_override_active = true;
+
         // 先查 user_meta（最快）
         $line_avatar = get_user_meta($user_id, 'line_hub_avatar_url', true);
 
@@ -420,6 +429,8 @@ final class Plugin {
         if (empty($line_avatar)) {
             $line_avatar = Services\UserService::getPictureUrl($user_id);
         }
+
+        self::$avatar_override_active = false;
 
         if (!empty($line_avatar) && filter_var($line_avatar, FILTER_VALIDATE_URL)) {
             $args['url'] = $line_avatar;
