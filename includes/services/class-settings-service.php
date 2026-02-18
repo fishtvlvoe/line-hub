@@ -309,6 +309,11 @@ class SettingsService {
         // 轉換類型
         $value = self::cast_value($value, $config['type']);
 
+        // 序列化 array 類型（資料庫欄位為 longtext，需轉 JSON）
+        if ($config['type'] === 'array') {
+            $value = json_encode($value, JSON_UNESCAPED_UNICODE);
+        }
+
         // 如果需要加密
         $encrypted = $config['encrypted'] ?? false;
         $stored_value = $encrypted ? self::encrypt($value) : $value;

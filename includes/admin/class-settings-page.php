@@ -35,7 +35,6 @@ class SettingsPage {
     private const TABS = [
         'getting-started' => '入門',
         'settings' => '設定',
-        'notifications' => '通知',
         'webhooks' => 'Webhook',
         'usage' => '用法',
     ];
@@ -141,10 +140,6 @@ class SettingsPage {
 
                     case 'settings':
                         $this->render_settings_tab();
-                        break;
-
-                    case 'notifications':
-                        $this->render_notifications_tab();
                         break;
 
                     case 'webhooks':
@@ -492,23 +487,6 @@ class SettingsPage {
     /**
      * 渲染「通知」Tab（Phase 4，暫時留空）
      */
-    private function render_notifications_tab(): void {
-        ?>
-        <div class="line-hub-card">
-            <h2>🚧 通知模板管理</h2>
-            <p style="color: #666;">此功能將在 <strong>Phase 4</strong> 開發完成。</p>
-            <p>未來將支援：</p>
-            <ul style="line-height: 2; color: #666;">
-                <li>訂單建立通知模板</li>
-                <li>出貨通知模板</li>
-                <li>自訂變數（{order_id}, {product_name} 等）</li>
-                <li>Flex Message 視覺化編輯器</li>
-                <li>通知發送記錄</li>
-            </ul>
-        </div>
-        <?php
-    }
-
     /**
      * 渲染「Webhook」Tab
      */

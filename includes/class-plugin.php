@@ -90,6 +90,9 @@ final class Plugin {
             // 個人資料頁 LINE 綁定區塊
             add_action('show_user_profile', [$this, 'render_profile_binding_section'], 30);
             add_action('edit_user_profile', [$this, 'render_profile_binding_section'], 30);
+
+            // 用戶列表 LINE 綁定狀態欄
+            Admin\UsersColumn::init();
         }
 
         // 前端初始化
