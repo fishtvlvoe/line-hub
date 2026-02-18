@@ -114,6 +114,9 @@ final class Plugin {
      * 初始化服務
      */
     private function init_services(): void {
+        // 外掛整合 hooks（do_action / apply_filters 介面）
+        Services\IntegrationHooks::init();
+
         // 登入按鈕元件（shortcode + hook）
         Integration\LoginButton::init();
 
