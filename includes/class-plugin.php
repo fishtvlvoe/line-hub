@@ -117,6 +117,9 @@ final class Plugin {
         // 外掛整合 hooks（do_action / apply_filters 介面）
         Services\IntegrationHooks::init();
 
+        // 公開 REST API（API Key 認證）
+        API\PublicAPI::init();
+
         // 登入按鈕元件（shortcode + hook）
         Integration\LoginButton::init();
 
