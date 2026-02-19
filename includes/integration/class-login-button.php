@@ -5,7 +5,7 @@
  * 提供可重用的 LINE 登入按鈕，支援多種顯示模式
  *
  * 使用方式：
- * 1. Shortcode:  [line_hub_login text="LINE 登入" style="button"]
+ * 1. Shortcode:  [line_hub_login text="LINE 登入" size="large"]
  * 2. PHP:        LoginButton::render(['style' => 'banner'])
  * 3. Hook:       do_action('line_hub/render_login_button')
  *
@@ -42,8 +42,10 @@ class LoginButton {
             return '';
         }
 
+        // defaults 從設定讀取
         $defaults = [
-            'text'        => __('用 LINE 帳號登入', 'line-hub'),
+            'text'        => SettingsService::get('general', 'login_button_text', '用 LINE 帳號登入'),
+            'size'        => SettingsService::get('general', 'login_button_size', 'medium'),
             'style'       => 'button',
             'banner_text' => __('登入後可追蹤訂單、接收出貨通知', 'line-hub'),
             'redirect'    => '',
@@ -85,12 +87,16 @@ class LoginButton {
      */
     public static function shortcodeHandler($atts): string {
         $atts = shortcode_atts([
-            'text'        => __('用 LINE 帳號登入', 'line-hub'),
+            'text'        => '',
+            'size'        => '',
             'style'       => 'button',
-            'banner_text' => __('登入後可追蹤訂單、接收出貨通知', 'line-hub'),
+            'banner_text' => '',
             'redirect'    => '',
             'class'       => '',
         ], $atts, 'line_hub_login');
+
+        // 移除空值，讓 render() 的 defaults 生效
+        $atts = array_filter($atts, fn($v) => $v !== '');
 
         return self::render($atts);
     }
@@ -107,26 +113,80 @@ class LoginButton {
     }
 
     /**
-     * 取得登入 URL（自動判斷 LIFF 或 OAuth）
+     * 取得登入 URL（根據 login_mode 設定決定）
      *
      * @param string $redirect 登入後重定向 URL
      * @return string 登入 URL
      */
     public static function getLoginUrl(string $redirect = ''): string {
-        if (empty($redirect)) {
-            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-            $redirect = isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '/';
+        // 處理重定向 URL
+        $redirect = self::resolveRedirect($redirect);
+
+        $login_mode = SettingsService::get('general', 'login_mode', 'auto');
+        $liff_id    = SettingsService::get('general', 'liff_id', '');
+
+        // 根據 login_mode 決定
+        if ($login_mode === 'liff' && !empty($liff_id)) {
+            return self::buildLiffUrl($liff_id, $redirect);
         }
 
-        $liff_id = SettingsService::get('general', 'liff_id', '');
+        if ($login_mode === 'oauth') {
+            return self::buildOAuthUrl($redirect);
+        }
 
-        // 優先使用 LIFF（LINE 內部瀏覽器支援更好）
+        // auto: 有 LIFF ID 就用 LIFF，否則用 OAuth
         if (!empty($liff_id)) {
-            $encoded_redirect = urlencode($redirect);
-            return "https://liff.line.me/{$liff_id}?redirect={$encoded_redirect}";
+            return self::buildLiffUrl($liff_id, $redirect);
         }
 
-        // Fallback: OAuth 登入
-        return home_url('/line-hub/auth/?redirect=' . urlencode($redirect));
+        return self::buildOAuthUrl($redirect);
+    }
+
+    /**
+     * 解析重定向 URL
+     */
+    private static function resolveRedirect(string $redirect): string {
+        // 如果啟用固定重定向，使用設定值
+        $fixed = SettingsService::get('general', 'login_redirect_fixed', false);
+        if ($fixed) {
+            $fixed_url = SettingsService::get('general', 'login_redirect_url', '');
+            if (!empty($fixed_url)) {
+                return $fixed_url;
+            }
+        }
+
+        // 使用傳入值或當前頁面
+        if (!empty($redirect)) {
+            return $redirect;
+        }
+
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        return isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '/';
+    }
+
+    /**
+     * 建構 LIFF URL
+     */
+    private static function buildLiffUrl(string $liff_id, string $redirect): string {
+        return "https://liff.line.me/{$liff_id}?redirect=" . urlencode($redirect);
+    }
+
+    /**
+     * 建構 OAuth URL（帶 bot_prompt / initial_amr 參數）
+     */
+    private static function buildOAuthUrl(string $redirect): string {
+        $params = ['redirect' => $redirect];
+
+        $bot_prompt = SettingsService::get('login', 'bot_prompt', 'normal');
+        if ($bot_prompt !== 'normal') {
+            $params['bot_prompt'] = $bot_prompt;
+        }
+
+        $initial_amr = SettingsService::get('login', 'initial_amr', '');
+        if (!empty($initial_amr)) {
+            $params['initial_amr'] = $initial_amr;
+        }
+
+        return home_url('/line-hub/auth/?' . http_build_query($params));
     }
 }
