@@ -123,7 +123,10 @@ final class Plugin {
         // 登入按鈕元件（shortcode + hook）
         Integration\LoginButton::init();
 
-        // FluentCart 產品頁整合（登入提示）
+        // 登入按鈕位置掛載（wp_login / fluentcart_checkout / fluent_community）
+        Integration\ButtonPositions::init();
+
+        // FluentCart 整合（客戶入口綁定區塊）
         Integration\FluentCartConnector::init();
 
         // 後台設定頁面

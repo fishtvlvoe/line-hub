@@ -27,11 +27,10 @@ class FluentCartConnector {
             return;
         }
 
-        // FluentCart 產品頁偵測
-        add_action('wp', [self::class, 'maybeShowLoginPrompt']);
-
         // FluentCart 客戶入口 LINE 綁定區塊
         add_action('fluent_cart/customer_app', [self::class, 'renderBindingSection'], 90);
+
+        // 注意：登入按鈕已移至 ButtonPositions 管理（改為結帳頁掛載）
     }
 
     /**
