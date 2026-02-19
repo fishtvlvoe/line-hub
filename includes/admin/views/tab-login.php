@@ -157,24 +157,26 @@ if (!defined('ABSPATH')) {
                 </td>
             </tr>
             <tr>
-                <th scope="row">
-                    <label for="default_role">預設角色</label>
-                </th>
+                <th scope="row">預設角色</th>
                 <td>
-                    <select id="default_role" name="default_role">
-                        <?php
-                        $current_role = $settings_general['default_role'] ?? 'subscriber';
-                        $roles = wp_roles()->get_names();
-                        foreach ($roles as $role_value => $role_name) :
-                        ?>
-                            <option value="<?php echo esc_attr($role_value); ?>"
-                                    <?php selected($current_role, $role_value); ?>>
-                                <?php echo esc_html(translate_user_role($role_name)); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                    <?php
+                    $current_roles = $settings_general['default_roles'] ?? ['subscriber'];
+                    if (!is_array($current_roles)) {
+                        $current_roles = [$current_roles];
+                    }
+                    $all_roles = wp_roles()->get_names();
+                    foreach ($all_roles as $role_value => $role_name) :
+                    ?>
+                        <label style="display: block; margin-bottom: 4px;">
+                            <input type="checkbox"
+                                   name="default_roles[]"
+                                   value="<?php echo esc_attr($role_value); ?>"
+                                   <?php checked(in_array($role_value, $current_roles, true)); ?>>
+                            <?php echo esc_html(translate_user_role($role_name)); ?>
+                        </label>
+                    <?php endforeach; ?>
                     <p class="description">
-                        LINE 新用戶註冊後的 WordPress 角色
+                        LINE 新用戶註冊後自動獲得的角色（可多選）
                     </p>
                 </td>
             </tr>

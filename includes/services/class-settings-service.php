@@ -122,12 +122,12 @@ class SettingsService {
                 'default' => 'lineuser-',
                 'description' => '新用戶顯示名稱前綴（用戶名無效時使用）',
             ],
-            'default_role' => [
-                'type' => 'string',
+            'default_roles' => [
+                'type' => 'array',
                 'required' => false,
                 'encrypted' => false,
-                'default' => 'subscriber',
-                'description' => '新用戶註冊後預設角色',
+                'default' => ['subscriber'],
+                'description' => '新用戶註冊後預設角色（可多選）',
             ],
             'auto_link_by_email' => [
                 'type' => 'boolean',

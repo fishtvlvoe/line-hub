@@ -241,7 +241,7 @@ class SettingsPage {
         $success = true;
 
         // general group 的登入相關欄位
-        $general_strings = ['login_mode', 'username_prefix', 'display_name_prefix', 'default_role', 'login_redirect_url', 'login_button_text', 'login_button_size', 'allowed_email_domains'];
+        $general_strings = ['login_mode', 'username_prefix', 'display_name_prefix', 'login_redirect_url', 'login_button_text', 'login_button_size', 'allowed_email_domains'];
         foreach ($general_strings as $field) {
             $value = isset($_POST[$field]) ? sanitize_text_field($_POST[$field]) : '';
             SettingsService::set('general', $field, $value);
@@ -252,6 +252,12 @@ class SettingsPage {
             $value = isset($_POST[$field]) && $_POST[$field] === '1';
             SettingsService::set('general', $field, $value);
         }
+
+        // 預設角色（陣列，可多選）
+        $default_roles = isset($_POST['default_roles']) && is_array($_POST['default_roles'])
+            ? array_map('sanitize_key', $_POST['default_roles'])
+            : ['subscriber'];
+        SettingsService::set('general', 'default_roles', $default_roles);
 
         // 登入按鈕位置（陣列）
         $positions = isset($_POST['login_button_positions']) && is_array($_POST['login_button_positions'])
