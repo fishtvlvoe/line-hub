@@ -50,19 +50,18 @@ $has_liff_id        = !empty($settings['liff_id']);
         </li>
     </ul>
 
-    <h3 style="margin-top: 20px;">Webhook URL</h3>
-    <p>
-        <code style="background: #f5f5f5; padding: 8px 12px; display: inline-block;">
-            <?php echo esc_html(rest_url('line-hub/v1/webhook')); ?>
-        </code>
-    </p>
-    <p class="description">請在 LINE Developers Console 設定此 Webhook URL</p>
-
-    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="margin-top: 20px;">
-        <?php wp_nonce_field('line_hub_test_connection', 'line_hub_test_nonce'); ?>
-        <input type="hidden" name="action" value="line_hub_test_connection">
-        <button type="submit" class="button button-secondary" <?php echo !$has_access_token ? 'disabled' : ''; ?>>
-            測試 Access Token
-        </button>
-    </form>
+    <!-- 測試按鈕 -->
+    <h3 style="margin-top: 20px;">連線測試</h3>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px;">
+        <form method="post"
+              action="<?php echo esc_url(admin_url('admin-post.php')); ?>"
+              style="margin: 0;">
+            <?php wp_nonce_field('line_hub_test_connection', 'line_hub_test_nonce'); ?>
+            <input type="hidden" name="action" value="line_hub_test_connection">
+            <button type="submit" class="button button-secondary"
+                    <?php echo !$has_access_token ? 'disabled' : ''; ?>>
+                測試 Access Token
+            </button>
+        </form>
+    </div>
 </div>
