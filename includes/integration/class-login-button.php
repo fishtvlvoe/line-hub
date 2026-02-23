@@ -134,11 +134,12 @@ class LoginButton {
             return self::buildOAuthUrl($redirect);
         }
 
-        // auto: 有 LIFF ID 就用 LIFF，否則用 OAuth
-        if (!empty($liff_id)) {
+        // auto: 偵測用戶環境 — LINE 瀏覽器用 LIFF，外部瀏覽器用 OAuth
+        if (!empty($liff_id) && self::isLineBrowser()) {
             return self::buildLiffUrl($liff_id, $redirect);
         }
 
+        // 外部瀏覽器（Safari/Chrome 等）或沒有 LIFF ID → OAuth
         return self::buildOAuthUrl($redirect);
     }
 
@@ -188,5 +189,18 @@ class LoginButton {
         }
 
         return home_url('/line-hub/auth/?' . http_build_query($params));
+    }
+
+    /**
+     * 偵測是否在 LINE 內建瀏覽器中
+     *
+     * LINE 內建瀏覽器的 User-Agent 包含 "Line/" 字串
+     *
+     * @return bool
+     */
+    private static function isLineBrowser(): bool {
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        $ua = isset($_SERVER['HTTP_USER_AGENT']) ? wp_unslash($_SERVER['HTTP_USER_AGENT']) : '';
+        return stripos($ua, 'Line/') !== false;
     }
 }
