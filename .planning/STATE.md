@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** 讓任何 WordPress 外掛都能透過標準化的 Hook 或 REST API 發送 LINE 通知給用戶
-**Current focus:** v2.0 重構與擴展 — Phase 8 驗證與修復完成，準備進入 Phase 9
+**Current focus:** v2.0 重構與擴展 — Phase 9 Tab 重構完成，準備進入 Phase 10
 
 ## Current Position
 
-Phase: 8 (驗證與修復) -- 完成
-Plan: 2 of 2
+Phase: 9 (Tab 重構) -- 完成
+Plan: 3 of 3
 Status: Phase complete
-Last activity: 2026-02-24 — 完成 08-02 端到端驗證（5 個 VERIFY 項目全部 PASS）
+Last activity: 2026-02-24 — 完成 Phase 9 Tab 重構（5 Tab、主類別 188 行、舊 slug redirect）
 
 ## Performance Metrics
 
@@ -24,7 +24,7 @@ Last activity: 2026-02-24 — 完成 08-02 端到端驗證（5 個 VERIFY 項目
 **v2.0 Scope:**
 - Total phases: 3 (Phase 8, 9, 10)
 - Total requirements: 13
-- Plans defined: 7 (TBD, will be refined during planning)
+- Plans defined: 7 (Phase 8: 2, Phase 9: 3, Phase 10: 2 TBD)
 
 ## Accumulated Context
 
@@ -44,12 +44,17 @@ Last activity: 2026-02-24 — 完成 08-02 端到端驗證（5 個 VERIFY 項目
 - [08-01]: 回應格式用 is_wp_error() 替代 (bool) 強制轉型（LINE API 成功回空物件問題）
 - [08-02]: 5 個 VERIFY 項目全部 PASS（array 序列化、快取清除、REST API、hash_equals、broadcast 上限）
 - [08-02]: 使用 curl + cookie 認證替代 Playwright 做設定頁面測試
+- [09-01]: AbstractTab 抽象類別定義 Tab 介面（get_slug/get_label/render/save）
+- [09-01]: 主類別用 verify_admin() 共用方法減少權限檢查重複碼
+- [09-02]: 舊 slug 映射用 SLUG_REDIRECTS 常數：settings → line-settings, login → login-settings
+- [09-02]: Webhook 事件記錄從 developer Tab 獨立出來成為 webhook Tab
+- [09-02]: 設定嚮導 Tab（wizard）整合連線狀態和設定步驟說明
 
 ### Pending Todos
 
 - ~~Phase 8 執行前：確認 test.buygo.me 環境可連線~~ (done)
 - ~~Phase 8 執行前：準備 curl 測試腳本（驗證 REST API + Hook）~~ (done)
-- Phase 9 執行前：確認 FluentCart 結帳頁的正確 hook 名稱（B6 ButtonPositions）
+- ~~Phase 9 執行前：確認 FluentCart 結帳頁的正確 hook 名稱（B6 ButtonPositions）~~ (not needed for Phase 9)
 
 ### Blockers/Concerns
 
@@ -58,6 +63,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 08-02-PLAN.md (Phase 8 全部完成)
+Stopped at: Completed Phase 9 (Tab 重構) — 3 plans, 3 commits
 Resume file: None
-Next action: `/gsd:execute-phase 09` (Phase 9 設定頁 Tab 重構)
+Next action: `/gsd:execute-phase 10` (Phase 10 開發者體驗)

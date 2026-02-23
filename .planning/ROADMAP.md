@@ -161,7 +161,7 @@ Plans:
 **Milestone Goal:** 將 LineHub 從開發中的半成品升級為可上架的成熟 LINE 通訊平台——修復已知 bug、拆解過胖的設定頁、補齊開發者工具，讓 BuyGo/WebinarGo 等外掛可以無縫串接。
 
 - [x] **Phase 8: 驗證與修復** - 確認現況並修復安全問題
-- [ ] **Phase 9: Tab 重構** - 後台設定頁拆分與介面重組
+- [x] **Phase 9: Tab 重構** - 後台設定頁拆分與介面重組
 - [ ] **Phase 10: 開發者體驗** - 補齊文件與 API 使用記錄
 
 ### Phase 8: 驗證與修復
@@ -190,12 +190,13 @@ Plans:
   3. 使用舊 Tab URL（`?tab=settings`）訪問後台，自動 redirect 到對應的新 Tab slug，不出現 404 或空白頁
   4. `class-settings-page.php` 主類別在 200 行以內，各 Tab 邏輯分散到 `includes/admin/tabs/` 子目錄
   5. 重構後所有現有功能正常運作：LINE 登入按鈕出現在指定位置、LIFF 可正常使用、設定儲存成功顯示通知
-**Plans**: TBD
+**Status**: COMPLETE (2026-02-24)
+**Plans**: 3 plans (completed)
 
 Plans:
-- [ ] 09-01: Tab 架構拆分（主類別瘦身、tabs/ 子目錄建立）
-- [ ] 09-02: 5 Tab 重組（新 slug、獨立 form、舊 slug redirect）
-- [ ] 09-03: 整合驗證（所有現有功能回歸測試）
+- [x] 09-01: Tab 架構拆分（主類別瘦身 441→188 行、tabs/ 子目錄建立）
+- [x] 09-02: 5 Tab 重組（新 slug、獨立 form、舊 slug redirect）
+- [x] 09-03: 整合驗證（語法檢查、結構驗證、form 隔離驗證）
 
 ### Phase 10: 開發者體驗
 **Goal**: 開發者可以在後台直接找到 LINE Hub 整合所需的所有資訊，不需查閱外部文件
@@ -227,5 +228,5 @@ v2.0: 8 → 9 → 10
 | 6. Plugin Integration | v1.0 | 3/3 | Complete | 2026-02-07 |
 | 7. Admin UI | v1.0 | 5/5 | Complete | 2026-02-07 |
 | 8. 驗證與修復 | v2.0 | 2/2 | Complete | 2026-02-24 |
-| 9. Tab 重構 | v2.0 | 0/3 | Not started | - |
+| 9. Tab 重構 | v2.0 | 3/3 | Complete | 2026-02-24 |
 | 10. 開發者體驗 | v2.0 | 0/2 | Not started | - |

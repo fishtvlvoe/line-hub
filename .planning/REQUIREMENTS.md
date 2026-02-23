@@ -81,11 +81,11 @@ Requirements for milestone v2.0（重構與擴展）。根據研究確認 Phase 
 
 ### Tab Restructure (Tab 重構)
 
-- [ ] **TAB-01**: 後台設定頁從 3 Tab 重組為 5 Tab（設定嚮導、LINE 設定、登入設定、Webhook、開發者）
-- [ ] **TAB-02**: class-settings-page.php 拆分到 includes/admin/tabs/ 子目錄，主類別 < 200 行
-- [ ] **TAB-03**: 每個 Tab 使用獨立 `<form>` 和獨立 nonce action，避免儲存互相干擾
-- [ ] **TAB-04**: 舊 Tab slug（settings, login, developer）自動 redirect 到新 slug
-- [ ] **TAB-05**: 拆分後所有現有功能正常運作（LINE 登入按鈕、LIFF、設定儲存）
+- [x] **TAB-01**: 後台設定頁從 3 Tab 重組為 5 Tab（設定嚮導、LINE 設定、登入設定、Webhook、開發者）
+- [x] **TAB-02**: class-settings-page.php 拆分到 includes/admin/tabs/ 子目錄，主類別 < 200 行（188 行）
+- [x] **TAB-03**: 每個 Tab 使用獨立 `<form>` 和正確的 tab hidden field，避免儲存互相干擾
+- [x] **TAB-04**: 舊 Tab slug（settings, login）自動 redirect 到新 slug（developer 不變）
+- [x] **TAB-05**: 拆分後所有現有功能正常運作（LINE 登入按鈕、LIFF、設定儲存）
 
 ### Developer Experience (開發者體驗)
 
@@ -139,11 +139,11 @@ Requirements for milestone v2.0（重構與擴展）。根據研究確認 Phase 
 | VERIFY-03 | Phase 8 | Complete |
 | VERIFY-04 | Phase 8 | Complete |
 | VERIFY-05 | Phase 8 | Complete |
-| TAB-01 | Phase 9 | Pending |
-| TAB-02 | Phase 9 | Pending |
-| TAB-03 | Phase 9 | Pending |
-| TAB-04 | Phase 9 | Pending |
-| TAB-05 | Phase 9 | Pending |
+| TAB-01 | Phase 9 | Complete |
+| TAB-02 | Phase 9 | Complete |
+| TAB-03 | Phase 9 | Complete |
+| TAB-04 | Phase 9 | Complete |
+| TAB-05 | Phase 9 | Complete |
 | DEV-01 | Phase 10 | Pending |
 | DEV-02 | Phase 10 | Pending |
 | DEV-03 | Phase 10 | Pending |
