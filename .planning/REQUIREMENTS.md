@@ -77,7 +77,7 @@ Requirements for milestone v2.0（重構與擴展）。根據研究確認 Phase 
 - [ ] **VERIFY-02**: 修復後清除 Transient 快取殘留，確保新值立即生效
 - [ ] **VERIFY-03**: 完整測試已實作的 5 個 Hook（send/text, send/flex, send/broadcast, user/is_linked, user/get_line_uid）
 - [ ] **VERIFY-04**: 完整測試已實作的 REST API 端點（/messages/text, /messages/flex, /messages/broadcast, /users/*/status）
-- [ ] **VERIFY-05**: API Key 認證改用 hash_equals() 取代 !== 比較（防止 Timing Attack）
+- [x] **VERIFY-05**: API Key 認證改用 hash_equals() 取代 !== 比較（防止 Timing Attack）
 
 ### Tab Restructure (Tab 重構)
 
@@ -138,7 +138,7 @@ Requirements for milestone v2.0（重構與擴展）。根據研究確認 Phase 
 | VERIFY-02 | Phase 8 | Pending |
 | VERIFY-03 | Phase 8 | Pending |
 | VERIFY-04 | Phase 8 | Pending |
-| VERIFY-05 | Phase 8 | Pending |
+| VERIFY-05 | Phase 8 | Complete |
 | TAB-01 | Phase 9 | Pending |
 | TAB-02 | Phase 9 | Pending |
 | TAB-03 | Phase 9 | Pending |

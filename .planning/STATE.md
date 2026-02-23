@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** 讓任何 WordPress 外掛都能透過標準化的 Hook 或 REST API 發送 LINE 通知給用戶
-**Current focus:** v2.0 重構與擴展 — Roadmap 已建立，下一步：Phase 8 驗證與修復
+**Current focus:** v2.0 重構與擴展 — Phase 8 驗證與修復進行中
 
 ## Current Position
 
 Phase: 8 (驗證與修復)
-Plan: —
-Status: Not started
-Last activity: 2026-02-24 — v2.0 Roadmap 建立完成（Phase 8-10）
+Plan: 1 of 2
+Status: In progress
+Last activity: 2026-02-24 — 完成 08-01 安全修復（hash_equals、broadcast 上限、回應格式、N+1 快取）
 
 ## Performance Metrics
 
@@ -39,6 +39,9 @@ Last activity: 2026-02-24 — v2.0 Roadmap 建立完成（Phase 8-10）
 - [v2.0]: Phase 9 依賴 Phase 8（設定儲存正確才有意義重構表單隔離）
 - [v2.0]: Tab 重構從 3 Tab 擴展為 5 Tab（設定嚮導、LINE 設定、登入設定、Webhook、開發者）
 - [v2.0]: 所有 Tab form 統一使用 `'line_hub_save_settings'` nonce action，隔離靠 hidden[name=tab]
+- [08-01]: hash_equals 參數順序：已知值在前、用戶值在後
+- [08-01]: broadcast 上限 100（REST API 回 400、Hook 記 error_log 並 return）
+- [08-01]: 回應格式用 is_wp_error() 替代 (bool) 強制轉型（LINE API 成功回空物件問題）
 
 ### Pending Todos
 
@@ -53,6 +56,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: v2.0 Roadmap 建立完成
+Stopped at: Completed 08-01-PLAN.md
 Resume file: None
-Next action: `/gsd:plan-phase 8`
+Next action: `/gsd:execute-phase 08` (08-02-PLAN.md)
