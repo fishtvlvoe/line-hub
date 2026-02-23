@@ -476,16 +476,11 @@ class UserService {
     public static function getPictureUrl(int $user_id): ?string {
         $binding = self::getBinding($user_id);
 
-        if (!$binding) {
+        if (!$binding || empty($binding->picture_url)) {
             return null;
         }
 
-        // 如果有儲存頭像則返回，否則 fallback 到 WordPress Gravatar
-        if (!empty($binding->picture_url)) {
-            return $binding->picture_url;
-        }
-
-        return get_avatar_url($user_id);
+        return $binding->picture_url;
     }
 
     /**
