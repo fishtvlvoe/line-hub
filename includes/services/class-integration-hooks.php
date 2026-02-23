@@ -58,11 +58,20 @@ class IntegrationHooks {
         $message = isset($args['message']) ? (string) $args['message'] : '';
 
         if ($user_id <= 0 || $message === '') {
+            error_log("[LineHub] handle_send_text: SKIP — invalid user_id($user_id) or empty message");
             return;
         }
 
+        error_log("[LineHub] handle_send_text: user_id=$user_id, message_len=" . mb_strlen($message));
+
         $messaging = new MessagingService();
-        $messaging->pushText($user_id, $message);
+        $result = $messaging->pushText($user_id, $message);
+
+        if (is_wp_error($result)) {
+            error_log("[LineHub] handle_send_text: FAILED — " . $result->get_error_code() . ': ' . $result->get_error_message());
+        } else {
+            error_log("[LineHub] handle_send_text: SUCCESS");
+        }
     }
 
     /**

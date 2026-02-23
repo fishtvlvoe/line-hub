@@ -71,7 +71,6 @@ class WebhookReceiver {
         // 4. 提取事件列表
         $events = $body['events'] ?? [];
         if (empty($events)) {
-            // 空事件列表也是合法的（LINE 會發送空陣列測試）
             return new \WP_REST_Response(['success' => true], 200);
         }
 
