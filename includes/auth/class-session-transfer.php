@@ -50,6 +50,9 @@ class SessionTransfer {
     public static function generate(int $user_id, string $redirect_url): string {
         $token = bin2hex(random_bytes(self::TOKEN_LENGTH));
 
+        // 驗證 redirect URL 安全性（防止 Open Redirect）
+        $redirect_url = wp_validate_redirect($redirect_url, home_url('/'));
+
         $data = [
             'user_id'      => $user_id,
             'redirect_url' => $redirect_url,

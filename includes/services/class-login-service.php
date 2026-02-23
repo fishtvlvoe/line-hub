@@ -368,8 +368,8 @@ class LoginService {
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
         error_log('[LINE Hub] Session transfer token generated for user #' . $user_id);
 
-        // 使用 wp_redirect（非 wp_safe_redirect），因為 URL 帶有 query param
-        wp_redirect($transfer_url);
+        // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+        wp_safe_redirect($transfer_url);
         exit;
     }
 
