@@ -132,29 +132,27 @@ Requirements for milestone v2.0（重構與擴展）。根據研究確認 Phase 
 
 ## Traceability
 
-由 Roadmap 建立時填入。
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VERIFY-01 | — | Pending |
-| VERIFY-02 | — | Pending |
-| VERIFY-03 | — | Pending |
-| VERIFY-04 | — | Pending |
-| VERIFY-05 | — | Pending |
-| TAB-01 | — | Pending |
-| TAB-02 | — | Pending |
-| TAB-03 | — | Pending |
-| TAB-04 | — | Pending |
-| TAB-05 | — | Pending |
-| DEV-01 | — | Pending |
-| DEV-02 | — | Pending |
-| DEV-03 | — | Pending |
+| VERIFY-01 | Phase 8 | Pending |
+| VERIFY-02 | Phase 8 | Pending |
+| VERIFY-03 | Phase 8 | Pending |
+| VERIFY-04 | Phase 8 | Pending |
+| VERIFY-05 | Phase 8 | Pending |
+| TAB-01 | Phase 9 | Pending |
+| TAB-02 | Phase 9 | Pending |
+| TAB-03 | Phase 9 | Pending |
+| TAB-04 | Phase 9 | Pending |
+| TAB-05 | Phase 9 | Pending |
+| DEV-01 | Phase 10 | Pending |
+| DEV-02 | Phase 10 | Pending |
+| DEV-03 | Phase 10 | Pending |
 
 **Coverage:**
 - v2.0 requirements: 13 total
-- Mapped to phases: 0 (awaiting roadmap)
-- Unmapped: 13
+- Mapped to phases: 13 (Phase 8: 5, Phase 9: 5, Phase 10: 3)
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-07*
-*Last updated: 2026-02-24 after v2.0 milestone research*
+*Last updated: 2026-02-24 after v2.0 roadmap creation*
