@@ -174,11 +174,11 @@ Plans:
   3. 使用 curl 呼叫 `POST /line-hub/v1/messages/text` 帶有效 API Key，訊息成功發送到 LINE（5 個 Hook 和 REST 端點端到端驗證通過）
   4. API Key 認證改用 `hash_equals()` 後，舊的 API Key 仍可正常驗證（向後相容）
   5. 發送超過 100 個 user_id 的 broadcast 請求時，API 回傳 HTTP 400 而非靜默執行
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 08-01: 驗證腳本執行（array bug、Hook、REST API、UsersColumn）
-- [ ] 08-02: 安全修復（hash_equals、broadcast 上限、快取清除機制）
+- [ ] 08-01-PLAN.md — 安全修復與程式碼修正（hash_equals、broadcast 上限、回應格式 bug、N+1 快取）
+- [ ] 08-02-PLAN.md — 端到端驗證（設定存取、Hook、REST API、向後相容測試）
 
 ### Phase 9: Tab 重構
 **Goal**: 後台設定頁從 441 行的單一大型類別重構為每個 Tab 獨立檔案，各 Tab 使用獨立表單互不干擾
@@ -226,6 +226,6 @@ v2.0: 8 → 9 → 10
 | 5. Webhook Center | v1.0 | 3/3 | Complete | 2026-02-07 |
 | 6. Plugin Integration | v1.0 | 3/3 | Complete | 2026-02-07 |
 | 7. Admin UI | v1.0 | 5/5 | Complete | 2026-02-07 |
-| 8. 驗證與修復 | v2.0 | 0/2 | Not started | - |
+| 8. 驗證與修復 | v2.0 | 0/2 | Planning done | - |
 | 9. Tab 重構 | v2.0 | 0/3 | Not started | - |
 | 10. 開發者體驗 | v2.0 | 0/2 | Not started | - |
