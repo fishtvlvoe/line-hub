@@ -90,7 +90,7 @@ class PublicAPI {
         }
 
         $stored_hash = SettingsService::get('integration', 'api_key_hash', '');
-        if (empty($stored_hash) || wp_hash($key) !== $stored_hash) {
+        if (empty($stored_hash) || !hash_equals($stored_hash, wp_hash($key))) {
             return new \WP_Error(
                 'invalid_api_key',
                 '無效的 API Key',
@@ -130,9 +130,10 @@ class PublicAPI {
         $messaging = new MessagingService();
         $result = $messaging->pushText($user_id, $message);
 
+        $success = !is_wp_error($result);
         return new \WP_REST_Response([
-            'success' => (bool) $result,
-            'message' => $result ? '訊息已發送' : '發送失敗',
+            'success' => $success,
+            'message' => $success ? '訊息已發送' : '發送失敗',
         ]);
     }
 
@@ -171,9 +172,10 @@ class PublicAPI {
         $messaging = new MessagingService();
         $result = $messaging->pushFlex($user_id, $flex_message);
 
+        $success = !is_wp_error($result);
         return new \WP_REST_Response([
-            'success' => (bool) $result,
-            'message' => $result ? 'Flex 訊息已發送' : '發送失敗',
+            'success' => $success,
+            'message' => $success ? 'Flex 訊息已發送' : '發送失敗',
         ]);
     }
 
@@ -203,6 +205,15 @@ class PublicAPI {
         }
 
         $user_ids = array_filter(array_map('intval', $user_ids), fn($id) => $id > 0);
+
+        // 安全限制：單次 broadcast 最多 100 個用戶
+        if (count($user_ids) > 100) {
+            return new \WP_REST_Response(
+                ['success' => false, 'message' => 'user_ids 數量超過上限（最多 100 個）'],
+                400
+            );
+        }
+
         if (empty($user_ids)) {
             return new \WP_REST_Response(
                 ['success' => false, 'message' => 'user_ids 中沒有有效的用戶 ID'],
@@ -214,9 +225,10 @@ class PublicAPI {
         $messaging = new MessagingService();
         $result = $messaging->sendToMultiple(array_values($user_ids), $messages);
 
+        $success = !is_wp_error($result);
         return new \WP_REST_Response([
-            'success' => (bool) $result,
-            'message' => $result ? '批量訊息已發送' : '發送失敗',
+            'success' => $success,
+            'message' => $success ? '批量訊息已發送' : '發送失敗',
             'count'   => count($user_ids),
         ]);
     }
