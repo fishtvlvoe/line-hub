@@ -129,15 +129,22 @@ class SessionTransfer {
             return false;
         }
 
-        // 如果已經登入，直接清掉 query param 跳轉
+        // 驗證 token（不論是否已登入都要讀取 redirect URL）
+        $result = self::validate($token);
+
+        // 如果已經登入（同瀏覽器 OAuth 流程會在 callback 時設 cookie）
         if (is_user_logged_in()) {
-            $clean_url = remove_query_arg(self::QUERY_PARAM);
-            wp_safe_redirect($clean_url);
+            // 從 token 取得 redirect URL，而非直接導向首頁
+            $redirect = ($result && !empty($result['redirect_url']))
+                ? $result['redirect_url']
+                : home_url('/');
+
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+            error_log('[LINE Hub] Session transfer: already logged in, redirecting to ' . $redirect);
+
+            wp_safe_redirect($redirect);
             exit;
         }
-
-        // 驗證 token
-        $result = self::validate($token);
 
         if (!$result) {
             // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
@@ -171,9 +178,8 @@ class SessionTransfer {
          */
         do_action('line_hub/session_transfer/completed', $result['user_id'], $result['redirect_url']);
 
-        // 重定向到乾淨的目標 URL（移除 token 參數）
-        $redirect = remove_query_arg(self::QUERY_PARAM, $result['redirect_url']);
-        wp_safe_redirect($redirect);
+        // 重定向到目標 URL
+        wp_safe_redirect($result['redirect_url']);
         exit;
     }
 }
