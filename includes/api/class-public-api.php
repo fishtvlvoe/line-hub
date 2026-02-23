@@ -14,6 +14,7 @@ namespace LineHub\API;
 
 use LineHub\Services\SettingsService;
 use LineHub\Services\UserService;
+use LineHub\Services\ApiLogger;
 use LineHub\Messaging\MessagingService;
 
 if (!defined('ABSPATH')) {
@@ -131,6 +132,7 @@ class PublicAPI {
         $result = $messaging->pushText($user_id, $message);
 
         $success = !is_wp_error($result);
+        self::log_call('POST', '/messages/text', $success);
         return new \WP_REST_Response([
             'success' => $success,
             'message' => $success ? '訊息已發送' : '發送失敗',
@@ -173,6 +175,7 @@ class PublicAPI {
         $result = $messaging->pushFlex($user_id, $flex_message);
 
         $success = !is_wp_error($result);
+        self::log_call('POST', '/messages/flex', $success);
         return new \WP_REST_Response([
             'success' => $success,
             'message' => $success ? 'Flex 訊息已發送' : '發送失敗',
@@ -226,6 +229,7 @@ class PublicAPI {
         $result = $messaging->sendToMultiple(array_values($user_ids), $messages);
 
         $success = !is_wp_error($result);
+        self::log_call('POST', '/messages/broadcast', $success);
         return new \WP_REST_Response([
             'success' => $success,
             'message' => $success ? '批量訊息已發送' : '發送失敗',
@@ -267,6 +271,7 @@ class PublicAPI {
             }
         }
 
+        self::log_call('GET', '/users/' . $user_id . '/binding', true);
         return new \WP_REST_Response($data);
     }
 
@@ -296,6 +301,7 @@ class PublicAPI {
         $is_linked = UserService::isLinked($user->ID);
         $line_uid  = UserService::getLineUid($user->ID);
 
+        self::log_call('GET', '/users/lookup', true);
         return new \WP_REST_Response([
             'success'      => true,
             'user_id'      => $user->ID,
@@ -312,6 +318,21 @@ class PublicAPI {
      * @param array $params 請求參數
      * @return int 用戶 ID（0 表示找不到）
      */
+    /**
+     * 記錄 API 呼叫（僅 API Key 認證，不記錄管理員 Cookie 認證）
+     *
+     * @param string $method   HTTP 方法
+     * @param string $endpoint 端點路徑
+     * @param bool   $success  是否成功
+     */
+    private static function log_call(string $method, string $endpoint, bool $success): void {
+        // 管理員 Cookie 認證不記錄，只記錄 API Key 認證的呼叫
+        if (current_user_can('manage_options') && empty($_SERVER['HTTP_X_LINEHUB_API_KEY'])) {
+            return;
+        }
+        ApiLogger::log($method, $endpoint, $success ? 'success' : 'error');
+    }
+
     private static function resolve_user_id(array $params): int {
         // 優先使用 user_id
         if (!empty($params['user_id'])) {
