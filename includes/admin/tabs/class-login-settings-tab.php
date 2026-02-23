@@ -1,6 +1,6 @@
 <?php
 /**
- * 登入 Tab
+ * 登入設定 Tab
  *
  * 登入模式、LINE Login 行為、新用戶設定、登入按鈕、重定向、安全性。
  *
@@ -16,30 +16,24 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class LoginTab extends AbstractTab {
+class LoginSettingsTab extends AbstractTab {
 
     public function get_slug(): string {
-        return 'login';
+        return 'login-settings';
     }
 
     public function get_label(): string {
-        return '登入';
+        return '登入設定';
     }
 
-    /**
-     * 渲染登入 Tab
-     */
     public function render(): void {
         $settings_general = SettingsService::get_group('general');
         $settings_login = SettingsService::get_group('login');
-        require $this->get_view_path('tab-login.php');
+        require $this->get_view_path('tab-login-settings.php');
     }
 
     /**
-     * 儲存登入 Tab 的欄位
-     *
-     * @param array $post_data $_POST 資料
-     * @return bool
+     * 儲存登入設定
      */
     public function save(array $post_data): bool {
         $success = true;

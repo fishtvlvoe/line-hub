@@ -1,6 +1,8 @@
 <?php
 /**
- * 設定 Tab 模板
+ * LINE 設定 Tab 模板
+ *
+ * Messaging API、LINE Login Channel、NSL 整合設定。
  *
  * 可用變數：
  *   $settings (array) — SettingsService::get_group('general') 的結果
@@ -22,7 +24,7 @@ if (!defined('ABSPATH')) {
     <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <?php wp_nonce_field('line_hub_save_settings', 'line_hub_nonce'); ?>
         <input type="hidden" name="action" value="line_hub_save_settings">
-        <input type="hidden" name="tab" value="settings">
+        <input type="hidden" name="tab" value="line-settings">
         <input type="hidden" name="section" value="messaging">
 
         <table class="form-table">
@@ -96,7 +98,7 @@ if (!defined('ABSPATH')) {
     <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <?php wp_nonce_field('line_hub_save_settings', 'line_hub_nonce'); ?>
         <input type="hidden" name="action" value="line_hub_save_settings">
-        <input type="hidden" name="tab" value="settings">
+        <input type="hidden" name="tab" value="line-settings">
         <input type="hidden" name="section" value="login">
 
         <table class="form-table">
@@ -171,7 +173,7 @@ if (!defined('ABSPATH')) {
     <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <?php wp_nonce_field('line_hub_save_settings', 'line_hub_nonce'); ?>
         <input type="hidden" name="action" value="line_hub_save_settings">
-        <input type="hidden" name="tab" value="settings">
+        <input type="hidden" name="tab" value="line-settings">
         <input type="hidden" name="section" value="nsl">
 
         <table class="form-table">
@@ -201,29 +203,4 @@ if (!defined('ABSPATH')) {
             <button type="submit" class="button button-primary">儲存設定</button>
         </p>
     </form>
-</div>
-
-<!-- 連線狀態總覽 -->
-<div class="card" style="max-width: 1000px; margin-top: 20px;">
-    <h2>連線狀態總覽</h2>
-    <?php require __DIR__ . '/partials/connection-status.php'; ?>
-</div>
-
-<!-- 設定步驟說明（折疊） -->
-<div class="card" style="max-width: 1000px; margin-top: 20px;">
-    <details>
-        <summary style="cursor: pointer; font-weight: 600; font-size: 14px; padding: 8px 0;">
-            設定步驟說明（點擊展開）
-        </summary>
-        <ol style="margin-top: 15px; line-height: 2;">
-            <li>前往 <a href="https://developers.line.biz/console/" target="_blank">LINE Developers Console</a></li>
-            <li>你需要兩個 Channel：<strong>Messaging API</strong>（發訊息用）和 <strong>LINE Login</strong>（登入用）</li>
-            <li>在 <strong>Messaging API Channel</strong> 的 Basic settings 取得 Channel ID 和 Channel Secret，填入上方「Messaging API 設定」</li>
-            <li>在 <strong>Messaging API Channel</strong> 發行 Channel Access Token，填入上方欄位</li>
-            <li>在 <strong>Messaging API Channel</strong> 設定 Webhook URL 為上方顯示的網址，並啟用 Use webhook</li>
-            <li>在 <strong>LINE Login Channel</strong> 的 Basic settings 取得 Channel ID 和 Channel Secret，填入上方「LINE Login 設定」</li>
-            <li>在 <strong>LINE Login Channel</strong> 的 Callback URL 設定中加入上方的 Callback URL</li>
-            <li>如使用 LIFF，在 <strong>LINE Login Channel</strong> 建立 LIFF App，將 Endpoint URL 設為上方顯示的網址，並將 LIFF ID 填入上方欄位</li>
-        </ol>
-    </details>
 </div>

@@ -35,8 +35,20 @@ class SettingsPage {
         add_action('admin_enqueue_scripts', [$instance, 'enqueue_assets']);
     }
 
+    /** 舊 slug → 新 slug 映射（向後相容） */
+    private const SLUG_REDIRECTS = [
+        'settings' => 'line-settings',
+        'login'    => 'login-settings',
+    ];
+
     private function register_tabs(): void {
-        foreach ([new Tabs\SettingsTab(), new Tabs\LoginTab(), new Tabs\DeveloperTab()] as $tab) {
+        foreach ([
+            new Tabs\WizardTab(),
+            new Tabs\LineSettingsTab(),
+            new Tabs\LoginSettingsTab(),
+            new Tabs\WebhookTab(),
+            new Tabs\DeveloperTab(),
+        ] as $tab) {
             $this->tabs[$tab->get_slug()] = $tab;
         }
     }
@@ -59,8 +71,15 @@ class SettingsPage {
         if (!current_user_can('manage_options')) {
             wp_die(__('您沒有權限訪問此頁面', 'line-hub'));
         }
+        // 舊 slug redirect（向後相容書籤和快取的 URL）
+        $requested_tab = sanitize_key($_GET['tab'] ?? '');
+        if (isset(self::SLUG_REDIRECTS[$requested_tab])) {
+            wp_redirect(add_query_arg(['page' => 'line-hub-settings', 'tab' => self::SLUG_REDIRECTS[$requested_tab]], admin_url('admin.php')));
+            exit;
+        }
+
         $this->show_admin_notices();
-        $current_tab = sanitize_key($_GET['tab'] ?? '');
+        $current_tab = $requested_tab;
         if (!isset($this->tabs[$current_tab])) {
             $current_tab = array_key_first($this->tabs);
         }
@@ -124,7 +143,7 @@ class SettingsPage {
         $this->verify_admin('line_hub_test_nonce', 'line_hub_test_connection');
         $is_valid = (new MessagingService())->validateToken();
         wp_redirect(add_query_arg([
-            'page' => 'line-hub-settings', 'tab' => 'settings',
+            'page' => 'line-hub-settings', 'tab' => 'line-settings',
             'test_result' => $is_valid ? 'success' : 'error',
         ], admin_url('admin.php')));
         exit;

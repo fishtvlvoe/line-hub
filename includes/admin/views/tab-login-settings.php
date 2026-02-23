@@ -1,6 +1,6 @@
 <?php
 /**
- * 登入 Tab 模板
+ * 登入設定 Tab 模板
  *
  * 可用變數：
  *   $settings_general (array) — SettingsService::get_group('general')
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
     <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <?php wp_nonce_field('line_hub_save_settings', 'line_hub_nonce'); ?>
         <input type="hidden" name="action" value="line_hub_save_settings">
-        <input type="hidden" name="tab" value="login">
+        <input type="hidden" name="tab" value="login-settings">
 
         <!-- 登入模式 -->
         <h3>登入模式</h3>
