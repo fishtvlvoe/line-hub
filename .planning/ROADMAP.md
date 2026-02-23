@@ -156,13 +156,13 @@ Plans:
 
 ---
 
-### 🚧 v2.0 重構與擴展 (In Progress)
+### ✅ v2.0 重構與擴展 (COMPLETE 2026-02-24)
 
 **Milestone Goal:** 將 LineHub 從開發中的半成品升級為可上架的成熟 LINE 通訊平台——修復已知 bug、拆解過胖的設定頁、補齊開發者工具，讓 BuyGo/WebinarGo 等外掛可以無縫串接。
 
 - [x] **Phase 8: 驗證與修復** - 確認現況並修復安全問題
 - [x] **Phase 9: Tab 重構** - 後台設定頁拆分與介面重組
-- [ ] **Phase 10: 開發者體驗** - 補齊文件與 API 使用記錄
+- [x] **Phase 10: 開發者體驗** - 補齊文件與 API 使用記錄
 
 ### Phase 8: 驗證與修復
 **Goal**: 確認所有「已實作」功能真正可用，並修復三個已知安全與正確性問題
@@ -206,11 +206,12 @@ Plans:
   1. 開發者 Tab 顯示所有 REST API 端點清單，每個端點有對應的 curl 指令可直接複製貼上測試
   2. 開發者 Tab 顯示 Hook 使用說明，包含 `do_action('line_hub/send/text', ...)` 的完整參數範例，複製後可直接貼入外掛程式碼執行
   3. 開發者可以在後台查看最近 20 次 API 呼叫記錄（時間、來源 IP、端點、成功/失敗），快速確認外掛串接是否正常
-**Plans**: TBD
+**Status**: COMPLETE (2026-02-24)
+**Plans**: 2 plans (completed)
 
 Plans:
-- [ ] 10-01: REST API 文件 Tab（端點清單、curl 範例、API Key 生成提示）
-- [ ] 10-02: Hook 文件與 API 使用記錄（PHP 範例、呼叫 log 顯示）
+- [x] 10-01: REST API 文件 Tab（端點清單、curl 範例、API Key 生成提示）
+- [x] 10-02: Hook 文件與 API 使用記錄（PHP 範例、呼叫 log 顯示）
 
 ## Progress
 
@@ -229,4 +230,4 @@ v2.0: 8 → 9 → 10
 | 7. Admin UI | v1.0 | 5/5 | Complete | 2026-02-07 |
 | 8. 驗證與修復 | v2.0 | 2/2 | Complete | 2026-02-24 |
 | 9. Tab 重構 | v2.0 | 3/3 | Complete | 2026-02-24 |
-| 10. 開發者體驗 | v2.0 | 0/2 | Not started | - |
+| 10. 開發者體驗 | v2.0 | 2/2 | Complete | 2026-02-24 |

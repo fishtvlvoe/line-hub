@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** 讓任何 WordPress 外掛都能透過標準化的 Hook 或 REST API 發送 LINE 通知給用戶
-**Current focus:** v2.0 重構與擴展 — Phase 9 Tab 重構完成，準備進入 Phase 10
+**Current focus:** v2.0 重構與擴展 — Phase 10 開發者體驗完成，v2.0 里程碑完結
 
 ## Current Position
 
-Phase: 9 (Tab 重構) -- 完成
-Plan: 3 of 3
-Status: Phase complete
-Last activity: 2026-02-24 — 完成 Phase 9 Tab 重構（5 Tab、主類別 188 行、舊 slug redirect）
+Phase: 10 (開發者體驗) -- 完成
+Plan: 2 of 2
+Status: **v2.0 Milestone COMPLETE**
+Last activity: 2026-02-24 — 完成 Phase 10 開發者體驗（REST API 文件、Hook 文件、API 使用記錄）
 
 ## Performance Metrics
 
@@ -23,8 +23,8 @@ Last activity: 2026-02-24 — 完成 Phase 9 Tab 重構（5 Tab、主類別 188 
 
 **v2.0 Scope:**
 - Total phases: 3 (Phase 8, 9, 10)
-- Total requirements: 13
-- Plans defined: 7 (Phase 8: 2, Phase 9: 3, Phase 10: 2 TBD)
+- Total requirements: 13 — ALL COMPLETE
+- Total plans: 7 (Phase 8: 2, Phase 9: 3, Phase 10: 2)
 
 ## Accumulated Context
 
@@ -49,12 +49,13 @@ Last activity: 2026-02-24 — 完成 Phase 9 Tab 重構（5 Tab、主類別 188 
 - [09-02]: 舊 slug 映射用 SLUG_REDIRECTS 常數：settings → line-settings, login → login-settings
 - [09-02]: Webhook 事件記錄從 developer Tab 獨立出來成為 webhook Tab
 - [09-02]: 設定嚮導 Tab（wizard）整合連線狀態和設定步驟說明
+- [10-01]: DeveloperTab 用結構化資料（array）驅動 view 模板，不在模板中硬編碼
+- [10-02]: ApiLogger 用 wp_options 儲存（避免建新資料表），保留 100 筆
+- [10-02]: 僅記錄 API Key 認證的呼叫（管理員 Cookie 不記錄），避免 log 膨脹
 
 ### Pending Todos
 
-- ~~Phase 8 執行前：確認 test.buygo.me 環境可連線~~ (done)
-- ~~Phase 8 執行前：準備 curl 測試腳本（驗證 REST API + Hook）~~ (done)
-- ~~Phase 9 執行前：確認 FluentCart 結帳頁的正確 hook 名稱（B6 ButtonPositions）~~ (not needed for Phase 9)
+None. v2.0 里程碑已完成。
 
 ### Blockers/Concerns
 
@@ -63,6 +64,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed Phase 9 (Tab 重構) — 3 plans, 3 commits
+Stopped at: Completed Phase 10 (開發者體驗) — 2 plans, 3 commits, v2.0 milestone complete
 Resume file: None
-Next action: `/gsd:execute-phase 10` (Phase 10 開發者體驗)
+Next action: 部署 v2.0 到 test.buygo.me 進行端到端驗證

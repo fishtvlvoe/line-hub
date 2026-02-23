@@ -89,9 +89,9 @@ Requirements for milestone v2.0（重構與擴展）。根據研究確認 Phase 
 
 ### Developer Experience (開發者體驗)
 
-- [ ] **DEV-01**: 開發者 Tab 顯示完整 REST API 端點清單（含 curl 範例）
-- [ ] **DEV-02**: 開發者 Tab 顯示 Hook 使用範例（PHP 程式碼片段）
-- [ ] **DEV-03**: API 使用記錄：儲存並顯示最近 20 次 API 呼叫（時間、來源 IP、端點、結果）
+- [x] **DEV-01**: 開發者 Tab 顯示完整 REST API 端點清單（含 curl 範例）
+- [x] **DEV-02**: 開發者 Tab 顯示 Hook 使用範例（PHP 程式碼片段）
+- [x] **DEV-03**: API 使用記錄：儲存並顯示最近 20 次 API 呼叫（時間、來源 IP、端點、結果）
 
 ## Future Requirements
 
@@ -144,9 +144,9 @@ Requirements for milestone v2.0（重構與擴展）。根據研究確認 Phase 
 | TAB-03 | Phase 9 | Complete |
 | TAB-04 | Phase 9 | Complete |
 | TAB-05 | Phase 9 | Complete |
-| DEV-01 | Phase 10 | Pending |
-| DEV-02 | Phase 10 | Pending |
-| DEV-03 | Phase 10 | Pending |
+| DEV-01 | Phase 10 | Complete |
+| DEV-02 | Phase 10 | Complete |
+| DEV-03 | Phase 10 | Complete |
 
 **Coverage:**
 - v2.0 requirements: 13 total
@@ -155,4 +155,4 @@ Requirements for milestone v2.0（重構與擴展）。根據研究確認 Phase 
 
 ---
 *Requirements defined: 2026-02-07*
-*Last updated: 2026-02-24 after v2.0 roadmap creation*
+*Last updated: 2026-02-24 — v2.0 milestone complete (13/13 requirements)*
