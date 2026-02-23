@@ -73,6 +73,7 @@ class LoginButton {
         $style = $args['style'];
         $banner_text = $args['banner_text'];
         $class = $args['class'];
+        $is_line_browser = self::isLineBrowser();
 
         ob_start();
         include LINE_HUB_PATH . 'includes/templates/login-button.php';
@@ -127,6 +128,9 @@ class LoginButton {
 
         // 根據 login_mode 決定
         if ($login_mode === 'liff' && !empty($liff_id)) {
+            if (self::isLineBrowser()) {
+                return home_url('/line-hub/liff/?' . http_build_query(['redirect' => $redirect]));
+            }
             return self::buildLiffUrl($liff_id, $redirect);
         }
 
@@ -134,9 +138,10 @@ class LoginButton {
             return self::buildOAuthUrl($redirect);
         }
 
-        // auto: 偵測用戶環境 — LINE 瀏覽器用 LIFF，外部瀏覽器用 OAuth
+        // auto: 偵測用戶環境 — LINE 瀏覽器直接跳到 LIFF 處理頁，外部瀏覽器用 OAuth
         if (!empty($liff_id) && self::isLineBrowser()) {
-            return self::buildLiffUrl($liff_id, $redirect);
+            // 直接跳到我們的 LIFF 頁面（在當前 WebView 內），避免 liff.line.me 開新的 overlay 視窗
+            return home_url('/line-hub/liff/?' . http_build_query(['redirect' => $redirect]));
         }
 
         // 外部瀏覽器（Safari/Chrome 等）或沒有 LIFF ID → OAuth
