@@ -49,9 +49,10 @@ class FluentCartConnector {
 
         // 檢查 LINE Login 是否已設定
         $liff_id = SettingsService::get('general', 'liff_id', '');
+        $login_channel_id = SettingsService::get('general', 'login_channel_id', '');
         $channel_id = SettingsService::get('general', 'channel_id', '');
 
-        if (empty($liff_id) && empty($channel_id)) {
+        if (empty($liff_id) && empty($login_channel_id) && empty($channel_id)) {
             return;
         }
 
@@ -147,7 +148,8 @@ class FluentCartConnector {
         $user_id = get_current_user_id();
         $binding = UserService::getBinding($user_id);
         $liff_id = SettingsService::get('general', 'liff_id', '');
-        $has_login_configured = !empty($liff_id) || !empty(SettingsService::get('general', 'channel_id', ''));
+        $login_channel_id = SettingsService::get('general', 'login_channel_id', '');
+        $has_login_configured = !empty($liff_id) || !empty($login_channel_id) || !empty(SettingsService::get('general', 'channel_id', ''));
 
         if (!$has_login_configured) {
             return;

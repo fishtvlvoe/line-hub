@@ -42,6 +42,20 @@ class SettingsService {
                 'default' => '',
                 'description' => 'LINE Channel Access Token',
             ],
+            'login_channel_id' => [
+                'type' => 'string',
+                'required' => false,
+                'encrypted' => false,
+                'default' => '',
+                'description' => 'LINE Login Channel ID',
+            ],
+            'login_channel_secret' => [
+                'type' => 'string',
+                'required' => false,
+                'encrypted' => true,
+                'default' => '',
+                'description' => 'LINE Login Channel Secret',
+            ],
             'liff_id' => [
                 'type' => 'string',
                 'required' => false,

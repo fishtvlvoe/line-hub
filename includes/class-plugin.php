@@ -460,8 +460,9 @@ final class Plugin {
     public function render_profile_binding_section(\WP_User $user): void {
         $binding = Services\UserService::getBinding($user->ID);
         $liff_id = Services\SettingsService::get('general', 'liff_id', '');
+        $login_channel_id = Services\SettingsService::get('general', 'login_channel_id', '');
         $channel_id = Services\SettingsService::get('general', 'channel_id', '');
-        $has_login_configured = !empty($liff_id) || !empty($channel_id);
+        $has_login_configured = !empty($liff_id) || !empty($login_channel_id) || !empty($channel_id);
 
         // LIFF 綁定 URL
         $bind_url = '';

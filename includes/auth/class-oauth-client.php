@@ -83,8 +83,13 @@ class OAuthClient {
      * 從 SettingsService 取得 LINE Login 設定
      */
     public function __construct() {
-        $this->client_id = SettingsService::get('general', 'channel_id', '');
-        $this->client_secret = SettingsService::get('general', 'channel_secret', '');
+        // 優先使用 LINE Login 專用設定，若為空則 fallback 到 Messaging API 設定（向下兼容）
+        $login_id = SettingsService::get('general', 'login_channel_id', '');
+        $this->client_id = !empty($login_id) ? $login_id : SettingsService::get('general', 'channel_id', '');
+
+        $login_secret = SettingsService::get('general', 'login_channel_secret', '');
+        $this->client_secret = !empty($login_secret) ? $login_secret : SettingsService::get('general', 'channel_secret', '');
+
         $this->redirect_uri = $this->getRedirectUri();
     }
 

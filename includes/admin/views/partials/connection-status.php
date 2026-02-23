@@ -11,25 +11,27 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$has_channel_id     = !empty($settings['channel_id']);
-$has_channel_secret = !empty($settings['channel_secret']);
-$has_access_token   = !empty($settings['access_token']);
-$has_liff_id        = !empty($settings['liff_id']);
+$has_channel_id         = !empty($settings['channel_id']);
+$has_channel_secret     = !empty($settings['channel_secret']);
+$has_access_token       = !empty($settings['access_token']);
+$has_login_channel_id   = !empty($settings['login_channel_id']);
+$has_login_channel_secret = !empty($settings['login_channel_secret']);
+$has_liff_id            = !empty($settings['liff_id']);
 ?>
 
 <div style="margin: 20px 0;">
     <h3>LINE Messaging API</h3>
     <ul style="list-style: none; padding-left: 0;">
         <li style="margin: 8px 0;">
-            <?php echo $has_channel_id ? '✓' : '✗'; ?>
+            <?php echo $has_channel_id ? '&#10003;' : '&#10007;'; ?>
             Channel ID <?php echo $has_channel_id ? '已設定' : '尚未設定'; ?>
         </li>
         <li style="margin: 8px 0;">
-            <?php echo $has_channel_secret ? '✓' : '✗'; ?>
+            <?php echo $has_channel_secret ? '&#10003;' : '&#10007;'; ?>
             Channel Secret <?php echo $has_channel_secret ? '已設定' : '尚未設定'; ?>
         </li>
         <li style="margin: 8px 0;">
-            <?php echo $has_access_token ? '✓' : '✗'; ?>
+            <?php echo $has_access_token ? '&#10003;' : '&#10007;'; ?>
             Access Token <?php echo $has_access_token ? '已設定' : '尚未設定'; ?>
         </li>
     </ul>
@@ -37,31 +39,22 @@ $has_liff_id        = !empty($settings['liff_id']);
     <h3 style="margin-top: 20px;">LINE Login</h3>
     <ul style="list-style: none; padding-left: 0;">
         <li style="margin: 8px 0;">
-            <?php echo $has_channel_id ? '✓' : '✗'; ?>
-            Channel ID <?php echo $has_channel_id ? '已設定' : '尚未設定'; ?>
+            <?php echo $has_login_channel_id ? '&#10003;' : '&#10007;'; ?>
+            Channel ID <?php echo $has_login_channel_id ? '已設定' : '尚未設定'; ?>
+            <?php if (!$has_login_channel_id && $has_channel_id): ?>
+                <span style="color: #996800;">（將 fallback 到 Messaging API Channel ID）</span>
+            <?php endif; ?>
         </li>
         <li style="margin: 8px 0;">
-            <?php echo $has_channel_secret ? '✓' : '✗'; ?>
-            Channel Secret <?php echo $has_channel_secret ? '已設定' : '尚未設定'; ?>
+            <?php echo $has_login_channel_secret ? '&#10003;' : '&#10007;'; ?>
+            Channel Secret <?php echo $has_login_channel_secret ? '已設定' : '尚未設定'; ?>
+            <?php if (!$has_login_channel_secret && $has_channel_secret): ?>
+                <span style="color: #996800;">（將 fallback 到 Messaging API Channel Secret）</span>
+            <?php endif; ?>
         </li>
         <li style="margin: 8px 0;">
-            <?php echo $has_liff_id ? '✓' : '⚠'; ?>
+            <?php echo $has_liff_id ? '&#10003;' : '&#9888;'; ?>
             LIFF ID <?php echo $has_liff_id ? '已設定' : '尚未設定（選用）'; ?>
         </li>
     </ul>
-
-    <!-- 測試按鈕 -->
-    <h3 style="margin-top: 20px;">連線測試</h3>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px;">
-        <form method="post"
-              action="<?php echo esc_url(admin_url('admin-post.php')); ?>"
-              style="margin: 0;">
-            <?php wp_nonce_field('line_hub_test_connection', 'line_hub_test_nonce'); ?>
-            <input type="hidden" name="action" value="line_hub_test_connection">
-            <button type="submit" class="button button-secondary"
-                    <?php echo !$has_access_token ? 'disabled' : ''; ?>>
-                測試 Access Token
-            </button>
-        </form>
-    </div>
 </div>

@@ -204,14 +204,39 @@ class SettingsPage {
     }
 
     /**
-     * 儲存「設定」Tab 的欄位
+     * 儲存「設定」Tab 的欄位（按 section 隔離）
      */
     private function save_settings_tab(): bool {
+        $section = sanitize_key($_POST['section'] ?? '');
         $success = true;
 
-        // Channel 基本設定
-        $channel_fields = ['channel_id', 'channel_secret', 'liff_id'];
-        foreach ($channel_fields as $field) {
+        switch ($section) {
+            case 'messaging':
+                return $this->save_messaging_section();
+
+            case 'login':
+                return $this->save_login_section();
+
+            case 'nsl':
+                return $this->save_nsl_section();
+
+            default:
+                // 向下兼容：沒帶 section 的舊表單，儲存全部
+                $this->save_messaging_section();
+                $this->save_login_section();
+                $this->save_nsl_section();
+                return true;
+        }
+    }
+
+    /**
+     * 儲存 Messaging API 區塊
+     */
+    private function save_messaging_section(): bool {
+        $success = true;
+
+        $fields = ['channel_id', 'channel_secret'];
+        foreach ($fields as $field) {
             $value = isset($_POST[$field]) ? sanitize_text_field($_POST[$field]) : '';
             if (!SettingsService::set('general', $field, $value)) {
                 $success = false;
@@ -224,14 +249,37 @@ class SettingsPage {
             $success = false;
         }
 
-        // NSL 整合
+        return $success;
+    }
+
+    /**
+     * 儲存 LINE Login 區塊
+     */
+    private function save_login_section(): bool {
+        $success = true;
+
+        $fields = ['login_channel_id', 'login_channel_secret', 'liff_id'];
+        foreach ($fields as $field) {
+            $value = isset($_POST[$field]) ? sanitize_text_field($_POST[$field]) : '';
+            if (!SettingsService::set('general', $field, $value)) {
+                $success = false;
+            }
+        }
+
+        return $success;
+    }
+
+    /**
+     * 儲存 NSL 整合區塊
+     */
+    private function save_nsl_section(): bool {
         $nsl_booleans = ['nsl_compat_mode', 'nsl_auto_migrate'];
         foreach ($nsl_booleans as $field) {
             $value = isset($_POST[$field]) && $_POST[$field] === '1';
             SettingsService::set('general', $field, $value);
         }
 
-        return $success;
+        return true;
     }
 
     /**
