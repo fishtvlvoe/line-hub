@@ -11,6 +11,7 @@ namespace LineHub\Services;
 
 use LineHub\Auth\OAuthClient;
 use LineHub\Auth\OAuthState;
+use LineHub\Auth\SessionTransfer;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -359,10 +360,17 @@ class LoginService {
             $redirect_url = home_url('/');
         }
 
-        // 重定向
-        if (wp_safe_redirect($redirect_url)) {
-            exit;
-        }
+        // 使用 Session Transfer Token 重定向
+        // 解決跨瀏覽器 cookie 問題：LINE 內建瀏覽器設的 cookie 在外部瀏覽器無效
+        $token = SessionTransfer::generate($user_id, $redirect_url);
+        $transfer_url = SessionTransfer::buildRedirectUrl($token);
+
+        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+        error_log('[LINE Hub] Session transfer token generated for user #' . $user_id);
+
+        // 使用 wp_redirect（非 wp_safe_redirect），因為 URL 帶有 query param
+        wp_redirect($transfer_url);
+        exit;
     }
 
     /**

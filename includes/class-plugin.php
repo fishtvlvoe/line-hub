@@ -64,6 +64,9 @@ final class Plugin {
         // WordPress 初始化
         add_action('init', [$this, 'on_init'], 15);
 
+        // Session Transfer Token 交換（優先級最高，在其他 template_redirect 之前）
+        add_action('template_redirect', [Auth\SessionTransfer::class, 'handleExchange'], 1);
+
         // OAuth 認證路由
         add_action('init', [$this, 'register_auth_routes'], 15);
         add_action('template_redirect', [$this, 'handle_auth_requests'], 10);

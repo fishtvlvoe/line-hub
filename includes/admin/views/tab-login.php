@@ -312,7 +312,7 @@ if (!defined('ABSPATH')) {
         </table>
 
         <p class="submit">
-            <button type="submit" class="button button-primary">儲存登入設定</button>
+            <button type="submit" class="button button-primary">儲存設定</button>
         </p>
     </form>
 </div>
