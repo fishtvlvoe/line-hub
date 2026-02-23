@@ -3,7 +3,10 @@
  * 開發者 Tab 模板
  *
  * 可用變數：
- *   $settings_integration (array) — SettingsService::get_group('integration')
+ *   $settings_integration (array)  — SettingsService::get_group('integration')
+ *   $api_endpoints        (array)  — 結構化的 REST API 端點資料
+ *   $hooks_data           (array)  — 結構化的 Hook 文件資料
+ *   $api_logs             (array)  — 最近 20 筆 API 呼叫記錄
  *
  * @package LineHub\Admin
  */
@@ -24,11 +27,257 @@ if ($new_api_key) {
 }
 
 $rest_base = rest_url('line-hub/v1');
-$site_url  = home_url();
 ?>
 
+<style>
+    /* 開發者 Tab 專用樣式 */
+    .lh-dev-card {
+        background: #fff;
+        border: 1px solid #ccd0d4;
+        box-shadow: 0 1px 1px rgba(0,0,0,.04);
+        padding: 20px 24px;
+        max-width: 1000px;
+        margin-top: 20px;
+    }
+    .lh-dev-card h2 {
+        margin: 0 0 12px 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        font-size: 16px;
+    }
+    .lh-dev-card h3 {
+        margin: 24px 0 12px 0;
+        font-size: 14px;
+        color: #1d2327;
+    }
+    .lh-dev-card h4 {
+        margin: 16px 0 8px 0;
+        font-size: 13px;
+    }
+    .lh-dev-endpoint {
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        margin: 16px 0;
+        overflow: hidden;
+    }
+    .lh-dev-endpoint-header {
+        background: #f9fafb;
+        padding: 12px 16px;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .lh-dev-method {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 700;
+        font-family: ui-monospace, SFMono-Regular, monospace;
+        letter-spacing: 0.5px;
+    }
+    .lh-dev-method-get {
+        background: #dbeafe;
+        color: #1e40af;
+    }
+    .lh-dev-method-post {
+        background: #dcfce7;
+        color: #166534;
+    }
+    .lh-dev-endpoint-path {
+        font-family: ui-monospace, SFMono-Regular, monospace;
+        font-size: 13px;
+        font-weight: 600;
+        color: #1d2327;
+    }
+    .lh-dev-endpoint-body {
+        padding: 16px;
+    }
+    .lh-dev-endpoint-desc {
+        color: #50575e;
+        margin: 0 0 12px 0;
+        font-size: 13px;
+    }
+    .lh-dev-params-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        margin: 8px 0 16px 0;
+    }
+    .lh-dev-params-table th {
+        text-align: left;
+        padding: 6px 10px;
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        font-weight: 600;
+        font-size: 12px;
+        color: #374151;
+    }
+    .lh-dev-params-table td {
+        padding: 6px 10px;
+        border: 1px solid #e5e7eb;
+        vertical-align: top;
+    }
+    .lh-dev-params-table code {
+        background: #f3f4f6;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-size: 12px;
+    }
+    .lh-dev-code-block {
+        position: relative;
+        background: #1e293b;
+        color: #e2e8f0;
+        padding: 14px 16px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-family: ui-monospace, SFMono-Regular, monospace;
+        line-height: 1.6;
+        overflow-x: auto;
+        white-space: pre;
+        margin: 8px 0;
+    }
+    .lh-dev-code-block-light {
+        background: #f8fafc;
+        color: #334155;
+        border: 1px solid #e2e8f0;
+    }
+    .lh-dev-copy-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        padding: 4px 10px;
+        font-size: 11px;
+        background: rgba(255,255,255,0.15);
+        color: #94a3b8;
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .lh-dev-copy-btn:hover {
+        background: rgba(255,255,255,0.25);
+        color: #fff;
+    }
+    .lh-dev-copy-btn-light {
+        background: #fff;
+        color: #64748b;
+        border-color: #cbd5e1;
+    }
+    .lh-dev-copy-btn-light:hover {
+        background: #f1f5f9;
+        color: #334155;
+    }
+    .lh-dev-response-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 12px 0 4px 0;
+    }
+    .lh-dev-section-nav {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 12px 0 0 0;
+    }
+    .lh-dev-section-nav a {
+        display: inline-block;
+        padding: 4px 12px;
+        background: #f3f4f6;
+        color: #374151;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 13px;
+        transition: all 0.2s;
+    }
+    .lh-dev-section-nav a:hover {
+        background: #06C755;
+        color: #fff;
+    }
+    .lh-dev-hook-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        margin: 16px 0;
+        overflow: hidden;
+    }
+    .lh-dev-hook-header {
+        background: #fefce8;
+        padding: 10px 16px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    .lh-dev-hook-header code {
+        font-size: 13px;
+        font-weight: 600;
+        color: #854d0e;
+    }
+    .lh-dev-hook-body {
+        padding: 16px;
+    }
+    .lh-dev-filter-header {
+        background: #eff6ff;
+    }
+    .lh-dev-filter-header code {
+        color: #1e40af;
+    }
+    /* API Log 表格 */
+    .lh-dev-log-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+    .lh-dev-log-table th {
+        text-align: left;
+        padding: 8px 10px;
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        font-weight: 600;
+        font-size: 12px;
+    }
+    .lh-dev-log-table td {
+        padding: 8px 10px;
+        border: 1px solid #e5e7eb;
+        vertical-align: top;
+    }
+    .lh-dev-log-table tr:nth-child(even) td {
+        background: #fafbfc;
+    }
+    .lh-dev-status-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 600;
+    }
+    .lh-dev-status-success {
+        background: #dcfce7;
+        color: #166534;
+    }
+    .lh-dev-status-error {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+</style>
+
+<!-- 快速導航 -->
+<div class="lh-dev-card" style="margin-top: 0;">
+    <h2>開發者工具</h2>
+    <p class="description">
+        整合 LINE Hub 所需的所有資訊。透過 REST API（外部系統）或 WordPress Hooks（同主機外掛）與 LINE Hub 互動。
+    </p>
+    <div class="lh-dev-section-nav">
+        <a href="#lh-api-key">API Key 管理</a>
+        <a href="#lh-rest-api">REST API 端點</a>
+        <a href="#lh-hooks">WordPress Hooks</a>
+        <a href="#lh-shortcodes">短代碼</a>
+        <a href="#lh-api-logs">API 使用記錄</a>
+    </div>
+</div>
+
 <!-- API Key 管理 -->
-<div class="card" style="max-width: 1000px;">
+<div class="lh-dev-card" id="lh-api-key">
     <h2>API Key 管理</h2>
     <p class="description">
         外部系統（如 SaaS、Zapier）透過 HTTP Header
@@ -91,126 +340,257 @@ $site_url  = home_url();
 </div>
 
 <!-- REST API 端點 -->
-<div class="card" style="max-width: 1000px; margin-top: 20px;">
+<div class="lh-dev-card" id="lh-rest-api">
     <h2>REST API 端點</h2>
     <p class="description">
-        外部系統透過 API Key 認證，呼叫以下端點與 LINE 用戶互動。
+        基礎 URL：<code><?php echo esc_html($rest_base); ?></code><br>
+        認證方式：HTTP Header <code>X-LineHub-API-Key: lhk_your_api_key</code>
     </p>
 
-    <h3 style="margin-top: 20px;">訊息發送</h3>
+    <?php foreach ($api_endpoints as $idx => $ep) : ?>
+        <div class="lh-dev-endpoint">
+            <div class="lh-dev-endpoint-header">
+                <span class="lh-dev-method lh-dev-method-<?php echo esc_attr(strtolower($ep['method'])); ?>">
+                    <?php echo esc_html($ep['method']); ?>
+                </span>
+                <span class="lh-dev-endpoint-path"><?php echo esc_html($ep['path']); ?></span>
+                <span style="margin-left: auto; font-size: 13px; color: #6b7280;">
+                    <?php echo esc_html($ep['title']); ?>
+                </span>
+            </div>
+            <div class="lh-dev-endpoint-body">
+                <p class="lh-dev-endpoint-desc"><?php echo esc_html($ep['description']); ?></p>
 
-    <h4><code>POST <?php echo esc_html($rest_base); ?>/messages/text</code></h4>
-    <p>發送文字訊息給指定用戶</p>
-    <pre style="background: #f5f5f5; padding: 12px; overflow-x: auto; font-size: 12px;">curl -X POST <?php echo esc_html($rest_base); ?>/messages/text \
-  -H "X-LineHub-API-Key: lhk_your_api_key" \
-  -H "Content-Type: application/json" \
-  -d '{"user_id": 123, "message": "你好！"}'</pre>
+                <?php if (!empty($ep['params'])) : ?>
+                    <table class="lh-dev-params-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 120px;">參數</th>
+                                <th style="width: 80px;">型別</th>
+                                <th style="width: 120px;">必填</th>
+                                <th>說明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($ep['params'] as $param) : ?>
+                                <tr>
+                                    <td><code><?php echo esc_html($param['name']); ?></code></td>
+                                    <td><code><?php echo esc_html($param['type']); ?></code></td>
+                                    <td><?php echo esc_html($param['required']); ?></td>
+                                    <td><?php echo esc_html($param['desc']); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
 
-    <h4 style="margin-top: 16px;">
-        <code>POST <?php echo esc_html($rest_base); ?>/messages/flex</code>
-    </h4>
-    <p>發送 Flex 訊息</p>
-    <pre style="background: #f5f5f5; padding: 12px; overflow-x: auto; font-size: 12px;">curl -X POST <?php echo esc_html($rest_base); ?>/messages/flex \
-  -H "X-LineHub-API-Key: lhk_your_api_key" \
-  -H "Content-Type: application/json" \
-  -d '{"user_id": 123, "alt_text": "通知", "contents": {...}}'</pre>
+                <div class="lh-dev-response-label">curl 範例</div>
+                <div class="lh-dev-code-block">
+                    <button type="button" class="lh-dev-copy-btn line-hub-copy-btn"
+                            data-copy="<?php echo esc_attr($ep['curl']); ?>">複製</button>
+<?php echo esc_html($ep['curl']); ?>
+                </div>
 
-    <h4 style="margin-top: 16px;">
-        <code>POST <?php echo esc_html($rest_base); ?>/messages/broadcast</code>
-    </h4>
-    <p>批量發送文字訊息</p>
-    <pre style="background: #f5f5f5; padding: 12px; overflow-x: auto; font-size: 12px;">curl -X POST <?php echo esc_html($rest_base); ?>/messages/broadcast \
-  -H "X-LineHub-API-Key: lhk_your_api_key" \
-  -H "Content-Type: application/json" \
-  -d '{"user_ids": [1, 2, 3], "message": "公告訊息"}'</pre>
-
-    <h3 style="margin-top: 30px;">用戶查詢</h3>
-
-    <h4>
-        <code>GET <?php echo esc_html($rest_base); ?>/users/{id}/binding</code>
-    </h4>
-    <p>查詢指定用戶的 LINE 綁定狀態</p>
-    <pre style="background: #f5f5f5; padding: 12px; overflow-x: auto; font-size: 12px;">curl <?php echo esc_html($rest_base); ?>/users/123/binding \
-  -H "X-LineHub-API-Key: lhk_your_api_key"
-
-# 回應範例
-# {"is_linked": true, "line_uid": "U1234...", "display_name": "用戶名"}</pre>
+                <?php if (!empty($ep['response'])) : ?>
+                    <div class="lh-dev-response-label">回應範例</div>
+                    <div class="lh-dev-code-block lh-dev-code-block-light">
+<?php echo esc_html($ep['response']); ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
 </div>
 
 <!-- WordPress Hooks -->
-<div class="card" style="max-width: 1000px; margin-top: 20px;">
+<div class="lh-dev-card" id="lh-hooks">
     <h2>WordPress Hooks</h2>
-    <p class="description">同主機的 WordPress 外掛可透過標準 hooks 與 LineHub 互動。</p>
+    <p class="description">
+        同主機的 WordPress 外掛可透過標準 Hooks 與 LINE Hub 互動，無需 API Key。
+    </p>
 
-    <h3 style="margin-top: 20px;">Actions（發送訊息）</h3>
+    <h3>Actions（發送訊息）</h3>
 
-    <h4><code>line_hub/send/text</code></h4>
-    <pre style="background: #f5f5f5; padding: 12px; font-size: 12px;">do_action('line_hub/send/text', [
-    'user_id' => 123,
-    'message' => '你的訂單已建立！',
-]);</pre>
+    <?php foreach ($hooks_data['actions'] as $action) : ?>
+        <div class="lh-dev-hook-card">
+            <div class="lh-dev-hook-header">
+                <code><?php echo esc_html($action['hook']); ?></code>
+            </div>
+            <div class="lh-dev-hook-body">
+                <p class="lh-dev-endpoint-desc"><?php echo esc_html($action['description']); ?></p>
 
-    <h4 style="margin-top: 16px;"><code>line_hub/send/flex</code></h4>
-    <pre style="background: #f5f5f5; padding: 12px; font-size: 12px;">do_action('line_hub/send/flex', [
-    'user_id'  => 123,
-    'alt_text' => '訂單通知',
-    'contents' => [ /* Flex Message JSON */ ],
-]);</pre>
+                <table class="lh-dev-params-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 120px;">參數</th>
+                            <th style="width: 80px;">型別</th>
+                            <th>說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($action['params'] as $param) : ?>
+                            <tr>
+                                <td><code><?php echo esc_html($param['name']); ?></code></td>
+                                <td><code><?php echo esc_html($param['type']); ?></code></td>
+                                <td><?php echo esc_html($param['desc']); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
 
-    <h4 style="margin-top: 16px;"><code>line_hub/send/broadcast</code></h4>
-    <pre style="background: #f5f5f5; padding: 12px; font-size: 12px;">do_action('line_hub/send/broadcast', [
-    'user_ids' => [1, 2, 3],
-    'message'  => '公告訊息',
-]);</pre>
+                <div class="lh-dev-response-label">使用範例</div>
+                <div class="lh-dev-code-block lh-dev-code-block-light">
+                    <button type="button" class="lh-dev-copy-btn lh-dev-copy-btn-light line-hub-copy-btn"
+                            data-copy="<?php echo esc_attr($action['example']); ?>">複製</button>
+<?php echo esc_html($action['example']); ?>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
 
-    <h3 style="margin-top: 30px;">Filters（查詢用戶）</h3>
+    <h3>Filters（查詢用戶）</h3>
 
-    <h4><code>line_hub/user/is_linked</code></h4>
-    <pre style="background: #f5f5f5; padding: 12px; font-size: 12px;">$is_linked = apply_filters('line_hub/user/is_linked', false, $user_id);</pre>
+    <?php foreach ($hooks_data['filters'] as $filter) : ?>
+        <div class="lh-dev-hook-card">
+            <div class="lh-dev-hook-header lh-dev-filter-header">
+                <code><?php echo esc_html($filter['hook']); ?></code>
+            </div>
+            <div class="lh-dev-hook-body">
+                <p class="lh-dev-endpoint-desc"><?php echo esc_html($filter['description']); ?></p>
 
-    <h4 style="margin-top: 16px;"><code>line_hub/user/get_line_uid</code></h4>
-    <pre style="background: #f5f5f5; padding: 12px; font-size: 12px;">$line_uid = apply_filters('line_hub/user/get_line_uid', '', $user_id);</pre>
+                <table class="lh-dev-params-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 120px;">參數</th>
+                            <th style="width: 80px;">型別</th>
+                            <th>說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($filter['params'] as $param) : ?>
+                            <tr>
+                                <td><code><?php echo esc_html($param['name']); ?></code></td>
+                                <td><code><?php echo esc_html($param['type']); ?></code></td>
+                                <td><?php echo esc_html($param['desc']); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+
+                <div class="lh-dev-response-label">使用範例</div>
+                <div class="lh-dev-code-block lh-dev-code-block-light">
+                    <button type="button" class="lh-dev-copy-btn lh-dev-copy-btn-light line-hub-copy-btn"
+                            data-copy="<?php echo esc_attr($filter['example']); ?>">複製</button>
+<?php echo esc_html($filter['example']); ?>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
 </div>
 
-<!-- Shortcodes -->
-<div class="card" style="max-width: 1000px; margin-top: 20px;">
+<!-- 短代碼 -->
+<div class="lh-dev-card" id="lh-shortcodes">
     <h2>短代碼 (Shortcodes)</h2>
 
-    <h3><code>[line_hub_login]</code></h3>
-    <p style="color: #666;">在任何頁面插入 LINE 登入按鈕</p>
-
-    <h4 style="margin-top: 10px;">參數：</h4>
-    <ul style="line-height: 1.8; color: #666;">
-        <li><code>text</code> — 按鈕文字（預設：使用「登入」Tab 的設定值）</li>
-        <li><code>size</code> — 按鈕大小（small / medium / large）</li>
-        <li><code>redirect</code> — 登入後重定向 URL（可選）</li>
-    </ul>
-
-    <h4 style="margin-top: 10px;">範例：</h4>
-    <pre style="background: #f5f5f5; padding: 12px; border-left: 4px solid #06C755;">[line_hub_login text="立即登入" size="large" redirect="/my-account"]</pre>
+    <div class="lh-dev-endpoint">
+        <div class="lh-dev-endpoint-header">
+            <span class="lh-dev-endpoint-path">[line_hub_login]</span>
+            <span style="margin-left: auto; font-size: 13px; color: #6b7280;">LINE 登入按鈕</span>
+        </div>
+        <div class="lh-dev-endpoint-body">
+            <p class="lh-dev-endpoint-desc">在任何頁面插入 LINE 登入按鈕。</p>
+            <table class="lh-dev-params-table">
+                <thead>
+                    <tr>
+                        <th style="width: 120px;">參數</th>
+                        <th style="width: 80px;">型別</th>
+                        <th>說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>text</code></td>
+                        <td><code>string</code></td>
+                        <td>按鈕文字（預設：使用「登入」Tab 的設定值）</td>
+                    </tr>
+                    <tr>
+                        <td><code>size</code></td>
+                        <td><code>string</code></td>
+                        <td>按鈕大小：small / medium / large</td>
+                    </tr>
+                    <tr>
+                        <td><code>redirect</code></td>
+                        <td><code>string</code></td>
+                        <td>登入後重定向 URL（選填）</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="lh-dev-response-label">範例</div>
+            <div class="lh-dev-code-block lh-dev-code-block-light">
+                <button type="button" class="lh-dev-copy-btn lh-dev-copy-btn-light line-hub-copy-btn"
+                        data-copy='[line_hub_login text="立即登入" size="large" redirect="/my-account"]'>複製</button>
+[line_hub_login text="立即登入" size="large" redirect="/my-account"]</div>
+        </div>
+    </div>
 </div>
 
-<!-- PHP 範例 -->
-<div class="card" style="max-width: 1000px; margin-top: 20px;">
-    <h2>PHP 範例</h2>
+<!-- API 使用記錄 -->
+<div class="lh-dev-card" id="lh-api-logs">
+    <h2>API 使用記錄</h2>
+    <p class="description">
+        最近 20 次透過 REST API（API Key 認證）的呼叫記錄。用於確認外部系統串接是否正常。
+    </p>
 
-    <h3>取得用戶的 LINE UID</h3>
-    <pre style="background: #f5f5f5; padding: 12px;">$line_uid = \LineHub\Services\UserService::getLineUid(get_current_user_id());
-if ($line_uid) {
-    echo "LINE UID: $line_uid";
-}</pre>
-
-    <h3 style="margin-top: 20px;">檢查用戶是否已綁定 LINE</h3>
-    <pre style="background: #f5f5f5; padding: 12px;">$is_linked = \LineHub\Services\UserService::isLinked($user_id);
-if ($is_linked) {
-    echo "用戶已綁定 LINE 帳號";
-}</pre>
-
-    <h3 style="margin-top: 20px;">透過 LINE UID 查詢 WordPress 用戶</h3>
-    <pre style="background: #f5f5f5; padding: 12px;">$user_id = \LineHub\Services\UserService::getUserByLineUid('U1234567890abcdef');
-if ($user_id) {
-    $user = get_user_by('id', $user_id);
-    echo "找到用戶: " . $user->display_name;
-}</pre>
+    <?php if (empty($api_logs)) : ?>
+        <p style="color: #999; margin-top: 16px;">
+            尚無 API 呼叫記錄。當外部系統透過 API Key 呼叫 REST API 端點時，記錄會顯示在這裡。
+        </p>
+    <?php else : ?>
+        <table class="lh-dev-log-table" style="margin-top: 16px;">
+            <thead>
+                <tr>
+                    <th style="width: 160px;">時間</th>
+                    <th style="width: 130px;">來源 IP</th>
+                    <th style="width: 80px;">方法</th>
+                    <th>端點</th>
+                    <th style="width: 80px;">結果</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($api_logs as $log) : ?>
+                    <tr>
+                        <td>
+                            <?php
+                            $log_time = strtotime($log['time'] ?? '');
+                            if ($log_time) {
+                                $diff = human_time_diff($log_time, time());
+                                echo esc_html($diff . ' 前');
+                            } else {
+                                echo esc_html($log['time'] ?? '-');
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <code style="font-size: 12px;"><?php echo esc_html($log['ip'] ?? '-'); ?></code>
+                        </td>
+                        <td>
+                            <span class="lh-dev-method lh-dev-method-<?php echo esc_attr(strtolower($log['method'] ?? 'get')); ?>">
+                                <?php echo esc_html($log['method'] ?? '-'); ?>
+                            </span>
+                        </td>
+                        <td>
+                            <code style="font-size: 12px;"><?php echo esc_html($log['endpoint'] ?? '-'); ?></code>
+                        </td>
+                        <td>
+                            <?php if (($log['status'] ?? '') === 'success') : ?>
+                                <span class="lh-dev-status-badge lh-dev-status-success">成功</span>
+                            <?php else : ?>
+                                <span class="lh-dev-status-badge lh-dev-status-error">失敗</span>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
 </div>
-
