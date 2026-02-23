@@ -13,7 +13,7 @@
     gap: 8px;
     padding: 12px 24px;
     background: #06C755;
-    color: #fff;
+    color: #fff !important;
     border: none;
     border-radius: 8px;
     font-size: 15px;
@@ -26,9 +26,11 @@
     line-height: 1.4;
 }
 
-.line-hub-login-btn:hover {
+.line-hub-login-btn:hover,
+.line-hub-login-btn:focus,
+.line-hub-login-btn:visited {
     background: #05b34d;
-    color: #fff;
+    color: #fff !important;
     text-decoration: none;
 }
 

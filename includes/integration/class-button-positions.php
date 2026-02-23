@@ -7,8 +7,8 @@
  *
  * Hook 名稱來源：
  * - WP 登入頁: login_form action（wp-login.php 原生）
- * - FluentCart: fluent_cart/views/checkout_page_login_form action（CustomerLoginHandler.php:81）
- * - FluentCommunity: login_form_bottom filter（AuthHelper::nativeLoginForm 使用 WP 標準 filter）
+ * - FluentCart: fluent_cart/before_checkout_form action（CheckoutRenderer.php，結帳頁表單外層）
+ * - FluentCommunity: login_form_top filter（AuthHelper::nativeLoginForm 使用 WP 標準 filter）
  *
  * @package LineHub\Integration
  */
@@ -38,13 +38,13 @@ class ButtonPositions {
         }
 
         if (in_array('fluentcart_checkout', $positions, true)) {
-            // FluentCart 結帳頁登入表單（CustomerLoginHandler.php 觸發）
-            add_action('fluent_cart/views/checkout_page_login_form', [self::class, 'render_on_checkout']);
+            // FluentCart 結帳頁（CheckoutRenderer.php 觸發，表單外層）
+            add_action('fluent_cart/before_checkout_form', [self::class, 'render_on_checkout']);
         }
 
         if (in_array('fluent_community', $positions, true)) {
-            // FluentCommunity 用 WP 標準 login_form_bottom filter（AuthHelper::nativeLoginForm）
-            add_filter('login_form_bottom', [self::class, 'filter_login_form_bottom'], 10, 2);
+            // FluentCommunity 用 WP 標準 login_form_top filter（AuthHelper::nativeLoginForm）
+            add_filter('login_form_top', [self::class, 'filter_login_form_top'], 10, 2);
         }
     }
 
@@ -59,7 +59,7 @@ class ButtonPositions {
     }
 
     /**
-     * FluentCart 結帳頁面（fluent_cart/views/checkout_page_login_form action）
+     * FluentCart 結帳頁面（fluent_cart/before_checkout_form action）
      */
     public static function render_on_checkout(): void {
         if (is_user_logged_in()) {
@@ -69,14 +69,14 @@ class ButtonPositions {
     }
 
     /**
-     * FluentCommunity 登入表單（login_form_bottom filter）
+     * FluentCommunity 登入表單（login_form_top filter）
      * 也適用於其他使用 wp_login_form() 的頁面
      *
      * @param string $html 現有的 HTML 內容
      * @param array  $args login form 參數
      * @return string 附加登入按鈕後的 HTML
      */
-    public static function filter_login_form_bottom(string $html, $args = []): string {
+    public static function filter_login_form_top(string $html, $args = []): string {
         if (is_user_logged_in()) {
             return $html;
         }
