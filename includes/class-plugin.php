@@ -103,6 +103,11 @@ final class Plugin {
 
         // LINE 頭像覆蓋 WordPress 預設 Gravatar
         add_filter('pre_get_avatar_data', [$this, 'override_avatar_with_line'], 10, 2);
+
+        // WP-CLI 指令
+        if (defined('WP_CLI') && WP_CLI) {
+            \WP_CLI::add_command('line-hub migrate-avatars', [CLI\MigrateAvatarsCommand::class, 'run']);
+        }
     }
 
     /**
@@ -443,6 +448,18 @@ final class Plugin {
         // 如果 meta 沒有，從 line_hub_users 表查
         if (empty($line_avatar)) {
             $line_avatar = Services\UserService::getPictureUrl($user_id);
+        }
+
+        // Fallback: 查 NSL 留下的 wp_user_avatar（本機存儲的 attachment）
+        if (empty($line_avatar)) {
+            global $blog_id, $wpdb;
+            $attachment_id = get_user_meta($user_id, $wpdb->get_blog_prefix($blog_id) . 'user_avatar', true);
+            if ($attachment_id && wp_attachment_is_image($attachment_id)) {
+                $image_src = wp_get_attachment_image_src($attachment_id, 'thumbnail');
+                if ($image_src) {
+                    $line_avatar = $image_src[0];
+                }
+            }
         }
 
         self::$avatar_override_active = false;
