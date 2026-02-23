@@ -1,11 +1,12 @@
 # Requirements: LINE Hub
 
 **Defined:** 2026-02-07
-**Core Value:** 成為 WordPress 的 LINE 整合中樞，提供完整的 LINE 登入、通知、Webhook 和第三方外掛串接功能
+**Core Value:** 讓任何 WordPress 外掛都能透過標準化的 Hook 或 REST API 發送 LINE 通知給用戶
 
-## v1 Requirements
+## v1.0 Requirements (SHIPPED)
 
-Requirements for initial release (v1.0 - 3 weeks). Each maps to roadmap phases.
+<details>
+<summary>v1.0 — LINE 登入中樞（已完成，50 項需求）</summary>
 
 ### Authentication (LINE 登入系統)
 
@@ -28,36 +29,6 @@ Requirements for initial release (v1.0 - 3 weeks). Each maps to roadmap phases.
 - [x] **USER-04**: 用戶資料同步（display_name, picture_url, email）
 - [x] **USER-05**: 防止重複綁定（UNIQUE 索引）
 
-### Notifications (通知系統)
-
-- [ ] **NOTIF-01**: 發送訂單通知（FluentCart）
-- [ ] **NOTIF-02**: 發送出貨通知（BuyGo Plus One）
-- [ ] **NOTIF-03**: 發送會員歡迎訊息
-- [ ] **NOTIF-04**: 發送密碼重設通知
-- [ ] **NOTIF-05**: 訊息模板系統（支援變數替換）
-- [ ] **NOTIF-06**: 後台訊息模板編輯器
-- [ ] **NOTIF-07**: 通知記錄表（最近 90 天）
-- [ ] **NOTIF-08**: 通知成功率統計
-
-### Webhook (Webhook 中心)
-
-- [ ] **WEBHOOK-01**: 統一 Webhook 接收端點（`/wp-json/line-hub/v1/webhook`）
-- [ ] **WEBHOOK-02**: HMAC 簽名驗證
-- [ ] **WEBHOOK-03**: 事件分類處理（message, follow, unfollow, postback）
-- [ ] **WEBHOOK-04**: Webhook 記錄表（最近 100 筆）
-- [ ] **WEBHOOK-05**: 去重機制（避免重複處理）
-- [ ] **WEBHOOK-06**: 非同步處理（立即返回 200 OK）
-- [ ] **WEBHOOK-07**: 後台查看 Webhook 記錄
-
-### Integration (外掛串接系統)
-
-- [ ] **INTEG-01**: 提供標準化 Hook（`line_hub/user_logged_in`）
-- [ ] **INTEG-02**: 提供標準化 Filter（`line_hub/message/before_send`）
-- [ ] **INTEG-03**: 監聽 FluentCart Hook（`fluent_cart/order_created`）
-- [ ] **INTEG-04**: 監聯 BuyGo Hook（`buygo/shipment/marked_as_shipped`）
-- [ ] **INTEG-05**: 監聽 WordPress Hook（`user_register`, `retrieve_password`）
-- [ ] **INTEG-06**: Hook 優先級策略（避免與 NSL 衝突）
-
 ### Settings (設定系統)
 
 - [x] **SETT-01**: LINE Channel 設定（Channel ID, Secret, Access Token）
@@ -67,161 +38,123 @@ Requirements for initial release (v1.0 - 3 weeks). Each maps to roadmap phases.
 - [x] **SETT-05**: 設定快取機制（Transient 1 小時）
 - [x] **SETT-06**: REST API 設定端點（GET/POST）
 
+### Integration (外掛串接系統)
+
+- [x] **INTEG-01**: 標準化 Hook（line_hub/send/text, /flex, /broadcast）
+- [x] **INTEG-02**: 標準化 Filter（line_hub/user/is_linked, /get_line_uid）
+- [x] **INTEG-03**: REST API 訊息端點（/messages/text, /flex, /broadcast）
+- [x] **INTEG-04**: API Key 生成與撤銷
+- [x] **INTEG-05**: X-LineHub-API-Key Header 認證
+
 ### Admin UI (後台介面)
 
-- [ ] **ADMIN-01**: 入門 Tab（快速開始引導）
-- [ ] **ADMIN-02**: 設定 Tab（LINE Channel 設定）
-- [ ] **ADMIN-03**: 通知 Tab（通知場景管理）
-- [ ] **ADMIN-04**: Webhook Tab（記錄和測試）
-- [ ] **ADMIN-05**: 用法 Tab（Shortcode 和 API 文檔）
-- [ ] **ADMIN-06**: Tab 導航系統（URL 路由 `?tab=xxx`）
-- [ ] **ADMIN-07**: FluentCommunity/FluentCRM 風格設計
-- [ ] **ADMIN-08**: 響應式設計（手機、平板、桌面）
+- [x] **ADMIN-01**: 後台設定頁（3 Tab：設定、登入、開發者）
+- [x] **ADMIN-02**: Tab 導航系統（URL 路由 ?tab=xxx）
+- [x] **ADMIN-03**: WordPress 用戶列表 LINE 綁定欄位
+
+### LIFF (LINE 前端框架)
+
+- [x] **LIFF-01**: LIFF 登入頁面
+- [x] **LIFF-02**: LIFF Email 收集表單
+- [x] **LIFF-03**: LIFF 帳號合併（同 Email → 綁定既有帳號）
 
 ### Security (安全機制)
 
-- [ ] **SEC-01**: SQL Injection 防護（`$wpdb->prepare()`）
-- [ ] **SEC-02**: XSS 防護（`esc_*()` 輸出轉義）
-- [ ] **SEC-03**: CSRF 防護（Nonce 驗證）
-- [ ] **SEC-04**: 權限檢查（`manage_options`）
-- [ ] **SEC-05**: Rate Limiting（60 req/min）
-- [ ] **SEC-06**: 敏感資料遮罩（GET API 回應）
+- [x] **SEC-01**: SQL Injection 防護（$wpdb->prepare()）
+- [x] **SEC-02**: XSS 防護（esc_*() 輸出轉義）
+- [x] **SEC-03**: CSRF 防護（Nonce 驗證）
+- [x] **SEC-04**: 權限檢查（manage_options）
 
-### Performance (效能要求)
+</details>
 
-- [ ] **PERF-01**: Webhook 接收 < 100ms
-- [ ] **PERF-02**: 背景處理 < 300ms
-- [ ] **PERF-03**: 資料庫索引優化
-- [ ] **PERF-04**: API 快取（Transient 1 小時）
-- [ ] **PERF-05**: 資料清理策略（Webhook 30 天、通知 90 天）
+## v2.0 Requirements
 
-## v2 Requirements
+Requirements for milestone v2.0（重構與擴展）。根據研究確認 Phase A2/A3/C 已實作，聚焦在驗證、Tab 重構、開發者體驗。
 
-Deferred to future release. Tracked but not in current roadmap.
+### Verify (驗證與修復)
 
-### LIFF 功能
+- [ ] **VERIFY-01**: 驗證 SettingsService array 序列化功能是否正常運作，若有 Bug 則修復
+- [ ] **VERIFY-02**: 修復後清除 Transient 快取殘留，確保新值立即生效
+- [ ] **VERIFY-03**: 完整測試已實作的 5 個 Hook（send/text, send/flex, send/broadcast, user/is_linked, user/get_line_uid）
+- [ ] **VERIFY-04**: 完整測試已實作的 REST API 端點（/messages/text, /messages/flex, /messages/broadcast, /users/*/status）
+- [ ] **VERIFY-05**: API Key 認證改用 hash_equals() 取代 !== 比較（防止 Timing Attack）
 
-- **LIFF-01**: LIFF 登入頁面
-- **LIFF-02**: LIFF 內嵌網頁
-- **LIFF-03**: LIFF SDK 整合
+### Tab Restructure (Tab 重構)
 
-### Rich Menu 管理
+- [ ] **TAB-01**: 後台設定頁從 3 Tab 重組為 5 Tab（設定嚮導、LINE 設定、登入設定、Webhook、開發者）
+- [ ] **TAB-02**: class-settings-page.php 拆分到 includes/admin/tabs/ 子目錄，主類別 < 200 行
+- [ ] **TAB-03**: 每個 Tab 使用獨立 `<form>` 和獨立 nonce action，避免儲存互相干擾
+- [ ] **TAB-04**: 舊 Tab slug（settings, login, developer）自動 redirect 到新 slug
+- [ ] **TAB-05**: 拆分後所有現有功能正常運作（LINE 登入按鈕、LIFF、設定儲存）
 
-- **MENU-01**: 後台建立 Rich Menu
-- **MENU-02**: 視覺化編輯器
-- **MENU-03**: Rich Menu 發布和管理
+### Developer Experience (開發者體驗)
 
-### Flex Message 編輯器
+- [ ] **DEV-01**: 開發者 Tab 顯示完整 REST API 端點清單（含 curl 範例）
+- [ ] **DEV-02**: 開發者 Tab 顯示 Hook 使用範例（PHP 程式碼片段）
+- [ ] **DEV-03**: API 使用記錄：儲存並顯示最近 20 次 API 呼叫（時間、來源 IP、端點、結果）
 
-- **FLEX-01**: 後台 Flex Message 編輯器
-- **FLEX-02**: Flex Message 模板庫
-- **FLEX-03**: Flex Message 預覽
+## Future Requirements
 
-### AI 自動回覆
+延後到未來里程碑。已追蹤但不在 v2.0 Roadmap 中。
 
-- **AI-01**: 整合 OpenAI API
-- **AI-02**: 自動回覆規則設定
-- **AI-03**: 學習對話歷史
+### Notifications (通知系統)
 
-### WooCommerce 整合
+- **NOTIF-01**: 發送訂單通知（FluentCart）
+- **NOTIF-02**: 發送出貨通知（BuyGo Plus One）
+- **NOTIF-03**: 訊息模板系統（支援變數替換）
+- **NOTIF-04**: 通知記錄表（最近 90 天）
 
-- **WOO-01**: WooCommerce 訂單通知
-- **WOO-02**: WooCommerce 出貨通知
-- **WOO-03**: WooCommerce 產品上架通知
+### Webhook (Webhook 中心)
 
-### FluentCRM 整合
+- **WEBHOOK-01**: 統一 Webhook 接收端點
+- **WEBHOOK-02**: HMAC 簽名驗證
+- **WEBHOOK-03**: 事件分類處理（message, follow, unfollow, postback）
 
-- **CRM-01**: FluentCRM 行銷自動化通知
-- **CRM-02**: FluentCRM 標籤同步
-- **CRM-03**: FluentCRM 聯絡人同步
+### Security Enhancement (安全強化)
+
+- **SEC-05**: broadcast API Rate Limiting（上限 100 人/次）
+- **SEC-06**: UsersColumn N+1 查詢快取優化
+- **SEC-07**: API Key 改用 bcrypt 儲存（現用 wp_hash）
 
 ## Out of Scope
 
-Explicitly excluded. Documented to prevent scope creep.
+明確排除，防止範圍擴張。
 
 | Feature | Reason |
 |---------|--------|
-| 多語言支援 | v1 僅支援繁體中文，國際化功能延後到 v2 |
-| LINE Pay 整合 | 金流功能複雜度高，不在 MVP 範圍 |
-| LINE Points 整合 | 需要企業級帳號，不適合一般用戶 |
-| LINE Beacon | 硬體需求，使用場景有限 |
-| LINE Things | IoT 整合超出外掛範圍 |
-| 即時聊天功能 | 需要 WebSocket，技術複雜度高 |
-| 群組訊息發送 | 需要 LINE Official Account Manager API，超出範圍 |
+| 多語言支援 | v2 僅支援繁體中文 |
+| LINE Pay 整合 | 金流功能複雜度高 |
+| Rich Menu 管理 | 需要 LINE OA Manager API |
+| Flex Message 編輯器 | UI 複雜度高，延後 |
+| AI 自動回覆 | 超出核心範圍 |
+| 即時聊天功能 | 需要 WebSocket |
+| 通知模板 | 屬於業務外掛（PayGo/WebinarGo），不放在 LineHub |
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
+由 Roadmap 建立時填入。
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SETT-01 | Phase 1 | Complete |
-| SETT-02 | Phase 1 | Complete |
-| SETT-03 | Phase 1 | Complete |
-| SETT-04 | Phase 1 | Complete |
-| SETT-05 | Phase 1 | Complete |
-| SETT-06 | Phase 1 | Complete |
-| USER-01 | Phase 2 | Complete |
-| USER-02 | Phase 2 | Complete |
-| USER-03 | Phase 2 | Complete |
-| USER-04 | Phase 2 | Complete |
-| USER-05 | Phase 2 | Complete |
-| AUTH-01 | Phase 3 | Pending |
-| AUTH-02 | Phase 3 | Pending |
-| AUTH-03 | Phase 3 | Pending |
-| AUTH-04 | Phase 3 | Pending |
-| AUTH-05 | Phase 3 | Pending |
-| AUTH-06 | Phase 3 | Pending |
-| AUTH-07 | Phase 3 | Pending |
-| AUTH-08 | Phase 3 | Pending |
-| AUTH-09 | Phase 3 | Pending |
-| AUTH-10 | Phase 3 | Pending |
-| NOTIF-01 | Phase 4 | Pending |
-| NOTIF-02 | Phase 4 | Pending |
-| NOTIF-03 | Phase 4 | Pending |
-| NOTIF-04 | Phase 4 | Pending |
-| NOTIF-05 | Phase 4 | Pending |
-| NOTIF-06 | Phase 4 | Pending |
-| NOTIF-07 | Phase 4 | Pending |
-| NOTIF-08 | Phase 4 | Pending |
-| WEBHOOK-01 | Phase 5 | Pending |
-| WEBHOOK-02 | Phase 5 | Pending |
-| WEBHOOK-03 | Phase 5 | Pending |
-| WEBHOOK-04 | Phase 5 | Pending |
-| WEBHOOK-05 | Phase 5 | Pending |
-| WEBHOOK-06 | Phase 5 | Pending |
-| WEBHOOK-07 | Phase 5 | Pending |
-| INTEG-01 | Phase 6 | Pending |
-| INTEG-02 | Phase 6 | Pending |
-| INTEG-03 | Phase 6 | Pending |
-| INTEG-04 | Phase 6 | Pending |
-| INTEG-05 | Phase 6 | Pending |
-| INTEG-06 | Phase 6 | Pending |
-| ADMIN-01 | Phase 7 | Pending |
-| ADMIN-02 | Phase 7 | Pending |
-| ADMIN-03 | Phase 7 | Pending |
-| ADMIN-04 | Phase 7 | Pending |
-| ADMIN-05 | Phase 7 | Pending |
-| ADMIN-06 | Phase 7 | Pending |
-| ADMIN-07 | Phase 7 | Pending |
-| ADMIN-08 | Phase 7 | Pending |
-| SEC-01 | Phase 7 | Pending |
-| SEC-02 | Phase 7 | Pending |
-| SEC-03 | Phase 7 | Pending |
-| SEC-04 | Phase 7 | Pending |
-| SEC-05 | Phase 7 | Pending |
-| SEC-06 | Phase 7 | Pending |
-| PERF-01 | Phase 7 | Pending |
-| PERF-02 | Phase 7 | Pending |
-| PERF-03 | Phase 7 | Pending |
-| PERF-04 | Phase 7 | Pending |
-| PERF-05 | Phase 7 | Pending |
+| VERIFY-01 | — | Pending |
+| VERIFY-02 | — | Pending |
+| VERIFY-03 | — | Pending |
+| VERIFY-04 | — | Pending |
+| VERIFY-05 | — | Pending |
+| TAB-01 | — | Pending |
+| TAB-02 | — | Pending |
+| TAB-03 | — | Pending |
+| TAB-04 | — | Pending |
+| TAB-05 | — | Pending |
+| DEV-01 | — | Pending |
+| DEV-02 | — | Pending |
+| DEV-03 | — | Pending |
 
 **Coverage:**
-- v1 requirements: 50 total
-- Mapped to phases: 50/50
-- Unmapped: 0
+- v2.0 requirements: 13 total
+- Mapped to phases: 0 (awaiting roadmap)
+- Unmapped: 13
 
 ---
 *Requirements defined: 2026-02-07*
-*Last updated: 2026-02-07 after Phase 3 plan revision*
+*Last updated: 2026-02-24 after v2.0 milestone research*
