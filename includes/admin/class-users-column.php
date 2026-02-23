@@ -17,6 +17,12 @@ if (!defined('ABSPATH')) {
 class UsersColumn {
 
     /**
+     * 資料表存在性快取
+     * @var array<string, bool>
+     */
+    private static array $table_cache = [];
+
+    /**
      * 初始化 hooks
      */
     public static function init(): void {
@@ -120,9 +126,15 @@ class UsersColumn {
      * @return bool
      */
     private static function table_exists(string $table_name): bool {
+        if (isset(self::$table_cache[$table_name])) {
+            return self::$table_cache[$table_name];
+        }
+
         global $wpdb;
         $result = $wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table_name));
-        return $result === $table_name;
+        self::$table_cache[$table_name] = ($result === $table_name);
+
+        return self::$table_cache[$table_name];
     }
 
     /**

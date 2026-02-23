@@ -120,6 +120,12 @@ class IntegrationHooks {
 
         $user_ids = array_filter(array_map('intval', $user_ids), fn($id) => $id > 0);
 
+        // 安全限制：單次 broadcast 最多 100 個用戶
+        if (count($user_ids) > 100) {
+            error_log("[LineHub] handle_broadcast: REJECTED — user_ids count " . count($user_ids) . " exceeds limit 100");
+            return;
+        }
+
         if (empty($user_ids)) {
             return;
         }
