@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** 讓任何 WordPress 外掛都能透過標準化的 Hook 或 REST API 發送 LINE 通知給用戶
-**Current focus:** v2.0 重構與擴展 — Phase 8 驗證與修復進行中
+**Current focus:** v2.0 重構與擴展 — Phase 8 驗證與修復完成，準備進入 Phase 9
 
 ## Current Position
 
-Phase: 8 (驗證與修復)
-Plan: 1 of 2
-Status: In progress
-Last activity: 2026-02-24 — 完成 08-01 安全修復（hash_equals、broadcast 上限、回應格式、N+1 快取）
+Phase: 8 (驗證與修復) -- 完成
+Plan: 2 of 2
+Status: Phase complete
+Last activity: 2026-02-24 — 完成 08-02 端到端驗證（5 個 VERIFY 項目全部 PASS）
 
 ## Performance Metrics
 
@@ -42,11 +42,13 @@ Last activity: 2026-02-24 — 完成 08-01 安全修復（hash_equals、broadcas
 - [08-01]: hash_equals 參數順序：已知值在前、用戶值在後
 - [08-01]: broadcast 上限 100（REST API 回 400、Hook 記 error_log 並 return）
 - [08-01]: 回應格式用 is_wp_error() 替代 (bool) 強制轉型（LINE API 成功回空物件問題）
+- [08-02]: 5 個 VERIFY 項目全部 PASS（array 序列化、快取清除、REST API、hash_equals、broadcast 上限）
+- [08-02]: 使用 curl + cookie 認證替代 Playwright 做設定頁面測試
 
 ### Pending Todos
 
-- Phase 8 執行前：確認 test.buygo.me 環境可連線
-- Phase 8 執行前：準備 curl 測試腳本（驗證 REST API + Hook）
+- ~~Phase 8 執行前：確認 test.buygo.me 環境可連線~~ (done)
+- ~~Phase 8 執行前：準備 curl 測試腳本（驗證 REST API + Hook）~~ (done)
 - Phase 9 執行前：確認 FluentCart 結帳頁的正確 hook 名稱（B6 ButtonPositions）
 
 ### Blockers/Concerns
@@ -56,6 +58,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 08-01-PLAN.md
+Stopped at: Completed 08-02-PLAN.md (Phase 8 全部完成)
 Resume file: None
-Next action: `/gsd:execute-phase 08` (08-02-PLAN.md)
+Next action: `/gsd:execute-phase 09` (Phase 9 設定頁 Tab 重構)

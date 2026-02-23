@@ -160,7 +160,7 @@ Plans:
 
 **Milestone Goal:** 將 LineHub 從開發中的半成品升級為可上架的成熟 LINE 通訊平台——修復已知 bug、拆解過胖的設定頁、補齊開發者工具，讓 BuyGo/WebinarGo 等外掛可以無縫串接。
 
-- [ ] **Phase 8: 驗證與修復** - 確認現況並修復安全問題
+- [x] **Phase 8: 驗證與修復** - 確認現況並修復安全問題
 - [ ] **Phase 9: Tab 重構** - 後台設定頁拆分與介面重組
 - [ ] **Phase 10: 開發者體驗** - 補齊文件與 API 使用記錄
 
@@ -177,8 +177,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 08-01-PLAN.md — 安全修復與程式碼修正（hash_equals、broadcast 上限、回應格式 bug、N+1 快取）
-- [ ] 08-02-PLAN.md — 端到端驗證（設定存取、Hook、REST API、向後相容測試）
+- [x] 08-01-PLAN.md — 安全修復與程式碼修正（hash_equals、broadcast 上限、回應格式 bug、N+1 快取）
+- [x] 08-02-PLAN.md — 端到端驗證（設定存取、Hook、REST API、向後相容測試）
 
 ### Phase 9: Tab 重構
 **Goal**: 後台設定頁從 441 行的單一大型類別重構為每個 Tab 獨立檔案，各 Tab 使用獨立表單互不干擾
@@ -226,6 +226,6 @@ v2.0: 8 → 9 → 10
 | 5. Webhook Center | v1.0 | 3/3 | Complete | 2026-02-07 |
 | 6. Plugin Integration | v1.0 | 3/3 | Complete | 2026-02-07 |
 | 7. Admin UI | v1.0 | 5/5 | Complete | 2026-02-07 |
-| 8. 驗證與修復 | v2.0 | 0/2 | Planning done | - |
+| 8. 驗證與修復 | v2.0 | 2/2 | Complete | 2026-02-24 |
 | 9. Tab 重構 | v2.0 | 0/3 | Not started | - |
 | 10. 開發者體驗 | v2.0 | 0/2 | Not started | - |
