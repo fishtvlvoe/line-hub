@@ -163,6 +163,16 @@ if (!defined('ABSPATH')) {
             <button type="submit" class="button button-primary">儲存設定</button>
         </p>
     </form>
+
+    <?php $has_login_credentials = !empty($settings['login_channel_id']) && !empty($settings['login_channel_secret']); ?>
+    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="margin: -10px 0 0 0;">
+        <?php wp_nonce_field('line_hub_test_login', 'line_hub_test_login_nonce'); ?>
+        <input type="hidden" name="action" value="line_hub_test_login">
+        <button type="submit" class="button button-secondary"
+                <?php echo !$has_login_credentials ? 'disabled' : ''; ?>>
+            測試連線
+        </button>
+    </form>
 </div>
 
 <!-- 區塊 C：NSL 整合 -->

@@ -30,6 +30,7 @@ class SettingsPage {
         add_action('admin_menu', [$instance, 'register_menu']);
         add_action('admin_post_line_hub_save_settings', [$instance, 'handle_save']);
         add_action('admin_post_line_hub_test_connection', [$instance, 'handle_test_connection']);
+        add_action('admin_post_line_hub_test_login', [$instance, 'handle_test_login']);
         add_action('admin_post_line_hub_generate_api_key', [$instance, 'handle_generate_api_key']);
         add_action('admin_post_line_hub_revoke_api_key', [$instance, 'handle_revoke_api_key']);
         add_action('admin_enqueue_scripts', [$instance, 'enqueue_assets']);
@@ -139,13 +140,53 @@ class SettingsPage {
         exit;
     }
 
-    /** 處理測試連線 */
+    /** 處理 Messaging API 測試連線 */
     public function handle_test_connection(): void {
         $this->verify_admin('line_hub_test_nonce', 'line_hub_test_connection');
         $is_valid = (new MessagingService())->validateToken();
         wp_redirect(add_query_arg([
             'page' => 'line-hub-settings', 'tab' => 'line-settings',
             'test_result' => $is_valid ? 'success' : 'error',
+        ], admin_url('admin.php')));
+        exit;
+    }
+
+    /** 處理 LINE Login 測試連線 */
+    public function handle_test_login(): void {
+        $this->verify_admin('line_hub_test_login_nonce', 'line_hub_test_login');
+
+        $settings       = SettingsService::get_group('general');
+        $channel_id     = $settings['login_channel_id'] ?? '';
+        $channel_secret = $settings['login_channel_secret'] ?? '';
+
+        if (empty($channel_id) || empty($channel_secret)) {
+            wp_redirect(add_query_arg([
+                'page' => 'line-hub-settings', 'tab' => 'line-settings',
+                'login_test_result' => 'empty',
+            ], admin_url('admin.php')));
+            exit;
+        }
+
+        $response = wp_remote_post('https://api.line.me/v2/oauth/accessToken', [
+            'body' => [
+                'grant_type'    => 'client_credentials',
+                'client_id'     => $channel_id,
+                'client_secret' => $channel_secret,
+            ],
+            'timeout' => 15,
+        ]);
+
+        if (is_wp_error($response)) {
+            $result = 'network_error';
+        } elseif (wp_remote_retrieve_response_code($response) === 200) {
+            $result = 'success';
+        } else {
+            $result = 'error';
+        }
+
+        wp_redirect(add_query_arg([
+            'page' => 'line-hub-settings', 'tab' => 'line-settings',
+            'login_test_result' => $result,
         ], admin_url('admin.php')));
         exit;
     }
@@ -176,7 +217,19 @@ class SettingsPage {
         $test = sanitize_key($_GET['test_result'] ?? '');
         if ($test !== '') {
             $class = $test === 'success' ? 'notice-success' : 'notice-error';
-            $msg = $test === 'success' ? 'Access Token 驗證成功' : 'Access Token 驗證失敗，請檢查設定是否正確';
+            $msg = $test === 'success' ? 'Messaging API 驗證成功' : 'Messaging API 驗證失敗，請檢查 Access Token 是否正確';
+            printf('<div class="notice %s is-dismissible"><p>%s</p></div>', esc_attr($class), esc_html($msg));
+        }
+        $login_test = sanitize_key($_GET['login_test_result'] ?? '');
+        if ($login_test !== '') {
+            $messages = [
+                'success'       => 'LINE Login 驗證成功 — Channel ID 和 Secret 正確',
+                'error'         => 'LINE Login 驗證失敗 — 請確認 Channel ID 和 Secret 是否正確',
+                'empty'         => '請先填入 LINE Login 的 Channel ID 和 Channel Secret',
+                'network_error' => '無法連線到 LINE API，請稍後再試',
+            ];
+            $class = $login_test === 'success' ? 'notice-success' : 'notice-error';
+            $msg = $messages[$login_test] ?? '未知錯誤';
             printf('<div class="notice %s is-dismissible"><p>%s</p></div>', esc_attr($class), esc_html($msg));
         }
         if (isset($_GET['api_key_generated'])) {

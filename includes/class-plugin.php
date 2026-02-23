@@ -354,30 +354,6 @@ final class Plugin {
      * 載入前端資源
      */
     public function enqueue_frontend_assets(): void {
-        // CSS
-        wp_enqueue_style(
-            'line-hub-frontend',
-            LINE_HUB_URL . 'assets/css/frontend.css',
-            [],
-            LINE_HUB_VERSION
-        );
-
-        // JavaScript
-        wp_enqueue_script(
-            'line-hub-frontend',
-            LINE_HUB_URL . 'assets/js/frontend.js',
-            ['jquery'],
-            LINE_HUB_VERSION,
-            true
-        );
-
-        // Localize script
-        wp_localize_script('line-hub-frontend', 'lineHub', [
-            'ajax_url' => admin_url('admin-ajax.php'),
-            'rest_url' => rest_url('line-hub/v1'),
-            'rest_nonce' => wp_create_nonce('wp_rest'),
-        ]);
-
         // LIFF 登入歡迎 Toast（透過 wp_head 注入，相容所有模板）
         if (isset($_COOKIE['line_hub_welcome']) && is_user_logged_in()) {
             $user = wp_get_current_user();
