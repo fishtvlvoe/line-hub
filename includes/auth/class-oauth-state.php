@@ -138,16 +138,24 @@ class OAuthState {
     public static function getRedirect(): ?string {
         $url = null;
 
+        // 先查 user-based transient
         if (is_user_logged_in()) {
             $key = self::TRANSIENT_PREFIX . get_current_user_id() . self::REDIRECT_SUFFIX;
             $url = get_transient($key);
-            delete_transient($key);
-        } else {
+            if ($url !== false) {
+                delete_transient($key);
+            }
+        }
+
+        // user-based 沒找到 → 查 session-based（匿名時存的 redirect 在登入後仍可用）
+        if (empty($url)) {
             $session_id = self::getSessionId();
             if ($session_id) {
                 $key = self::SESSION_TRANSIENT_PREFIX . $session_id . self::REDIRECT_SUFFIX;
                 $url = get_site_transient($key);
-                delete_site_transient($key);
+                if ($url !== false) {
+                    delete_site_transient($key);
+                }
             }
         }
 
