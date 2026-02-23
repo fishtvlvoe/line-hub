@@ -39,7 +39,6 @@ $rest_base = rest_url('line-hub/v1');
         <a href="#lh-api-key">API Key 管理</a>
         <a href="#lh-rest-api">REST API 端點</a>
         <a href="#lh-hooks">WordPress Hooks</a>
-        <a href="#lh-shortcodes">短代碼</a>
         <a href="#lh-api-logs">API 使用記錄</a>
     </div>
 </div>
@@ -254,52 +253,6 @@ $rest_base = rest_url('line-hub/v1');
             </div>
         </div>
     <?php endforeach; ?>
-</div>
-
-<!-- 短代碼 -->
-<div class="lh-dev-card" id="lh-shortcodes">
-    <h2>短代碼 (Shortcodes)</h2>
-
-    <div class="lh-dev-endpoint">
-        <div class="lh-dev-endpoint-header">
-            <span class="lh-dev-endpoint-path">[line_hub_login]</span>
-            <span style="margin-left: auto; font-size: 13px; color: #6b7280;">LINE 登入按鈕</span>
-        </div>
-        <div class="lh-dev-endpoint-body">
-            <p class="lh-dev-endpoint-desc">在任何頁面插入 LINE 登入按鈕。</p>
-            <table class="lh-dev-params-table">
-                <thead>
-                    <tr>
-                        <th style="width: 120px;">參數</th>
-                        <th style="width: 80px;">型別</th>
-                        <th>說明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>text</code></td>
-                        <td><code>string</code></td>
-                        <td>按鈕文字（預設：使用「登入」Tab 的設定值）</td>
-                    </tr>
-                    <tr>
-                        <td><code>size</code></td>
-                        <td><code>string</code></td>
-                        <td>按鈕大小：small / medium / large</td>
-                    </tr>
-                    <tr>
-                        <td><code>redirect</code></td>
-                        <td><code>string</code></td>
-                        <td>登入後重定向 URL（選填）</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="lh-dev-response-label">範例</div>
-            <div class="lh-dev-code-block lh-dev-code-block-light">
-                <button type="button" class="lh-dev-copy-btn lh-dev-copy-btn-light line-hub-copy-btn"
-                        data-copy='[line_hub_login text="立即登入" size="large" redirect="/my-account"]'>複製</button>
-[line_hub_login text="立即登入" size="large" redirect="/my-account"]</div>
-        </div>
-    </div>
 </div>
 
 <!-- API 使用記錄 -->

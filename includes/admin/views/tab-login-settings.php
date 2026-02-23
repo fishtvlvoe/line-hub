@@ -15,15 +15,13 @@ if (!defined('ABSPATH')) {
 ?>
 
 <div class="card" style="max-width: 1000px;">
-    <h2>登入設定</h2>
-
     <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <?php wp_nonce_field('line_hub_save_settings', 'line_hub_nonce'); ?>
         <input type="hidden" name="action" value="line_hub_save_settings">
         <input type="hidden" name="tab" value="login-settings">
 
         <!-- 登入模式 -->
-        <h3>登入模式</h3>
+        <h2>登入模式</h2>
         <table class="form-table">
             <tr>
                 <th scope="row">登入方式</th>
@@ -245,6 +243,39 @@ if (!defined('ABSPATH')) {
                     <?php endforeach; ?>
                     <p class="description">
                         勾選後，LINE 登入按鈕會自動顯示在對應位置（僅未登入時）
+                    </p>
+                </td>
+            </tr>
+        </table>
+
+        <!-- 短代碼嵌入 -->
+        <h3>按鈕嵌入（短代碼）</h3>
+        <table class="form-table">
+            <tr>
+                <th scope="row">短代碼</th>
+                <td>
+                    <code style="background: #f5f5f5; padding: 8px 12px; display: inline-block; font-size: 14px;">
+                        [line_hub_login]
+                    </code>
+                    <button type="button" class="button button-small line-hub-copy-btn"
+                            data-copy='[line_hub_login]'
+                            style="margin-left: 8px;">複製</button>
+                    <p class="description">
+                        在任何頁面或文章中貼上此短代碼，即可顯示 LINE 登入按鈕。
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">自訂參數</th>
+                <td>
+                    <code style="background: #f5f5f5; padding: 8px 12px; display: inline-block; font-size: 13px;">
+                        [line_hub_login text="立即登入" size="large" redirect="/my-account"]
+                    </code>
+                    <button type="button" class="button button-small line-hub-copy-btn"
+                            data-copy='[line_hub_login text="立即登入" size="large" redirect="/my-account"]'
+                            style="margin-left: 8px;">複製</button>
+                    <p class="description">
+                        可選參數：<code>text</code>（按鈕文字）、<code>size</code>（small / medium / large）、<code>redirect</code>（登入後跳轉 URL）
                     </p>
                 </td>
             </tr>
