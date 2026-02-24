@@ -92,8 +92,7 @@ class LiffHandler {
         }
 
         // 取得重定向 URL（優先級：GET 參數 > cookie > 預設首頁）
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-        $redirect = isset($_GET['redirect']) ? wp_unslash($_GET['redirect']) : '';
+        $redirect = isset($_GET['redirect']) ? sanitize_text_field(wp_unslash($_GET['redirect'])) : '';
         if (empty($redirect) && !empty($_COOKIE['liff_redirect'])) {
             // LIFF login 過程中 URL 參數丟失，從 cookie 恢復
             $redirect = sanitize_text_field(wp_unslash($_COOKIE['liff_redirect']));
@@ -150,7 +149,7 @@ class LiffHandler {
 
         // 取得重定向 URL（優先級：POST 參數 > cookie > 預設首頁）
         $redirect = isset($_POST['redirect'])
-            ? wp_unslash($_POST['redirect'])
+            ? sanitize_text_field(wp_unslash($_POST['redirect']))
             : '';
         if (empty($redirect) && !empty($_COOKIE['liff_redirect'])) {
             $redirect = sanitize_text_field(wp_unslash($_COOKIE['liff_redirect']));
@@ -662,9 +661,8 @@ class LiffHandler {
             $redirect = home_url($redirect);
         }
 
-        $redirect = esc_url_raw($redirect);
-
-        return !empty($redirect) ? $redirect : home_url('/');
+        // 使用 wp_validate_redirect 防止 Open Redirect — 只允許本站 URL
+        return wp_validate_redirect($redirect, home_url('/'));
     }
 
     /**
