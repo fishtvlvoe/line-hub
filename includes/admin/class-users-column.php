@@ -104,15 +104,15 @@ class UsersColumn {
             }
         }
 
-        // 3. buygo_line_users（舊 LINE Notify）
+        // 3. buygo_line_users（舊 LINE Notify，無 display_name 欄位）
         $bgo_table = $wpdb->prefix . 'buygo_line_users';
         if (self::table_exists($bgo_table)) {
-            $row = $wpdb->get_row($wpdb->prepare(
-                "SELECT display_name FROM {$bgo_table} WHERE user_id = %d LIMIT 1",
+            $exists = $wpdb->get_var($wpdb->prepare(
+                "SELECT user_id FROM {$bgo_table} WHERE user_id = %d LIMIT 1",
                 $user_id
             ));
-            if ($row) {
-                return ['source' => 'Legacy', 'display_name' => $row->display_name ?? ''];
+            if ($exists) {
+                return ['source' => 'Legacy', 'display_name' => ''];
             }
         }
 
