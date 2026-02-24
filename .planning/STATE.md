@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 Phase: 11 - 安全補齊與常數統一
 Plan: 2 of 3
 Status: In progress
-Last activity: 2026-02-24 — 11-01 uninstall.php + index.php 防護完成
+Last activity: 2026-02-24 — 11-02 Open Redirect 漏洞修正完成
 
 Progress: ░░░░░░░░░░░░░░░░░░░░ 0/6 phases (Phase 11: 2/3 plans)
 
@@ -64,6 +64,8 @@ Progress: ░░░░░░░░░░░░░░░░░░░░ 0/6 phase
 - [v3.0]: profile-binding 已完成拆分（CSS + JS + Template），作為 v3.0 前置工作
 - [v3.0]: Phase 結構：安全+常數(11) → 內嵌清除(12) → 樣式外部化(13) → 檔案瘦身+方法重構(14) → 命名整理(15) → 測試(16)
 - [v3.0]: 常數統一放在 Phase 11 而非獨立 Phase — 因為拆分檔案時會用到新常數類別，必須先就位
+- [11-01]: uninstall.php 使用 __DIR__ 取得路徑而非 LINE_HUB_PATH 常數，確保外掛停用後仍可正確載入
+- [11-01]: drop_tables() 後仍補刪 options，確保雙重保險
 - [11-02]: resolveRedirectUrl 改用 wp_validate_redirect 取代 esc_url_raw，從根源阻擋外部跳轉
 - [11-02]: OAuth redirect 入口改用 sanitize_text_field 而非 esc_url_raw，保留相對路徑格式
 
