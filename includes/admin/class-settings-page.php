@@ -12,6 +12,7 @@
 namespace LineHub\Admin;
 
 use LineHub\Admin\Tabs\AbstractTab;
+use LineHub\LineApiEndpoints;
 use LineHub\Services\SettingsService;
 use LineHub\Messaging\MessagingService;
 
@@ -167,7 +168,7 @@ class SettingsPage {
             exit;
         }
 
-        $response = wp_remote_post('https://api.line.me/v2/oauth/accessToken', [
+        $response = wp_remote_post(LineApiEndpoints::OAUTH_ACCESS_TOKEN, [
             'body' => [
                 'grant_type'    => 'client_credentials',
                 'client_id'     => $channel_id,

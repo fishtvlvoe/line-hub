@@ -10,6 +10,7 @@
 
 namespace LineHub\Messaging;
 
+use LineHub\LineApiEndpoints;
 use LineHub\Services\SettingsService;
 use LineHub\Services\UserService;
 
@@ -28,11 +29,6 @@ if (!defined('ABSPATH')) {
  * - 錯誤處理和重試機制
  */
 class MessagingService {
-    /**
-     * LINE Messaging API 端點
-     */
-    private const API_ENDPOINT = 'https://api.line.me/v2/bot/message';
-
     /**
      * Channel Access Token
      *
@@ -267,7 +263,7 @@ class MessagingService {
      */
     private function sendRequest(string $endpoint, array $body) {
         // 構建完整 URL
-        $url = self::API_ENDPOINT . '/' . $endpoint;
+        $url = LineApiEndpoints::BOT_MESSAGE . '/' . $endpoint;
 
         // 構建請求參數
         $args = [
@@ -366,7 +362,7 @@ class MessagingService {
         }
 
         // 使用 LINE Messaging API 的 /v2/bot/info 端點驗證 token
-        $url = 'https://api.line.me/v2/bot/info';
+        $url = LineApiEndpoints::BOT_INFO;
         $args = [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->channelAccessToken,

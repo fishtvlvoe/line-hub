@@ -9,6 +9,7 @@
 
 namespace LineHub\Auth;
 
+use LineHub\LineApiEndpoints;
 use LineHub\Services\SettingsService;
 
 if (!defined('ABSPATH')) {
@@ -31,20 +32,6 @@ class OAuthClient {
      */
     private const AUTH_ENDPOINT = 'https://access.line.me/oauth2/v2.1/authorize';
 
-    /**
-     * LINE Token 端點
-     */
-    private const TOKEN_ENDPOINT = 'https://api.line.me/oauth2/v2.1/token';
-
-    /**
-     * LINE ID Token 驗證端點
-     */
-    private const VERIFY_ENDPOINT = 'https://api.line.me/oauth2/v2.1/verify';
-
-    /**
-     * LINE Profile 端點
-     */
-    private const PROFILE_ENDPOINT = 'https://api.line.me/v2/profile';
 
     /**
      * HTTP 請求超時時間（秒）
@@ -171,7 +158,7 @@ class OAuthClient {
      * @throws \Exception 當 HTTP 請求失敗或 LINE 返回錯誤時
      */
     public function authenticate(string $code): array {
-        $response = wp_remote_post(self::TOKEN_ENDPOINT, [
+        $response = wp_remote_post(LineApiEndpoints::OAUTH_TOKEN, [
             'timeout' => self::REQUEST_TIMEOUT,
             'body'    => [
                 'grant_type'    => 'authorization_code',
@@ -214,7 +201,7 @@ class OAuthClient {
      * @return array 驗證結果，包含 sub, name, email 等；失敗返回空陣列
      */
     public function verifyIdToken(string $id_token): array {
-        $response = wp_remote_post(self::VERIFY_ENDPOINT, [
+        $response = wp_remote_post(LineApiEndpoints::OAUTH_VERIFY, [
             'timeout' => self::REQUEST_TIMEOUT,
             'body'    => [
                 'id_token'  => $id_token,
@@ -245,7 +232,7 @@ class OAuthClient {
      * @throws \Exception 當 HTTP 請求失敗時
      */
     public function getProfile(string $access_token): array {
-        $response = wp_remote_get(self::PROFILE_ENDPOINT, [
+        $response = wp_remote_get(LineApiEndpoints::PROFILE, [
             'timeout' => self::REQUEST_TIMEOUT,
             'headers' => [
                 'Authorization' => 'Bearer ' . $access_token,

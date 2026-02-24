@@ -9,6 +9,7 @@
 
 namespace LineHub\Liff;
 
+use LineHub\LineApiEndpoints;
 use LineHub\Services\LoginService;
 use LineHub\Services\SettingsService;
 use LineHub\Services\UserService;
@@ -28,16 +29,6 @@ if (!defined('ABSPATH')) {
  * 3. POST /line-hub/liff/ (email)   → 收到 Email 後建立帳號並登入
  */
 class LiffHandler {
-
-    /**
-     * LINE Access Token 驗證端點
-     */
-    private const VERIFY_ENDPOINT = 'https://api.line.me/oauth2/v2.1/verify';
-
-    /**
-     * LINE Profile 端點
-     */
-    private const PROFILE_ENDPOINT = 'https://api.line.me/v2/profile';
 
     /**
      * HTTP 請求超時時間（秒）
@@ -583,7 +574,7 @@ class LiffHandler {
      */
     private function verifyAccessToken(string $access_token) {
         $response = wp_remote_get(
-            self::VERIFY_ENDPOINT . '?access_token=' . urlencode($access_token),
+            LineApiEndpoints::OAUTH_VERIFY . '?access_token=' . urlencode($access_token),
             ['timeout' => self::REQUEST_TIMEOUT]
         );
 
@@ -622,7 +613,7 @@ class LiffHandler {
      * @return array|\WP_Error 成功返回 profile 陣列，失敗返回 WP_Error
      */
     private function getProfile(string $access_token): array|\WP_Error {
-        $response = wp_remote_get(self::PROFILE_ENDPOINT, [
+        $response = wp_remote_get(LineApiEndpoints::PROFILE, [
             'timeout' => self::REQUEST_TIMEOUT,
             'headers' => [
                 'Authorization' => 'Bearer ' . $access_token,
