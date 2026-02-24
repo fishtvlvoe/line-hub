@@ -92,8 +92,9 @@ class AuthCallback {
     public function initiateAuth(): void {
         // 儲存原始頁面 URL（用於登入後重定向）
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-        $redirect = isset($_GET['redirect']) ? esc_url_raw(wp_unslash($_GET['redirect'])) : '';
+        $redirect = isset($_GET['redirect']) ? sanitize_text_field(wp_unslash($_GET['redirect'])) : '';
         if (!empty($redirect)) {
+            // OAuthState::storeRedirect 內部已有 wp_validate_redirect 驗證
             OAuthState::storeRedirect($redirect);
         }
 
