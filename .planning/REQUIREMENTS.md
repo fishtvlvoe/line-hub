@@ -106,7 +106,7 @@ Requirements for milestone v3.0（熵減重構）。全面整理程式碼結構�
 
 - [ ] **SEC-08**: 外掛移除時透過 uninstall.php 清理所有自定義資料表和 options
 - [ ] **SEC-09**: 所有 21 個目錄包含 index.php 防止目錄瀏覽
-- [ ] **SEC-10**: 所有 `$_GET`/`$_POST` 輸入經過 sanitize 處理（特別修正 Open Redirect 風險）
+- [x] **SEC-10**: 所有 `$_GET`/`$_POST` 輸入經過 sanitize 處理（特別修正 Open Redirect 風險）
 
 ### Constants（常數統一）
 
@@ -191,7 +191,7 @@ Requirements for milestone v3.0（熵減重構）。全面整理程式碼結構�
 | DEV-03 | Phase 10 | Complete |
 | SEC-08 | Phase 11 | Pending |
 | SEC-09 | Phase 11 | Pending |
-| SEC-10 | Phase 11 | Pending |
+| SEC-10 | Phase 11 | Complete |
 | CONST-01 | Phase 11 | Pending |
 | CONST-02 | Phase 11 | Pending |
 | INLINE-01 | Phase 12 | Pending |

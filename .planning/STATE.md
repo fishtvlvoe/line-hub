@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 ## Current Position
 
 Phase: 11 - 安全補齊與常數統一
-Plan: —
-Status: Not started
-Last activity: 2026-02-24 — v3.0 roadmap 建立完成
+Plan: 2 of 3
+Status: In progress
+Last activity: 2026-02-24 — 11-01 uninstall.php + index.php 防護完成
 
-Progress: ░░░░░░░░░░░░░░░░░░░░ 0/6 phases
+Progress: ░░░░░░░░░░░░░░░░░░░░ 0/6 phases (Phase 11: 2/3 plans)
 
 ## Performance Metrics
 
@@ -64,10 +64,12 @@ Progress: ░░░░░░░░░░░░░░░░░░░░ 0/6 phase
 - [v3.0]: profile-binding 已完成拆分（CSS + JS + Template），作為 v3.0 前置工作
 - [v3.0]: Phase 結構：安全+常數(11) → 內嵌清除(12) → 樣式外部化(13) → 檔案瘦身+方法重構(14) → 命名整理(15) → 測試(16)
 - [v3.0]: 常數統一放在 Phase 11 而非獨立 Phase — 因為拆分檔案時會用到新常數類別，必須先就位
+- [11-02]: resolveRedirectUrl 改用 wp_validate_redirect 取代 esc_url_raw，從根源阻擋外部跳轉
+- [11-02]: OAuth redirect 入口改用 sanitize_text_field 而非 esc_url_raw，保留相對路徑格式
 
 ### Pending Todos
 
-None. Phase 11 尚未開始規劃。
+None.
 
 ### Blockers/Concerns
 
@@ -76,6 +78,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: v3.0 roadmap 建立完成，準備開始 Phase 11 規劃
+Stopped at: Completed 11-02-PLAN.md (Open Redirect 漏洞修正)
 Resume file: None
-Next action: `/gsd:plan-phase 11` — 安全補齊與常數統一
+Next action: 執行 11-03-PLAN.md — LINE API URL 統一常數類別
