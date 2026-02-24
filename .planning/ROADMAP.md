@@ -280,7 +280,11 @@ Plans:
   2. LIFF 登入頁面（`liff-template.php`）和 Email 表單頁面載入獨立 CSS 檔案，頁面中無 `<style>` 區塊
   3. 後台 5 個 Tab（嚮導、LINE 設定、登入設定、Webhook、開發者）的視覺排版與重構前完全一致
   4. LIFF 在 LINE App 內開啟，登入頁面和 Email 表單的樣式正常顯示
-**Plans**: TBD
+**Plans**: 2 plans in 1 wave
+
+Plans:
+- [ ] 13-01-PLAN.md — Admin view 模板 inline style 外部化到 admin-views.css
+- [ ] 13-02-PLAN.md — LIFF/Email 模板 `<style>` 區塊提取到獨立 CSS 檔案
 
 ### Phase 14: 檔案瘦身與方法重構
 **Goal**: 所有 PHP 檔案控制在 300 行以內（零 500+ 行違規），所有方法控制在 50 行以內
@@ -337,7 +341,7 @@ v3.0: 11 → 12 → 13 → 14 → 15 → 16
 | 10. 開發者體驗 | v2.0 | 2/2 | Complete | 2026-02-24 |
 | 11. 安全補齊與常數統一 | v3.0 | 3/3 | Complete | 2026-02-24 |
 | 12. 內嵌清除 | v3.0 | 2/2 | Complete | 2026-02-25 |
-| 13. 樣式外部化 | v3.0 | 0/? | Not started | - |
+| 13. 樣式外部化 | v3.0 | 0/2 | Planned | - |
 | 14. 檔案瘦身與方法重構 | v3.0 | 0/? | Not started | - |
 | 15. 命名統一與根目錄整理 | v3.0 | 0/? | Not started | - |
 | 16. 測試框架 | v3.0 | 0/? | Not started | - |
