@@ -53,34 +53,12 @@ class LoginService {
         // Email 已存在 → 綁定現有帳號
         $existing_user = get_user_by('email', $email);
         if ($existing_user) {
-            error_log('[LINE Hub] Email exists, binding LINE to user #' . $existing_user->ID); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-            $link_result = UserService::linkUser($existing_user->ID, $line_uid, [
-                'displayName' => $user_data['displayName'] ?? '',
-                'pictureUrl'  => $user_data['pictureUrl'] ?? '',
-                'email'       => $email,
-            ]);
-            if (is_wp_error($link_result)) {
-                $this->redirectWithError($link_result->get_error_message());
-                return;
-            }
-            $this->loginUser($existing_user->ID, $user_data, $tokens);
+            $this->bindAndLogin($existing_user->ID, $line_uid, $user_data, $tokens);
             return;
         }
 
         // 建立新帳號
-        $new_user_id = $this->createUser($user_data);
-        if (is_wp_error($new_user_id)) {
-            $this->redirectWithError($new_user_id->get_error_message());
-            return;
-        }
-
-        UserService::linkUser($new_user_id, $line_uid, [
-            'displayName' => $user_data['displayName'] ?? '',
-            'pictureUrl'  => $user_data['pictureUrl'] ?? '',
-            'email'       => $email,
-        ]);
-
-        $this->loginUser($new_user_id, $user_data, $tokens);
+        $this->createAndLogin($line_uid, $user_data, $tokens);
     }
 
     /**
@@ -153,6 +131,36 @@ class LoginService {
     }
 
     // ── Private helpers ──────────────────────────────────
+
+    private function bindAndLogin(int $user_id, string $line_uid, array $user_data, array $tokens): void {
+        error_log('[LINE Hub] Email exists, binding LINE to user #' . $user_id); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+        $link_result = UserService::linkUser($user_id, $line_uid, [
+            'displayName' => $user_data['displayName'] ?? '',
+            'pictureUrl'  => $user_data['pictureUrl'] ?? '',
+            'email'       => $user_data['email'] ?? '',
+        ]);
+        if (is_wp_error($link_result)) {
+            $this->redirectWithError($link_result->get_error_message());
+            return;
+        }
+        $this->loginUser($user_id, $user_data, $tokens);
+    }
+
+    private function createAndLogin(string $line_uid, array $user_data, array $tokens): void {
+        $new_user_id = $this->createUser($user_data);
+        if (is_wp_error($new_user_id)) {
+            $this->redirectWithError($new_user_id->get_error_message());
+            return;
+        }
+
+        UserService::linkUser($new_user_id, $line_uid, [
+            'displayName' => $user_data['displayName'] ?? '',
+            'pictureUrl'  => $user_data['pictureUrl'] ?? '',
+            'email'       => $user_data['email'] ?? '',
+        ]);
+
+        $this->loginUser($new_user_id, $user_data, $tokens);
+    }
 
     private function createUser(array $user_data): int|\WP_Error {
         $display_name = $user_data['displayName'] ?? '';

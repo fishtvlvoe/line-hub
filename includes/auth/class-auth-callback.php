@@ -134,7 +134,6 @@ class AuthCallback {
      * @throws \Exception 當驗證失敗時
      */
     public function processCallback(string $code, string $state): void {
-        // 驗證 State（CSRF 防護）
         if (!OAuthState::validate($state)) {
             throw new \Exception(self::ERROR_MESSAGES['state_expired']);
         }
@@ -142,13 +141,22 @@ class AuthCallback {
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
         error_log('[LINE Hub] State validated, exchanging code for tokens');
 
-        // 建立 OAuthClient
-        $client = new OAuthClient();
+        $result = $this->exchangeAndVerifyTokens($code);
 
-        // 交換 code 取得 tokens
+        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+        error_log('[LINE Hub] OAuth complete for user: ' . substr($result['user_data']['userId'], 0, 4) . '****' . substr($result['user_data']['userId'], -4));
+
+        $login_service = new \LineHub\Services\LoginService();
+        $login_service->handleUser($result['user_data'], $result['tokens']);
+    }
+
+    /**
+     * 交換 Token、驗證 ID Token、取得 Profile
+     */
+    private function exchangeAndVerifyTokens(string $code): array {
+        $client = new OAuthClient();
         $tokens = $client->authenticate($code);
 
-        // 確認有必要的 tokens
         if (empty($tokens['access_token'])) {
             throw new \Exception(__('Token 交換失敗，請重試', 'line-hub'));
         }
@@ -156,40 +164,29 @@ class AuthCallback {
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
         error_log('[LINE Hub] Tokens received, verifying ID token and getting profile');
 
-        // 驗證 ID Token 取得用戶資料（可能包含 email）
         $id_token_data = [];
         if (!empty($tokens['id_token'])) {
             $id_token_data = $client->verifyIdToken($tokens['id_token']);
         }
 
-        // 取得 LINE Profile
         $profile = $client->getProfile($tokens['access_token']);
-
         if (empty($profile['userId'])) {
             throw new \Exception(__('無法取得 LINE 用戶資料，請重試', 'line-hub'));
         }
 
-        // 合併資料準備給 LoginService
-        $user_data = [
-            'userId'      => $profile['userId'],
-            'displayName' => $profile['displayName'] ?? '',
-            'pictureUrl'  => $profile['pictureUrl'] ?? '',
-            'email'       => $id_token_data['email'] ?? '',
+        return [
+            'user_data' => [
+                'userId'      => $profile['userId'],
+                'displayName' => $profile['displayName'] ?? '',
+                'pictureUrl'  => $profile['pictureUrl'] ?? '',
+                'email'       => $id_token_data['email'] ?? '',
+            ],
+            'tokens' => [
+                'access_token'  => $tokens['access_token'],
+                'refresh_token' => $tokens['refresh_token'] ?? '',
+                'expires_in'    => $tokens['expires_in'] ?? 0,
+            ],
         ];
-
-        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-        error_log('[LINE Hub] OAuth complete for user: ' . substr($profile['userId'], 0, 4) . '****' . substr($profile['userId'], -4));
-
-        // 儲存 tokens 供 LoginService 使用
-        $tokens_for_service = [
-            'access_token'  => $tokens['access_token'],
-            'refresh_token' => $tokens['refresh_token'] ?? '',
-            'expires_in'    => $tokens['expires_in'] ?? 0,
-        ];
-
-        // 呼叫 LoginService 處理用戶登入/註冊
-        $login_service = new \LineHub\Services\LoginService();
-        $login_service->handleUser($user_data, $tokens_for_service);
     }
 
     /**

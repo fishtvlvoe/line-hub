@@ -62,59 +62,42 @@ class EventDispatcher {
         do_action('line_hub/webhook/event', $event);
 
         // 根據事件類型分發
-        switch ($type) {
-            case 'message':
-                $this->dispatchMessage($event);
-                break;
-
-            case 'follow':
-                $this->handleFollow($event);
-                do_action('line_hub/webhook/follow', $event);
-                break;
-
-            case 'unfollow':
-                $this->handleUnfollow($event);
-                do_action('line_hub/webhook/unfollow', $event);
-                break;
-
-            case 'postback':
-                // 提取參數（與 buygo-line-notify hook 格式一致）
-                $line_uid = $event['source']['userId'] ?? '';
-                $user_id = null;
-                if (!empty($line_uid)) {
-                    $user_id = UserService::getUserByLineUid($line_uid);
-                }
-                do_action('line_hub/webhook/postback', $event, $line_uid, $user_id);
-                break;
-
-            case 'join':
-                do_action('line_hub/webhook/join', $event);
-                break;
-
-            case 'leave':
-                do_action('line_hub/webhook/leave', $event);
-                break;
-
-            case 'memberJoined':
-                do_action('line_hub/webhook/member_joined', $event);
-                break;
-
-            case 'memberLeft':
-                do_action('line_hub/webhook/member_left', $event);
-                break;
-
-            case 'accountLink':
-                do_action('line_hub/webhook/account_link', $event);
-                break;
-
-            default:
-                // 未知事件類型，觸發 unknown hook
-                do_action('line_hub/webhook/unknown', $event);
-                break;
-        }
+        match ($type) {
+            'message'  => $this->dispatchMessage($event),
+            'follow'   => $this->dispatchFollow($event),
+            'unfollow' => $this->dispatchUnfollow($event),
+            'postback' => $this->dispatchPostback($event),
+            default    => $this->dispatchSimpleEvent($type, $event),
+        };
 
         // 事件分發完成後才標記為已處理（確保失敗的事件可重試）
         $this->markAsProcessed($event);
+    }
+
+    private function dispatchFollow(array $event): void {
+        $this->handleFollow($event);
+        do_action('line_hub/webhook/follow', $event);
+    }
+
+    private function dispatchUnfollow(array $event): void {
+        $this->handleUnfollow($event);
+        do_action('line_hub/webhook/unfollow', $event);
+    }
+
+    private function dispatchPostback(array $event): void {
+        $line_uid = $event['source']['userId'] ?? '';
+        $user_id = !empty($line_uid) ? UserService::getUserByLineUid($line_uid) : null;
+        do_action('line_hub/webhook/postback', $event, $line_uid, $user_id);
+    }
+
+    private function dispatchSimpleEvent(string $type, array $event): void {
+        $hook_map = [
+            'join' => 'join', 'leave' => 'leave',
+            'memberJoined' => 'member_joined', 'memberLeft' => 'member_left',
+            'accountLink' => 'account_link',
+        ];
+        $hook = $hook_map[$type] ?? 'unknown';
+        do_action('line_hub/webhook/' . $hook, $event);
     }
 
     /**
@@ -129,51 +112,28 @@ class EventDispatcher {
             return;
         }
 
-        // 提取通用參數（與 buygo-line-notify hook 格式一致）
-        $line_uid = $event['source']['userId'] ?? '';
-        $user_id = null;
-        if (!empty($line_uid)) {
-            $user_id = UserService::getUserByLineUid($line_uid);
-        }
-        $message_id = $event['message']['id'] ?? '';
-
-        // 通用訊息 hook（1 個參數，方便不需要展開參數的監聽者）
+        // 通用訊息 hook
         do_action('line_hub/webhook/message', $event);
 
-        // 細分類型 hook（text 和 image 傳 4 個參數，與 BuyGo handler 相容）
-        switch ($message_type) {
-            case 'text':
-                do_action('line_hub/webhook/message/text', $event, $line_uid, $user_id, $message_id);
-                break;
-
-            case 'image':
-                do_action('line_hub/webhook/message/image', $event, $line_uid, $user_id, $message_id);
-                break;
-
-            case 'video':
-                do_action('line_hub/webhook/message/video', $event);
-                break;
-
-            case 'audio':
-                do_action('line_hub/webhook/message/audio', $event);
-                break;
-
-            case 'file':
-                do_action('line_hub/webhook/message/file', $event);
-                break;
-
-            case 'location':
-                do_action('line_hub/webhook/message/location', $event);
-                break;
-
-            case 'sticker':
-                do_action('line_hub/webhook/message/sticker', $event);
-                break;
-
-            default:
-                do_action('line_hub/webhook/message/unknown', $event);
-                break;
+        // text 和 image 傳 4 個參數（與 BuyGo handler 相容）
+        $full_param_types = ['text', 'image'];
+        if (in_array($message_type, $full_param_types, true)) {
+            [$line_uid, $user_id, $message_id] = $this->resolveMessageContext($event);
+            do_action("line_hub/webhook/message/{$message_type}", $event, $line_uid, $user_id, $message_id);
+            return;
         }
+
+        // 其他類型只傳 event
+        $valid_types = ['video', 'audio', 'file', 'location', 'sticker'];
+        $hook_type = in_array($message_type, $valid_types, true) ? $message_type : 'unknown';
+        do_action("line_hub/webhook/message/{$hook_type}", $event);
+    }
+
+    private function resolveMessageContext(array $event): array {
+        $line_uid = $event['source']['userId'] ?? '';
+        $user_id = !empty($line_uid) ? UserService::getUserByLineUid($line_uid) : null;
+        $message_id = $event['message']['id'] ?? '';
+        return [$line_uid, $user_id, $message_id];
     }
 
     /**

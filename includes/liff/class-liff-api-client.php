@@ -114,6 +114,11 @@ class LiffApiClient {
             return $user_id;
         }
 
+        $this->setupNewUser($user_id, $line_uid, $display_name, $picture_url, $default_roles);
+        return $user_id;
+    }
+
+    private function setupNewUser(int $user_id, string $line_uid, string $display_name, string $picture_url, array $default_roles): void {
         // 指派額外角色
         if (count($default_roles) > 1) {
             $user = get_user_by('ID', $user_id);
@@ -142,8 +147,6 @@ class LiffApiClient {
         do_action('line_hub/user/registered', $user_id, [
             'userId' => $line_uid, 'displayName' => $display_name, 'pictureUrl' => $picture_url,
         ]);
-
-        return $user_id;
     }
 
     /**

@@ -38,7 +38,6 @@ class MigrateAvatarsCommand {
         $prefix = $wpdb->get_blog_prefix($blog_id);
         $meta_key = $prefix . 'user_avatar';
 
-        // 找出所有有 NSL 頭像但沒有 LineHub 頭像的用戶
         $users = $wpdb->get_results($wpdb->prepare(
             "SELECT um.user_id, um.meta_value as attachment_id
              FROM {$wpdb->usermeta} um
@@ -56,6 +55,14 @@ class MigrateAvatarsCommand {
 
         \WP_CLI::log(sprintf('找到 %d 個用戶需要遷移頭像。', count($users)));
 
+        [$migrated, $skipped] = self::processUsers($users, $dry_run);
+
+        $label = $dry_run ? '模擬完成' : '遷移完成';
+        $verb = $dry_run ? '可遷移' : '已更新';
+        \WP_CLI::success(sprintf('%s：%d 個用戶%s，%d 個跳過。', $label, $migrated, $verb, $skipped));
+    }
+
+    private static function processUsers(array $users, bool $dry_run): array {
         $migrated = 0;
         $skipped = 0;
 
@@ -63,7 +70,6 @@ class MigrateAvatarsCommand {
             $user_id = (int) $row->user_id;
             $attachment_id = (int) $row->attachment_id;
 
-            // 確認 attachment 是有效的圖片
             if (!wp_attachment_is_image($attachment_id)) {
                 \WP_CLI::log(sprintf('  跳過 用戶 #%d：attachment #%d 不是有效圖片', $user_id, $attachment_id));
                 $skipped++;
@@ -89,10 +95,6 @@ class MigrateAvatarsCommand {
             $migrated++;
         }
 
-        if ($dry_run) {
-            \WP_CLI::success(sprintf('模擬完成：%d 個用戶可遷移，%d 個跳過。', $migrated, $skipped));
-        } else {
-            \WP_CLI::success(sprintf('遷移完成：%d 個用戶已更新，%d 個跳過。', $migrated, $skipped));
-        }
+        return [$migrated, $skipped];
     }
 }

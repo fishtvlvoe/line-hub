@@ -79,6 +79,10 @@ class LiffUserProcessor {
         }
 
         // 新用戶 → Email 表單
+        $this->storeAndShowEmailForm($line_uid, $display_name, $picture_url, $redirect, $access_token, $is_friend);
+    }
+
+    private function storeAndShowEmailForm(string $line_uid, string $display_name, string $picture_url, string $redirect, string $access_token, bool $is_friend): void {
         $token = wp_generate_password(32, false);
         set_transient('line_hub_liff_' . $token, [
             'line_uid' => $line_uid, 'display_name' => $display_name,
@@ -139,7 +143,11 @@ class LiffUserProcessor {
 
         delete_transient('line_hub_liff_' . $token);
 
-        $user_id = $this->api->createNewUser($line_uid, $display_name, $picture_url, $final_email);
+        $this->createAndLoginNewUser($line_uid, $display_name, $picture_url, $final_email, $is_friend, $access_token, $redirect);
+    }
+
+    private function createAndLoginNewUser(string $line_uid, string $display_name, string $picture_url, string $email, bool $is_friend, string $access_token, string $redirect): void {
+        $user_id = $this->api->createNewUser($line_uid, $display_name, $picture_url, $email);
         if (is_wp_error($user_id)) {
             // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('[LINE Hub] LIFF user creation failed: ' . $user_id->get_error_message());

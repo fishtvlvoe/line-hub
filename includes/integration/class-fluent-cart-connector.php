@@ -125,51 +125,62 @@ class FluentCartConnector {
         }
 
         $user_id = get_current_user_id();
+        $data = self::getBindingData($user_id);
+        if ($data === null) {
+            return;
+        }
+
+        // 展開變數供模板使用
+        $binding      = $data['binding'];
+        $is_bound     = $data['is_bound'];
+        $display_name = $data['display_name'];
+        $picture_url  = $data['picture_url'];
+        $linked_at    = $data['linked_at'];
+        $bind_url     = $data['bind_url'];
+        $nonce        = $data['nonce'];
+        $rest_url     = $data['rest_url'];
+
+        self::enqueueBindingAssets();
+        include LINE_HUB_PATH . 'includes/templates/fluentcart-binding.php';
+    }
+
+    private static function getBindingData(int $user_id): ?array {
         $binding = UserService::getBinding($user_id);
         $liff_id = SettingsService::get('general', 'liff_id', '');
         $login_channel_id = SettingsService::get('general', 'login_channel_id', '');
         $has_login_configured = !empty($liff_id) || !empty($login_channel_id) || !empty(SettingsService::get('general', 'channel_id', ''));
 
         if (!$has_login_configured) {
-            return;
+            return null;
         }
 
-        // LIFF 綁定 URL
         $bind_url = '';
         if (!empty($liff_id)) {
             $my_account_url = home_url('/my-account/');
             $bind_url = home_url('/line-hub/liff/?redirect=' . urlencode($my_account_url));
         }
 
-        $nonce = wp_create_nonce('wp_rest');
-        $rest_url = rest_url('line-hub/v1/user/binding');
-
-        // 判斷資料
         $is_bound = $binding && !empty($binding->line_uid);
-        $display_name = $is_bound && !empty($binding->display_name) ? $binding->display_name : '';
         $picture_url = $is_bound && !empty($binding->picture_url) ? $binding->picture_url : '';
-        $linked_at = $is_bound && !empty($binding->created_at) ? $binding->created_at : '';
-
         if (empty($picture_url) && $is_bound) {
             $picture_url = get_user_meta($user_id, 'line_hub_avatar_url', true);
         }
 
-        // 載入 CSS
-        wp_enqueue_style(
-            'line-hub-fluentcart-binding',
-            LINE_HUB_URL . 'assets/css/fluentcart-binding.css',
-            [],
-            LINE_HUB_VERSION
-        );
+        return [
+            'binding'      => $binding,
+            'is_bound'     => $is_bound,
+            'display_name' => $is_bound && !empty($binding->display_name) ? $binding->display_name : '',
+            'picture_url'  => $picture_url,
+            'linked_at'    => $is_bound && !empty($binding->created_at) ? $binding->created_at : '',
+            'bind_url'     => $bind_url,
+            'nonce'        => wp_create_nonce('wp_rest'),
+            'rest_url'     => rest_url('line-hub/v1/user/binding'),
+        ];
+    }
 
-        // 載入解綁 JS + i18n
-        wp_enqueue_script(
-            'line-hub-fluentcart-binding',
-            LINE_HUB_URL . 'assets/js/fluentcart-binding.js',
-            [],
-            LINE_HUB_VERSION,
-            true
-        );
+    private static function enqueueBindingAssets(): void {
+        wp_enqueue_style('line-hub-fluentcart-binding', LINE_HUB_URL . 'assets/css/fluentcart-binding.css', [], LINE_HUB_VERSION);
+        wp_enqueue_script('line-hub-fluentcart-binding', LINE_HUB_URL . 'assets/js/fluentcart-binding.js', [], LINE_HUB_VERSION, true);
         wp_localize_script('line-hub-fluentcart-binding', 'lineHubFcBinding', [
             'confirmUnbind' => __('確定要解除 LINE 綁定嗎？', 'line-hub'),
             'processing'    => __('處理中...', 'line-hub'),
@@ -178,8 +189,5 @@ class FluentCartConnector {
             'unbindLabel'   => __('解除綁定', 'line-hub'),
             'networkError'  => __('網路錯誤，請稍後再試', 'line-hub'),
         ]);
-
-        // 載入 HTML 模板
-        include LINE_HUB_PATH . 'includes/templates/fluentcart-binding.php';
     }
 }
