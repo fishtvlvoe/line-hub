@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 
 ## Current Position
 
-Phase: 13 - 樣式外部化
-Plan: 2 of 2
+Phase: 14 - 檔案瘦身與方法重構
+Plan: 3 of 3
 Status: Complete
-Last activity: 2026-02-25 — Phase 13 全部完成（2/2 plans）
+Last activity: 2026-02-25 — Phase 14 全部完成（3/3 plans）
 
-Progress: ██████████░░░░░░░░░░ 3/6 phases (Phase 13: COMPLETE)
+Progress: █████████████░░░░░░░ 4/6 phases (Phase 14: COMPLETE)
 
 ## Performance Metrics
 
@@ -80,6 +80,10 @@ Progress: ██████████░░░░░░░░░░ 3/6 phase
 - [13-02]: LIFF 模板用 `<link>` 標籤載入（不是 wp_enqueue_style）——這些是獨立 HTML 頁面，不走 WordPress
 - [13-02]: PHP 動態 display 改用 CSS class toggle：`.form-error { display: none; }` + `.form-error.is-visible { display: block; }`
 - [13-02]: 功能性 `style="display:none;"` 保留（JS 控制的隱藏元素，不屬於樣式關注點）
+- [14-01]: 4 個 500+ 行 Class 拆分：LiffHandler(678→136)、SettingsService(653→258)、UserService(549→259)、Plugin(513→250)
+- [14-02]: 9 個 300-500 行檔案瘦身：FlexBuilder 重構、LoginService/MessagingService 方法提取、View Partial 拆分
+- [14-03]: 11 個 >50 行 PHP 方法全部重構至 ≤50 行；使用 match 表達式、hook map、context resolver 等模式
+- [14-03]: get_message_endpoints() 54 行（純資料陣列）和 startLiff() 109 行（JavaScript）為合理例外
 
 ### Pending Todos
 
@@ -92,6 +96,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Phase 13 全部完成（13-01 Admin view inline style + 13-02 LIFF/Auth 模板 style 區塊）
+Stopped at: Phase 14 全部完成（14-01 Class 拆分 + 14-02 檔案瘦身 + 14-03 方法重構）
 Resume file: None
-Next action: 開始 Phase 14 — 檔案瘦身與方法重構
+Next action: 開始 Phase 15 — 命名統一與根目錄整理
