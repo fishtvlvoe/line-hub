@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 ## Current Position
 
 Phase: 11 - 安全補齊與常數統一
-Plan: 2 of 3
-Status: In progress
-Last activity: 2026-02-24 — 11-02 Open Redirect 漏洞修正完成
+Plan: 3 of 3
+Status: Complete
+Last activity: 2026-02-24 — Phase 11 全部完成（3/3 plans）
 
-Progress: ░░░░░░░░░░░░░░░░░░░░ 0/6 phases (Phase 11: 2/3 plans)
+Progress: ███░░░░░░░░░░░░░░░░░ 1/6 phases (Phase 11: COMPLETE)
 
 ## Performance Metrics
 
@@ -68,6 +68,9 @@ Progress: ░░░░░░░░░░░░░░░░░░░░ 0/6 phase
 - [11-01]: drop_tables() 後仍補刪 options，確保雙重保險
 - [11-02]: resolveRedirectUrl 改用 wp_validate_redirect 取代 esc_url_raw，從根源阻擋外部跳轉
 - [11-02]: OAuth redirect 入口改用 sanitize_text_field 而非 esc_url_raw，保留相對路徑格式
+- [11-03]: LineApiEndpoints 常數類別集中管理 6 個 LINE API URL
+- [11-03]: 使用 use 語句引用常數類別（而非完整命名空間路徑），保持可讀性
+- [11-03]: AUTH_ENDPOINT（access.line.me）保留在 OAuthClient — 這是授權端點而非 API 端點
 
 ### Pending Todos
 
@@ -80,6 +83,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed 11-02-PLAN.md (Open Redirect 漏洞修正)
+Stopped at: Phase 11 全部完成（11-01 安全清理 + 11-02 Open Redirect + 11-03 常數統一）
 Resume file: None
-Next action: 執行 11-03-PLAN.md — LINE API URL 統一常數類別
+Next action: 開始 Phase 12 — 內嵌 HTML/JS/CSS 清除
