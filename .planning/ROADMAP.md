@@ -293,7 +293,12 @@ Plans:
   3. 用靜態分析掃描所有方法，零個超過 50 行（28 個長方法全部重構完成）
   4. Autoloader 正確載入所有拆分後的新類別（無 class not found 錯誤）
   5. LINE 登入完整流程（OAuth callback → 帳號建立 → 重定向）在拆分後正常運作
-**Plans**: TBD
+**Plans**: 3 plans in 2 waves
+
+Plans:
+- [ ] 14-01-PLAN.md — 4 個 500+ 行 Class 拆分（LiffHandler, SettingsService, UserService, Plugin）
+- [ ] 14-02-PLAN.md — 9 個 300-500 行檔案瘦身（方法重構 + FlexElements 提取 + View Partial）
+- [ ] 14-03-PLAN.md — 全部 26 個 50+ 行方法縮短 + 最終驗證
 
 ### Phase 15: 命名統一與根目錄整理
 **Goal**: PHP 類名風格統一為純 CamelCase，根目錄乾淨無散落開發文件
@@ -339,6 +344,6 @@ v3.0: 11 → 12 → 13 → 14 → 15 → 16
 | 11. 安全補齊與常數統一 | v3.0 | 3/3 | Complete | 2026-02-24 |
 | 12. 內嵌清除 | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 13. 樣式外部化 | v3.0 | 2/2 | Complete | 2026-02-25 |
-| 14. 檔案瘦身與方法重構 | v3.0 | 0/? | Not started | - |
+| 14. 檔案瘦身與方法重構 | v3.0 | 0/3 | Planned | - |
 | 15. 命名統一與根目錄整理 | v3.0 | 0/? | Not started | - |
 | 16. 測試框架 | v3.0 | 0/? | Not started | - |
