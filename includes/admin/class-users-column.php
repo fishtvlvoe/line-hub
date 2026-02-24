@@ -138,14 +138,14 @@ class UsersColumn {
     }
 
     /**
-     * 內嵌最小 CSS
+     * 載入用戶列表 LINE 欄位樣式
      */
     public static function inline_css(): void {
-        echo '<style>
-            .column-line_binding { width: 60px; text-align: center; }
-            .line-hub-binding-linked { color: #06C755; font-size: 16px; }
-            .line-hub-binding-none { color: #ccc; }
-            .line-hub-binding-source { display: block; color: #888; font-size: 11px; }
-        </style>';
+        wp_enqueue_style(
+            'line-hub-users-column',
+            LINE_HUB_URL . 'assets/css/users-column.css',
+            [],
+            LINE_HUB_VERSION
+        );
     }
 }

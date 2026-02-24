@@ -361,27 +361,20 @@ final class Plugin {
      * 載入前端資源
      */
     public function enqueue_frontend_assets(): void {
-        // LIFF 登入歡迎 Toast（透過 wp_head 注入，相容所有模板）
+        // LIFF 登入歡迎 Toast
         if (isset($_COOKIE['line_hub_welcome']) && is_user_logged_in()) {
             $user = wp_get_current_user();
-            $display_name = esc_js($user->display_name);
-            add_action('wp_head', function () use ($display_name) {
-                ?>
-                <script>
-                document.addEventListener('DOMContentLoaded', function(){
-                    var d = document.createElement('div');
-                    d.id = 'lineHubToast';
-                    d.innerHTML = '已以 <strong><?php echo esc_html($display_name); ?></strong> 登入';
-                    d.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:999999;background:#06C755;color:#fff;text-align:center;padding:12px 16px;font-size:15px;font-weight:500;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;transform:translateY(-100%);transition:transform .3s ease;';
-                    document.body.insertBefore(d, document.body.firstChild);
-                    setTimeout(function(){ d.style.transform = 'translateY(0)'; }, 300);
-                    setTimeout(function(){ d.style.transform = 'translateY(-100%)'; }, 4000);
-                    setTimeout(function(){ d.remove(); }, 4500);
-                    document.cookie = 'line_hub_welcome=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                });
-                </script>
-                <?php
-            }, 999);
+            wp_enqueue_script(
+                'line-hub-welcome-toast',
+                LINE_HUB_URL . 'assets/js/welcome-toast.js',
+                [],
+                LINE_HUB_VERSION,
+                true
+            );
+            wp_localize_script('line-hub-welcome-toast', 'lineHubWelcomeToast', [
+                'displayName' => $user->display_name,
+                'message'     => __('已以 {name} 登入', 'line-hub'),
+            ]);
         }
     }
 

@@ -1,0 +1,11 @@
+/**
+ * 用戶列表 LINE 綁定欄位樣式
+ *
+ * @package LineHub
+ * @since 3.0.0
+ */
+
+.column-line_binding { width: 60px; text-align: center; }
+.line-hub-binding-linked { color: #06C755; font-size: 16px; }
+.line-hub-binding-none { color: #ccc; }
+.line-hub-binding-source { display: block; color: #888; font-size: 11px; }
