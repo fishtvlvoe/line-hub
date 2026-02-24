@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** 讓任何 WordPress 外掛都能透過標準化的 Hook 或 REST API 發送 LINE 通知給用戶
-**Current focus:** v2.0 重構與擴展 — Phase 10 開發者體驗完成，v2.0 里程碑完結
+**Current focus:** v3.0 熵減重構 — 為 WebinarGo 開發打穩地基
 
 ## Current Position
 
-Phase: 10 (開發者體驗) -- 完成
-Plan: 2 of 2
-Status: **v2.0 Milestone COMPLETE**
-Last activity: 2026-02-24 — 完成 Phase 10 開發者體驗（REST API 文件、Hook 文件、API 使用記錄）
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-02-24 — Milestone v3.0 started
 
 ## Performance Metrics
 
@@ -52,10 +52,13 @@ Last activity: 2026-02-24 — 完成 Phase 10 開發者體驗（REST API 文件�
 - [10-01]: DeveloperTab 用結構化資料（array）驅動 view 模板，不在模板中硬編碼
 - [10-02]: ApiLogger 用 wp_options 儲存（避免建新資料表），保留 100 筆
 - [10-02]: 僅記錄 API Key 認證的呼叫（管理員 Cookie 不記錄），避免 log 膨脹
+- [v3.0]: 熵減重構優先於 WebinarGo — 地基穩了才往上蓋（用戶決策）
+- [v3.0]: 掃描結果：熵減評分 52/100，目標 ≥ 85/100
+- [v3.0]: profile-binding 已完成拆分（CSS + JS + Template），作為 v3.0 前置工作
 
 ### Pending Todos
 
-None. v2.0 里程碑已完成。
+None. 正在定義 v3.0 requirements。
 
 ### Blockers/Concerns
 
@@ -64,6 +67,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: Completed Phase 10 (開發者體驗) — 2 plans, 3 commits, v2.0 milestone complete
+Stopped at: v3.0 milestone 初始化中，正在定義 requirements
 Resume file: None
-Next action: 部署 v2.0 到 test.buygo.me 進行端到端驗證
+Next action: 完成 requirements 定義 → roadmap 建立
