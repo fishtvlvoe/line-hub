@@ -510,16 +510,35 @@ class LiffHandler {
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
         error_log('[LINE Hub] LIFF creating user: ' . $username . ' (' . $email . ')');
 
+        // 從設定讀取預設角色
+        $default_roles = SettingsService::get('general', 'default_roles', ['subscriber']);
+        if (empty($default_roles) || !is_array($default_roles)) {
+            $default_roles = ['subscriber'];
+        }
+        $primary_role = $default_roles[0];
+
         $user_id = wp_insert_user([
             'user_login'   => $username,
             'user_email'   => $email,
             'user_pass'    => wp_generate_password(12, false),
             'display_name' => !empty($display_name) ? $display_name : $username,
-            'role'         => 'subscriber',
+            'first_name'   => !empty($display_name) ? $display_name : '',
+            'nickname'     => !empty($display_name) ? $display_name : $username,
+            'role'         => $primary_role,
         ]);
 
         if (is_wp_error($user_id)) {
             return $user_id;
+        }
+
+        // 指派額外角色（設定中勾選的其他角色）
+        if (count($default_roles) > 1) {
+            $user = get_user_by('ID', $user_id);
+            if ($user) {
+                for ($i = 1; $i < count($default_roles); $i++) {
+                    $user->add_role($default_roles[$i]);
+                }
+            }
         }
 
         // 標記為 LIFF 建立的帳號
