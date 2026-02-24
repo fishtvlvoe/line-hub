@@ -246,9 +246,9 @@ Plans:
 **Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 11-01-PLAN.md — uninstall.php 清理邏輯 + 20 個目錄 index.php 防護
-- [ ] 11-02-PLAN.md — Open Redirect 漏洞修正 + 輸入 sanitize 補齊
-- [ ] 11-03-PLAN.md — LINE API URL 統一常數類別 + 4 個檔案 URL 替換
+- [x] 11-01-PLAN.md — uninstall.php 清理邏輯 + 20 個目錄 index.php 防護
+- [x] 11-02-PLAN.md — Open Redirect 漏洞修正 + 輸入 sanitize 補齊
+- [x] 11-03-PLAN.md — LINE API URL 統一常數類別 + 4 個檔案 URL 替換
 
 ### Phase 12: 內嵌清除
 **Goal**: 所有 Class 檔案零內嵌 CSS/JS/HTML，前端資源全部透過 WordPress 標準機制載入
@@ -260,7 +260,11 @@ Plans:
   3. Class 檔案中無大段 HTML echo/printf，HTML 全部移到 `includes/templates/` 或 `includes/views/` 模板
   4. FluentCart 產品頁的 LINE 綁定區塊正常顯示且功能不變（renderBindingSection 拆分後驗證）
   5. 後台設定頁、用戶列表欄位、歡迎 Toast 等 UI 元素外觀和行為不變
-**Plans**: TBD
+**Plans**: 2 plans in 1 wave
+
+Plans:
+- [ ] 12-01-PLAN.md — UsersColumn CSS + Plugin Toast JS 提取到獨立檔案
+- [ ] 12-02-PLAN.md — FluentCartConnector CSS/JS/HTML 全部提取到獨立檔案和模板
 
 ### Phase 13: 樣式外部化
 **Goal**: 所有 view 模板和 LIFF 模板的 inline style 移到獨立 CSS 檔案，實現樣式集中管理
@@ -326,8 +330,8 @@ v3.0: 11 → 12 → 13 → 14 → 15 → 16
 | 8. 驗證與修復 | v2.0 | 2/2 | Complete | 2026-02-24 |
 | 9. Tab 重構 | v2.0 | 3/3 | Complete | 2026-02-24 |
 | 10. 開發者體驗 | v2.0 | 2/2 | Complete | 2026-02-24 |
-| 11. 安全補齊與常數統一 | 2/3 | In Progress|  | - |
-| 12. 內嵌清除 | v3.0 | 0/? | Not started | - |
+| 11. 安全補齊與常數統一 | v3.0 | 3/3 | Complete | 2026-02-24 |
+| 12. 內嵌清除 | v3.0 | 0/2 | Not started | - |
 | 13. 樣式外部化 | v3.0 | 0/? | Not started | - |
 | 14. 檔案瘦身與方法重構 | v3.0 | 0/? | Not started | - |
 | 15. 命名統一與根目錄整理 | v3.0 | 0/? | Not started | - |
