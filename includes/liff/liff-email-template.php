@@ -26,133 +26,8 @@ if (!defined('ABSPATH')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo esc_html(get_bloginfo('name')); ?> - 完成註冊</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f5f5;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .email-container {
-            background: #fff;
-            border-radius: 16px;
-            padding: 32px 24px;
-            max-width: 360px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-        }
-        .profile-section {
-            margin-bottom: 24px;
-        }
-        .profile-avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            margin: 0 auto 12px;
-            overflow: hidden;
-            background: #e0e0e0;
-        }
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .profile-name {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 4px;
-        }
-        .profile-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 12px;
-            color: #06C755;
-            background: #e8f8ee;
-            padding: 4px 10px;
-            border-radius: 12px;
-        }
-        .form-section {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            color: #555;
-            margin-bottom: 8px;
-        }
-        .form-hint {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 16px;
-            text-align: center;
-            line-height: 1.5;
-        }
-        .form-input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.2s;
-            -webkit-appearance: none;
-        }
-        .form-input:focus {
-            border-color: #06C755;
-        }
-        .form-input.has-error {
-            border-color: #e74c3c;
-        }
-        .form-error {
-            color: #e74c3c;
-            font-size: 13px;
-            margin-top: 8px;
-            display: <?php echo !empty($error) ? 'block' : 'none'; ?>;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 15px;
-            text-decoration: none;
-            text-align: center;
-            cursor: pointer;
-            border: none;
-            margin-bottom: 10px;
-            transition: opacity 0.2s;
-        }
-        .btn:active { opacity: 0.8; }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .btn-primary {
-            background: #06C755;
-            color: #fff;
-        }
-        .btn-skip {
-            background: transparent;
-            color: #999;
-            font-size: 13px;
-            font-weight: 400;
-            padding: 8px;
-            margin-bottom: 0;
-        }
-        .btn-skip:hover {
-            color: #666;
-        }
-    </style>
+    <?php $lh_ver = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0'; ?>
+    <link rel="stylesheet" href="<?php echo esc_url(plugins_url('assets/css/liff-email.css', dirname(dirname(__FILE__)))); ?>?ver=<?php echo esc_attr($lh_ver); ?>">
 </head>
 <body>
     <div class="email-container">
@@ -193,7 +68,7 @@ if (!defined('ABSPATH')) {
                     inputmode="email"
                     required
                 >
-                <div class="form-error" id="emailError"><?php echo esc_html($error); ?></div>
+                <div class="form-error <?php echo !empty($error) ? 'is-visible' : ''; ?>" id="emailError"><?php echo esc_html($error); ?></div>
             </div>
 
             <button type="submit" class="btn btn-primary" id="submitBtn">

@@ -1,0 +1,137 @@
+/**
+ * LIFF Email 收集表單樣式
+ *
+ * 獨立 HTML 頁面用，透過 <link> 標籤載入
+ *
+ * @package LineHub
+ * @since 3.0.0
+ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.email-container {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 24px;
+    max-width: 360px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.profile-section {
+    margin-bottom: 24px;
+}
+.profile-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    overflow: hidden;
+    background: #e0e0e0;
+}
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.profile-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+.profile-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #06C755;
+    background: #e8f8ee;
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+.form-section {
+    text-align: left;
+    margin-bottom: 20px;
+}
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 8px;
+}
+.form-hint {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 16px;
+    text-align: center;
+    line-height: 1.5;
+}
+.form-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+}
+.form-input:focus {
+    border-color: #06C755;
+}
+.form-input.has-error {
+    border-color: #e74c3c;
+}
+.form-error {
+    color: #e74c3c;
+    font-size: 13px;
+    margin-top: 8px;
+    display: none;
+}
+.form-error.is-visible {
+    display: block;
+}
+.btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    margin-bottom: 10px;
+    transition: opacity 0.2s;
+}
+.btn:active { opacity: 0.8; }
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.btn-primary {
+    background: #06C755;
+    color: #fff;
+}
+.btn-skip {
+    background: transparent;
+    color: #999;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 8px;
+    margin-bottom: 0;
+}
+.btn-skip:hover {
+    color: #666;
+}
