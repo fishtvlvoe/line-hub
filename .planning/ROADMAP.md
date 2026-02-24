@@ -239,11 +239,16 @@ Plans:
 **Requirements**: SEC-08, SEC-09, SEC-10, CONST-01, CONST-02
 **Success Criteria** (what must be TRUE):
   1. 停用並刪除外掛後，`wp_line_hub_users` 資料表、所有 `line_hub_*` options、所有相關 transients 被完整清除（uninstall.php 生效）
-  2. 直接訪問任何外掛子目錄的 URL（如 `/wp-content/plugins/line-hub/includes/`）回傳空白頁而非目錄列表（21 個 index.php 到位）
+  2. 直接訪問任何外掛子目錄的 URL（如 `/wp-content/plugins/line-hub/includes/`）回傳空白頁而非目錄列表（20 個 index.php 到位）
   3. 在 LINE 登入 callback URL 中注入外部網址（如 `redirect_to=https://evil.com`），系統拒絕跳轉並導回首頁（Open Redirect 修正）
   4. 用 `grep -r "https://api.line.me" includes/` 搜尋，結果為零（所有 LINE API URL 集中在常數類別）
   5. 現有功能（LINE 登入、LIFF、通知發送、Webhook）在安全補齊後全部正常運作
-**Plans**: TBD
+**Plans**: 3 plans in 2 waves
+
+Plans:
+- [ ] 11-01-PLAN.md — uninstall.php 清理邏輯 + 20 個目錄 index.php 防護
+- [ ] 11-02-PLAN.md — Open Redirect 漏洞修正 + 輸入 sanitize 補齊
+- [ ] 11-03-PLAN.md — LINE API URL 統一常數類別 + 4 個檔案 URL 替換
 
 ### Phase 12: 內嵌清除
 **Goal**: 所有 Class 檔案零內嵌 CSS/JS/HTML，前端資源全部透過 WordPress 標準機制載入
@@ -321,7 +326,7 @@ v3.0: 11 → 12 → 13 → 14 → 15 → 16
 | 8. 驗證與修復 | v2.0 | 2/2 | Complete | 2026-02-24 |
 | 9. Tab 重構 | v2.0 | 3/3 | Complete | 2026-02-24 |
 | 10. 開發者體驗 | v2.0 | 2/2 | Complete | 2026-02-24 |
-| 11. 安全補齊與常數統一 | v3.0 | 0/? | Not started | - |
+| 11. 安全補齊與常數統一 | v3.0 | 0/3 | Planning complete | - |
 | 12. 內嵌清除 | v3.0 | 0/? | Not started | - |
 | 13. 樣式外部化 | v3.0 | 0/? | Not started | - |
 | 14. 檔案瘦身與方法重構 | v3.0 | 0/? | Not started | - |
