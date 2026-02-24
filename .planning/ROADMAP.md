@@ -226,7 +226,7 @@ Plans:
 
 - [x] **Phase 11: 安全補齊與常數統一** - 基礎衛生和 LINE API URL 集中管理
 - [x] **Phase 12: 內嵌清除** - Class 中 CSS/JS/HTML 全部拆到獨立檔案
-- [ ] **Phase 13: 樣式外部化** - Admin View 和 LIFF 模板的 inline style 移到 CSS 檔案
+- [x] **Phase 13: 樣式外部化** - Admin View 和 LIFF 模板的 inline style 移到 CSS 檔案
 - [ ] **Phase 14: 檔案瘦身與方法重構** - 大檔案拆分 + 長方法縮短
 - [ ] **Phase 15: 命名統一與根目錄整理** - 類名 CamelCase 統一 + 開發文件歸檔
 - [ ] **Phase 16: 測試框架** - composer + phpunit + 核心服務基本覆蓋
@@ -267,10 +267,6 @@ Plans:
 - [x] 12-01-PLAN.md — UsersColumn CSS + Plugin Toast JS 提取到獨立檔案
 - [x] 12-02-PLAN.md — FluentCartConnector CSS/JS/HTML 全部提取（403→185 行）
 
-Plans:
-- [ ] 12-01-PLAN.md — UsersColumn CSS + Plugin Toast JS 提取到獨立檔案
-- [ ] 12-02-PLAN.md — FluentCartConnector CSS/JS/HTML 全部提取到獨立檔案和模板
-
 ### Phase 13: 樣式外部化
 **Goal**: 所有 view 模板和 LIFF 模板的 inline style 移到獨立 CSS 檔案，實現樣式集中管理
 **Depends on**: Phase 12
@@ -280,11 +276,12 @@ Plans:
   2. LIFF 登入頁面（`liff-template.php`）和 Email 表單頁面載入獨立 CSS 檔案，頁面中無 `<style>` 區塊
   3. 後台 5 個 Tab（嚮導、LINE 設定、登入設定、Webhook、開發者）的視覺排版與重構前完全一致
   4. LIFF 在 LINE App 內開啟，登入頁面和 Email 表單的樣式正常顯示
-**Plans**: 2 plans in 1 wave
+**Status**: COMPLETE (2026-02-25)
+**Plans**: 2 plans in 1 wave (completed)
 
 Plans:
-- [ ] 13-01-PLAN.md — Admin view 模板 inline style 外部化到 admin-views.css
-- [ ] 13-02-PLAN.md — LIFF/Email 模板 `<style>` 區塊提取到獨立 CSS 檔案
+- [x] 13-01-PLAN.md — Admin view 模板 inline style 外部化到 admin-views.css（68 個 CSS class）
+- [x] 13-02-PLAN.md — LIFF/Auth 模板 `<style>` 區塊提取到 3 個獨立 CSS 檔案
 
 ### Phase 14: 檔案瘦身與方法重構
 **Goal**: 所有 PHP 檔案控制在 300 行以內（零 500+ 行違規），所有方法控制在 50 行以內
@@ -341,7 +338,7 @@ v3.0: 11 → 12 → 13 → 14 → 15 → 16
 | 10. 開發者體驗 | v2.0 | 2/2 | Complete | 2026-02-24 |
 | 11. 安全補齊與常數統一 | v3.0 | 3/3 | Complete | 2026-02-24 |
 | 12. 內嵌清除 | v3.0 | 2/2 | Complete | 2026-02-25 |
-| 13. 樣式外部化 | v3.0 | 0/2 | Planned | - |
+| 13. 樣式外部化 | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 14. 檔案瘦身與方法重構 | v3.0 | 0/? | Not started | - |
 | 15. 命名統一與根目錄整理 | v3.0 | 0/? | Not started | - |
 | 16. 測試框架 | v3.0 | 0/? | Not started | - |

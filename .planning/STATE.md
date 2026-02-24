@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 
 ## Current Position
 
-Phase: 12 - 內嵌清除
+Phase: 13 - 樣式外部化
 Plan: 2 of 2
 Status: Complete
-Last activity: 2026-02-25 — Phase 12 全部完成（2/2 plans）
+Last activity: 2026-02-25 — Phase 13 全部完成（2/2 plans）
 
-Progress: ██████░░░░░░░░░░░░░░ 2/6 phases (Phase 12: COMPLETE)
+Progress: ██████████░░░░░░░░░░ 3/6 phases (Phase 13: COMPLETE)
 
 ## Performance Metrics
 
@@ -74,6 +74,12 @@ Progress: ██████░░░░░░░░░░░░░░ 2/6 phase
 - [12-01]: UsersColumn inline CSS 改用 wp_enqueue_style，Plugin Toast 改用 wp_enqueue_script + wp_localize_script
 - [12-02]: FluentCartConnector 403→185 行：CSS/JS/HTML 全部拆出（4 個新檔案 + 1 個模板）
 - [12-02]: Admin notices（settings-page/auto-updater 的單行 echo）保留——WordPress 標準慣例，不需拆模板
+- [13-01]: Admin view 的 ~78 個 inline style 全部移到 admin-views.css（68 個 CSS class），透過 wp_enqueue_style 載入
+- [13-01]: 動態 PHP class 切換（如 radio margin）用條件 class 替代 inline style：`class="<?php echo $value !== 'small' ? 'lh-radio-inline-spaced' : ''; ?>"`
+- [13-02]: LIFF/Auth 模板的 `<style>` 區塊提取到 3 個獨立 CSS 檔案（liff-login.css、liff-email.css、auth-email-form.css）
+- [13-02]: LIFF 模板用 `<link>` 標籤載入（不是 wp_enqueue_style）——這些是獨立 HTML 頁面，不走 WordPress
+- [13-02]: PHP 動態 display 改用 CSS class toggle：`.form-error { display: none; }` + `.form-error.is-visible { display: block; }`
+- [13-02]: 功能性 `style="display:none;"` 保留（JS 控制的隱藏元素，不屬於樣式關注點）
 
 ### Pending Todos
 
@@ -86,6 +92,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Phase 12 全部完成（12-01 UsersColumn+Plugin + 12-02 FluentCartConnector）
+Stopped at: Phase 13 全部完成（13-01 Admin view inline style + 13-02 LIFF/Auth 模板 style 區塊）
 Resume file: None
-Next action: 開始 Phase 13 — 樣式外部化
+Next action: 開始 Phase 14 — 檔案瘦身與方法重構
