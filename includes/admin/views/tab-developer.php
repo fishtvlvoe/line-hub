@@ -30,7 +30,7 @@ $rest_base = rest_url('line-hub/v1');
 ?>
 
 <!-- 快速導航 -->
-<div class="lh-dev-card" style="margin-top: 0;">
+<div class="lh-dev-card lh-mt-0">
     <h2>開發者工具</h2>
     <p class="description">
         整合 LINE Hub 所需的所有資訊。透過 REST API（外部系統）或 WordPress Hooks（同主機外掛）與 LINE Hub 互動。
@@ -52,18 +52,15 @@ $rest_base = rest_url('line-hub/v1');
     </p>
 
     <?php if ($new_api_key) : ?>
-        <div style="background: #dcfce7; border: 1px solid #86efac; border-radius: 6px;
-                    padding: 16px; margin: 16px 0;">
-            <p style="margin: 0 0 8px 0; font-weight: 600; color: #166534;">
+        <div class="lh-api-key-banner">
+            <p class="lh-api-key-banner-title">
                 API Key 已產生 — 請立即複製保存，此 Key 不會再顯示！
             </p>
-            <code style="font-size: 14px; background: #fff; padding: 8px 12px;
-                         display: inline-block; border: 1px solid #86efac; user-select: all;">
+            <code class="lh-api-key-code">
                 <?php echo esc_html($new_api_key); ?>
             </code>
-            <button type="button" class="button button-small line-hub-copy-btn"
-                    data-copy="<?php echo esc_attr($new_api_key); ?>"
-                    style="margin-left: 8px;">
+            <button type="button" class="button button-small line-hub-copy-btn lh-ml-8"
+                    data-copy="<?php echo esc_attr($new_api_key); ?>">
                 複製
             </button>
         </div>
@@ -84,19 +81,18 @@ $rest_base = rest_url('line-hub/v1');
         </table>
         <form method="post"
               action="<?php echo esc_url(admin_url('admin-post.php')); ?>"
-              style="margin-top: 10px;"
+              class="lh-mt-10"
               onsubmit="return confirm('確定要撤銷此 API Key？撤銷後所有使用此 Key 的外部系統將無法連線。');">
             <?php wp_nonce_field('line_hub_api_key_action', 'line_hub_api_nonce'); ?>
             <input type="hidden" name="action" value="line_hub_revoke_api_key">
-            <button type="submit" class="button button-secondary"
-                    style="color: #dc2626;">
+            <button type="submit" class="button button-secondary lh-text-danger">
                 撤銷 API Key
             </button>
         </form>
     <?php else : ?>
         <form method="post"
               action="<?php echo esc_url(admin_url('admin-post.php')); ?>"
-              style="margin-top: 16px;">
+              class="lh-mt-16">
             <?php wp_nonce_field('line_hub_api_key_action', 'line_hub_api_nonce'); ?>
             <input type="hidden" name="action" value="line_hub_generate_api_key">
             <button type="submit" class="button button-primary">
@@ -121,7 +117,7 @@ $rest_base = rest_url('line-hub/v1');
                     <?php echo esc_html($ep['method']); ?>
                 </span>
                 <span class="lh-dev-endpoint-path"><?php echo esc_html($ep['path']); ?></span>
-                <span style="margin-left: auto; font-size: 13px; color: #6b7280;">
+                <span class="lh-endpoint-title">
                     <?php echo esc_html($ep['title']); ?>
                 </span>
             </div>
@@ -132,9 +128,9 @@ $rest_base = rest_url('line-hub/v1');
                     <table class="lh-dev-params-table">
                         <thead>
                             <tr>
-                                <th style="width: 120px;">參數</th>
-                                <th style="width: 80px;">型別</th>
-                                <th style="width: 120px;">必填</th>
+                                <th class="lh-col-120">參數</th>
+                                <th class="lh-col-80">型別</th>
+                                <th class="lh-col-120">必填</th>
                                 <th>說明</th>
                             </tr>
                         </thead>
@@ -189,8 +185,8 @@ $rest_base = rest_url('line-hub/v1');
                 <table class="lh-dev-params-table">
                     <thead>
                         <tr>
-                            <th style="width: 120px;">參數</th>
-                            <th style="width: 80px;">型別</th>
+                            <th class="lh-col-120">參數</th>
+                            <th class="lh-col-80">型別</th>
                             <th>說明</th>
                         </tr>
                     </thead>
@@ -228,8 +224,8 @@ $rest_base = rest_url('line-hub/v1');
                 <table class="lh-dev-params-table">
                     <thead>
                         <tr>
-                            <th style="width: 120px;">參數</th>
-                            <th style="width: 80px;">型別</th>
+                            <th class="lh-col-120">參數</th>
+                            <th class="lh-col-80">型別</th>
                             <th>說明</th>
                         </tr>
                     </thead>
@@ -263,18 +259,18 @@ $rest_base = rest_url('line-hub/v1');
     </p>
 
     <?php if (empty($api_logs)) : ?>
-        <p style="color: #999; margin-top: 16px;">
+        <p class="lh-text-muted lh-mt-16">
             尚無 API 呼叫記錄。當外部系統透過 API Key 呼叫 REST API 端點時，記錄會顯示在這裡。
         </p>
     <?php else : ?>
-        <table class="lh-dev-log-table" style="margin-top: 16px;">
+        <table class="lh-dev-log-table lh-mt-16">
             <thead>
                 <tr>
-                    <th style="width: 160px;">時間</th>
-                    <th style="width: 130px;">來源 IP</th>
-                    <th style="width: 80px;">方法</th>
+                    <th class="lh-col-160">時間</th>
+                    <th class="lh-col-130">來源 IP</th>
+                    <th class="lh-col-80">方法</th>
                     <th>端點</th>
-                    <th style="width: 80px;">結果</th>
+                    <th class="lh-col-80">結果</th>
                 </tr>
             </thead>
             <tbody>
@@ -292,7 +288,7 @@ $rest_base = rest_url('line-hub/v1');
                             ?>
                         </td>
                         <td>
-                            <code style="font-size: 12px;"><?php echo esc_html($log['ip'] ?? '-'); ?></code>
+                            <code class="lh-code-ip"><?php echo esc_html($log['ip'] ?? '-'); ?></code>
                         </td>
                         <td>
                             <span class="lh-dev-method lh-dev-method-<?php echo esc_attr(strtolower($log['method'] ?? 'get')); ?>">
@@ -300,7 +296,7 @@ $rest_base = rest_url('line-hub/v1');
                             </span>
                         </td>
                         <td>
-                            <code style="font-size: 12px;"><?php echo esc_html($log['endpoint'] ?? '-'); ?></code>
+                            <code class="lh-code-ip"><?php echo esc_html($log['endpoint'] ?? '-'); ?></code>
                         </td>
                         <td>
                             <?php if (($log['status'] ?? '') === 'success') : ?>

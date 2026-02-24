@@ -63,6 +63,7 @@ class SettingsPage {
         $ver = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0';
         wp_enqueue_style('line-hub-admin-tabs', $url . 'assets/css/admin-tabs.css', [], $ver);
         wp_enqueue_style('line-hub-developer-tab', $url . 'assets/css/developer-tab.css', [], $ver);
+        wp_enqueue_style('line-hub-admin-views', $url . 'assets/css/admin-views.css', [], $ver);
         wp_enqueue_script('line-hub-admin-tabs', $url . 'assets/js/admin-tabs.js', [], $ver, true);
     }
 

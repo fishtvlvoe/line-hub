@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<div class="card" style="max-width: 1000px;">
+<div class="card lh-card-narrow">
     <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <?php wp_nonce_field('line_hub_save_settings', 'line_hub_nonce'); ?>
         <input type="hidden" name="action" value="line_hub_save_settings">
@@ -28,17 +28,17 @@ if (!defined('ABSPATH')) {
                 <td>
                     <?php $login_mode = $settings_general['login_mode'] ?? 'auto'; ?>
                     <fieldset>
-                        <label style="display: block; margin-bottom: 8px;">
+                        <label class="lh-label-block">
                             <input type="radio" name="login_mode" value="auto"
                                    <?php checked($login_mode, 'auto'); ?>>
                             <strong>自動</strong> — 有 LIFF ID 時用 LIFF，否則用 LINE OA 登入
                         </label>
-                        <label style="display: block; margin-bottom: 8px;">
+                        <label class="lh-label-block">
                             <input type="radio" name="login_mode" value="oauth"
                                    <?php checked($login_mode, 'oauth'); ?>>
                             <strong>僅 LINE OA</strong> — 使用 OAuth 2.0 標準授權流程
                         </label>
-                        <label style="display: block; margin-bottom: 8px;">
+                        <label class="lh-label-block">
                             <input type="radio" name="login_mode" value="liff"
                                    <?php checked($login_mode, 'liff'); ?>>
                             <strong>僅 LIFF</strong> — 透過 LIFF App 登入（需設定 LIFF ID）
@@ -106,12 +106,12 @@ if (!defined('ABSPATH')) {
                 <td>
                     <?php $bot_prompt = $settings_login['bot_prompt'] ?? 'normal'; ?>
                     <fieldset>
-                        <label style="display: block; margin-bottom: 8px;">
+                        <label class="lh-label-block">
                             <input type="radio" name="bot_prompt" value="normal"
                                    <?php checked($bot_prompt, 'normal'); ?>>
                             <strong>normal</strong> — 登入後顯示加好友選項（用戶可跳過）
                         </label>
-                        <label style="display: block; margin-bottom: 8px;">
+                        <label class="lh-label-block">
                             <input type="radio" name="bot_prompt" value="aggressive"
                                    <?php checked($bot_prompt, 'aggressive'); ?>>
                             <strong>aggressive</strong> — 登入時強制顯示加好友提示
@@ -165,7 +165,7 @@ if (!defined('ABSPATH')) {
                     $all_roles = wp_roles()->get_names();
                     foreach ($all_roles as $role_value => $role_name) :
                     ?>
-                        <label style="display: block; margin-bottom: 4px;">
+                        <label class="lh-label-block-sm">
                             <input type="checkbox"
                                    name="default_roles[]"
                                    value="<?php echo esc_attr($role_value); ?>"
@@ -212,7 +212,7 @@ if (!defined('ABSPATH')) {
                     $current_size = $settings_general['login_button_size'] ?? 'medium';
                     foreach ($size_options as $value => $label) :
                     ?>
-                        <label style="<?php echo $value !== 'small' ? 'margin-left: 15px;' : ''; ?>">
+                        <label class="<?php echo $value !== 'small' ? 'lh-radio-inline-spaced' : ''; ?>">
                             <input type="radio" name="login_button_size"
                                    value="<?php echo esc_attr($value); ?>"
                                    <?php checked($current_size, $value); ?>>
@@ -233,7 +233,7 @@ if (!defined('ABSPATH')) {
                     ];
                     foreach ($position_options as $value => $label) :
                     ?>
-                        <label style="display: block; margin-bottom: 6px;">
+                        <label class="lh-label-block-md">
                             <input type="checkbox"
                                    name="login_button_positions[]"
                                    value="<?php echo esc_attr($value); ?>"
@@ -254,12 +254,11 @@ if (!defined('ABSPATH')) {
             <tr>
                 <th scope="row">短代碼</th>
                 <td>
-                    <code style="background: #f5f5f5; padding: 8px 12px; display: inline-block; font-size: 14px;">
+                    <code class="lh-code-display lh-code-display-lg">
                         [line_hub_login]
                     </code>
-                    <button type="button" class="button button-small line-hub-copy-btn"
-                            data-copy='[line_hub_login]'
-                            style="margin-left: 8px;">複製</button>
+                    <button type="button" class="button button-small line-hub-copy-btn lh-ml-8"
+                            data-copy='[line_hub_login]'>複製</button>
                     <p class="description">
                         在任何頁面或文章中貼上此短代碼，即可顯示 LINE 登入按鈕。
                     </p>
@@ -268,12 +267,11 @@ if (!defined('ABSPATH')) {
             <tr>
                 <th scope="row">自訂參數</th>
                 <td>
-                    <code style="background: #f5f5f5; padding: 8px 12px; display: inline-block; font-size: 13px;">
+                    <code class="lh-code-display lh-code-display-sm">
                         [line_hub_login text="立即登入" size="large" redirect="/my-account"]
                     </code>
-                    <button type="button" class="button button-small line-hub-copy-btn"
-                            data-copy='[line_hub_login text="立即登入" size="large" redirect="/my-account"]'
-                            style="margin-left: 8px;">複製</button>
+                    <button type="button" class="button button-small line-hub-copy-btn lh-ml-8"
+                            data-copy='[line_hub_login text="立即登入" size="large" redirect="/my-account"]'>複製</button>
                     <p class="description">
                         可選參數：<code>text</code>（按鈕文字）、<code>size</code>（small / medium / large）、<code>redirect</code>（登入後跳轉 URL）
                     </p>

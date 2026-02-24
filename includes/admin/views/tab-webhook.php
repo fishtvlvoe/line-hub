@@ -15,24 +15,24 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<div class="card" style="max-width: 1000px;">
+<div class="card lh-card-narrow">
     <h2>Webhook 事件記錄</h2>
 
     <?php if (empty($events)) : ?>
-        <p style="color: #999;">
+        <p class="lh-text-muted">
             尚無 Webhook 事件記錄。當 LINE 用戶與您的 Bot 互動時，事件會顯示在這裡。
         </p>
     <?php else : ?>
-        <p style="color: #666;">最近 <?php echo count($events); ?> 筆事件</p>
+        <p class="lh-text-secondary">最近 <?php echo count($events); ?> 筆事件</p>
 
-        <table class="wp-list-table widefat fixed striped" style="margin-top: 16px;">
+        <table class="wp-list-table widefat fixed striped lh-mt-16">
             <thead>
                 <tr>
-                    <th style="width: 60px;">ID</th>
-                    <th style="width: 140px;">事件類型</th>
-                    <th style="width: 180px;">LINE UID</th>
-                    <th style="width: 160px;">時間</th>
-                    <th style="width: 60px;">狀態</th>
+                    <th class="lh-col-60">ID</th>
+                    <th class="lh-col-140">事件類型</th>
+                    <th class="lh-col-180">LINE UID</th>
+                    <th class="lh-col-160">時間</th>
+                    <th class="lh-col-60">狀態</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -45,11 +45,11 @@ if (!defined('ABSPATH')) {
                         </td>
                         <td>
                             <?php if (!empty($event['line_uid'])) : ?>
-                                <code style="font-size: 11px;">
+                                <code class="lh-code-uid">
                                     <?php echo esc_html(substr($event['line_uid'], 0, 15) . '...'); ?>
                                 </code>
                             <?php else : ?>
-                                <span style="color: #999;">-</span>
+                                <span class="lh-text-muted">-</span>
                             <?php endif; ?>
                         </td>
                         <td>
@@ -63,9 +63,9 @@ if (!defined('ABSPATH')) {
                         </td>
                         <td>
                             <?php if ($event['processed']) : ?>
-                                <span style="color: #46b450;">&#10003;</span>
+                                <span class="lh-text-success">&#10003;</span>
                             <?php else : ?>
-                                <span style="color: #999;">&#8943;</span>
+                                <span class="lh-text-muted">&#8943;</span>
                             <?php endif; ?>
                         </td>
                         <td>
@@ -74,10 +74,8 @@ if (!defined('ABSPATH')) {
                                 查看 Payload
                             </button>
                             <div id="payload-<?php echo esc_attr($event['id']); ?>"
-                                 style="display:none; margin-top:10px; padding:10px;
-                                        background:#f5f5f5; border:1px solid #ddd;
-                                        border-radius:3px;">
-                                <pre style="overflow-x:auto; font-size:12px; max-height:300px;"><?php
+                                 class="lh-payload-panel">
+                                <pre class="lh-payload-content"><?php
                                     echo esc_html(json_encode(
                                         json_decode($event['payload']),
                                         JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE

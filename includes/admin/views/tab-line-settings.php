@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 ?>
 
 <!-- 區塊 A：LINE Messaging API 設定 -->
-<div class="card" style="max-width: 1000px;">
+<div class="card lh-card-narrow">
     <h2>LINE Messaging API 設定</h2>
     <p class="description">用於發送訊息、Webhook 接收。對應 LINE Developers Console 的 <strong>Messaging API</strong> Channel。</p>
 
@@ -64,7 +64,7 @@ if (!defined('ABSPATH')) {
             <tr>
                 <th scope="row">Webhook URL</th>
                 <td>
-                    <code style="background: #f5f5f5; padding: 8px 12px; display: inline-block;">
+                    <code class="lh-code-display">
                         <?php echo esc_html(rest_url('line-hub/v1/webhook')); ?>
                     </code>
                     <button type="button" class="button button-small line-hub-copy-btn"
@@ -80,7 +80,7 @@ if (!defined('ABSPATH')) {
     </form>
 
     <?php $has_access_token = !empty($settings['access_token']); ?>
-    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="margin: -10px 0 0 0;">
+    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="lh-form-offset">
         <?php wp_nonce_field('line_hub_test_connection', 'line_hub_test_nonce'); ?>
         <input type="hidden" name="action" value="line_hub_test_connection">
         <button type="submit" class="button button-secondary"
@@ -91,7 +91,7 @@ if (!defined('ABSPATH')) {
 </div>
 
 <!-- 區塊 B：LINE Login 設定 -->
-<div class="card" style="max-width: 1000px; margin-top: 20px;">
+<div class="card lh-card-narrow-spaced">
     <h2>LINE Login 設定</h2>
     <p class="description">用於 OAuth 登入和 LIFF。對應 LINE Developers Console 的 <strong>LINE Login</strong> Channel（與 Messaging API 是不同的 Channel）。</p>
 
@@ -138,7 +138,7 @@ if (!defined('ABSPATH')) {
             <tr>
                 <th scope="row">Callback URL</th>
                 <td>
-                    <code style="background: #f5f5f5; padding: 8px 12px; display: inline-block;">
+                    <code class="lh-code-display">
                         <?php echo esc_html($site_url . '/line-hub/auth/callback'); ?>
                     </code>
                     <button type="button" class="button button-small line-hub-copy-btn"
@@ -149,7 +149,7 @@ if (!defined('ABSPATH')) {
             <tr>
                 <th scope="row">LIFF Endpoint URL</th>
                 <td>
-                    <code style="background: #f5f5f5; padding: 8px 12px; display: inline-block;">
+                    <code class="lh-code-display">
                         <?php echo esc_html($site_url . '/line-hub/liff/'); ?>
                     </code>
                     <button type="button" class="button button-small line-hub-copy-btn"
@@ -165,7 +165,7 @@ if (!defined('ABSPATH')) {
     </form>
 
     <?php $has_login_credentials = !empty($settings['login_channel_id']) && !empty($settings['login_channel_secret']); ?>
-    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" style="margin: -10px 0 0 0;">
+    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="lh-form-offset">
         <?php wp_nonce_field('line_hub_test_login', 'line_hub_test_login_nonce'); ?>
         <input type="hidden" name="action" value="line_hub_test_login">
         <button type="submit" class="button button-secondary"
@@ -176,7 +176,7 @@ if (!defined('ABSPATH')) {
 </div>
 
 <!-- 區塊 C：NSL 整合 -->
-<div class="card" style="max-width: 1000px; margin-top: 20px;">
+<div class="card lh-card-narrow-spaced">
     <h2>NSL (Nextend Social Login) 整合</h2>
     <p class="description">如果之前使用 NSL 做 LINE 登入，可啟用相容模式平滑過渡到 LineHub。</p>
 

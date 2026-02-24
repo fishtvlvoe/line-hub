@@ -16,29 +16,29 @@ if (!defined('ABSPATH')) {
 ?>
 
 <!-- 連線狀態總覽 -->
-<div class="card" style="max-width: 1000px;">
+<div class="card lh-card-narrow">
     <h2>連線狀態總覽</h2>
     <?php require __DIR__ . '/partials/connection-status.php'; ?>
 
-    <div style="margin-top: 20px;">
+    <div class="lh-mt-20">
         <a href="<?php echo esc_url(add_query_arg(['page' => 'line-hub-settings', 'tab' => 'line-settings'], admin_url('admin.php'))); ?>"
            class="button button-primary">
             前往 LINE 設定
         </a>
         <a href="<?php echo esc_url(add_query_arg(['page' => 'line-hub-settings', 'tab' => 'login-settings'], admin_url('admin.php'))); ?>"
-           class="button button-secondary" style="margin-left: 8px;">
+           class="button button-secondary lh-ml-8">
             前往登入設定
         </a>
     </div>
 </div>
 
 <!-- 設定步驟說明 -->
-<div class="card" style="max-width: 1000px; margin-top: 20px;">
+<div class="card lh-card-narrow-spaced">
     <details open>
-        <summary style="cursor: pointer; font-weight: 600; font-size: 14px; padding: 8px 0;">
+        <summary class="lh-wizard-summary">
             設定步驟說明
         </summary>
-        <ol style="margin-top: 15px; line-height: 2;">
+        <ol class="lh-wizard-steps">
             <li>前往 <a href="https://developers.line.biz/console/" target="_blank">LINE Developers Console</a></li>
             <li>你需要兩個 Channel：<strong>Messaging API</strong>（發訊息用）和 <strong>LINE Login</strong>（登入用）</li>
             <li>在 <strong>Messaging API Channel</strong> 的 Basic settings 取得 Channel ID 和 Channel Secret，填入「<a href="<?php echo esc_url(add_query_arg(['page' => 'line-hub-settings', 'tab' => 'line-settings'], admin_url('admin.php'))); ?>">LINE 設定</a>」</li>
