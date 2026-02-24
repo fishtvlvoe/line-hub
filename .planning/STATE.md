@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 
 ## Current Position
 
-Phase: 11 - 安全補齊與常數統一
-Plan: 3 of 3
+Phase: 12 - 內嵌清除
+Plan: 2 of 2
 Status: Complete
-Last activity: 2026-02-24 — Phase 11 全部完成（3/3 plans）
+Last activity: 2026-02-25 — Phase 12 全部完成（2/2 plans）
 
-Progress: ███░░░░░░░░░░░░░░░░░ 1/6 phases (Phase 11: COMPLETE)
+Progress: ██████░░░░░░░░░░░░░░ 2/6 phases (Phase 12: COMPLETE)
 
 ## Performance Metrics
 
@@ -71,6 +71,9 @@ Progress: ███░░░░░░░░░░░░░░░░░ 1/6 phase
 - [11-03]: LineApiEndpoints 常數類別集中管理 6 個 LINE API URL
 - [11-03]: 使用 use 語句引用常數類別（而非完整命名空間路徑），保持可讀性
 - [11-03]: AUTH_ENDPOINT（access.line.me）保留在 OAuthClient — 這是授權端點而非 API 端點
+- [12-01]: UsersColumn inline CSS 改用 wp_enqueue_style，Plugin Toast 改用 wp_enqueue_script + wp_localize_script
+- [12-02]: FluentCartConnector 403→185 行：CSS/JS/HTML 全部拆出（4 個新檔案 + 1 個模板）
+- [12-02]: Admin notices（settings-page/auto-updater 的單行 echo）保留——WordPress 標準慣例，不需拆模板
 
 ### Pending Todos
 
@@ -82,7 +85,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-24
-Stopped at: Phase 11 全部完成（11-01 安全清理 + 11-02 Open Redirect + 11-03 常數統一）
+Last session: 2026-02-25
+Stopped at: Phase 12 全部完成（12-01 UsersColumn+Plugin + 12-02 FluentCartConnector）
 Resume file: None
-Next action: 開始 Phase 12 — 內嵌 HTML/JS/CSS 清除
+Next action: 開始 Phase 13 — 樣式外部化

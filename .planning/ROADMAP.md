@@ -224,8 +224,8 @@ Plans:
 
 **Milestone Goal:** 全面整理程式碼結構，將熵減評分從 52/100 提升至 85/100 以上，為 WebinarGo 開發打穩地基。所有檔案 < 300 行、Class 零內嵌、統一常數管理、安全補齊、基礎測試覆蓋。
 
-- [ ] **Phase 11: 安全補齊與常數統一** - 基礎衛生和 LINE API URL 集中管理
-- [ ] **Phase 12: 內嵌清除** - Class 中 CSS/JS/HTML 全部拆到獨立檔案
+- [x] **Phase 11: 安全補齊與常數統一** - 基礎衛生和 LINE API URL 集中管理
+- [x] **Phase 12: 內嵌清除** - Class 中 CSS/JS/HTML 全部拆到獨立檔案
 - [ ] **Phase 13: 樣式外部化** - Admin View 和 LIFF 模板的 inline style 移到 CSS 檔案
 - [ ] **Phase 14: 檔案瘦身與方法重構** - 大檔案拆分 + 長方法縮短
 - [ ] **Phase 15: 命名統一與根目錄整理** - 類名 CamelCase 統一 + 開發文件歸檔
@@ -260,7 +260,12 @@ Plans:
   3. Class 檔案中無大段 HTML echo/printf，HTML 全部移到 `includes/templates/` 或 `includes/views/` 模板
   4. FluentCart 產品頁的 LINE 綁定區塊正常顯示且功能不變（renderBindingSection 拆分後驗證）
   5. 後台設定頁、用戶列表欄位、歡迎 Toast 等 UI 元素外觀和行為不變
-**Plans**: 2 plans in 1 wave
+**Status**: COMPLETE (2026-02-25)
+**Plans**: 2 plans in 1 wave (completed)
+
+Plans:
+- [x] 12-01-PLAN.md — UsersColumn CSS + Plugin Toast JS 提取到獨立檔案
+- [x] 12-02-PLAN.md — FluentCartConnector CSS/JS/HTML 全部提取（403→185 行）
 
 Plans:
 - [ ] 12-01-PLAN.md — UsersColumn CSS + Plugin Toast JS 提取到獨立檔案
@@ -331,7 +336,7 @@ v3.0: 11 → 12 → 13 → 14 → 15 → 16
 | 9. Tab 重構 | v2.0 | 3/3 | Complete | 2026-02-24 |
 | 10. 開發者體驗 | v2.0 | 2/2 | Complete | 2026-02-24 |
 | 11. 安全補齊與常數統一 | v3.0 | 3/3 | Complete | 2026-02-24 |
-| 12. 內嵌清除 | v3.0 | 0/2 | Not started | - |
+| 12. 內嵌清除 | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 13. 樣式外部化 | v3.0 | 0/? | Not started | - |
 | 14. 檔案瘦身與方法重構 | v3.0 | 0/? | Not started | - |
 | 15. 命名統一與根目錄整理 | v3.0 | 0/? | Not started | - |
