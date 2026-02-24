@@ -1,0 +1,56 @@
+# Git files
+.git
+.gitignore
+.gitattributes
+.github
+
+# Documentation (development only)
+*.md
+
+# Development dependencies
+node_modules
+vendor
+composer.json
+composer.lock
+package.json
+package-lock.json
+yarn.lock
+
+# Testing
+tests
+phpunit.xml
+phpunit.xml.dist
+.phpunit.result.cache
+test-*.php
+check-*.php
+debug-*.php
+verify-*.php
+simple-*.php
+
+# Build files
+build-release.sh
+release.sh
+*.log
+.DS_Store
+Thumbs.db
+
+# Development tools
+test-scripts
+docs
+
+# Images (screenshots)
+*.png
+
+# Planning and cache
+.planning
+.claude
+.claude.json
+.vscode
+.idea
+
+# Backup files
+*.bak
+*.backup
+
+# Zip ignore itself
+.zipignore
