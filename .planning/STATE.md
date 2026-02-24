@@ -9,10 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 11 - 安全補齊與常數統一
 Plan: —
-Status: Defining requirements
-Last activity: 2026-02-24 — Milestone v3.0 started
+Status: Not started
+Last activity: 2026-02-24 — v3.0 roadmap 建立完成
+
+Progress: ░░░░░░░░░░░░░░░░░░░░ 0/6 phases
 
 ## Performance Metrics
 
@@ -25,6 +27,11 @@ Last activity: 2026-02-24 — Milestone v3.0 started
 - Total phases: 3 (Phase 8, 9, 10)
 - Total requirements: 13 — ALL COMPLETE
 - Total plans: 7 (Phase 8: 2, Phase 9: 3, Phase 10: 2)
+
+**v3.0 Scope:**
+- Total phases: 6 (Phase 11-16)
+- Total requirements: 18
+- Entropy score target: 52/100 → 85/100
 
 ## Accumulated Context
 
@@ -55,10 +62,12 @@ Last activity: 2026-02-24 — Milestone v3.0 started
 - [v3.0]: 熵減重構優先於 WebinarGo — 地基穩了才往上蓋（用戶決策）
 - [v3.0]: 掃描結果：熵減評分 52/100，目標 ≥ 85/100
 - [v3.0]: profile-binding 已完成拆分（CSS + JS + Template），作為 v3.0 前置工作
+- [v3.0]: Phase 結構：安全+常數(11) → 內嵌清除(12) → 樣式外部化(13) → 檔案瘦身+方法重構(14) → 命名整理(15) → 測試(16)
+- [v3.0]: 常數統一放在 Phase 11 而非獨立 Phase — 因為拆分檔案時會用到新常數類別，必須先就位
 
 ### Pending Todos
 
-None. 正在定義 v3.0 requirements。
+None. Phase 11 尚未開始規劃。
 
 ### Blockers/Concerns
 
@@ -67,6 +76,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-24
-Stopped at: v3.0 milestone 初始化中，正在定義 requirements
+Stopped at: v3.0 roadmap 建立完成，準備開始 Phase 11 規劃
 Resume file: None
-Next action: 完成 requirements 定義 → roadmap 建立
+Next action: `/gsd:plan-phase 11` — 安全補齊與常數統一

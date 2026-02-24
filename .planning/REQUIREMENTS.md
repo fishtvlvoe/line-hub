@@ -67,7 +67,10 @@
 
 </details>
 
-## v2.0 Requirements
+## v2.0 Requirements (COMPLETE)
+
+<details>
+<summary>v2.0 — 重構與擴展（已完成，13 項需求）</summary>
 
 Requirements for milestone v2.0（重構與擴展）。根據研究確認 Phase A2/A3/C 已實作，聚焦在驗證、Tab 重構、開發者體驗。
 
@@ -92,6 +95,8 @@ Requirements for milestone v2.0（重構與擴展）。根據研究確認 Phase 
 - [x] **DEV-01**: 開發者 Tab 顯示完整 REST API 端點清單（含 curl 範例）
 - [x] **DEV-02**: 開發者 Tab 顯示 Hook 使用範例（PHP 程式碼片段）
 - [x] **DEV-03**: API 使用記錄：儲存並顯示最近 20 次 API 呼叫（時間、來源 IP、端點、結果）
+
+</details>
 
 ## v3.0 Requirements
 
@@ -184,29 +189,29 @@ Requirements for milestone v3.0（熵減重構）。全面整理程式碼結構�
 | DEV-01 | Phase 10 | Complete |
 | DEV-02 | Phase 10 | Complete |
 | DEV-03 | Phase 10 | Complete |
-| SEC-08 | Phase TBD | Pending |
-| SEC-09 | Phase TBD | Pending |
-| SEC-10 | Phase TBD | Pending |
-| CONST-01 | Phase TBD | Pending |
-| CONST-02 | Phase TBD | Pending |
-| INLINE-01 | Phase TBD | Pending |
-| INLINE-02 | Phase TBD | Pending |
-| INLINE-03 | Phase TBD | Pending |
-| SIZE-01 | Phase TBD | Pending |
-| SIZE-02 | Phase TBD | Pending |
-| METHOD-01 | Phase TBD | Pending |
-| STYLE-01 | Phase TBD | Pending |
-| STYLE-02 | Phase TBD | Pending |
-| NAME-01 | Phase TBD | Pending |
-| NAME-02 | Phase TBD | Pending |
-| TEST-01 | Phase TBD | Pending |
-| TEST-02 | Phase TBD | Pending |
+| SEC-08 | Phase 11 | Pending |
+| SEC-09 | Phase 11 | Pending |
+| SEC-10 | Phase 11 | Pending |
+| CONST-01 | Phase 11 | Pending |
+| CONST-02 | Phase 11 | Pending |
+| INLINE-01 | Phase 12 | Pending |
+| INLINE-02 | Phase 12 | Pending |
+| INLINE-03 | Phase 12 | Pending |
+| STYLE-01 | Phase 13 | Pending |
+| STYLE-02 | Phase 13 | Pending |
+| SIZE-01 | Phase 14 | Pending |
+| SIZE-02 | Phase 14 | Pending |
+| METHOD-01 | Phase 14 | Pending |
+| NAME-01 | Phase 15 | Pending |
+| NAME-02 | Phase 15 | Pending |
+| TEST-01 | Phase 16 | Pending |
+| TEST-02 | Phase 16 | Pending |
 
 **Coverage:**
 - v2.0 requirements: 13 total — ALL COMPLETE
-- v3.0 requirements: 18 total — 0 complete
-- Unmapped: 18 (awaiting roadmap)
+- v3.0 requirements: 18 total — 0 complete, 18 mapped to phases
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-07*
-*Last updated: 2026-02-24 — v3.0 requirements defined (18 items)*
+*Last updated: 2026-02-24 — v3.0 traceability mapping complete (18 items → 6 phases)*
