@@ -4,7 +4,7 @@
 
 - ✅ **v1.0 LINE 登入中樞** - Phases 1-7 (shipped 2026-02-07)
 - ✅ **v2.0 重構與擴展** - Phases 8-10 (complete 2026-02-24)
-- [ ] **v3.0 熵減重構** - Phases 11-16 (in progress)
+- ✅ **v3.0 熵減重構** - Phases 11-16 (complete 2026-02-25)
 
 ## Phases
 
@@ -229,7 +229,7 @@ Plans:
 - [x] **Phase 13: 樣式外部化** - Admin View 和 LIFF 模板的 inline style 移到 CSS 檔案
 - [x] **Phase 14: 檔案瘦身與方法重構** - 大檔案拆分 + 長方法縮短
 - [x] **Phase 15: 命名統一與根目錄整理** - 類名 CamelCase 統一 + 開發文件歸檔
-- [ ] **Phase 16: 測試框架** - composer + phpunit + 核心服務基本覆蓋
+- [x] **Phase 16: 測試框架** - composer + phpunit + 核心服務基本覆蓋
 
 ## Phase Details
 
@@ -326,7 +326,12 @@ Plans:
   2. UserService 測試覆蓋：綁定查詢、linkUser、unlinkUser 的基本場景
   3. SettingsService 測試覆蓋：get/set/delete 和加密解密的基本場景
   4. MessagingService 測試覆蓋：訊息發送邏輯的基本場景（mock LINE API）
-**Plans**: TBD
+**Status**: COMPLETE (2026-02-25)
+**Plans**: 2 plans (completed)
+
+Plans:
+- [x] 16-01 — 測試基礎設施（composer.json + phpunit-unit.xml + bootstrap mock）
+- [x] 16-02 — 核心服務測試（SettingsService 10 + UserService 7 + MessagingService 7 = 24 tests）
 
 ## Progress
 
@@ -352,4 +357,4 @@ v3.0: 11 → 12 → 13 → 14 → 15 → 16
 | 13. 樣式外部化 | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 14. 檔案瘦身與方法重構 | v3.0 | 3/3 | Complete | 2026-02-25 |
 | 15. 命名統一與根目錄整理 | v3.0 | 2/2 | Complete | 2026-02-25 |
-| 16. 測試框架 | v3.0 | 0/? | Not started | - |
+| 16. 測試框架 | v3.0 | 2/2 | Complete | 2026-02-25 |

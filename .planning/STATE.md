@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 
 ## Current Position
 
-Phase: 15 - 命名統一與根目錄整理
+Phase: 16 - 測試框架
 Plan: 2 of 2
 Status: Complete
-Last activity: 2026-02-25 — Phase 15 全部完成（2/2 plans）
+Last activity: 2026-02-25 — Phase 16 全部完成（2/2 plans）— v3.0 Milestone COMPLETE
 
-Progress: ████████████████░░░░ 5/6 phases (Phase 15: COMPLETE)
+Progress: ████████████████████ 6/6 phases (v3.0 COMPLETE)
 
 ## Performance Metrics
 
@@ -87,6 +87,8 @@ Progress: ████████████████░░░░ 5/6 phase
 - [15-01]: 3 個底線類名統一為 CamelCase（Auto_Updater→AutoUpdater、Settings_API→SettingsAPI、User_API→UserAPI）
 - [15-01]: autoloader 移除 str_replace('_','') 底線相容層——統一後不再需要
 - [15-02]: 5 個根目錄開發文件歸檔至 .planning/archives/（DAY-01/02/03、CONFLICT-FIX、舊 ROADMAP）
+- [16-01]: 測試基礎設施：composer.json + phpunit-unit.xml + bootstrap-unit.php（可控 wpdb/transient/HTTP mock）
+- [16-02]: 24 個單元測試（SettingsService 10 + UserService 7 + MessagingService 7），34 assertions，全部通過
 
 ### Pending Todos
 
@@ -99,6 +101,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Phase 15 全部完成（15-01 類名統一 + 15-02 根目錄整理）
+Stopped at: v3.0 熵減重構 Milestone 全部完成（Phase 11-16，6/6 phases）
 Resume file: None
-Next action: 開始 Phase 16 — 測試框架
+Next action: v3.0 收尾（合併分支、版本號更新）或開始 v4.0 規劃
