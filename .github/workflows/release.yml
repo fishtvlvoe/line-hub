@@ -1,0 +1,102 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml
+
+      - name: Install Composer dependencies (production only)
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Create plugin zip
+        run: |
+          mkdir -p release
+
+          rsync -av --exclude='release' --exclude='.git' --exclude='.github' . release/line-hub/
+
+          cd release/line-hub
+
+          # 刪除開發目錄
+          rm -rf .planning .claude .vscode .idea
+          rm -rf node_modules tests bin
+
+          # 保留 vendor（PUC 需要），但清理 vendor 內的開發檔案
+          rm -rf vendor/yahnis-elsts/plugin-update-checker/.git
+          rm -rf vendor/yahnis-elsts/plugin-update-checker/tests
+
+          # 刪除 .md 檔案（保留 readme.txt）
+          find . -maxdepth 1 -name "*.md" -exec rm -f {} \;
+
+          # 刪除開發腳本
+          find . -maxdepth 1 \( -name "test-*.php" -o -name "check-*.php" -o -name "debug-*.php" -o -name "verify-*.php" \) -exec rm -f {} \;
+
+          # 刪除建置工具
+          rm -f build-release.sh release.sh composer.json composer.lock
+          rm -f phpunit.xml phpunit-unit.xml phpunit.xml.dist .phpunit.result.cache
+          rm -f .zipignore .gitignore .gitattributes
+
+          # 刪除 .DS_Store
+          find . -name ".DS_Store" -exec rm -f {} \;
+
+          # 建立 ZIP
+          cd ..
+          zip -r line-hub-${{ steps.get_version.outputs.VERSION }}.zip line-hub/
+
+          # 計算檔案大小和 SHA256
+          FILE_SIZE=$(du -h "line-hub-${{ steps.get_version.outputs.VERSION }}.zip" | cut -f1)
+          FILE_SHA256=$(sha256sum "line-hub-${{ steps.get_version.outputs.VERSION }}.zip" | cut -d' ' -f1)
+          echo "FILE_SIZE=$FILE_SIZE" >> $GITHUB_ENV
+          echo "FILE_SHA256=$FILE_SHA256" >> $GITHUB_ENV
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: LINE Hub v${{ steps.get_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          body: |
+            ## LINE Hub v${{ steps.get_version.outputs.VERSION }}
+
+            ### Installation
+            1. Download `line-hub-${{ steps.get_version.outputs.VERSION }}.zip`
+            2. Upload and activate in WordPress admin
+
+            ### Auto Update
+            Existing installations will be notified of this update automatically.
+
+            ---
+            **Size:** ${{ env.FILE_SIZE }} | **SHA256:** `${{ env.FILE_SHA256 }}`
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release/line-hub-${{ steps.get_version.outputs.VERSION }}.zip
+          asset_name: line-hub-${{ steps.get_version.outputs.VERSION }}.zip
+          asset_content_type: application/zip
