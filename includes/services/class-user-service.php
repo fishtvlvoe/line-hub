@@ -165,13 +165,13 @@ class UserService {
         $existing_user_id = self::getUserByLineUid($line_uid);
         if ($existing_user_id && $existing_user_id !== $user_id) {
             return new \WP_Error('line_uid_already_bound',
-                __('此 LINE 帳號已綁定到其他 WordPress 帳號', 'line-hub'), ['status' => 409]);
+                __('This LINE account is already linked to another WordPress account.', 'line-hub'), ['status' => 409]);
         }
 
         $existing_binding = self::getBinding($user_id);
         if ($existing_binding && $existing_binding->line_uid !== $line_uid) {
             return new \WP_Error('user_already_bound',
-                __('此 WordPress 帳號已綁定到其他 LINE 帳號，請先解除綁定', 'line-hub'), ['status' => 409]);
+                __('This WordPress account is already linked to another LINE account. Please unlink first.', 'line-hub'), ['status' => 409]);
         }
 
         $data = [
@@ -190,7 +190,7 @@ class UserService {
             $result = $wpdb->update($table_name, $data, ['id' => $existing_binding->id],
                 ['%d', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s'], ['%d']);
             if ($result === false) {
-                return new \WP_Error('update_failed', __('更新綁定記錄失敗', 'line-hub'), ['status' => 500]);
+                return new \WP_Error('update_failed', __('Failed to update binding record.', 'line-hub'), ['status' => 500]);
             }
         } else {
             $data['register_date'] = current_time('mysql');
@@ -198,7 +198,7 @@ class UserService {
             $result = $wpdb->insert($table_name, $data,
                 ['%d', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%s', '%s']);
             if ($result === false) {
-                return new \WP_Error('insert_failed', __('建立綁定記錄失敗', 'line-hub'), ['status' => 500]);
+                return new \WP_Error('insert_failed', __('Failed to create binding record.', 'line-hub'), ['status' => 500]);
             }
         }
 

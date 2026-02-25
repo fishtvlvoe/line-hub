@@ -17,10 +17,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$button_text = $button_text ?? __('用 LINE 帳號登入', 'line-hub');
+$button_text = $button_text ?? __('Log in with LINE', 'line-hub');
 $style = $style ?? 'button';
 $class = $class ?? '';
-$banner_text = $banner_text ?? __('登入後可追蹤訂單、接收出貨通知', 'line-hub');
+$banner_text = $banner_text ?? __('Log in to track orders and receive shipping notifications.', 'line-hub');
 $is_line_browser = $is_line_browser ?? false;
 
 // LINE logo SVG

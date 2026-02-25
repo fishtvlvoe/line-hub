@@ -68,12 +68,12 @@ class SettingsPage {
     }
 
     public function register_menu(): void {
-        add_menu_page('LINE Hub 設定', 'LINE Hub', 'manage_options', 'line-hub-settings', [$this, 'render_page'], 'dashicons-format-chat', 30);
+        add_menu_page(__('LINE Hub Settings', 'line-hub'), 'LINE Hub', 'manage_options', 'line-hub-settings', [$this, 'render_page'], 'dashicons-format-chat', 30);
     }
 
     public function render_page(): void {
         if (!current_user_can('manage_options')) {
-            wp_die(__('您沒有權限訪問此頁面', 'line-hub'));
+            wp_die(__('You do not have permission to access this page.', 'line-hub'));
         }
         // 舊 slug redirect（向後相容書籤和快取的 URL）
         $requested_tab = sanitize_key($_GET['tab'] ?? '');
@@ -201,10 +201,10 @@ class SettingsPage {
      */
     private function verify_admin(string $nonce_field, string $nonce_action): void {
         if (!current_user_can('manage_options')) {
-            wp_die(__('您沒有權限執行此操作', 'line-hub'));
+            wp_die(__('You do not have permission to perform this action.', 'line-hub'));
         }
         if (!isset($_POST[$nonce_field]) || !wp_verify_nonce($_POST[$nonce_field], $nonce_action)) {
-            wp_die(__('安全驗證失敗', 'line-hub'));
+            wp_die(__('Security verification failed.', 'line-hub'));
         }
     }
 
@@ -213,32 +213,36 @@ class SettingsPage {
         $updated = sanitize_key($_GET['updated'] ?? '');
         if ($updated !== '') {
             $class = $updated === 'true' ? 'notice-success' : 'notice-error';
-            $msg = $updated === 'true' ? '設定已儲存' : '儲存設定時發生錯誤';
+            $msg = $updated === 'true'
+                ? __('Settings saved.', 'line-hub')
+                : __('An error occurred while saving settings.', 'line-hub');
             printf('<div class="notice %s is-dismissible"><p>%s</p></div>', esc_attr($class), esc_html($msg));
         }
         $test = sanitize_key($_GET['test_result'] ?? '');
         if ($test !== '') {
             $class = $test === 'success' ? 'notice-success' : 'notice-error';
-            $msg = $test === 'success' ? 'Messaging API 驗證成功' : 'Messaging API 驗證失敗，請檢查 Access Token 是否正確';
+            $msg = $test === 'success'
+                ? __('Messaging API verification successful.', 'line-hub')
+                : __('Messaging API verification failed. Please check if the Access Token is correct.', 'line-hub');
             printf('<div class="notice %s is-dismissible"><p>%s</p></div>', esc_attr($class), esc_html($msg));
         }
         $login_test = sanitize_key($_GET['login_test_result'] ?? '');
         if ($login_test !== '') {
             $messages = [
-                'success'       => 'LINE Login 驗證成功 — Channel ID 和 Secret 正確',
-                'error'         => 'LINE Login 驗證失敗 — 請確認 Channel ID 和 Secret 是否正確',
-                'empty'         => '請先填入 LINE Login 的 Channel ID 和 Channel Secret',
-                'network_error' => '無法連線到 LINE API，請稍後再試',
+                'success'       => __('LINE Login verification successful — Channel ID and Secret are correct.', 'line-hub'),
+                'error'         => __('LINE Login verification failed — please check your Channel ID and Secret.', 'line-hub'),
+                'empty'         => __('Please enter your LINE Login Channel ID and Channel Secret first.', 'line-hub'),
+                'network_error' => __('Unable to connect to LINE API. Please try again later.', 'line-hub'),
             ];
             $class = $login_test === 'success' ? 'notice-success' : 'notice-error';
-            $msg = $messages[$login_test] ?? '未知錯誤';
+            $msg = $messages[$login_test] ?? __('Unknown error.', 'line-hub');
             printf('<div class="notice %s is-dismissible"><p>%s</p></div>', esc_attr($class), esc_html($msg));
         }
         if (isset($_GET['api_key_generated'])) {
-            echo '<div class="notice notice-success is-dismissible"><p>API Key 已產生，請立即複製保存。</p></div>';
+            printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html__('API Key has been generated. Please copy and save it now.', 'line-hub'));
         }
         if (isset($_GET['api_key_revoked'])) {
-            echo '<div class="notice notice-warning is-dismissible"><p>API Key 已撤銷。</p></div>';
+            printf('<div class="notice notice-warning is-dismissible"><p>%s</p></div>', esc_html__('API Key has been revoked.', 'line-hub'));
         }
     }
 }

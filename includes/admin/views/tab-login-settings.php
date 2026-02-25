@@ -21,27 +21,27 @@ if (!defined('ABSPATH')) {
         <input type="hidden" name="tab" value="login-settings">
 
         <!-- 登入模式 -->
-        <h2>登入模式</h2>
+        <h2><?php esc_html_e('Login Mode', 'line-hub'); ?></h2>
         <table class="form-table">
             <tr>
-                <th scope="row">登入方式</th>
+                <th scope="row"><?php esc_html_e('Login Method', 'line-hub'); ?></th>
                 <td>
                     <?php $login_mode = $settings_general['login_mode'] ?? 'auto'; ?>
                     <fieldset>
                         <label class="lh-label-block">
                             <input type="radio" name="login_mode" value="auto"
                                    <?php checked($login_mode, 'auto'); ?>>
-                            <strong>自動</strong> — 有 LIFF ID 時用 LIFF，否則用 LINE OA 登入
+                            <strong><?php esc_html_e('Auto', 'line-hub'); ?></strong> — <?php esc_html_e('Use LIFF when LIFF ID is available, otherwise use LINE OA login', 'line-hub'); ?>
                         </label>
                         <label class="lh-label-block">
                             <input type="radio" name="login_mode" value="oauth"
                                    <?php checked($login_mode, 'oauth'); ?>>
-                            <strong>僅 LINE OA</strong> — 使用 OAuth 2.0 標準授權流程
+                            <strong><?php esc_html_e('LINE OA Only', 'line-hub'); ?></strong> — <?php esc_html_e('Use OAuth 2.0 standard authorization flow', 'line-hub'); ?>
                         </label>
                         <label class="lh-label-block">
                             <input type="radio" name="login_mode" value="liff"
                                    <?php checked($login_mode, 'liff'); ?>>
-                            <strong>僅 LIFF</strong> — 透過 LIFF App 登入（需設定 LIFF ID）
+                            <strong><?php esc_html_e('LIFF Only', 'line-hub'); ?></strong> — <?php esc_html_e('Login via LIFF App (requires LIFF ID)', 'line-hub'); ?>
                         </label>
                     </fieldset>
                 </td>
@@ -49,100 +49,100 @@ if (!defined('ABSPATH')) {
         </table>
 
         <!-- LINE Login 行為 -->
-        <h3>LINE Login 行為</h3>
+        <h3><?php esc_html_e('LINE Login Behavior', 'line-hub'); ?></h3>
         <table class="form-table">
             <tr>
-                <th scope="row">初始登入方法</th>
+                <th scope="row"><?php esc_html_e('Initial Login Method', 'line-hub'); ?></th>
                 <td>
                     <?php $initial_amr = $settings_login['initial_amr'] ?? ''; ?>
                     <select name="initial_amr">
                         <option value="" <?php selected($initial_amr, ''); ?>>
-                            預設（LINE 自動決定）
+                            <?php esc_html_e('Default (LINE auto-detect)', 'line-hub'); ?>
                         </option>
                         <option value="lineqr" <?php selected($initial_amr, 'lineqr'); ?>>
-                            QR Code 掃碼登入
+                            <?php esc_html_e('QR Code scan login', 'line-hub'); ?>
                         </option>
                         <option value="lineautologin" <?php selected($initial_amr, 'lineautologin'); ?>>
-                            自動登入（LINE App 已安裝時）
+                            <?php esc_html_e('Auto login (when LINE App is installed)', 'line-hub'); ?>
                         </option>
                     </select>
                     <p class="description">
-                        控制 LINE Login 畫面首先顯示的登入方式
+                        <?php esc_html_e('Controls which login method is displayed first on the LINE Login screen', 'line-hub'); ?>
                     </p>
                 </td>
             </tr>
             <tr>
-                <th scope="row">強制重新授權</th>
+                <th scope="row"><?php esc_html_e('Force Re-authorization', 'line-hub'); ?></th>
                 <td>
                     <label>
                         <input type="checkbox" name="force_reauth" value="1"
                                <?php checked($settings_login['force_reauth'] ?? false); ?>>
-                        每次登入都要求用戶重新授權（不使用已授權的 session）
+                        <?php esc_html_e('Require re-authorization on every login (do not use existing authorized session)', 'line-hub'); ?>
                     </label>
                 </td>
             </tr>
             <tr>
-                <th scope="row">允許切換方法</th>
+                <th scope="row"><?php esc_html_e('Allow Method Switching', 'line-hub'); ?></th>
                 <td>
                     <label>
                         <input type="checkbox" name="switch_amr" value="1"
                                <?php checked($settings_login['switch_amr'] ?? true); ?>>
-                        允許用戶在登入畫面切換登入方法（QR Code / Email）
+                        <?php esc_html_e('Allow users to switch login methods on the login screen (QR Code / Email)', 'line-hub'); ?>
                     </label>
                 </td>
             </tr>
             <tr>
-                <th scope="row">自動登入</th>
+                <th scope="row"><?php esc_html_e('Auto Login', 'line-hub'); ?></th>
                 <td>
                     <label>
                         <input type="checkbox" name="allow_auto_login" value="1"
                                <?php checked($settings_login['allow_auto_login'] ?? false); ?>>
-                        允許自動登入（已登入 LINE 時自動認證，不顯示登入畫面）
+                        <?php esc_html_e('Allow auto login (automatically authenticate when already logged into LINE, without showing login screen)', 'line-hub'); ?>
                     </label>
                 </td>
             </tr>
             <tr>
-                <th scope="row">加好友行為</th>
+                <th scope="row"><?php esc_html_e('Add Friend Behavior', 'line-hub'); ?></th>
                 <td>
                     <?php $bot_prompt = $settings_login['bot_prompt'] ?? 'normal'; ?>
                     <fieldset>
                         <label class="lh-label-block">
                             <input type="radio" name="bot_prompt" value="normal"
                                    <?php checked($bot_prompt, 'normal'); ?>>
-                            <strong>normal</strong> — 登入後顯示加好友選項（用戶可跳過）
+                            <strong>normal</strong> — <?php esc_html_e('Show add friend option after login (user can skip)', 'line-hub'); ?>
                         </label>
                         <label class="lh-label-block">
                             <input type="radio" name="bot_prompt" value="aggressive"
                                    <?php checked($bot_prompt, 'aggressive'); ?>>
-                            <strong>aggressive</strong> — 登入時強制顯示加好友提示
+                            <strong>aggressive</strong> — <?php esc_html_e('Force display add friend prompt during login', 'line-hub'); ?>
                         </label>
                     </fieldset>
                     <p class="description">
-                        需在 LINE Developers Console 啟用「Linked OA」才有效
+                        <?php esc_html_e('Requires "Linked OA" to be enabled in LINE Developers Console', 'line-hub'); ?>
                     </p>
                 </td>
             </tr>
         </table>
 
         <!-- 新用戶設定 -->
-        <h3>新用戶設定</h3>
+        <h3><?php esc_html_e('New User Settings', 'line-hub'); ?></h3>
         <table class="form-table">
             <tr>
                 <th scope="row">
-                    <label for="username_prefix">用戶名前綴</label>
+                    <label for="username_prefix"><?php esc_html_e('Username Prefix', 'line-hub'); ?></label>
                 </th>
                 <td>
                     <input type="text" id="username_prefix" name="username_prefix"
                            value="<?php echo esc_attr($settings_general['username_prefix'] ?? 'line'); ?>"
                            class="regular-text" placeholder="line">
                     <p class="description">
-                        新用戶 WordPress 用戶名前綴，例如 line_U1234
+                        <?php esc_html_e('WordPress username prefix for new users, e.g. line_U1234', 'line-hub'); ?>
                     </p>
                 </td>
             </tr>
             <tr>
                 <th scope="row">
-                    <label for="display_name_prefix">顯示名稱前綴</label>
+                    <label for="display_name_prefix"><?php esc_html_e('Display Name Prefix', 'line-hub'); ?></label>
                 </th>
                 <td>
                     <input type="text" id="display_name_prefix"
@@ -150,12 +150,12 @@ if (!defined('ABSPATH')) {
                            value="<?php echo esc_attr($settings_general['display_name_prefix'] ?? 'lineuser-'); ?>"
                            class="regular-text" placeholder="lineuser-">
                     <p class="description">
-                        當 LINE 暱稱無法作為用戶名時，使用此前綴 + 隨機碼
+                        <?php esc_html_e('When LINE display name cannot be used as username, this prefix + random code is used', 'line-hub'); ?>
                     </p>
                 </td>
             </tr>
             <tr>
-                <th scope="row">預設角色</th>
+                <th scope="row"><?php esc_html_e('Default Roles', 'line-hub'); ?></th>
                 <td>
                     <?php
                     $current_roles = $settings_general['default_roles'] ?? ['subscriber'];
@@ -174,17 +174,17 @@ if (!defined('ABSPATH')) {
                         </label>
                     <?php endforeach; ?>
                     <p class="description">
-                        LINE 新用戶註冊後自動獲得的角色（可多選）
+                        <?php esc_html_e('Roles automatically assigned to new LINE users after registration (multiple selections allowed)', 'line-hub'); ?>
                     </p>
                 </td>
             </tr>
             <tr>
-                <th scope="row">Email 自動連結</th>
+                <th scope="row"><?php esc_html_e('Auto Link by Email', 'line-hub'); ?></th>
                 <td>
                     <label>
                         <input type="checkbox" name="auto_link_by_email" value="1"
                                <?php checked($settings_general['auto_link_by_email'] ?? true); ?>>
-                        如果 LINE 帳號的 Email 和既有 WordPress 帳號相同，自動綁定
+                        <?php esc_html_e('If the LINE account email matches an existing WordPress account, automatically link them', 'line-hub'); ?>
                     </label>
                 </td>
             </tr>
@@ -193,52 +193,52 @@ if (!defined('ABSPATH')) {
         <?php require __DIR__ . '/partials/login-button-positions.php'; ?>
 
         <!-- 重定向 -->
-        <h3>登入後重定向</h3>
+        <h3><?php esc_html_e('Post-Login Redirect', 'line-hub'); ?></h3>
         <table class="form-table">
             <tr>
-                <th scope="row">重定向方式</th>
+                <th scope="row"><?php esc_html_e('Redirect Method', 'line-hub'); ?></th>
                 <td>
                     <label>
                         <input type="checkbox" name="login_redirect_fixed" value="1"
                                <?php checked($settings_general['login_redirect_fixed'] ?? false); ?>>
-                        使用固定重定向 URL（不勾選則返回原頁面）
+                        <?php esc_html_e('Use a fixed redirect URL (if unchecked, returns to the original page)', 'line-hub'); ?>
                     </label>
                 </td>
             </tr>
             <tr>
                 <th scope="row">
-                    <label for="login_redirect_url">固定 URL</label>
+                    <label for="login_redirect_url"><?php esc_html_e('Fixed URL', 'line-hub'); ?></label>
                 </th>
                 <td>
                     <input type="text" id="login_redirect_url"
                            name="login_redirect_url"
                            value="<?php echo esc_attr($settings_general['login_redirect_url'] ?? ''); ?>"
                            class="large-text"
-                           placeholder="例：/my-account 或 https://example.com/dashboard">
+                           placeholder="<?php esc_attr_e('e.g. /my-account or https://example.com/dashboard', 'line-hub'); ?>">
                     <p class="description">
-                        啟用固定重定向後，所有 LINE 登入完成後都會導向此 URL
+                        <?php esc_html_e('When fixed redirect is enabled, all LINE logins will redirect to this URL after completion', 'line-hub'); ?>
                     </p>
                 </td>
             </tr>
         </table>
 
         <!-- 安全性 -->
-        <h3>安全性設定</h3>
+        <h3><?php esc_html_e('Security Settings', 'line-hub'); ?></h3>
         <table class="form-table">
             <tr>
-                <th scope="row">Email 驗證</th>
+                <th scope="row"><?php esc_html_e('Email Verification', 'line-hub'); ?></th>
                 <td>
                     <label>
                         <input type="checkbox" name="require_email_verification"
                                value="1"
                                <?php checked($settings_general['require_email_verification'] ?? false); ?>>
-                        強制 Email 驗證（新用戶必須驗證 Email 才能登入）
+                        <?php esc_html_e('Require email verification (new users must verify email before login)', 'line-hub'); ?>
                     </label>
                 </td>
             </tr>
             <tr>
                 <th scope="row">
-                    <label for="allowed_email_domains">限制網域</label>
+                    <label for="allowed_email_domains"><?php esc_html_e('Allowed Domains', 'line-hub'); ?></label>
                 </th>
                 <td>
                     <input type="text" id="allowed_email_domains"
@@ -247,14 +247,14 @@ if (!defined('ABSPATH')) {
                            class="regular-text"
                            placeholder="gmail.com, yahoo.com">
                     <p class="description">
-                        只允許特定 Email 網域註冊（逗號分隔，留空表示不限制）
+                        <?php esc_html_e('Only allow registration from specific email domains (comma-separated, leave empty for no restriction)', 'line-hub'); ?>
                     </p>
                 </td>
             </tr>
         </table>
 
         <p class="submit">
-            <button type="submit" class="button button-primary">儲存設定</button>
+            <button type="submit" class="button button-primary"><?php esc_html_e('Save Settings', 'line-hub'); ?></button>
         </p>
     </form>
 </div>

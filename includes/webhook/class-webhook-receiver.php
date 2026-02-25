@@ -50,7 +50,7 @@ class WebhookReceiver {
         // 驗證簽名
         $signature = $this->extractSignature($request);
         if (!$this->verifySignature($raw_body, $signature)) {
-            return new \WP_Error('invalid_signature', __('HMAC 簽名驗證失敗', 'line-hub'), ['status' => 401]);
+            return new \WP_Error('invalid_signature', __('HMAC signature verification failed.', 'line-hub'), ['status' => 401]);
         }
 
         // 解析並驗證事件
@@ -80,7 +80,7 @@ class WebhookReceiver {
     private function parseAndValidateEvents(string $raw_body): array|\WP_Error|null {
         $body = json_decode($raw_body, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            return new \WP_Error('invalid_json', __('JSON 格式錯誤', 'line-hub'), ['status' => 400]);
+            return new \WP_Error('invalid_json', __('Invalid JSON format.', 'line-hub'), ['status' => 400]);
         }
 
         $events = $body['events'] ?? [];

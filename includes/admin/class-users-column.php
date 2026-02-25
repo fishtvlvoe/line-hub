@@ -60,7 +60,7 @@ class UsersColumn {
         $binding = self::get_binding_status($user_id);
 
         if ($binding === null) {
-            return '<span class="line-hub-binding-none" title="未綁定">—</span>';
+            return '<span class="line-hub-binding-none" title="' . esc_attr__('Not linked', 'line-hub') . '">—</span>';
         }
 
         $source_label = esc_html($binding['source']);

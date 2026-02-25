@@ -33,13 +33,13 @@ class LiffUserProcessor {
      */
     public function handleVerify(): void {
         if (!$this->verifyNonce('line_hub_liff_verify')) {
-            $this->handler->respondError(__('安全驗證失敗，請重試', 'line-hub'));
+            $this->handler->respondError(__('Security verification failed. Please try again.', 'line-hub'));
             return;
         }
 
         $access_token = $this->getPostField('liff_access_token');
         if (empty($access_token)) {
-            $this->handler->respondError(__('缺少 Access Token', 'line-hub'));
+            $this->handler->respondError(__('Missing Access Token.', 'line-hub'));
             return;
         }
 
@@ -52,7 +52,7 @@ class LiffUserProcessor {
 
         $line_uid = $profile['userId'] ?? '';
         if (empty($line_uid)) {
-            $this->handler->respondError(__('無法取得 LINE 用戶 ID', 'line-hub'));
+            $this->handler->respondError(__('Unable to retrieve LINE user ID.', 'line-hub'));
             return;
         }
 
@@ -100,19 +100,19 @@ class LiffUserProcessor {
      */
     public function handleEmailSubmit(): void {
         if (!$this->verifyNonce('line_hub_liff_email')) {
-            $this->handler->respondError(__('安全驗證失敗，請重試', 'line-hub'));
+            $this->handler->respondError(__('Security verification failed. Please try again.', 'line-hub'));
             return;
         }
 
         $token = $this->getPostField('liff_email_token');
         if (empty($token)) {
-            $this->handler->respondError(__('無效的請求', 'line-hub'));
+            $this->handler->respondError(__('Invalid request.', 'line-hub'));
             return;
         }
 
         $data = get_transient('line_hub_liff_' . $token);
         if (empty($data)) {
-            $this->handler->respondError(__('連結已過期，請重新登入', 'line-hub'));
+            $this->handler->respondError(__('Link has expired. Please log in again.', 'line-hub'));
             return;
         }
 
@@ -191,11 +191,11 @@ class LiffUserProcessor {
 
     private function validateAndMergeEmail(string $email, string $token, string $line_uid, string $display_name, string $picture_url, string $redirect, string $access_token, bool $is_friend): ?bool {
         if (empty($email)) {
-            $this->handler->renderEmailForm($token, $display_name, $picture_url, $redirect, __('請輸入 Email 信箱', 'line-hub'));
+            $this->handler->renderEmailForm($token, $display_name, $picture_url, $redirect, __('Please enter your email address.', 'line-hub'));
             return true;
         }
         if (!is_email($email)) {
-            $this->handler->renderEmailForm($token, $display_name, $picture_url, $redirect, __('Email 格式不正確', 'line-hub'));
+            $this->handler->renderEmailForm($token, $display_name, $picture_url, $redirect, __('Invalid email format.', 'line-hub'));
             return true;
         }
 

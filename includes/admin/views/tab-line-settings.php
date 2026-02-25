@@ -18,8 +18,14 @@ if (!defined('ABSPATH')) {
 
 <!-- 區塊 A：LINE Messaging API 設定 -->
 <div class="card lh-card-narrow">
-    <h2>LINE Messaging API 設定</h2>
-    <p class="description">用於發送訊息、Webhook 接收。對應 LINE Developers Console 的 <strong>Messaging API</strong> Channel。</p>
+    <h2><?php esc_html_e('LINE Messaging API Settings', 'line-hub'); ?></h2>
+    <p class="description"><?php
+        printf(
+            /* translators: %s: Messaging API */
+            esc_html__('Used for sending messages and receiving Webhooks. Corresponds to the %s Channel in LINE Developers Console.', 'line-hub'),
+            '<strong>Messaging API</strong>'
+        );
+    ?></p>
 
     <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <?php wp_nonce_field('line_hub_save_settings', 'line_hub_nonce'); ?>
@@ -35,8 +41,8 @@ if (!defined('ABSPATH')) {
                 <td>
                     <input type="text" id="channel_id" name="channel_id"
                            value="<?php echo esc_attr($settings['channel_id'] ?? ''); ?>"
-                           class="regular-text" placeholder="例：2008621590">
-                    <p class="description">Messaging API Channel 的 Channel ID</p>
+                           class="regular-text" placeholder="<?php esc_attr_e('e.g. 2008621590', 'line-hub'); ?>">
+                    <p class="description"><?php esc_html_e('Channel ID of the Messaging API Channel', 'line-hub'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -46,8 +52,8 @@ if (!defined('ABSPATH')) {
                 <td>
                     <input type="text" id="channel_secret" name="channel_secret"
                            value="<?php echo esc_attr($settings['channel_secret'] ?? ''); ?>"
-                           class="regular-text" placeholder="32 位元字串">
-                    <p class="description">用於 Webhook 簽名驗證（自動加密儲存）</p>
+                           class="regular-text" placeholder="<?php esc_attr_e('32-character string', 'line-hub'); ?>">
+                    <p class="description"><?php esc_html_e('Used for Webhook signature verification (automatically encrypted)', 'line-hub'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -57,8 +63,8 @@ if (!defined('ABSPATH')) {
                 <td>
                     <textarea id="access_token" name="access_token" rows="3"
                               class="large-text"
-                              placeholder="長期或短期 Access Token"><?php echo esc_textarea($settings['access_token'] ?? ''); ?></textarea>
-                    <p class="description">用於發送訊息（自動加密儲存）</p>
+                              placeholder="<?php esc_attr_e('Long-lived or short-lived Access Token', 'line-hub'); ?>"><?php echo esc_textarea($settings['access_token'] ?? ''); ?></textarea>
+                    <p class="description"><?php esc_html_e('Used for sending messages (automatically encrypted)', 'line-hub'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -68,14 +74,14 @@ if (!defined('ABSPATH')) {
                         <?php echo esc_html(rest_url('line-hub/v1/webhook')); ?>
                     </code>
                     <button type="button" class="button button-small line-hub-copy-btn"
-                            data-copy="<?php echo esc_attr(rest_url('line-hub/v1/webhook')); ?>">複製</button>
-                    <p class="description">填入 Messaging API Channel 的 Webhook URL</p>
+                            data-copy="<?php echo esc_attr(rest_url('line-hub/v1/webhook')); ?>"><?php esc_html_e('Copy', 'line-hub'); ?></button>
+                    <p class="description"><?php esc_html_e('Enter this in the Webhook URL field of the Messaging API Channel', 'line-hub'); ?></p>
                 </td>
             </tr>
         </table>
 
         <p class="submit">
-            <button type="submit" class="button button-primary">儲存設定</button>
+            <button type="submit" class="button button-primary"><?php esc_html_e('Save Settings', 'line-hub'); ?></button>
         </p>
     </form>
 
@@ -85,15 +91,21 @@ if (!defined('ABSPATH')) {
         <input type="hidden" name="action" value="line_hub_test_connection">
         <button type="submit" class="button button-secondary"
                 <?php echo !$has_access_token ? 'disabled' : ''; ?>>
-            測試連線
+            <?php esc_html_e('Test Connection', 'line-hub'); ?>
         </button>
     </form>
 </div>
 
 <!-- 區塊 B：LINE Login 設定 -->
 <div class="card lh-card-narrow-spaced">
-    <h2>LINE Login 設定</h2>
-    <p class="description">用於 OAuth 登入和 LIFF。對應 LINE Developers Console 的 <strong>LINE Login</strong> Channel（與 Messaging API 是不同的 Channel）。</p>
+    <h2><?php esc_html_e('LINE Login Settings', 'line-hub'); ?></h2>
+    <p class="description"><?php
+        printf(
+            /* translators: %s: LINE Login */
+            esc_html__('Used for OAuth login and LIFF. Corresponds to the %s Channel in LINE Developers Console (different from the Messaging API Channel).', 'line-hub'),
+            '<strong>LINE Login</strong>'
+        );
+    ?></p>
 
     <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <?php wp_nonce_field('line_hub_save_settings', 'line_hub_nonce'); ?>
@@ -109,8 +121,8 @@ if (!defined('ABSPATH')) {
                 <td>
                     <input type="text" id="login_channel_id" name="login_channel_id"
                            value="<?php echo esc_attr($settings['login_channel_id'] ?? ''); ?>"
-                           class="regular-text" placeholder="例：2008622068">
-                    <p class="description">LINE Login Channel 的 Channel ID</p>
+                           class="regular-text" placeholder="<?php esc_attr_e('e.g. 2008622068', 'line-hub'); ?>">
+                    <p class="description"><?php esc_html_e('Channel ID of the LINE Login Channel', 'line-hub'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -120,8 +132,8 @@ if (!defined('ABSPATH')) {
                 <td>
                     <input type="text" id="login_channel_secret" name="login_channel_secret"
                            value="<?php echo esc_attr($settings['login_channel_secret'] ?? ''); ?>"
-                           class="regular-text" placeholder="32 位元字串">
-                    <p class="description">LINE Login Channel 的 Channel Secret（自動加密儲存）</p>
+                           class="regular-text" placeholder="<?php esc_attr_e('32-character string', 'line-hub'); ?>">
+                    <p class="description"><?php esc_html_e('Channel Secret of the LINE Login Channel (automatically encrypted)', 'line-hub'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -131,8 +143,8 @@ if (!defined('ABSPATH')) {
                 <td>
                     <input type="text" id="liff_id" name="liff_id"
                            value="<?php echo esc_attr($settings['liff_id'] ?? ''); ?>"
-                           class="regular-text" placeholder="例：2008622068-iU4Z1lk4">
-                    <p class="description">LIFF App ID（建立在 LINE Login Channel 下）</p>
+                           class="regular-text" placeholder="<?php esc_attr_e('e.g. 2008622068-iU4Z1lk4', 'line-hub'); ?>">
+                    <p class="description"><?php esc_html_e('LIFF App ID (created under the LINE Login Channel)', 'line-hub'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -142,8 +154,8 @@ if (!defined('ABSPATH')) {
                         <?php echo esc_html($site_url . '/line-hub/auth/callback'); ?>
                     </code>
                     <button type="button" class="button button-small line-hub-copy-btn"
-                            data-copy="<?php echo esc_attr($site_url . '/line-hub/auth/callback'); ?>">複製</button>
-                    <p class="description">請在 LINE Login Channel 的 Callback URL 中註冊此網址</p>
+                            data-copy="<?php echo esc_attr($site_url . '/line-hub/auth/callback'); ?>"><?php esc_html_e('Copy', 'line-hub'); ?></button>
+                    <p class="description"><?php esc_html_e('Register this URL in the Callback URL settings of the LINE Login Channel', 'line-hub'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -153,14 +165,14 @@ if (!defined('ABSPATH')) {
                         <?php echo esc_html($site_url . '/line-hub/liff/'); ?>
                     </code>
                     <button type="button" class="button button-small line-hub-copy-btn"
-                            data-copy="<?php echo esc_attr($site_url . '/line-hub/liff/'); ?>">複製</button>
-                    <p class="description">填入 LIFF App 的 Endpoint URL</p>
+                            data-copy="<?php echo esc_attr($site_url . '/line-hub/liff/'); ?>"><?php esc_html_e('Copy', 'line-hub'); ?></button>
+                    <p class="description"><?php esc_html_e('Enter this as the Endpoint URL of the LIFF App', 'line-hub'); ?></p>
                 </td>
             </tr>
         </table>
 
         <p class="submit">
-            <button type="submit" class="button button-primary">儲存設定</button>
+            <button type="submit" class="button button-primary"><?php esc_html_e('Save Settings', 'line-hub'); ?></button>
         </p>
     </form>
 
@@ -170,15 +182,15 @@ if (!defined('ABSPATH')) {
         <input type="hidden" name="action" value="line_hub_test_login">
         <button type="submit" class="button button-secondary"
                 <?php echo !$has_login_credentials ? 'disabled' : ''; ?>>
-            測試連線
+            <?php esc_html_e('Test Connection', 'line-hub'); ?>
         </button>
     </form>
 </div>
 
 <!-- 區塊 C：NSL 整合 -->
 <div class="card lh-card-narrow-spaced">
-    <h2>NSL (Nextend Social Login) 整合</h2>
-    <p class="description">如果之前使用 NSL 做 LINE 登入，可啟用相容模式平滑過渡到 LineHub。</p>
+    <h2><?php esc_html_e('NSL (Nextend Social Login) Integration', 'line-hub'); ?></h2>
+    <p class="description"><?php esc_html_e('If you previously used NSL for LINE login, enable compatibility mode for a smooth transition to LINE Hub.', 'line-hub'); ?></p>
 
     <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <?php wp_nonce_field('line_hub_save_settings', 'line_hub_nonce'); ?>
@@ -188,29 +200,29 @@ if (!defined('ABSPATH')) {
 
         <table class="form-table">
             <tr>
-                <th scope="row">NSL 相容模式</th>
+                <th scope="row"><?php esc_html_e('NSL Compatibility Mode', 'line-hub'); ?></th>
                 <td>
                     <label>
                         <input type="checkbox" name="nsl_compat_mode" value="1"
                                <?php checked($settings['nsl_compat_mode'] ?? false); ?>>
-                        啟用 NSL 相容模式（同時從 wp_social_users 查詢用戶）
+                        <?php esc_html_e('Enable NSL compatibility mode (also query users from wp_social_users)', 'line-hub'); ?>
                     </label>
                 </td>
             </tr>
             <tr>
-                <th scope="row">自動遷移</th>
+                <th scope="row"><?php esc_html_e('Auto Migration', 'line-hub'); ?></th>
                 <td>
                     <label>
                         <input type="checkbox" name="nsl_auto_migrate" value="1"
                                <?php checked($settings['nsl_auto_migrate'] ?? false); ?>>
-                        自動遷移 NSL 用戶到 LineHub（新用戶登入時自動複製）
+                        <?php esc_html_e('Automatically migrate NSL users to LINE Hub (auto-copy on new user login)', 'line-hub'); ?>
                     </label>
                 </td>
             </tr>
         </table>
 
         <p class="submit">
-            <button type="submit" class="button button-primary">儲存設定</button>
+            <button type="submit" class="button button-primary"><?php esc_html_e('Save Settings', 'line-hub'); ?></button>
         </p>
     </form>
 </div>

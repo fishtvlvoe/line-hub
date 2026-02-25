@@ -47,7 +47,7 @@ class LoginButton {
             'text'        => SettingsService::get('general', 'login_button_text', '用 LINE 帳號登入'),
             'size'        => SettingsService::get('general', 'login_button_size', 'medium'),
             'style'       => 'button',
-            'banner_text' => __('登入後可追蹤訂單、接收出貨通知', 'line-hub'),
+            'banner_text' => __('Log in to track orders and receive shipping notifications.', 'line-hub'),
             'redirect'    => '',
             'class'       => '',
         ];

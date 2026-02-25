@@ -128,7 +128,7 @@ final class Plugin {
         wp_enqueue_script('line-hub-welcome-toast', LINE_HUB_URL . 'assets/js/welcome-toast.js', [], LINE_HUB_VERSION, true);
         wp_localize_script('line-hub-welcome-toast', 'lineHubWelcomeToast', [
             'displayName' => $user->display_name,
-            'message'     => __('已以 {name} 登入', 'line-hub'),
+            'message'     => __('Logged in as {name}', 'line-hub'),
         ]);
     }
 
@@ -165,12 +165,12 @@ final class Plugin {
         wp_enqueue_style('line-hub-profile-binding', LINE_HUB_URL . 'assets/css/profile-binding.css', [], LINE_HUB_VERSION);
         wp_enqueue_script('line-hub-profile-binding', LINE_HUB_URL . 'assets/js/profile-binding.js', [], LINE_HUB_VERSION, true);
         wp_localize_script('line-hub-profile-binding', 'lineHubProfileBinding', [
-            'confirmUnbind' => __('確定要解除 LINE 綁定嗎？解除後將無法接收 LINE 通知。', 'line-hub'),
-            'processing'    => __('處理中...', 'line-hub'),
-            'unbindSuccess' => __('LINE 綁定已解除', 'line-hub'),
-            'unbindFail'    => __('解除綁定失敗', 'line-hub'),
-            'unbindLabel'   => __('解除綁定', 'line-hub'),
-            'networkError'  => __('網路錯誤，請稍後再試', 'line-hub'),
+            'confirmUnbind' => __('Are you sure you want to unlink your LINE account? You will no longer receive LINE notifications.', 'line-hub'),
+            'processing'    => __('Processing...', 'line-hub'),
+            'unbindSuccess' => __('LINE account has been unlinked.', 'line-hub'),
+            'unbindFail'    => __('Failed to unlink account.', 'line-hub'),
+            'unbindLabel'   => __('Unlink', 'line-hub'),
+            'networkError'  => __('Network error. Please try again later.', 'line-hub'),
         ]);
 
         $binding = Services\UserService::getBinding($user->ID);

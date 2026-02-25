@@ -79,7 +79,7 @@ add_filter('plugin_action_links_' . LINE_HUB_BASENAME, function($links) {
     $settings_link = sprintf(
         '<a href="%s">%s</a>',
         admin_url('admin.php?page=line-hub-settings'),
-        __('設定', 'line-hub')
+        __('Settings', 'line-hub')
     );
     array_unshift($links, $settings_link);
     return $links;
@@ -92,7 +92,8 @@ add_action('admin_notices', function() {
     // 檢查 PHP 版本
     if (version_compare(PHP_VERSION, '8.2', '<')) {
         echo '<div class="notice notice-error"><p>';
-        echo '<strong>LINE Hub:</strong> 需要 PHP 8.2 或更高版本。目前版本：' . PHP_VERSION;
+        /* translators: %s: current PHP version */
+        echo '<strong>LINE Hub:</strong> ' . sprintf(esc_html__('Requires PHP 8.2 or higher. Current version: %s', 'line-hub'), PHP_VERSION);
         echo '</p></div>';
         return;
     }
@@ -101,7 +102,8 @@ add_action('admin_notices', function() {
     global $wp_version;
     if (version_compare($wp_version, '6.5', '<')) {
         echo '<div class="notice notice-error"><p>';
-        echo '<strong>LINE Hub:</strong> 需要 WordPress 6.5 或更高版本。目前版本：' . $wp_version;
+        /* translators: %s: current WordPress version */
+        echo '<strong>LINE Hub:</strong> ' . sprintf(esc_html__('Requires WordPress 6.5 or higher. Current version: %s', 'line-hub'), $wp_version);
         echo '</p></div>';
         return;
     }
@@ -111,17 +113,17 @@ add_action('admin_notices', function() {
 
     // 檢查 NSL
     if (class_exists('NextendSocialLogin')) {
-        $warnings[] = 'Nextend Social Login (NSL) 外掛已啟用。兩個外掛可以共存，但請確認 LINE OAuth 設定不衝突。';
+        $warnings[] = __('Nextend Social Login (NSL) is active. Both plugins can coexist, but please ensure LINE OAuth settings do not conflict.', 'line-hub');
     }
 
     // 檢查 buygo-line-notify
     if (class_exists('BuygoLineNotify\\Plugin')) {
-        $warnings[] = 'BuyGo LINE Notify 外掛已啟用。建議完成資料遷移後停用舊外掛。';
+        $warnings[] = __('BuyGo LINE Notify is active. We recommend disabling it after completing data migration.', 'line-hub');
     }
 
     if (!empty($warnings)) {
         echo '<div class="notice notice-warning"><p>';
-        echo '<strong>LINE Hub 相容性提醒：</strong><br>';
+        echo '<strong>' . esc_html__('LINE Hub Compatibility Notice:', 'line-hub') . '</strong><br>';
         echo implode('<br>', array_map('esc_html', $warnings));
         echo '</p></div>';
     }

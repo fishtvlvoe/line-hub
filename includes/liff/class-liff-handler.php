@@ -61,8 +61,8 @@ class LiffHandler {
 
         if (empty($liff_id)) {
             wp_die(
-                esc_html__('LIFF 尚未設定，請聯繫管理員', 'line-hub'),
-                esc_html__('設定錯誤', 'line-hub'),
+                esc_html__('LIFF is not configured. Please contact the administrator.', 'line-hub'),
+                esc_html__('Configuration Error', 'line-hub'),
                 ['response' => 500]
             );
         }
@@ -129,7 +129,7 @@ class LiffHandler {
 
         wp_die(
             esc_html($message),
-            esc_html__('登入失敗', 'line-hub'),
+            esc_html__('Login Failed', 'line-hub'),
             ['response' => 400, 'back_link' => true]
         );
     }

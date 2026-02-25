@@ -91,8 +91,8 @@ class FluentCartConnector {
             true
         );
         wp_localize_script('line-hub-fluentcart-login-banner', 'lineHubLoginBanner', [
-            'bannerText' => esc_html__('登入後可追蹤訂單、接收出貨通知', 'line-hub'),
-            'buttonText' => esc_html__('LINE 登入', 'line-hub'),
+            'bannerText' => esc_html__('Log in to track orders and receive shipping notifications.', 'line-hub'),
+            'buttonText' => esc_html__('LINE Login', 'line-hub'),
             'loginUrl'   => esc_url($login_url),
         ]);
     }
@@ -182,12 +182,12 @@ class FluentCartConnector {
         wp_enqueue_style('line-hub-fluentcart-binding', LINE_HUB_URL . 'assets/css/fluentcart-binding.css', [], LINE_HUB_VERSION);
         wp_enqueue_script('line-hub-fluentcart-binding', LINE_HUB_URL . 'assets/js/fluentcart-binding.js', [], LINE_HUB_VERSION, true);
         wp_localize_script('line-hub-fluentcart-binding', 'lineHubFcBinding', [
-            'confirmUnbind' => __('確定要解除 LINE 綁定嗎？', 'line-hub'),
-            'processing'    => __('處理中...', 'line-hub'),
-            'unbindSuccess' => __('LINE 綁定已解除', 'line-hub'),
-            'unbindFail'    => __('解除綁定失敗', 'line-hub'),
-            'unbindLabel'   => __('解除綁定', 'line-hub'),
-            'networkError'  => __('網路錯誤，請稍後再試', 'line-hub'),
+            'confirmUnbind' => __('Are you sure you want to unlink your LINE account?', 'line-hub'),
+            'processing'    => __('Processing...', 'line-hub'),
+            'unbindSuccess' => __('LINE account has been unlinked.', 'line-hub'),
+            'unbindFail'    => __('Failed to unlink LINE account.', 'line-hub'),
+            'unbindLabel'   => __('Unlink', 'line-hub'),
+            'networkError'  => __('Network error. Please try again later.', 'line-hub'),
         ]);
     }
 }

@@ -98,7 +98,7 @@ class UserAPI {
         if (!$binding) {
             return new \WP_REST_Response([
                 'success' => false,
-                'message' => __('您尚未綁定 LINE 帳號', 'line-hub'),
+                'message' => __('Your LINE account is not linked.', 'line-hub'),
             ], 400);
         }
 
@@ -108,13 +108,13 @@ class UserAPI {
         if ($result) {
             return new \WP_REST_Response([
                 'success' => true,
-                'message' => __('LINE 綁定已解除', 'line-hub'),
+                'message' => __('LINE account has been unlinked.', 'line-hub'),
             ], 200);
         }
 
         return new \WP_REST_Response([
             'success' => false,
-            'message' => __('解除綁定失敗，請稍後再試', 'line-hub'),
+            'message' => __('Failed to unlink. Please try again later.', 'line-hub'),
         ], 500);
     }
 
@@ -134,7 +134,7 @@ class UserAPI {
         if (!$user) {
             return new \WP_REST_Response([
                 'success' => false,
-                'message' => __('用戶不存在', 'line-hub'),
+                'message' => __('User does not exist.', 'line-hub'),
             ], 404);
         }
 
@@ -209,7 +209,7 @@ class UserAPI {
         if ($user_id <= 0) {
             return new \WP_Error(
                 'invalid_user_id',
-                __('無效的用戶 ID', 'line-hub'),
+                __('Invalid user ID.', 'line-hub'),
                 ['status' => 400]
             );
         }

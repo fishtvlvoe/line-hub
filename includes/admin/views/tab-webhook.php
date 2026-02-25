@@ -16,24 +16,27 @@ if (!defined('ABSPATH')) {
 ?>
 
 <div class="card lh-card-narrow">
-    <h2>Webhook 事件記錄</h2>
+    <h2><?php esc_html_e('Webhook Event Log', 'line-hub'); ?></h2>
 
     <?php if (empty($events)) : ?>
         <p class="lh-text-muted">
-            尚無 Webhook 事件記錄。當 LINE 用戶與您的 Bot 互動時，事件會顯示在這裡。
+            <?php esc_html_e('No Webhook events recorded yet. Events will appear here when LINE users interact with your Bot.', 'line-hub'); ?>
         </p>
     <?php else : ?>
-        <p class="lh-text-secondary">最近 <?php echo count($events); ?> 筆事件</p>
+        <p class="lh-text-secondary"><?php
+            /* translators: %d: number of events */
+            printf(esc_html__('Recent %d events', 'line-hub'), count($events));
+        ?></p>
 
         <table class="wp-list-table widefat fixed striped lh-mt-16">
             <thead>
                 <tr>
                     <th class="lh-col-60">ID</th>
-                    <th class="lh-col-140">事件類型</th>
+                    <th class="lh-col-140"><?php esc_html_e('Event Type', 'line-hub'); ?></th>
                     <th class="lh-col-180">LINE UID</th>
-                    <th class="lh-col-160">時間</th>
-                    <th class="lh-col-60">狀態</th>
-                    <th>操作</th>
+                    <th class="lh-col-160"><?php esc_html_e('Time', 'line-hub'); ?></th>
+                    <th class="lh-col-60"><?php esc_html_e('Status', 'line-hub'); ?></th>
+                    <th><?php esc_html_e('Action', 'line-hub'); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -58,7 +61,8 @@ if (!defined('ABSPATH')) {
                                 strtotime($event['received_at']),
                                 time()
                             );
-                            echo esc_html($time_diff . ' 前');
+                            /* translators: %s: human-readable time difference */
+                            printf(esc_html__('%s ago', 'line-hub'), esc_html($time_diff));
                             ?>
                         </td>
                         <td>
@@ -71,7 +75,7 @@ if (!defined('ABSPATH')) {
                         <td>
                             <button type="button" class="button button-small"
                                     data-toggle-payload="<?php echo esc_attr($event['id']); ?>">
-                                查看 Payload
+                                <?php esc_html_e('View Payload', 'line-hub'); ?>
                             </button>
                             <div id="payload-<?php echo esc_attr($event['id']); ?>"
                                  class="lh-payload-panel">

@@ -23,7 +23,7 @@ class LineSettingsTab extends AbstractTab {
     }
 
     public function get_label(): string {
-        return 'LINE 設定';
+        return __('LINE Settings', 'line-hub');
     }
 
     public function render(): void {

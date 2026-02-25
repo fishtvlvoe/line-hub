@@ -23,7 +23,7 @@ class WizardTab extends AbstractTab {
     }
 
     public function get_label(): string {
-        return '設定嚮導';
+        return __('Setup Wizard', 'line-hub');
     }
 
     public function render(): void {

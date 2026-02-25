@@ -11,10 +11,10 @@
 
 <!-- REST API 端點 -->
 <div class="lh-dev-card" id="lh-rest-api">
-    <h2>REST API 端點</h2>
+    <h2><?php esc_html_e('REST API Endpoints', 'line-hub'); ?></h2>
     <p class="description">
-        基礎 URL：<code><?php echo esc_html($rest_base); ?></code><br>
-        認證方式：HTTP Header <code>X-LineHub-API-Key: lhk_your_api_key</code>
+        <?php esc_html_e('Base URL:', 'line-hub'); ?> <code><?php echo esc_html($rest_base); ?></code><br>
+        <?php esc_html_e('Authentication:', 'line-hub'); ?> HTTP Header <code>X-LineHub-API-Key: lhk_your_api_key</code>
     </p>
 
     <?php foreach ($api_endpoints as $idx => $ep) : ?>
@@ -35,10 +35,10 @@
                     <table class="lh-dev-params-table">
                         <thead>
                             <tr>
-                                <th class="lh-col-120">參數</th>
-                                <th class="lh-col-80">型別</th>
-                                <th class="lh-col-120">必填</th>
-                                <th>說明</th>
+                                <th class="lh-col-120"><?php esc_html_e('Parameter', 'line-hub'); ?></th>
+                                <th class="lh-col-80"><?php esc_html_e('Type', 'line-hub'); ?></th>
+                                <th class="lh-col-120"><?php esc_html_e('Required', 'line-hub'); ?></th>
+                                <th><?php esc_html_e('Description', 'line-hub'); ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,15 +54,15 @@
                     </table>
                 <?php endif; ?>
 
-                <div class="lh-dev-response-label">curl 範例</div>
+                <div class="lh-dev-response-label"><?php esc_html_e('curl Example', 'line-hub'); ?></div>
                 <div class="lh-dev-code-block">
                     <button type="button" class="lh-dev-copy-btn line-hub-copy-btn"
-                            data-copy="<?php echo esc_attr($ep['curl']); ?>">複製</button>
+                            data-copy="<?php echo esc_attr($ep['curl']); ?>"><?php esc_html_e('Copy', 'line-hub'); ?></button>
 <?php echo esc_html($ep['curl']); ?>
                 </div>
 
                 <?php if (!empty($ep['response'])) : ?>
-                    <div class="lh-dev-response-label">回應範例</div>
+                    <div class="lh-dev-response-label"><?php esc_html_e('Response Example', 'line-hub'); ?></div>
                     <div class="lh-dev-code-block lh-dev-code-block-light">
 <?php echo esc_html($ep['response']); ?>
                     </div>

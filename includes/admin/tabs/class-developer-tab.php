@@ -23,7 +23,7 @@ class DeveloperTab extends AbstractTab {
     }
 
     public function get_label(): string {
-        return '開發者';
+        return __('Developer', 'line-hub');
     }
 
     public function render(): void {
@@ -47,78 +47,78 @@ class DeveloperTab extends AbstractTab {
             [
                 'method'      => 'POST',
                 'path'        => '/messages/text',
-                'title'       => '發送文字訊息',
-                'description' => '發送一則文字訊息給指定的 WordPress 用戶（透過 user_id 或 email 查找）。',
+                'title'       => __('Send Text Message', 'line-hub'),
+                'description' => __('Send a text message to a specified WordPress user (lookup by user_id or email).', 'line-hub'),
                 'params'      => [
-                    ['name' => 'user_id', 'type' => 'int',    'required' => '擇一必填', 'desc' => 'WordPress 用戶 ID'],
-                    ['name' => 'email',   'type' => 'string', 'required' => '擇一必填', 'desc' => '用戶 Email（系統自動查找對應 user_id）'],
-                    ['name' => 'message', 'type' => 'string', 'required' => '必填',     'desc' => '訊息文字內容'],
+                    ['name' => 'user_id', 'type' => 'int',    'required' => __('Either required', 'line-hub'), 'desc' => __('WordPress user ID', 'line-hub')],
+                    ['name' => 'email',   'type' => 'string', 'required' => __('Either required', 'line-hub'), 'desc' => __('User email (system auto-lookup for user_id)', 'line-hub')],
+                    ['name' => 'message', 'type' => 'string', 'required' => __('Required', 'line-hub'),        'desc' => __('Message text content', 'line-hub')],
                 ],
                 'curl' => sprintf(
                     "curl -X POST %s/messages/text \\\n  -H \"X-LineHub-API-Key: lhk_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": 123, \"message\": \"你好！\"}'",
                     $base
                 ),
-                'response' => '{"success": true, "message": "訊息已發送"}',
+                'response' => '{"success": true, "message": "Message sent"}',
             ],
             [
                 'method'      => 'POST',
                 'path'        => '/messages/flex',
-                'title'       => '發送 Flex 訊息',
-                'description' => '發送 LINE Flex Message 給指定用戶，適用於訂單通知、卡片等結構化訊息。',
+                'title'       => __('Send Flex Message', 'line-hub'),
+                'description' => __('Send a LINE Flex Message to a specified user. Suitable for order notifications, cards, and other structured messages.', 'line-hub'),
                 'params'      => [
-                    ['name' => 'user_id',  'type' => 'int',    'required' => '擇一必填', 'desc' => 'WordPress 用戶 ID'],
-                    ['name' => 'email',    'type' => 'string', 'required' => '擇一必填', 'desc' => '用戶 Email'],
-                    ['name' => 'alt_text', 'type' => 'string', 'required' => '選填',     'desc' => '替代文字（預設：通知）'],
-                    ['name' => 'contents', 'type' => 'object', 'required' => '必填',     'desc' => 'Flex Message JSON 結構'],
+                    ['name' => 'user_id',  'type' => 'int',    'required' => __('Either required', 'line-hub'), 'desc' => __('WordPress user ID', 'line-hub')],
+                    ['name' => 'email',    'type' => 'string', 'required' => __('Either required', 'line-hub'), 'desc' => __('User email', 'line-hub')],
+                    ['name' => 'alt_text', 'type' => 'string', 'required' => __('Optional', 'line-hub'),        'desc' => __('Alt text (default: Notification)', 'line-hub')],
+                    ['name' => 'contents', 'type' => 'object', 'required' => __('Required', 'line-hub'),        'desc' => __('Flex Message JSON structure', 'line-hub')],
                 ],
                 'curl' => sprintf(
                     "curl -X POST %s/messages/flex \\\n  -H \"X-LineHub-API-Key: lhk_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_id\": 123, \"alt_text\": \"訂單通知\", \"contents\": {\"type\": \"bubble\", \"body\": {\"type\": \"box\", \"layout\": \"vertical\", \"contents\": [{\"type\": \"text\", \"text\": \"訂單已建立\"}]}}}'",
                     $base
                 ),
-                'response' => '{"success": true, "message": "Flex 訊息已發送"}',
+                'response' => '{"success": true, "message": "Flex message sent"}',
             ],
             [
                 'method'      => 'POST',
                 'path'        => '/messages/broadcast',
-                'title'       => '批量發送訊息',
-                'description' => '一次發送文字訊息給多位用戶，單次上限 100 人。',
+                'title'       => __('Broadcast Messages', 'line-hub'),
+                'description' => __('Send a text message to multiple users at once. Maximum 100 users per request.', 'line-hub'),
                 'params'      => [
-                    ['name' => 'user_ids', 'type' => 'int[]',  'required' => '必填', 'desc' => 'WordPress 用戶 ID 陣列（上限 100）'],
-                    ['name' => 'message',  'type' => 'string', 'required' => '必填', 'desc' => '訊息文字內容'],
+                    ['name' => 'user_ids', 'type' => 'int[]',  'required' => __('Required', 'line-hub'), 'desc' => __('Array of WordPress user IDs (max 100)', 'line-hub')],
+                    ['name' => 'message',  'type' => 'string', 'required' => __('Required', 'line-hub'), 'desc' => __('Message text content', 'line-hub')],
                 ],
                 'curl' => sprintf(
                     "curl -X POST %s/messages/broadcast \\\n  -H \"X-LineHub-API-Key: lhk_your_api_key\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"user_ids\": [1, 2, 3], \"message\": \"公告訊息\"}'",
                     $base
                 ),
-                'response' => '{"success": true, "message": "批量訊息已發送", "count": 3}',
+                'response' => '{"success": true, "message": "Broadcast sent", "count": 3}',
             ],
             [
                 'method'      => 'GET',
                 'path'        => '/users/{id}/binding',
-                'title'       => '查詢用戶綁定狀態',
-                'description' => '查詢指定 WordPress 用戶的 LINE 綁定狀態與資訊。',
+                'title'       => __('Query User Binding Status', 'line-hub'),
+                'description' => __('Query the LINE binding status and information for a specified WordPress user.', 'line-hub'),
                 'params'      => [
-                    ['name' => 'id', 'type' => 'int', 'required' => '必填（URL 參數）', 'desc' => 'WordPress 用戶 ID'],
+                    ['name' => 'id', 'type' => 'int', 'required' => __('Required (URL param)', 'line-hub'), 'desc' => __('WordPress user ID', 'line-hub')],
                 ],
                 'curl' => sprintf(
                     "curl %s/users/123/binding \\\n  -H \"X-LineHub-API-Key: lhk_your_api_key\"",
                     $base
                 ),
-                'response' => '{"success": true, "user_id": 123, "is_linked": true, "line_uid": "U1234...", "display_name": "用戶名", "picture_url": "https://..."}',
+                'response' => '{"success": true, "user_id": 123, "is_linked": true, "line_uid": "U1234...", "display_name": "Username", "picture_url": "https://..."}',
             ],
             [
                 'method'      => 'GET',
                 'path'        => '/users/lookup',
-                'title'       => '用 Email 查詢用戶',
-                'description' => '透過 Email 地址查詢 WordPress 用戶及其 LINE 綁定狀態。',
+                'title'       => __('Lookup User by Email', 'line-hub'),
+                'description' => __('Look up a WordPress user and their LINE binding status by email address.', 'line-hub'),
                 'params'      => [
-                    ['name' => 'email', 'type' => 'string', 'required' => '必填（Query 參數）', 'desc' => '用戶 Email 地址'],
+                    ['name' => 'email', 'type' => 'string', 'required' => __('Required (query param)', 'line-hub'), 'desc' => __('User email address', 'line-hub')],
                 ],
                 'curl' => sprintf(
                     "curl \"%s/users/lookup?email=user@example.com\" \\\n  -H \"X-LineHub-API-Key: lhk_your_api_key\"",
                     $base
                 ),
-                'response' => '{"success": true, "user_id": 123, "display_name": "用戶名", "email": "user@example.com", "is_linked": true, "line_uid": "U1234..."}',
+                'response' => '{"success": true, "user_id": 123, "display_name": "Username", "email": "user@example.com", "is_linked": true, "line_uid": "U1234..."}',
             ],
         ];
     }
@@ -133,29 +133,29 @@ class DeveloperTab extends AbstractTab {
             'actions' => [
                 [
                     'hook'        => 'line_hub/send/text',
-                    'description' => '發送文字訊息給指定用戶。適用於訂單通知、歡迎訊息等場景。',
+                    'description' => __('Send a text message to a specified user. Suitable for order notifications, welcome messages, etc.', 'line-hub'),
                     'params'      => [
-                        ['name' => 'user_id', 'type' => 'int',    'desc' => 'WordPress 用戶 ID（必填）'],
-                        ['name' => 'message', 'type' => 'string', 'desc' => '訊息文字（必填）'],
+                        ['name' => 'user_id', 'type' => 'int',    'desc' => __('WordPress user ID (required)', 'line-hub')],
+                        ['name' => 'message', 'type' => 'string', 'desc' => __('Message text (required)', 'line-hub')],
                     ],
                     'example'     => "// 在訂單建立時發送通知\nadd_action('fluentcart/order/created', function(\$order) {\n    do_action('line_hub/send/text', [\n        'user_id' => \$order->user_id,\n        'message' => sprintf('您的訂單 #%s 已建立，感謝您的購買！', \$order->id),\n    ]);\n});",
                 ],
                 [
                     'hook'        => 'line_hub/send/flex',
-                    'description' => '發送 Flex Message 給指定用戶。適用於結構化的通知卡片。',
+                    'description' => __('Send a Flex Message to a specified user. Suitable for structured notification cards.', 'line-hub'),
                     'params'      => [
-                        ['name' => 'user_id',  'type' => 'int',    'desc' => 'WordPress 用戶 ID（必填）'],
-                        ['name' => 'alt_text', 'type' => 'string', 'desc' => '替代文字（選填，預設「通知」）'],
-                        ['name' => 'contents', 'type' => 'array',  'desc' => 'Flex Message JSON 結構（必填）'],
+                        ['name' => 'user_id',  'type' => 'int',    'desc' => __('WordPress user ID (required)', 'line-hub')],
+                        ['name' => 'alt_text', 'type' => 'string', 'desc' => __('Alt text (optional, default: "Notification")', 'line-hub')],
+                        ['name' => 'contents', 'type' => 'array',  'desc' => __('Flex Message JSON structure (required)', 'line-hub')],
                     ],
                     'example'     => "do_action('line_hub/send/flex', [\n    'user_id'  => 123,\n    'alt_text' => '出貨通知',\n    'contents' => [\n        'type' => 'bubble',\n        'body' => [\n            'type'     => 'box',\n            'layout'   => 'vertical',\n            'contents' => [\n                ['type' => 'text', 'text' => '您的包裹已出貨！', 'weight' => 'bold'],\n                ['type' => 'text', 'text' => '物流單號：1234567890'],\n            ],\n        ],\n    ],\n]);",
                 ],
                 [
                     'hook'        => 'line_hub/send/broadcast',
-                    'description' => '批量發送文字訊息給多位用戶，單次上限 100 人。',
+                    'description' => __('Send a text message to multiple users at once. Maximum 100 users per request.', 'line-hub'),
                     'params'      => [
-                        ['name' => 'user_ids', 'type' => 'int[]',  'desc' => 'WordPress 用戶 ID 陣列（必填，上限 100）'],
-                        ['name' => 'message',  'type' => 'string', 'desc' => '訊息文字（必填）'],
+                        ['name' => 'user_ids', 'type' => 'int[]',  'desc' => __('Array of WordPress user IDs (required, max 100)', 'line-hub')],
+                        ['name' => 'message',  'type' => 'string', 'desc' => __('Message text (required)', 'line-hub')],
                     ],
                     'example'     => "// 發送公告給所有管理員\n\$admins = get_users(['role' => 'administrator', 'fields' => 'ID']);\ndo_action('line_hub/send/broadcast', [\n    'user_ids' => \$admins,\n    'message'  => '系統維護通知：今晚 22:00 進行例行維護。',\n]);",
                 ],
@@ -163,19 +163,19 @@ class DeveloperTab extends AbstractTab {
             'filters' => [
                 [
                     'hook'        => 'line_hub/user/is_linked',
-                    'description' => '查詢指定用戶是否已綁定 LINE 帳號。',
+                    'description' => __('Check if a specified user has linked their LINE account.', 'line-hub'),
                     'params'      => [
-                        ['name' => '$default', 'type' => 'bool', 'desc' => '預設值（false）'],
-                        ['name' => '$user_id', 'type' => 'int',  'desc' => 'WordPress 用戶 ID'],
+                        ['name' => '$default', 'type' => 'bool', 'desc' => __('Default value (false)', 'line-hub')],
+                        ['name' => '$user_id', 'type' => 'int',  'desc' => __('WordPress user ID', 'line-hub')],
                     ],
                     'example'     => "// 檢查用戶是否已綁定 LINE\n\$is_linked = apply_filters('line_hub/user/is_linked', false, \$user_id);\nif (\$is_linked) {\n    // 用戶已綁定，可以發送 LINE 通知\n    do_action('line_hub/send/text', [\n        'user_id' => \$user_id,\n        'message' => '歡迎回來！',\n    ]);\n}",
                 ],
                 [
                     'hook'        => 'line_hub/user/get_line_uid',
-                    'description' => '取得指定用戶的 LINE UID。',
+                    'description' => __('Get the LINE UID for a specified user.', 'line-hub'),
                     'params'      => [
-                        ['name' => '$default', 'type' => 'string', 'desc' => '預設值（空字串）'],
-                        ['name' => '$user_id', 'type' => 'int',    'desc' => 'WordPress 用戶 ID'],
+                        ['name' => '$default', 'type' => 'string', 'desc' => __('Default value (empty string)', 'line-hub')],
+                        ['name' => '$user_id', 'type' => 'int',    'desc' => __('WordPress user ID', 'line-hub')],
                     ],
                     'example'     => "// 取得用戶的 LINE UID\n\$line_uid = apply_filters('line_hub/user/get_line_uid', '', \$user_id);\nif (!empty(\$line_uid)) {\n    error_log('用戶 LINE UID: ' . \$line_uid);\n}",
                 ],

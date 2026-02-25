@@ -30,10 +30,10 @@ class AuthCallback {
      * @var array<string, string>
      */
     private const ERROR_MESSAGES = [
-        'access_denied'   => '您已取消登入',
-        'invalid_request' => '登入請求無效，請重試',
-        'server_error'    => 'LINE 伺服器暫時無法連線，請稍後再試',
-        'state_expired'   => '登入逾時，請重新登入',
+        'access_denied'   => 'Login was cancelled.',
+        'invalid_request' => 'Invalid login request. Please try again.',
+        'server_error'    => 'LINE server is temporarily unavailable. Please try again later.',
+        'state_expired'   => 'Login session expired. Please log in again.',
     ];
 
     /**
@@ -105,7 +105,7 @@ class AuthCallback {
         if (!$client->isConfigured()) {
             $this->handleError(
                 'not_configured',
-                __('LINE 登入尚未設定，請聯繫網站管理員。', 'line-hub')
+                __('LINE Login is not configured. Please contact the site administrator.', 'line-hub')
             );
             return;
         }
@@ -158,7 +158,7 @@ class AuthCallback {
         $tokens = $client->authenticate($code);
 
         if (empty($tokens['access_token'])) {
-            throw new \Exception(__('Token 交換失敗，請重試', 'line-hub'));
+            throw new \Exception(__('Token exchange failed. Please try again.', 'line-hub'));
         }
 
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
@@ -171,7 +171,7 @@ class AuthCallback {
 
         $profile = $client->getProfile($tokens['access_token']);
         if (empty($profile['userId'])) {
-            throw new \Exception(__('無法取得 LINE 用戶資料，請重試', 'line-hub'));
+            throw new \Exception(__('Unable to retrieve LINE user profile. Please try again.', 'line-hub'));
         }
 
         return [
@@ -208,7 +208,7 @@ class AuthCallback {
         ));
 
         // 取得用戶友善訊息
-        $user_message = self::ERROR_MESSAGES[$error_code] ?? self::ERROR_MESSAGES['server_error'] ?? __('登入時發生錯誤，請重試', 'line-hub');
+        $user_message = self::ERROR_MESSAGES[$error_code] ?? self::ERROR_MESSAGES['server_error'] ?? __('An error occurred during login. Please try again.', 'line-hub');
 
         // 產生重新登入連結
         $retry_url = home_url('/line-hub/auth/');
@@ -219,7 +219,7 @@ class AuthCallback {
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         wp_die(
             $html,
-            __('登入錯誤', 'line-hub'),
+            __('Login Error', 'line-hub'),
             [
                 'response'  => 400,
                 'back_link' => false,
@@ -251,12 +251,12 @@ class AuthCallback {
                 <a href="%s" style="display: inline-block; padding: 12px 24px; background: #00B900; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; margin-right: 10px;">%s</a>
                 <a href="%s" style="display: inline-block; padding: 12px 24px; background: #f3f4f6; color: #374151; text-decoration: none; border-radius: 6px; font-weight: 500;">%s</a>
             </div>',
-            esc_html__('登入失敗', 'line-hub'),
+            esc_html__('Login Failed', 'line-hub'),
             esc_html($message),
             esc_url($retry_url),
-            esc_html__('重新登入', 'line-hub'),
+            esc_html__('Try Again', 'line-hub'),
             esc_url($home_url),
-            esc_html__('返回首頁', 'line-hub')
+            esc_html__('Back to Home', 'line-hub')
         );
     }
 

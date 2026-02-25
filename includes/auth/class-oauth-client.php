@@ -111,7 +111,7 @@ class OAuthClient {
         if (is_wp_error($response)) {
             throw new \Exception(sprintf(
                 /* translators: %s: error message */
-                __('LINE API 連線失敗：%s', 'line-hub'), $response->get_error_message()
+                __('LINE API connection failed: %s', 'line-hub'), $response->get_error_message()
             ));
         }
 
@@ -119,7 +119,7 @@ class OAuthClient {
         $body = json_decode(wp_remote_retrieve_body($response), true);
 
         if ($status_code !== 200) {
-            throw new \Exception($body['error_description'] ?? $body['error'] ?? __('Token 交換失敗', 'line-hub'));
+            throw new \Exception($body['error_description'] ?? $body['error'] ?? __('Token exchange failed.', 'line-hub'));
         }
 
         return $body;
@@ -156,7 +156,7 @@ class OAuthClient {
         if (is_wp_error($response)) {
             throw new \Exception(sprintf(
                 /* translators: %s: error message */
-                __('LINE Profile API 連線失敗：%s', 'line-hub'), $response->get_error_message()
+                __('LINE Profile API connection failed: %s', 'line-hub'), $response->get_error_message()
             ));
         }
 
@@ -164,7 +164,7 @@ class OAuthClient {
         if ($status_code !== 200) {
             throw new \Exception(sprintf(
                 /* translators: %d: HTTP status code */
-                __('LINE Profile API 回應錯誤（HTTP %d）', 'line-hub'), $status_code
+                __('LINE Profile API error (HTTP %d).', 'line-hub'), $status_code
             ));
         }
 

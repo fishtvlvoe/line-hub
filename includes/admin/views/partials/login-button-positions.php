@@ -10,24 +10,28 @@
 ?>
 
 <!-- 登入按鈕 -->
-<h3>登入按鈕</h3>
+<h3><?php esc_html_e('Login Button', 'line-hub'); ?></h3>
 <table class="form-table">
     <tr>
         <th scope="row">
-            <label for="login_button_text">按鈕文字</label>
+            <label for="login_button_text"><?php esc_html_e('Button Text', 'line-hub'); ?></label>
         </th>
         <td>
             <input type="text" id="login_button_text"
                    name="login_button_text"
-                   value="<?php echo esc_attr($settings_general['login_button_text'] ?? '用 LINE 帳號登入'); ?>"
+                   value="<?php echo esc_attr($settings_general['login_button_text'] ?? __('Log in with LINE', 'line-hub')); ?>"
                    class="regular-text">
         </td>
     </tr>
     <tr>
-        <th scope="row">按鈕大小</th>
+        <th scope="row"><?php esc_html_e('Button Size', 'line-hub'); ?></th>
         <td>
             <?php
-            $size_options = ['small' => '小', 'medium' => '中', 'large' => '大'];
+            $size_options = [
+                'small'  => __('Small', 'line-hub'),
+                'medium' => __('Medium', 'line-hub'),
+                'large'  => __('Large', 'line-hub'),
+            ];
             $current_size = $settings_general['login_button_size'] ?? 'medium';
             foreach ($size_options as $value => $label) :
             ?>
@@ -41,14 +45,14 @@
         </td>
     </tr>
     <tr>
-        <th scope="row">顯示位置</th>
+        <th scope="row"><?php esc_html_e('Display Positions', 'line-hub'); ?></th>
         <td>
             <?php
             $positions = $settings_general['login_button_positions'] ?? [];
             $position_options = [
-                'wp_login'            => 'WordPress 登入頁',
-                'fluentcart_checkout' => 'FluentCart 結帳頁（未登入時顯示）',
-                'fluent_community'    => 'FluentCommunity 登入表單',
+                'wp_login'            => __('WordPress login page', 'line-hub'),
+                'fluentcart_checkout' => __('FluentCart checkout page (shown when not logged in)', 'line-hub'),
+                'fluent_community'    => __('FluentCommunity login form', 'line-hub'),
             ];
             foreach ($position_options as $value => $label) :
             ?>
@@ -61,38 +65,46 @@
                 </label>
             <?php endforeach; ?>
             <p class="description">
-                勾選後，LINE 登入按鈕會自動顯示在對應位置（僅未登入時）
+                <?php esc_html_e('When checked, the LINE login button will automatically appear at the corresponding position (only when not logged in)', 'line-hub'); ?>
             </p>
         </td>
     </tr>
 </table>
 
 <!-- 短代碼嵌入 -->
-<h3>按鈕嵌入（短代碼）</h3>
+<h3><?php esc_html_e('Button Embed (Shortcode)', 'line-hub'); ?></h3>
 <table class="form-table">
     <tr>
-        <th scope="row">短代碼</th>
+        <th scope="row"><?php esc_html_e('Shortcode', 'line-hub'); ?></th>
         <td>
             <code class="lh-code-display lh-code-display-lg">
                 [line_hub_login]
             </code>
             <button type="button" class="button button-small line-hub-copy-btn lh-ml-8"
-                    data-copy='[line_hub_login]'>複製</button>
+                    data-copy='[line_hub_login]'><?php esc_html_e('Copy', 'line-hub'); ?></button>
             <p class="description">
-                在任何頁面或文章中貼上此短代碼，即可顯示 LINE 登入按鈕。
+                <?php esc_html_e('Paste this shortcode in any page or post to display the LINE login button.', 'line-hub'); ?>
             </p>
         </td>
     </tr>
     <tr>
-        <th scope="row">自訂參數</th>
+        <th scope="row"><?php esc_html_e('Custom Parameters', 'line-hub'); ?></th>
         <td>
             <code class="lh-code-display lh-code-display-sm">
-                [line_hub_login text="立即登入" size="large" redirect="/my-account"]
+                [line_hub_login text="Login Now" size="large" redirect="/my-account"]
             </code>
             <button type="button" class="button button-small line-hub-copy-btn lh-ml-8"
-                    data-copy='[line_hub_login text="立即登入" size="large" redirect="/my-account"]'>複製</button>
+                    data-copy='[line_hub_login text="Login Now" size="large" redirect="/my-account"]'><?php esc_html_e('Copy', 'line-hub'); ?></button>
             <p class="description">
-                可選參數：<code>text</code>（按鈕文字）、<code>size</code>（small / medium / large）、<code>redirect</code>（登入後跳轉 URL）
+                <?php
+                printf(
+                    /* translators: 1: text param, 2: size param, 3: redirect param */
+                    esc_html__('Optional parameters: %1$s (button text), %2$s (small / medium / large), %3$s (redirect URL after login)', 'line-hub'),
+                    '<code>text</code>',
+                    '<code>size</code>',
+                    '<code>redirect</code>'
+                );
+                ?>
             </p>
         </td>
     </tr>
