@@ -2,7 +2,7 @@
 /**
  * Plugin Name: LINE Hub
  * Plugin URI: https://github.com/fishtvlvoe/line-hub
- * Description: WordPress 的 LINE 整合中樞 - 提供 LINE 登入、Email 擷取、WordPress 帳號註冊、多場景訊息通知、Webhook 統一管理
+ * Description: LINE integration hub for WordPress — LINE Login, email capture, account registration, multi-scenario messaging, and unified Webhook management.
  * Version: 1.0.0
  * Requires at least: 6.5
  * Requires PHP: 8.2

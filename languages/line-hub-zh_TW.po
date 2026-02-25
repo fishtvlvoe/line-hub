@@ -1,0 +1,1738 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: LINE Hub 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/fishtvlvoe/line-hub\n"
+"POT-Creation-Date: 2026-02-25 16:51+0800\n"
+"PO-Revision-Date: 2026-02-25 16:51+0800\n"
+"Last-Translator: BuyGo Team <facemarketin@gmail.com>\n"
+"Language-Team: Traditional Chinese (Taiwan)\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: line-hub\n"
+"X-Generator: Claude Code\n"
+
+#: includes/admin/views/tab-developer.php:228
+#: includes/admin/views/tab-developer.php:228
+#: includes/admin/views/tab-webhook.php:65
+#: includes/admin/views/tab-webhook.php:65
+#: line-hub/includes/admin/views/tab-developer.php:228
+#: line-hub/includes/admin/views/tab-developer.php:228
+#: line-hub/includes/admin/views/tab-webhook.php:65
+#: line-hub/includes/admin/views/tab-webhook.php:65
+#, php-format
+msgid "%s ago"
+msgstr "%s 前"
+
+#: includes/admin/views/partials/connection-status.php:45
+#: line-hub/includes/admin/views/partials/connection-status.php:45
+msgid "(will fallback to Messaging API Channel ID)"
+msgstr "（將回退使用 Messaging API Channel ID）"
+
+#: includes/admin/views/partials/connection-status.php:52
+#: line-hub/includes/admin/views/partials/connection-status.php:52
+msgid "(will fallback to Messaging API Channel Secret)"
+msgstr "（將回退使用 Messaging API Channel Secret）"
+
+#: includes/admin/views/tab-line-settings.php:55
+#: includes/admin/views/tab-line-settings.php:135
+#: line-hub/includes/admin/views/tab-line-settings.php:55
+#: line-hub/includes/admin/views/tab-line-settings.php:135
+msgid "32-character string"
+msgstr "32 字元字串"
+
+#: includes/admin/views/tab-developer.php:39
+#: includes/admin/views/tab-developer.php:48
+#: line-hub/includes/admin/views/tab-developer.php:39
+#: line-hub/includes/admin/views/tab-developer.php:48
+msgid "API Key Management"
+msgstr "API Key 管理"
+
+#: includes/admin/views/tab-developer.php:58
+#: line-hub/includes/admin/views/tab-developer.php:58
+msgid ""
+"API Key generated — please copy and save it now. This key will not be shown "
+"again!"
+msgstr "API Key 已產生 — 請立即複製並保存，此金鑰將不會再顯示！"
+
+#: includes/admin/class-settings-page.php:242
+#: includes/admin/class-settings-page.php:242
+#: line-hub/includes/admin/class-settings-page.php:242
+#: line-hub/includes/admin/class-settings-page.php:242
+msgid "API Key has been generated. Please copy and save it now."
+msgstr "API Key 已產生，請立即複製並保存。"
+
+#: includes/admin/class-settings-page.php:245
+#: includes/admin/class-settings-page.php:245
+#: line-hub/includes/admin/class-settings-page.php:245
+#: line-hub/includes/admin/class-settings-page.php:245
+msgid "API Key has been revoked."
+msgstr "API Key 已撤銷。"
+
+#: includes/admin/views/tab-developer.php:42
+#: includes/admin/views/tab-developer.php:199
+#: line-hub/includes/admin/views/tab-developer.php:42
+#: line-hub/includes/admin/views/tab-developer.php:199
+msgid "API Usage Log"
+msgstr "API 使用記錄"
+
+#: includes/liff/class-liff-api-client.php:33
+#: line-hub/includes/liff/class-liff-api-client.php:33
+msgid "Access Token verification failed."
+msgstr "Access Token 驗證失敗。"
+
+#: includes/admin/views/tab-webhook.php:39
+#: line-hub/includes/admin/views/tab-webhook.php:39
+msgid "Action"
+msgstr "操作"
+
+#: includes/admin/views/tab-developer.php:118
+#: line-hub/includes/admin/views/tab-developer.php:118
+msgid "Actions (Send Messages)"
+msgstr "Actions（發送訊息）"
+
+#: includes/admin/views/tab-login-settings.php:105
+#: line-hub/includes/admin/views/tab-login-settings.php:105
+msgid "Add Friend Behavior"
+msgstr "加好友行為"
+
+#: includes/admin/views/tab-developer.php:36
+#: line-hub/includes/admin/views/tab-developer.php:36
+msgid ""
+"All information needed to integrate with LINE Hub. Interact via REST API "
+"(external systems) or WordPress Hooks (same-host plugins)."
+msgstr "整合 LINE Hub 所需的所有資訊。透過 REST API（外部系統）或 WordPress Hooks（同主機外掛）互動。"
+
+#: includes/admin/views/tab-login-settings.php:85
+#: line-hub/includes/admin/views/tab-login-settings.php:85
+msgid "Allow Method Switching"
+msgstr "允許切換方式"
+
+#: includes/admin/views/tab-login-settings.php:100
+#: line-hub/includes/admin/views/tab-login-settings.php:100
+msgid ""
+"Allow auto login (automatically authenticate when already logged into LINE, "
+"without showing login screen)"
+msgstr "允許自動登入（已登入 LINE 時自動認證，不顯示登入畫面）"
+
+#: includes/admin/views/tab-login-settings.php:90
+#: line-hub/includes/admin/views/tab-login-settings.php:90
+msgid ""
+"Allow users to switch login methods on the login screen (QR Code / Email)"
+msgstr "允許使用者在登入畫面切換登入方式（QR Code / Email）"
+
+#: includes/admin/views/tab-login-settings.php:241
+#: line-hub/includes/admin/views/tab-login-settings.php:241
+msgid "Allowed Domains"
+msgstr "允許的網域"
+
+#: includes/auth/email-form-template.php:38
+#: line-hub/includes/auth/email-form-template.php:38
+msgid "Almost Done!"
+msgstr "即將完成！"
+
+#: includes/admin/tabs/class-developer-tab.php:71
+#: line-hub/includes/admin/tabs/class-developer-tab.php:71
+msgid "Alt text (default: Notification)"
+msgstr "替代文字（預設：Notification）"
+
+#: includes/admin/tabs/class-developer-tab.php:148
+#: line-hub/includes/admin/tabs/class-developer-tab.php:148
+msgid "Alt text (optional, default: \"Notification\")"
+msgstr "替代文字（選填，預設：\"Notification\"）"
+
+#: includes/auth/class-auth-callback.php:211
+#: line-hub/includes/auth/class-auth-callback.php:211
+msgid "An error occurred during login. Please try again."
+msgstr "登入過程中發生錯誤，請重新嘗試。"
+
+#: includes/admin/class-settings-page.php:218
+#: line-hub/includes/admin/class-settings-page.php:218
+msgid "An error occurred while saving settings."
+msgstr "儲存設定時發生錯誤。"
+
+#: includes/admin/views/tab-developer.php:89
+#: line-hub/includes/admin/views/tab-developer.php:89
+msgid ""
+"Are you sure you want to revoke this API Key? All external systems using "
+"this key will lose access."
+msgstr "確定要撤銷此 API Key 嗎？所有使用此金鑰的外部系統將無法存取。"
+
+#: includes/integration/class-fluent-cart-connector.php:185
+#: line-hub/includes/integration/class-fluent-cart-connector.php:185
+msgid "Are you sure you want to unlink your LINE account?"
+msgstr "確定要解除綁定 LINE 帳號嗎？"
+
+#: includes/class-plugin.php:168 line-hub/includes/class-plugin.php:168
+msgid ""
+"Are you sure you want to unlink your LINE account? You will no longer "
+"receive LINE notifications."
+msgstr "確定要解除綁定 LINE 帳號嗎？解除後將無法收到 LINE 通知。"
+
+#: includes/admin/tabs/class-developer-tab.php:86
+#: line-hub/includes/admin/tabs/class-developer-tab.php:86
+msgid "Array of WordPress user IDs (max 100)"
+msgstr "WordPress 使用者 ID 陣列（最多 100 個）"
+
+#: includes/admin/tabs/class-developer-tab.php:157
+#: line-hub/includes/admin/tabs/class-developer-tab.php:157
+msgid "Array of WordPress user IDs (required, max 100)"
+msgstr "WordPress 使用者 ID 陣列（必填，最多 100 個）"
+
+#: includes/admin/views/partials/developer-api-endpoints.php:17
+#: line-hub/includes/admin/views/partials/developer-api-endpoints.php:17
+msgid "Authentication:"
+msgstr "驗證方式："
+
+#: includes/admin/views/tab-login-settings.php:34
+#: line-hub/includes/admin/views/tab-login-settings.php:34
+msgid "Auto"
+msgstr "自動"
+
+#: includes/admin/views/tab-login-settings.php:182
+#: line-hub/includes/admin/views/tab-login-settings.php:182
+msgid "Auto Link by Email"
+msgstr "依 Email 自動綁定"
+
+#: includes/admin/views/tab-login-settings.php:95
+#: line-hub/includes/admin/views/tab-login-settings.php:95
+msgid "Auto Login"
+msgstr "自動登入"
+
+#: includes/admin/views/tab-line-settings.php:213
+#: line-hub/includes/admin/views/tab-line-settings.php:213
+msgid "Auto Migration"
+msgstr "自動遷移"
+
+#: includes/admin/views/tab-login-settings.php:66
+#: line-hub/includes/admin/views/tab-login-settings.php:66
+msgid "Auto login (when LINE App is installed)"
+msgstr "自動登入（已安裝 LINE App 時）"
+
+#: includes/admin/views/tab-line-settings.php:218
+#: line-hub/includes/admin/views/tab-line-settings.php:218
+msgid ""
+"Automatically migrate NSL users to LINE Hub (auto-copy on new user login)"
+msgstr "自動將 NSL 使用者遷移至 LINE Hub（新使用者登入時自動複製）"
+
+#: includes/auth/class-auth-callback.php:259
+#: includes/auth/class-auth-callback.php:259
+#: line-hub/includes/auth/class-auth-callback.php:259
+#: line-hub/includes/auth/class-auth-callback.php:259
+msgid "Back to Home"
+msgstr "返回首頁"
+
+#: includes/admin/views/partials/developer-api-endpoints.php:16
+#: line-hub/includes/admin/views/partials/developer-api-endpoints.php:16
+msgid "Base URL:"
+msgstr "基底 URL："
+
+#: includes/admin/tabs/class-developer-tab.php:83
+#: line-hub/includes/admin/tabs/class-developer-tab.php:83
+msgid "Broadcast Messages"
+msgstr "群發訊息"
+
+#: includes/admin/views/partials/login-button-positions.php:75
+#: line-hub/includes/admin/views/partials/login-button-positions.php:75
+msgid "Button Embed (Shortcode)"
+msgstr "按鈕嵌入（短代碼）"
+
+#: includes/admin/views/partials/login-button-positions.php:27
+#: line-hub/includes/admin/views/partials/login-button-positions.php:27
+msgid "Button Size"
+msgstr "按鈕大小"
+
+#: includes/admin/views/partials/login-button-positions.php:17
+#: line-hub/includes/admin/views/partials/login-button-positions.php:17
+msgid "Button Text"
+msgstr "按鈕文字"
+
+#: line-hub.php:121
+msgid ""
+"BuyGo LINE Notify is active. We recommend disabling it after completing data"
+" migration."
+msgstr "BuyGo LINE Notify 已啟用。建議完成資料遷移後停用該外掛。"
+
+#: includes/admin/views/tab-line-settings.php:125
+#: line-hub/includes/admin/views/tab-line-settings.php:125
+msgid "Channel ID of the LINE Login Channel"
+msgstr "LINE Login Channel 的 Channel ID"
+
+#: includes/admin/views/tab-line-settings.php:45
+#: line-hub/includes/admin/views/tab-line-settings.php:45
+msgid "Channel ID of the Messaging API Channel"
+msgstr "Messaging API Channel 的 Channel ID"
+
+#: includes/admin/views/tab-line-settings.php:136
+#: line-hub/includes/admin/views/tab-line-settings.php:136
+msgid "Channel Secret of the LINE Login Channel (automatically encrypted)"
+msgstr "LINE Login Channel 的 Channel Secret（自動加密儲存）"
+
+#: includes/admin/tabs/class-developer-tab.php:166
+#: line-hub/includes/admin/tabs/class-developer-tab.php:166
+msgid "Check if a specified user has linked their LINE account."
+msgstr "檢查指定使用者是否已綁定 LINE 帳號。"
+
+#: includes/auth/email-form-template.php:25
+#: line-hub/includes/auth/email-form-template.php:25
+msgid "Complete Registration"
+msgstr "完成註冊"
+
+#: includes/liff/class-liff-handler.php:65
+#: includes/liff/class-liff-handler.php:65
+#: line-hub/includes/liff/class-liff-handler.php:65
+#: line-hub/includes/liff/class-liff-handler.php:65
+msgid "Configuration Error"
+msgstr "設定錯誤"
+
+#: includes/admin/views/tab-wizard.php:20
+#: line-hub/includes/admin/views/tab-wizard.php:20
+msgid "Connection Status Overview"
+msgstr "連線狀態總覽"
+
+#: includes/auth/email-form-template.php:62
+#: line-hub/includes/auth/email-form-template.php:62
+msgid "Continue"
+msgstr "繼續"
+
+#: includes/admin/views/tab-login-settings.php:70
+#: line-hub/includes/admin/views/tab-login-settings.php:70
+msgid ""
+"Controls which login method is displayed first on the LINE Login screen"
+msgstr "控制 LINE 登入畫面首先顯示哪種登入方式"
+
+#: includes/admin/views/partials/developer-api-endpoints.php:60
+#: includes/admin/views/partials/login-button-positions.php:84
+#: includes/admin/views/partials/login-button-positions.php:97
+#: includes/admin/views/tab-developer.php:65
+#: includes/admin/views/tab-developer.php:150
+#: includes/admin/views/tab-developer.php:189
+#: includes/admin/views/tab-line-settings.php:77
+#: includes/admin/views/tab-line-settings.php:157
+#: includes/admin/views/tab-line-settings.php:168
+#: line-hub/includes/admin/views/partials/developer-api-endpoints.php:60
+#: line-hub/includes/admin/views/partials/login-button-positions.php:84
+#: line-hub/includes/admin/views/partials/login-button-positions.php:97
+#: line-hub/includes/admin/views/tab-developer.php:65
+#: line-hub/includes/admin/views/tab-developer.php:150
+#: line-hub/includes/admin/views/tab-developer.php:189
+#: line-hub/includes/admin/views/tab-line-settings.php:77
+#: line-hub/includes/admin/views/tab-line-settings.php:157
+#: line-hub/includes/admin/views/tab-line-settings.php:168
+msgid "Copy"
+msgstr "複製"
+
+#: includes/admin/views/tab-developer.php:80
+#: includes/admin/views/tab-developer.php:80
+#: line-hub/includes/admin/views/tab-developer.php:80
+#: line-hub/includes/admin/views/tab-developer.php:80
+#, php-format
+msgid "Created on: %s"
+msgstr "建立日期：%s"
+
+#: includes/admin/views/tab-developer.php:73
+#: line-hub/includes/admin/views/tab-developer.php:73
+msgid "Current API Key"
+msgstr "目前的 API Key"
+
+#: includes/admin/views/partials/login-button-positions.php:91
+#: line-hub/includes/admin/views/partials/login-button-positions.php:91
+msgid "Custom Parameters"
+msgstr "自訂參數"
+
+#: includes/admin/views/tab-login-settings.php:60
+#: line-hub/includes/admin/views/tab-login-settings.php:60
+msgid "Default (LINE auto-detect)"
+msgstr "預設（LINE 自動偵測）"
+
+#: includes/admin/views/tab-login-settings.php:158
+#: line-hub/includes/admin/views/tab-login-settings.php:158
+msgid "Default Roles"
+msgstr "預設角色"
+
+#: includes/admin/tabs/class-developer-tab.php:177
+#: line-hub/includes/admin/tabs/class-developer-tab.php:177
+msgid "Default value (empty string)"
+msgstr "預設值（空字串）"
+
+#: includes/admin/tabs/class-developer-tab.php:168
+#: line-hub/includes/admin/tabs/class-developer-tab.php:168
+msgid "Default value (false)"
+msgstr "預設值（false）"
+
+#: includes/admin/views/partials/developer-api-endpoints.php:41
+#: includes/admin/views/tab-developer.php:133
+#: includes/admin/views/tab-developer.php:172
+#: line-hub/includes/admin/views/partials/developer-api-endpoints.php:41
+#: line-hub/includes/admin/views/tab-developer.php:133
+#: line-hub/includes/admin/views/tab-developer.php:172
+msgid "Description"
+msgstr "說明"
+
+#: includes/admin/tabs/class-developer-tab.php:26
+#: line-hub/includes/admin/tabs/class-developer-tab.php:26
+msgid "Developer"
+msgstr "開發者"
+
+#: includes/admin/views/tab-developer.php:34
+#: line-hub/includes/admin/views/tab-developer.php:34
+msgid "Developer Tools"
+msgstr "開發者工具"
+
+#: includes/admin/views/tab-login-settings.php:145
+#: line-hub/includes/admin/views/tab-login-settings.php:145
+msgid "Display Name Prefix"
+msgstr "顯示名稱前綴"
+
+#: includes/admin/views/partials/login-button-positions.php:48
+#: line-hub/includes/admin/views/partials/login-button-positions.php:48
+msgid "Display Positions"
+msgstr "顯示位置"
+
+#: includes/admin/tabs/class-developer-tab.php:53
+#: includes/admin/tabs/class-developer-tab.php:54
+#: includes/admin/tabs/class-developer-tab.php:69
+#: includes/admin/tabs/class-developer-tab.php:70
+#: line-hub/includes/admin/tabs/class-developer-tab.php:53
+#: line-hub/includes/admin/tabs/class-developer-tab.php:54
+#: line-hub/includes/admin/tabs/class-developer-tab.php:69
+#: line-hub/includes/admin/tabs/class-developer-tab.php:70
+msgid "Either required"
+msgstr "擇一必填"
+
+#: includes/auth/email-form-template.php:54
+#: line-hub/includes/auth/email-form-template.php:54
+msgid "Email Address"
+msgstr "Email 地址"
+
+#: includes/admin/views/tab-login-settings.php:229
+#: line-hub/includes/admin/views/tab-login-settings.php:229
+msgid "Email Verification"
+msgstr "Email 驗證"
+
+#: includes/admin/views/tab-line-settings.php:208
+#: line-hub/includes/admin/views/tab-line-settings.php:208
+msgid "Enable NSL compatibility mode (also query users from wp_social_users)"
+msgstr "啟用 NSL 相容模式（同時從 wp_social_users 查詢使用者）"
+
+#: includes/admin/views/tab-developer.php:215
+#: line-hub/includes/admin/views/tab-developer.php:215
+msgid "Endpoint"
+msgstr "端點"
+
+#: includes/admin/views/tab-line-settings.php:169
+#: line-hub/includes/admin/views/tab-line-settings.php:169
+msgid "Enter this as the Endpoint URL of the LIFF App"
+msgstr "將此 URL 填入 LIFF App 的 Endpoint URL"
+
+#: includes/admin/views/tab-line-settings.php:78
+#: line-hub/includes/admin/views/tab-line-settings.php:78
+msgid "Enter this in the Webhook URL field of the Messaging API Channel"
+msgstr "將此 URL 填入 Messaging API Channel 的 Webhook URL 欄位"
+
+#: includes/admin/views/tab-webhook.php:35
+#: line-hub/includes/admin/views/tab-webhook.php:35
+msgid "Event Type"
+msgstr "事件類型"
+
+#: includes/admin/views/tab-developer.php:50
+#: line-hub/includes/admin/views/tab-developer.php:50
+msgid "External systems (e.g. SaaS, Zapier) authenticate via the HTTP Header"
+msgstr "外部系統（如 SaaS、Zapier）透過 HTTP Header 驗證"
+
+#: includes/admin/views/tab-developer.php:249
+#: line-hub/includes/admin/views/tab-developer.php:249
+msgid "Failed"
+msgstr "失敗"
+
+#: includes/services/class-user-service.php:201
+#: line-hub/includes/services/class-user-service.php:201
+msgid "Failed to create binding record."
+msgstr "建立綁定紀錄失敗。"
+
+#: includes/integration/class-fluent-cart-connector.php:188
+#: line-hub/includes/integration/class-fluent-cart-connector.php:188
+msgid "Failed to unlink LINE account."
+msgstr "解除綁定 LINE 帳號失敗。"
+
+#: includes/class-plugin.php:171 line-hub/includes/class-plugin.php:171
+msgid "Failed to unlink account."
+msgstr "解除綁定失敗。"
+
+#: includes/api/class-user-api.php:117
+#: line-hub/includes/api/class-user-api.php:117
+msgid "Failed to unlink. Please try again later."
+msgstr "解除綁定失敗，請稍後再試。"
+
+#: includes/services/class-user-service.php:193
+#: line-hub/includes/services/class-user-service.php:193
+msgid "Failed to update binding record."
+msgstr "更新綁定紀錄失敗。"
+
+#: includes/admin/views/tab-developer.php:157
+#: line-hub/includes/admin/views/tab-developer.php:157
+msgid "Filters (Query Users)"
+msgstr "Filters（查詢使用者）"
+
+#: includes/admin/views/tab-login-settings.php:210
+#: line-hub/includes/admin/views/tab-login-settings.php:210
+msgid "Fixed URL"
+msgstr "固定 URL"
+
+#: includes/admin/tabs/class-developer-tab.php:72
+#: line-hub/includes/admin/tabs/class-developer-tab.php:72
+msgid "Flex Message JSON structure"
+msgstr "Flex Message JSON 結構"
+
+#: includes/admin/tabs/class-developer-tab.php:149
+#: line-hub/includes/admin/tabs/class-developer-tab.php:149
+msgid "Flex Message JSON structure (required)"
+msgstr "Flex Message JSON 結構（必填）"
+
+#: includes/messaging/class-messaging-service.php:68
+#: line-hub/includes/messaging/class-messaging-service.php:68
+msgid "Flex Message cannot be empty."
+msgstr "Flex Message 不可為空。"
+
+#: includes/admin/views/partials/login-button-positions.php:54
+#: line-hub/includes/admin/views/partials/login-button-positions.php:54
+msgid "FluentCart checkout page (shown when not logged in)"
+msgstr "FluentCart 結帳頁面（未登入時顯示）"
+
+#: includes/admin/views/partials/login-button-positions.php:55
+#: line-hub/includes/admin/views/partials/login-button-positions.php:55
+msgid "FluentCommunity login form"
+msgstr "FluentCommunity 登入表單"
+
+#: includes/admin/views/tab-login-settings.php:75
+#: line-hub/includes/admin/views/tab-login-settings.php:75
+msgid "Force Re-authorization"
+msgstr "強制重新授權"
+
+#: includes/admin/views/tab-login-settings.php:117
+#: line-hub/includes/admin/views/tab-login-settings.php:117
+msgid "Force display add friend prompt during login"
+msgstr "登入時強制顯示加好友提示"
+
+#: includes/admin/views/tab-developer.php:103
+#: line-hub/includes/admin/views/tab-developer.php:103
+msgid "Generate API Key"
+msgstr "產生 API Key"
+
+#: includes/admin/tabs/class-developer-tab.php:175
+#: line-hub/includes/admin/tabs/class-developer-tab.php:175
+msgid "Get the LINE UID for a specified user."
+msgstr "取得指定使用者的 LINE UID。"
+
+#: includes/admin/views/tab-wizard.php:45
+#: includes/admin/views/tab-wizard.php:45
+#: line-hub/includes/admin/views/tab-wizard.php:45
+#: line-hub/includes/admin/views/tab-wizard.php:45
+#, php-format
+msgid "Go to %s"
+msgstr "前往 %s"
+
+#: includes/admin/views/tab-wizard.php:26
+#: line-hub/includes/admin/views/tab-wizard.php:26
+msgid "Go to LINE Settings"
+msgstr "前往 LINE 設定"
+
+#: includes/admin/views/tab-wizard.php:30
+#: line-hub/includes/admin/views/tab-wizard.php:30
+msgid "Go to Login Settings"
+msgstr "前往登入設定"
+
+#: includes/webhook/class-webhook-receiver.php:53
+#: line-hub/includes/webhook/class-webhook-receiver.php:53
+msgid "HMAC signature verification failed."
+msgstr "HMAC 簽章驗證失敗。"
+
+#: includes/auth/email-form-template.php:43
+#: includes/auth/email-form-template.php:43
+#: line-hub/includes/auth/email-form-template.php:43
+#: line-hub/includes/auth/email-form-template.php:43
+#, php-format
+msgid "Hi %s, please enter your email to complete registration."
+msgstr "嗨 %s，請輸入您的 Email 以完成註冊。"
+
+#: includes/admin/views/tab-login-settings.php:187
+#: line-hub/includes/admin/views/tab-login-settings.php:187
+msgid ""
+"If the LINE account email matches an existing WordPress account, "
+"automatically link them"
+msgstr "若 LINE 帳號的 Email 與既有 WordPress 帳號相同，自動進行綁定"
+
+#: includes/admin/views/tab-wizard.php:69
+#: line-hub/includes/admin/views/tab-wizard.php:69
+msgid ""
+"If using LIFF, create a LIFF App under the LINE Login Channel, set the "
+"Endpoint URL to the address shown on the \"LINE Settings\" page, and enter "
+"the LIFF ID."
+msgstr ""
+"如需使用 LIFF，在 LINE Login Channel 下建立 LIFF App，將 Endpoint URL 設定為「LINE "
+"設定」頁面顯示的位址，並填入 LIFF ID。"
+
+#: includes/admin/views/tab-line-settings.php:193
+#: line-hub/includes/admin/views/tab-line-settings.php:193
+msgid ""
+"If you previously used NSL for LINE login, enable compatibility mode for a "
+"smooth transition to LINE Hub."
+msgstr "如果先前使用 NSL 進行 LINE 登入，可啟用相容模式以順利過渡到 LINE Hub。"
+
+#: includes/admin/views/tab-wizard.php:67
+#: line-hub/includes/admin/views/tab-wizard.php:67
+msgid ""
+"In the LINE Login Channel Basic settings, get the Channel ID and Channel "
+"Secret, then enter them in \"LINE Settings\"."
+msgstr "在 LINE Login Channel 基本設定中取得 Channel ID 和 Channel Secret，填入「LINE 設定」。"
+
+#: includes/admin/views/tab-wizard.php:68
+#: line-hub/includes/admin/views/tab-wizard.php:68
+msgid ""
+"In the LINE Login Channel Callback URL settings, add the Callback URL shown "
+"on the \"LINE Settings\" page."
+msgstr ""
+"在 LINE Login Channel 的 Callback URL 設定中，加入「LINE 設定」頁面顯示的 Callback URL。"
+
+#: includes/admin/views/tab-wizard.php:61
+#: includes/admin/views/tab-wizard.php:61
+#: line-hub/includes/admin/views/tab-wizard.php:61
+#: line-hub/includes/admin/views/tab-wizard.php:61
+#, php-format
+msgid ""
+"In the Messaging API Channel Basic settings, get the Channel ID and Channel "
+"Secret, then enter them in \"%1$s\"."
+msgstr "在 Messaging API Channel 基本設定中取得 Channel ID 和 Channel Secret，填入「%1$s」。"
+
+#: includes/admin/views/tab-wizard.php:65
+#: line-hub/includes/admin/views/tab-wizard.php:65
+msgid ""
+"In the Messaging API Channel, issue a Channel Access Token and enter it in "
+"\"LINE Settings\"."
+msgstr "在 Messaging API Channel 中核發 Channel Access Token，填入「LINE 設定」。"
+
+#: includes/admin/views/tab-wizard.php:66
+#: line-hub/includes/admin/views/tab-wizard.php:66
+msgid ""
+"In the Messaging API Channel, set the Webhook URL to the address shown on "
+"the \"LINE Settings\" page and enable \"Use webhook\"."
+msgstr ""
+"在 Messaging API Channel 中，將 Webhook URL 設定為「LINE 設定」頁面顯示的位址，並啟用「Use "
+"webhook」。"
+
+#: includes/admin/views/tab-login-settings.php:55
+#: line-hub/includes/admin/views/tab-login-settings.php:55
+msgid "Initial Login Method"
+msgstr "初始登入方式"
+
+#: includes/messaging/class-messaging-service.php:71
+#: line-hub/includes/messaging/class-messaging-service.php:71
+msgid "Invalid Flex Message format."
+msgstr "無效的 Flex Message 格式。"
+
+#: includes/webhook/class-webhook-receiver.php:83
+#: line-hub/includes/webhook/class-webhook-receiver.php:83
+msgid "Invalid JSON format."
+msgstr "無效的 JSON 格式。"
+
+#: includes/liff/class-liff-user-processor.php:198
+#: line-hub/includes/liff/class-liff-user-processor.php:198
+msgid "Invalid email format."
+msgstr "無效的 Email 格式。"
+
+#: includes/messaging/class-messaging-service.php:41
+#: includes/messaging/class-messaging-service.php:87
+#: includes/messaging/class-messaging-service.php:118
+#: line-hub/includes/messaging/class-messaging-service.php:41
+#: line-hub/includes/messaging/class-messaging-service.php:87
+#: line-hub/includes/messaging/class-messaging-service.php:118
+msgid "Invalid message format."
+msgstr "無效的訊息格式。"
+
+#: includes/liff/class-liff-user-processor.php:109
+#: line-hub/includes/liff/class-liff-user-processor.php:109
+msgid "Invalid request."
+msgstr "無效的請求。"
+
+#: includes/api/class-user-api.php:212
+#: line-hub/includes/api/class-user-api.php:212
+msgid "Invalid user ID."
+msgstr "無效的使用者 ID。"
+
+#: includes/admin/views/tab-line-settings.php:147
+#: line-hub/includes/admin/views/tab-line-settings.php:147
+msgid "LIFF App ID (created under the LINE Login Channel)"
+msgstr "LIFF App ID（在 LINE Login Channel 下建立）"
+
+#: includes/admin/views/tab-login-settings.php:44
+#: line-hub/includes/admin/views/tab-login-settings.php:44
+msgid "LIFF Only"
+msgstr "僅 LIFF"
+
+#: includes/liff/class-liff-handler.php:64
+#: includes/liff/class-liff-handler.php:64
+#: line-hub/includes/liff/class-liff-handler.php:64
+#: line-hub/includes/liff/class-liff-handler.php:64
+msgid "LIFF is not configured. Please contact the administrator."
+msgstr "LIFF 尚未設定，請聯繫管理員。"
+
+#: includes/auth/class-oauth-client.php:114
+#: line-hub/includes/auth/class-oauth-client.php:114
+#, php-format
+msgid "LINE API connection failed: %s"
+msgstr "LINE API 連線失敗：%s"
+
+#: includes/messaging/class-messaging-service.php:193
+#: line-hub/includes/messaging/class-messaging-service.php:193
+#, php-format
+msgid "LINE API error (HTTP %d)"
+msgstr "LINE API 錯誤（HTTP %d）"
+
+#: includes/templates/fluentcart-binding.php:26
+#: includes/templates/profile-binding.php:24
+#: line-hub/includes/templates/fluentcart-binding.php:26
+#: line-hub/includes/templates/profile-binding.php:24
+msgid "LINE Account Binding"
+msgstr "LINE 帳號綁定"
+
+#: includes/messaging/class-messaging-service.php:31
+#: includes/messaging/class-messaging-service.php:81
+#: includes/messaging/class-messaging-service.php:97
+#: line-hub/includes/messaging/class-messaging-service.php:31
+#: line-hub/includes/messaging/class-messaging-service.php:81
+#: line-hub/includes/messaging/class-messaging-service.php:97
+msgid "LINE Channel Access Token is not configured."
+msgstr "LINE Channel Access Token 尚未設定。"
+
+#: line-hub.php:126 line-hub.php:126
+msgid "LINE Hub Compatibility Notice:"
+msgstr "LINE Hub 相容性提醒："
+
+#: includes/admin/class-settings-page.php:71
+#: line-hub/includes/admin/class-settings-page.php:71
+msgid "LINE Hub Settings"
+msgstr "LINE Hub 設定"
+
+#: includes/integration/class-fluent-cart-connector.php:95
+#: includes/integration/class-fluent-cart-connector.php:95
+#: line-hub/includes/integration/class-fluent-cart-connector.php:95
+#: line-hub/includes/integration/class-fluent-cart-connector.php:95
+msgid "LINE Login"
+msgstr "LINE 登入"
+
+#: includes/admin/views/tab-login-settings.php:52
+#: line-hub/includes/admin/views/tab-login-settings.php:52
+msgid "LINE Login Behavior"
+msgstr "LINE 登入行為"
+
+#: includes/admin/views/tab-line-settings.php:101
+#: line-hub/includes/admin/views/tab-line-settings.php:101
+msgid "LINE Login Settings"
+msgstr "LINE Login 設定"
+
+#: includes/templates/profile-binding.php:103
+#: line-hub/includes/templates/profile-binding.php:103
+msgid "LINE Login is not configured. Please contact the administrator."
+msgstr "LINE Login 尚未設定，請聯繫管理員。"
+
+#: includes/auth/class-auth-callback.php:108
+#: line-hub/includes/auth/class-auth-callback.php:108
+msgid "LINE Login is not configured. Please contact the site administrator."
+msgstr "LINE Login 尚未設定，請聯繫網站管理員。"
+
+#: includes/admin/class-settings-page.php:233
+#: line-hub/includes/admin/class-settings-page.php:233
+msgid ""
+"LINE Login verification failed — please check your Channel ID and Secret."
+msgstr "LINE Login 驗證失敗 — 請確認 Channel ID 及 Secret 是否正確。"
+
+#: includes/admin/class-settings-page.php:232
+#: line-hub/includes/admin/class-settings-page.php:232
+msgid ""
+"LINE Login verification successful — Channel ID and Secret are correct."
+msgstr "LINE Login 驗證成功 — Channel ID 及 Secret 正確。"
+
+#: includes/admin/views/tab-line-settings.php:21
+#: line-hub/includes/admin/views/tab-line-settings.php:21
+msgid "LINE Messaging API Settings"
+msgstr "LINE Messaging API 設定"
+
+#: includes/admin/views/tab-login-settings.php:39
+#: line-hub/includes/admin/views/tab-login-settings.php:39
+msgid "LINE OA Only"
+msgstr "僅 LINE OA"
+
+#: includes/auth/class-oauth-client.php:159
+#: line-hub/includes/auth/class-oauth-client.php:159
+#, php-format
+msgid "LINE Profile API connection failed: %s"
+msgstr "LINE Profile API 連線失敗：%s"
+
+#: includes/auth/class-oauth-client.php:167
+#: line-hub/includes/auth/class-oauth-client.php:167
+#, php-format
+msgid "LINE Profile API error (HTTP %d)."
+msgstr "LINE Profile API 錯誤（HTTP %d）。"
+
+#: includes/admin/tabs/class-line-settings-tab.php:26
+#: includes/admin/views/tab-wizard.php:62
+#: includes/admin/views/tab-wizard.php:62
+#: line-hub/includes/admin/tabs/class-line-settings-tab.php:26
+#: line-hub/includes/admin/views/tab-wizard.php:62
+#: line-hub/includes/admin/views/tab-wizard.php:62
+msgid "LINE Settings"
+msgstr "LINE 設定"
+
+#: includes/api/class-user-api.php:111 includes/class-plugin.php:170
+#: includes/integration/class-fluent-cart-connector.php:187
+#: line-hub/includes/api/class-user-api.php:111
+#: line-hub/includes/class-plugin.php:170
+#: line-hub/includes/integration/class-fluent-cart-connector.php:187
+msgid "LINE account has been unlinked."
+msgstr "LINE 帳號已解除綁定。"
+
+#: includes/templates/profile-binding.php:90
+#: line-hub/includes/templates/profile-binding.php:90
+msgid ""
+"LINE account is not linked. Link your account to receive order notifications"
+" and shipping updates."
+msgstr "LINE 帳號尚未綁定。綁定帳號即可接收訂單通知及出貨動態。"
+
+#: includes/admin/views/partials/login-button-positions.php:33
+#: line-hub/includes/admin/views/partials/login-button-positions.php:33
+msgid "Large"
+msgstr "大"
+
+#: includes/templates/fluentcart-binding.php:73
+#: includes/templates/profile-binding.php:97
+#: line-hub/includes/templates/fluentcart-binding.php:73
+#: line-hub/includes/templates/profile-binding.php:97
+msgid "Link LINE Account"
+msgstr "綁定 LINE 帳號"
+
+#: includes/liff/class-liff-user-processor.php:115
+#: line-hub/includes/liff/class-liff-user-processor.php:115
+msgid "Link has expired. Please log in again."
+msgstr "連結已過期，請重新登入。"
+
+#: includes/templates/fluentcart-binding.php:66
+#: line-hub/includes/templates/fluentcart-binding.php:66
+msgid ""
+"Link your LINE account to receive order notifications and shipping updates."
+msgstr "綁定 LINE 帳號以接收訂單通知及出貨動態。"
+
+#: includes/templates/fluentcart-binding.php:48
+#: includes/templates/fluentcart-binding.php:48
+#: includes/templates/profile-binding.php:69
+#: includes/templates/profile-binding.php:69
+#: line-hub/includes/templates/fluentcart-binding.php:48
+#: line-hub/includes/templates/fluentcart-binding.php:48
+#: line-hub/includes/templates/profile-binding.php:69
+#: line-hub/includes/templates/profile-binding.php:69
+#, php-format
+msgid "Linked on: %s"
+msgstr "綁定日期：%s"
+
+#: includes/integration/class-fluent-cart-connector.php:94
+#: includes/integration/class-fluent-cart-connector.php:94
+#: includes/integration/class-login-button.php:50
+#: includes/templates/login-button.php:23
+#: line-hub/includes/integration/class-fluent-cart-connector.php:94
+#: line-hub/includes/integration/class-fluent-cart-connector.php:94
+#: line-hub/includes/integration/class-login-button.php:50
+#: line-hub/includes/templates/login-button.php:23
+msgid "Log in to track orders and receive shipping notifications."
+msgstr "登入即可追蹤訂單並接收出貨通知。"
+
+#: includes/admin/views/partials/login-button-positions.php:22
+#: includes/templates/login-button.php:20
+#: line-hub/includes/admin/views/partials/login-button-positions.php:22
+#: line-hub/includes/templates/login-button.php:20
+msgid "Log in with LINE"
+msgstr "使用 LINE 登入"
+
+#: includes/class-plugin.php:131 line-hub/includes/class-plugin.php:131
+msgid "Logged in as {name}"
+msgstr "已登入為 {name}"
+
+#: includes/admin/views/partials/login-button-positions.php:13
+#: line-hub/includes/admin/views/partials/login-button-positions.php:13
+msgid "Login Button"
+msgstr "登入按鈕"
+
+#: includes/auth/class-auth-callback.php:222
+#: line-hub/includes/auth/class-auth-callback.php:222
+msgid "Login Error"
+msgstr "登入錯誤"
+
+#: includes/auth/class-auth-callback.php:254
+#: includes/auth/class-auth-callback.php:254
+#: includes/liff/class-liff-handler.php:132
+#: includes/liff/class-liff-handler.php:132
+#: line-hub/includes/auth/class-auth-callback.php:254
+#: line-hub/includes/auth/class-auth-callback.php:254
+#: line-hub/includes/liff/class-liff-handler.php:132
+#: line-hub/includes/liff/class-liff-handler.php:132
+msgid "Login Failed"
+msgstr "登入失敗"
+
+#: includes/admin/views/tab-login-settings.php:27
+#: line-hub/includes/admin/views/tab-login-settings.php:27
+msgid "Login Method"
+msgstr "登入方式"
+
+#: includes/admin/views/tab-login-settings.php:24
+#: line-hub/includes/admin/views/tab-login-settings.php:24
+msgid "Login Mode"
+msgstr "登入模式"
+
+#: includes/admin/tabs/class-login-settings-tab.php:26
+#: line-hub/includes/admin/tabs/class-login-settings-tab.php:26
+msgid "Login Settings"
+msgstr "登入設定"
+
+#: includes/services/class-login-service.php:82
+#: includes/services/class-login-service.php:88
+#: line-hub/includes/services/class-login-service.php:82
+#: line-hub/includes/services/class-login-service.php:88
+msgid "Login session expired. Please log in again."
+msgstr "登入工作階段已過期，請重新登入。"
+
+#: includes/admin/views/tab-login-settings.php:44
+#: line-hub/includes/admin/views/tab-login-settings.php:44
+msgid "Login via LIFF App (requires LIFF ID)"
+msgstr "透過 LIFF App 登入（需設定 LIFF ID）"
+
+#: includes/admin/views/tab-line-settings.php:66
+#: line-hub/includes/admin/views/tab-line-settings.php:66
+msgid "Long-lived or short-lived Access Token"
+msgstr "長效或短效 Access Token"
+
+#: includes/admin/tabs/class-developer-tab.php:113
+#: line-hub/includes/admin/tabs/class-developer-tab.php:113
+msgid ""
+"Look up a WordPress user and their LINE binding status by email address."
+msgstr "透過 Email 查詢 WordPress 使用者及其 LINE 綁定狀態。"
+
+#: includes/admin/tabs/class-developer-tab.php:112
+#: line-hub/includes/admin/tabs/class-developer-tab.php:112
+msgid "Lookup User by Email"
+msgstr "依 Email 查詢使用者"
+
+#: includes/admin/views/partials/login-button-positions.php:32
+#: line-hub/includes/admin/views/partials/login-button-positions.php:32
+msgid "Medium"
+msgstr "中"
+
+#: includes/messaging/class-messaging-service.php:46
+#: line-hub/includes/messaging/class-messaging-service.php:46
+msgid "Message is missing the type field."
+msgstr "訊息缺少 type 欄位。"
+
+#: includes/admin/tabs/class-developer-tab.php:139
+#: includes/admin/tabs/class-developer-tab.php:158
+#: line-hub/includes/admin/tabs/class-developer-tab.php:139
+#: line-hub/includes/admin/tabs/class-developer-tab.php:158
+msgid "Message text (required)"
+msgstr "訊息文字（必填）"
+
+#: includes/admin/tabs/class-developer-tab.php:55
+#: includes/admin/tabs/class-developer-tab.php:87
+#: line-hub/includes/admin/tabs/class-developer-tab.php:55
+#: line-hub/includes/admin/tabs/class-developer-tab.php:87
+msgid "Message text content"
+msgstr "訊息文字內容"
+
+#: includes/admin/class-settings-page.php:226
+#: line-hub/includes/admin/class-settings-page.php:226
+msgid ""
+"Messaging API verification failed. Please check if the Access Token is "
+"correct."
+msgstr "Messaging API 驗證失敗，請確認 Access Token 是否正確。"
+
+#: includes/admin/class-settings-page.php:225
+#: line-hub/includes/admin/class-settings-page.php:225
+msgid "Messaging API verification successful."
+msgstr "Messaging API 驗證成功。"
+
+#: includes/admin/views/tab-developer.php:214
+#: line-hub/includes/admin/views/tab-developer.php:214
+msgid "Method"
+msgstr "方法"
+
+#: includes/liff/class-liff-user-processor.php:42
+#: line-hub/includes/liff/class-liff-user-processor.php:42
+msgid "Missing Access Token."
+msgstr "缺少 Access Token。"
+
+#: includes/messaging/class-messaging-service.php:103
+#: line-hub/includes/messaging/class-messaging-service.php:103
+msgid "Multicast recipients exceed the 500 user limit."
+msgstr "群發對象超過 500 人上限。"
+
+#: includes/admin/views/tab-line-settings.php:192
+#: line-hub/includes/admin/views/tab-line-settings.php:192
+msgid "NSL (Nextend Social Login) Integration"
+msgstr "NSL（Nextend Social Login）整合"
+
+#: includes/admin/views/tab-line-settings.php:203
+#: line-hub/includes/admin/views/tab-line-settings.php:203
+msgid "NSL Compatibility Mode"
+msgstr "NSL 相容模式"
+
+#: includes/class-plugin.php:173
+#: includes/integration/class-fluent-cart-connector.php:190
+#: line-hub/includes/class-plugin.php:173
+#: line-hub/includes/integration/class-fluent-cart-connector.php:190
+msgid "Network error. Please try again later."
+msgstr "網路錯誤，請稍後再試。"
+
+#: includes/admin/views/tab-login-settings.php:128
+#: line-hub/includes/admin/views/tab-login-settings.php:128
+msgid "New User Settings"
+msgstr "新使用者設定"
+
+#: line-hub.php:116
+msgid ""
+"Nextend Social Login (NSL) is active. Both plugins can coexist, but please "
+"ensure LINE OAuth settings do not conflict."
+msgstr "Nextend Social Login（NSL）已啟用。兩個外掛可共存，但請確認 LINE OAuth 設定不衝突。"
+
+#: includes/admin/views/tab-developer.php:206
+#: line-hub/includes/admin/views/tab-developer.php:206
+msgid ""
+"No API call records yet. Records will appear here when external systems call"
+" REST API endpoints using an API Key."
+msgstr "尚無 API 呼叫紀錄。當外部系統使用 API Key 呼叫 REST API 端點時，紀錄將顯示於此。"
+
+#: includes/admin/views/tab-webhook.php:23
+#: line-hub/includes/admin/views/tab-webhook.php:23
+msgid ""
+"No Webhook events recorded yet. Events will appear here when LINE users "
+"interact with your Bot."
+msgstr "尚無 Webhook 事件紀錄。當 LINE 使用者與您的 Bot 互動時，事件將顯示於此。"
+
+#: includes/messaging/class-messaging-service.php:115
+#: line-hub/includes/messaging/class-messaging-service.php:115
+msgid "None of the recipients have linked a LINE account."
+msgstr "所有收件人都尚未綁定 LINE 帳號。"
+
+#: includes/admin/class-users-column.php:63
+#: includes/admin/class-users-column.php:63
+#: line-hub/includes/admin/class-users-column.php:63
+#: line-hub/includes/admin/class-users-column.php:63
+msgid "Not linked"
+msgstr "未綁定"
+
+#: includes/admin/views/tab-login-settings.php:250
+#: line-hub/includes/admin/views/tab-login-settings.php:250
+msgid ""
+"Only allow registration from specific email domains (comma-separated, leave "
+"empty for no restriction)"
+msgstr "僅允許特定 Email 網域註冊（逗號分隔，留空表示不限制）"
+
+#: includes/admin/tabs/class-developer-tab.php:71
+#: line-hub/includes/admin/tabs/class-developer-tab.php:71
+msgid "Optional"
+msgstr "選填"
+
+#: includes/admin/views/partials/login-button-positions.php:102
+#: includes/admin/views/partials/login-button-positions.php:102
+#: line-hub/includes/admin/views/partials/login-button-positions.php:102
+#: line-hub/includes/admin/views/partials/login-button-positions.php:102
+#, php-format
+msgid ""
+"Optional parameters: %1$s (button text), %2$s (small / medium / large), %3$s"
+" (redirect URL after login)"
+msgstr "選填參數：%1$s（按鈕文字）、%2$s（small / medium / large）、%3$s（登入後跳轉 URL）"
+
+#: includes/admin/views/partials/developer-api-endpoints.php:38
+#: includes/admin/views/tab-developer.php:131
+#: includes/admin/views/tab-developer.php:170
+#: line-hub/includes/admin/views/partials/developer-api-endpoints.php:38
+#: line-hub/includes/admin/views/tab-developer.php:131
+#: line-hub/includes/admin/views/tab-developer.php:170
+msgid "Parameter"
+msgstr "參數"
+
+#: includes/admin/views/partials/login-button-positions.php:86
+#: line-hub/includes/admin/views/partials/login-button-positions.php:86
+msgid ""
+"Paste this shortcode in any page or post to display the LINE login button."
+msgstr "將此短代碼貼入任何頁面或文章中，即可顯示 LINE 登入按鈕。"
+
+#: includes/services/class-login-service.php:94
+#: line-hub/includes/services/class-login-service.php:94
+msgid "Please enter a valid email address."
+msgstr "請輸入有效的 Email 地址。"
+
+#: includes/admin/class-settings-page.php:234
+#: line-hub/includes/admin/class-settings-page.php:234
+msgid "Please enter your LINE Login Channel ID and Channel Secret first."
+msgstr "請先填入 LINE Login 的 Channel ID 及 Channel Secret。"
+
+#: includes/liff/class-liff-user-processor.php:194
+#: line-hub/includes/liff/class-liff-user-processor.php:194
+msgid "Please enter your email address."
+msgstr "請輸入您的 Email 地址。"
+
+#: includes/auth/email-form-template.php:47
+#: line-hub/includes/auth/email-form-template.php:47
+msgid "Please enter your email to complete registration."
+msgstr "請輸入您的 Email 以完成註冊。"
+
+#: includes/admin/views/tab-login-settings.php:196
+#: line-hub/includes/admin/views/tab-login-settings.php:196
+msgid "Post-Login Redirect"
+msgstr "登入後跳轉"
+
+#: includes/class-plugin.php:169
+#: includes/integration/class-fluent-cart-connector.php:186
+#: line-hub/includes/class-plugin.php:169
+#: line-hub/includes/integration/class-fluent-cart-connector.php:186
+msgid "Processing..."
+msgstr "處理中…"
+
+#: includes/auth/email-form-template.php:34
+#: line-hub/includes/auth/email-form-template.php:34
+msgid "Profile picture"
+msgstr "大頭貼"
+
+#: includes/admin/views/tab-login-settings.php:63
+#: line-hub/includes/admin/views/tab-login-settings.php:63
+msgid "QR Code scan login"
+msgstr "QR Code 掃碼登入"
+
+#: includes/admin/tabs/class-developer-tab.php:98
+#: line-hub/includes/admin/tabs/class-developer-tab.php:98
+msgid "Query User Binding Status"
+msgstr "查詢使用者綁定狀態"
+
+#: includes/admin/tabs/class-developer-tab.php:99
+#: line-hub/includes/admin/tabs/class-developer-tab.php:99
+msgid ""
+"Query the LINE binding status and information for a specified WordPress "
+"user."
+msgstr "查詢指定 WordPress 使用者的 LINE 綁定狀態與資訊。"
+
+#: includes/admin/views/partials/developer-api-endpoints.php:14
+#: includes/admin/views/tab-developer.php:40
+#: line-hub/includes/admin/views/partials/developer-api-endpoints.php:14
+#: line-hub/includes/admin/views/tab-developer.php:40
+msgid "REST API Endpoints"
+msgstr "REST API 端點"
+
+#: includes/auth/email-form-template.php:67
+#: line-hub/includes/auth/email-form-template.php:67
+msgid "Re-authorize with LINE to grant email access"
+msgstr "重新授權 LINE 以取得 Email 存取權限"
+
+#: includes/admin/views/tab-webhook.php:28
+#: includes/admin/views/tab-webhook.php:28
+#: line-hub/includes/admin/views/tab-webhook.php:28
+#: line-hub/includes/admin/views/tab-webhook.php:28
+#, php-format
+msgid "Recent %d events"
+msgstr "最近 %d 筆事件"
+
+#: includes/admin/views/tab-developer.php:201
+#: line-hub/includes/admin/views/tab-developer.php:201
+msgid ""
+"Recent 20 REST API calls (API Key authenticated). Use this to verify "
+"external system integration."
+msgstr "最近 20 筆 REST API 呼叫（API Key 驗證）。用於確認外部系統整合狀態。"
+
+#: includes/messaging/class-messaging-service.php:100
+#: line-hub/includes/messaging/class-messaging-service.php:100
+msgid "Recipient list cannot be empty."
+msgstr "收件人清單不可為空。"
+
+#: includes/admin/views/tab-login-settings.php:199
+#: line-hub/includes/admin/views/tab-login-settings.php:199
+msgid "Redirect Method"
+msgstr "跳轉方式"
+
+#: includes/admin/views/tab-line-settings.php:158
+#: line-hub/includes/admin/views/tab-line-settings.php:158
+msgid ""
+"Register this URL in the Callback URL settings of the LINE Login Channel"
+msgstr "將此 URL 註冊到 LINE Login Channel 的 Callback URL 設定中"
+
+#: includes/messaging/class-messaging-service.php:84
+#: line-hub/includes/messaging/class-messaging-service.php:84
+msgid "Reply token cannot be empty."
+msgstr "Reply token 不可為空。"
+
+#: includes/admin/views/tab-login-settings.php:235
+#: line-hub/includes/admin/views/tab-login-settings.php:235
+msgid "Require email verification (new users must verify email before login)"
+msgstr "要求 Email 驗證（新使用者必須驗證 Email 後才能登入）"
+
+#: includes/admin/views/tab-login-settings.php:80
+#: line-hub/includes/admin/views/tab-login-settings.php:80
+msgid ""
+"Require re-authorization on every login (do not use existing authorized "
+"session)"
+msgstr "每次登入都要求重新授權（不使用既有授權）"
+
+#: includes/admin/tabs/class-developer-tab.php:55
+#: includes/admin/tabs/class-developer-tab.php:72
+#: includes/admin/tabs/class-developer-tab.php:86
+#: includes/admin/tabs/class-developer-tab.php:87
+#: includes/admin/views/partials/developer-api-endpoints.php:40
+#: line-hub/includes/admin/tabs/class-developer-tab.php:55
+#: line-hub/includes/admin/tabs/class-developer-tab.php:72
+#: line-hub/includes/admin/tabs/class-developer-tab.php:86
+#: line-hub/includes/admin/tabs/class-developer-tab.php:87
+#: line-hub/includes/admin/views/partials/developer-api-endpoints.php:40
+msgid "Required"
+msgstr "必填"
+
+#: includes/admin/tabs/class-developer-tab.php:101
+#: line-hub/includes/admin/tabs/class-developer-tab.php:101
+msgid "Required (URL param)"
+msgstr "必填（URL 參數）"
+
+#: includes/admin/tabs/class-developer-tab.php:115
+#: line-hub/includes/admin/tabs/class-developer-tab.php:115
+msgid "Required (query param)"
+msgstr "必填（查詢參數）"
+
+#: includes/admin/views/tab-login-settings.php:121
+#: line-hub/includes/admin/views/tab-login-settings.php:121
+msgid "Requires \"Linked OA\" to be enabled in LINE Developers Console"
+msgstr "需在 LINE Developers Console 啟用「Linked OA」"
+
+#: line-hub.php:96 line-hub.php:96
+#, php-format
+msgid "Requires PHP 8.2 or higher. Current version: %s"
+msgstr "需要 PHP 8.2 或更高版本。目前版本：%s"
+
+#: line-hub.php:106 line-hub.php:106
+#, php-format
+msgid "Requires WordPress 6.5 or higher. Current version: %s"
+msgstr "需要 WordPress 6.5 或更高版本。目前版本：%s"
+
+#: includes/admin/views/partials/developer-api-endpoints.php:65
+#: line-hub/includes/admin/views/partials/developer-api-endpoints.php:65
+msgid "Response Example"
+msgstr "回應範例"
+
+#: includes/admin/views/tab-developer.php:216
+#: line-hub/includes/admin/views/tab-developer.php:216
+msgid "Result"
+msgstr "結果"
+
+#: includes/admin/views/tab-developer.php:93
+#: line-hub/includes/admin/views/tab-developer.php:93
+msgid "Revoke API Key"
+msgstr "撤銷 API Key"
+
+#: includes/admin/views/tab-login-settings.php:177
+#: line-hub/includes/admin/views/tab-login-settings.php:177
+msgid ""
+"Roles automatically assigned to new LINE users after registration (multiple "
+"selections allowed)"
+msgstr "LINE 新使用者註冊後自動指派的角色（可多選）"
+
+#: includes/admin/views/tab-line-settings.php:84
+#: includes/admin/views/tab-line-settings.php:175
+#: includes/admin/views/tab-line-settings.php:225
+#: includes/admin/views/tab-login-settings.php:257
+#: line-hub/includes/admin/views/tab-line-settings.php:84
+#: line-hub/includes/admin/views/tab-line-settings.php:175
+#: line-hub/includes/admin/views/tab-line-settings.php:225
+#: line-hub/includes/admin/views/tab-login-settings.php:257
+msgid "Save Settings"
+msgstr "儲存設定"
+
+#: includes/admin/views/tab-login-settings.php:226
+#: line-hub/includes/admin/views/tab-login-settings.php:226
+msgid "Security Settings"
+msgstr "安全設定"
+
+#: includes/admin/class-settings-page.php:207
+#: line-hub/includes/admin/class-settings-page.php:207
+msgid "Security verification failed."
+msgstr "安全驗證失敗。"
+
+#: includes/liff/class-liff-user-processor.php:36
+#: includes/liff/class-liff-user-processor.php:103
+#: includes/services/class-login-service.php:76
+#: line-hub/includes/liff/class-liff-user-processor.php:36
+#: line-hub/includes/liff/class-liff-user-processor.php:103
+#: line-hub/includes/services/class-login-service.php:76
+msgid "Security verification failed. Please try again."
+msgstr "安全驗證失敗，請重新嘗試。"
+
+#: includes/admin/tabs/class-developer-tab.php:66
+#: line-hub/includes/admin/tabs/class-developer-tab.php:66
+msgid "Send Flex Message"
+msgstr "發送 Flex 訊息"
+
+#: includes/admin/tabs/class-developer-tab.php:50
+#: line-hub/includes/admin/tabs/class-developer-tab.php:50
+msgid "Send Text Message"
+msgstr "發送文字訊息"
+
+#: includes/admin/tabs/class-developer-tab.php:145
+#: line-hub/includes/admin/tabs/class-developer-tab.php:145
+msgid ""
+"Send a Flex Message to a specified user. Suitable for structured "
+"notification cards."
+msgstr "向指定使用者發送 Flex Message，適用於結構化通知卡片。"
+
+#: includes/admin/tabs/class-developer-tab.php:67
+#: line-hub/includes/admin/tabs/class-developer-tab.php:67
+msgid ""
+"Send a LINE Flex Message to a specified user. Suitable for order "
+"notifications, cards, and other structured messages."
+msgstr "向指定使用者發送 LINE Flex Message，適用於訂單通知、卡片等結構化訊息。"
+
+#: includes/admin/tabs/class-developer-tab.php:51
+#: line-hub/includes/admin/tabs/class-developer-tab.php:51
+msgid ""
+"Send a text message to a specified WordPress user (lookup by user_id or "
+"email)."
+msgstr "向指定的 WordPress 使用者發送文字訊息（透過 user_id 或 email 查詢）。"
+
+#: includes/admin/tabs/class-developer-tab.php:136
+#: line-hub/includes/admin/tabs/class-developer-tab.php:136
+msgid ""
+"Send a text message to a specified user. Suitable for order notifications, "
+"welcome messages, etc."
+msgstr "向指定使用者發送文字訊息，適用於訂單通知、歡迎訊息等。"
+
+#: includes/admin/tabs/class-developer-tab.php:84
+#: includes/admin/tabs/class-developer-tab.php:155
+#: line-hub/includes/admin/tabs/class-developer-tab.php:84
+#: line-hub/includes/admin/tabs/class-developer-tab.php:155
+msgid ""
+"Send a text message to multiple users at once. Maximum 100 users per "
+"request."
+msgstr "一次向多位使用者發送文字訊息，每次最多 100 人。"
+
+#: line-hub.php:82
+msgid "Settings"
+msgstr "設定"
+
+#: includes/admin/class-settings-page.php:217
+#: line-hub/includes/admin/class-settings-page.php:217
+msgid "Settings saved."
+msgstr "設定已儲存。"
+
+#: includes/admin/views/tab-wizard.php:39
+#: line-hub/includes/admin/views/tab-wizard.php:39
+msgid "Setup Instructions"
+msgstr "設定教學"
+
+#: includes/admin/tabs/class-wizard-tab.php:26
+#: line-hub/includes/admin/tabs/class-wizard-tab.php:26
+msgid "Setup Wizard"
+msgstr "設定嚮導"
+
+#: includes/admin/views/partials/login-button-positions.php:78
+#: line-hub/includes/admin/views/partials/login-button-positions.php:78
+msgid "Shortcode"
+msgstr "短代碼"
+
+#: includes/admin/views/tab-login-settings.php:112
+#: line-hub/includes/admin/views/tab-login-settings.php:112
+msgid "Show add friend option after login (user can skip)"
+msgstr "登入後顯示加好友選項（使用者可跳過）"
+
+#: includes/admin/views/partials/login-button-positions.php:31
+#: line-hub/includes/admin/views/partials/login-button-positions.php:31
+msgid "Small"
+msgstr "小"
+
+#: includes/admin/views/tab-developer.php:213
+#: line-hub/includes/admin/views/tab-developer.php:213
+msgid "Source IP"
+msgstr "來源 IP"
+
+#: includes/admin/views/tab-webhook.php:38
+#: line-hub/includes/admin/views/tab-webhook.php:38
+msgid "Status"
+msgstr "狀態"
+
+#: includes/admin/views/tab-developer.php:247
+#: line-hub/includes/admin/views/tab-developer.php:247
+msgid "Success"
+msgstr "成功"
+
+#: includes/admin/views/tab-line-settings.php:94
+#: includes/admin/views/tab-line-settings.php:185
+#: line-hub/includes/admin/views/tab-line-settings.php:94
+#: line-hub/includes/admin/views/tab-line-settings.php:185
+msgid "Test Connection"
+msgstr "測試連線"
+
+#: includes/messaging/class-messaging-service.php:58
+#: line-hub/includes/messaging/class-messaging-service.php:58
+msgid "Text message cannot be empty."
+msgstr "文字訊息不可為空。"
+
+#: includes/services/class-user-service.php:168
+#: line-hub/includes/services/class-user-service.php:168
+msgid "This LINE account is already linked to another WordPress account."
+msgstr "此 LINE 帳號已綁定至其他 WordPress 帳號。"
+
+#: includes/services/class-user-service.php:174
+#: line-hub/includes/services/class-user-service.php:174
+msgid ""
+"This WordPress account is already linked to another LINE account. Please "
+"unlink first."
+msgstr "此 WordPress 帳號已綁定其他 LINE 帳號，請先解除綁定。"
+
+#: includes/admin/views/tab-developer.php:212
+#: includes/admin/views/tab-webhook.php:37
+#: line-hub/includes/admin/views/tab-developer.php:212
+#: line-hub/includes/admin/views/tab-webhook.php:37
+msgid "Time"
+msgstr "時間"
+
+#: includes/auth/class-oauth-client.php:122
+#: line-hub/includes/auth/class-oauth-client.php:122
+msgid "Token exchange failed."
+msgstr "Token 交換失敗。"
+
+#: includes/auth/class-auth-callback.php:161
+#: line-hub/includes/auth/class-auth-callback.php:161
+msgid "Token exchange failed. Please try again."
+msgstr "Token 交換失敗，請重新嘗試。"
+
+#: includes/auth/class-auth-callback.php:257
+#: includes/auth/class-auth-callback.php:257
+#: line-hub/includes/auth/class-auth-callback.php:257
+#: line-hub/includes/auth/class-auth-callback.php:257
+msgid "Try Again"
+msgstr "重新嘗試"
+
+#: includes/admin/views/partials/developer-api-endpoints.php:39
+#: includes/admin/views/tab-developer.php:132
+#: includes/admin/views/tab-developer.php:171
+#: line-hub/includes/admin/views/partials/developer-api-endpoints.php:39
+#: line-hub/includes/admin/views/tab-developer.php:132
+#: line-hub/includes/admin/views/tab-developer.php:171
+msgid "Type"
+msgstr "型別"
+
+#: includes/admin/class-settings-page.php:235
+#: line-hub/includes/admin/class-settings-page.php:235
+msgid "Unable to connect to LINE API. Please try again later."
+msgstr "無法連線到 LINE API，請稍後再試。"
+
+#: includes/liff/class-liff-user-processor.php:55
+#: line-hub/includes/liff/class-liff-user-processor.php:55
+msgid "Unable to retrieve LINE user ID."
+msgstr "無法取得 LINE 使用者 ID。"
+
+#: includes/liff/class-liff-api-client.php:40
+#: includes/services/class-login-service.php:34
+#: line-hub/includes/liff/class-liff-api-client.php:40
+#: line-hub/includes/services/class-login-service.php:34
+msgid "Unable to retrieve LINE user profile."
+msgstr "無法取得 LINE 使用者資料。"
+
+#: includes/auth/class-auth-callback.php:174
+#: line-hub/includes/auth/class-auth-callback.php:174
+msgid "Unable to retrieve LINE user profile. Please try again."
+msgstr "無法取得 LINE 使用者資料，請重新嘗試。"
+
+#: includes/templates/profile-binding.php:32
+#: line-hub/includes/templates/profile-binding.php:32
+msgid "Unknown"
+msgstr "未知"
+
+#: includes/admin/class-settings-page.php:238
+#: line-hub/includes/admin/class-settings-page.php:238
+msgid "Unknown error."
+msgstr "未知錯誤。"
+
+#: includes/class-plugin.php:172
+#: includes/integration/class-fluent-cart-connector.php:189
+#: includes/templates/fluentcart-binding.php:57
+#: includes/templates/profile-binding.php:81
+#: line-hub/includes/class-plugin.php:172
+#: line-hub/includes/integration/class-fluent-cart-connector.php:189
+#: line-hub/includes/templates/fluentcart-binding.php:57
+#: line-hub/includes/templates/profile-binding.php:81
+msgid "Unlink"
+msgstr "解除綁定"
+
+#: includes/admin/views/tab-developer.php:147
+#: includes/admin/views/tab-developer.php:186
+#: line-hub/includes/admin/views/tab-developer.php:147
+#: line-hub/includes/admin/views/tab-developer.php:186
+msgid "Usage Example"
+msgstr "使用範例"
+
+#: includes/admin/views/tab-login-settings.php:34
+#: line-hub/includes/admin/views/tab-login-settings.php:34
+msgid "Use LIFF when LIFF ID is available, otherwise use LINE OA login"
+msgstr "有 LIFF ID 時使用 LIFF，否則使用 LINE OA 登入"
+
+#: includes/admin/views/tab-login-settings.php:39
+#: line-hub/includes/admin/views/tab-login-settings.php:39
+msgid "Use OAuth 2.0 standard authorization flow"
+msgstr "使用 OAuth 2.0 標準授權流程"
+
+#: includes/admin/views/tab-login-settings.php:204
+#: line-hub/includes/admin/views/tab-login-settings.php:204
+msgid "Use a fixed redirect URL (if unchecked, returns to the original page)"
+msgstr "使用固定跳轉 URL（取消勾選則返回原頁面）"
+
+#: includes/admin/views/tab-line-settings.php:105
+#: includes/admin/views/tab-line-settings.php:105
+#: line-hub/includes/admin/views/tab-line-settings.php:105
+#: line-hub/includes/admin/views/tab-line-settings.php:105
+#, php-format
+msgid ""
+"Used for OAuth login and LIFF. Corresponds to the %s Channel in LINE "
+"Developers Console (different from the Messaging API Channel)."
+msgstr ""
+"用於 OAuth 登入及 LIFF，對應 LINE Developers Console 中的 %s Channel（與 Messaging API "
+"Channel 不同）。"
+
+#: includes/admin/views/tab-line-settings.php:56
+#: line-hub/includes/admin/views/tab-line-settings.php:56
+msgid "Used for Webhook signature verification (automatically encrypted)"
+msgstr "用於 Webhook 簽章驗證（自動加密儲存）"
+
+#: includes/admin/views/tab-line-settings.php:67
+#: line-hub/includes/admin/views/tab-line-settings.php:67
+msgid "Used for sending messages (automatically encrypted)"
+msgstr "用於發送訊息（自動加密儲存）"
+
+#: includes/admin/views/tab-line-settings.php:25
+#: includes/admin/views/tab-line-settings.php:25
+#: line-hub/includes/admin/views/tab-line-settings.php:25
+#: line-hub/includes/admin/views/tab-line-settings.php:25
+#, php-format
+msgid ""
+"Used for sending messages and receiving Webhooks. Corresponds to the %s "
+"Channel in LINE Developers Console."
+msgstr "用於發送訊息及接收 Webhook，對應 LINE Developers Console 中的 %s Channel。"
+
+#: includes/messaging/class-messaging-service.php:37
+#: line-hub/includes/messaging/class-messaging-service.php:37
+#, php-format
+msgid "User %d has not linked a LINE account."
+msgstr "使用者 %d 尚未綁定 LINE 帳號。"
+
+#: includes/api/class-user-api.php:137
+#: includes/services/class-login-service.php:214
+#: line-hub/includes/api/class-user-api.php:137
+#: line-hub/includes/services/class-login-service.php:214
+msgid "User does not exist."
+msgstr "使用者不存在。"
+
+#: includes/admin/tabs/class-developer-tab.php:70
+#: line-hub/includes/admin/tabs/class-developer-tab.php:70
+msgid "User email"
+msgstr "使用者 Email"
+
+#: includes/admin/tabs/class-developer-tab.php:54
+#: line-hub/includes/admin/tabs/class-developer-tab.php:54
+msgid "User email (system auto-lookup for user_id)"
+msgstr "使用者 Email（系統自動查詢 user_id）"
+
+#: includes/admin/tabs/class-developer-tab.php:115
+#: line-hub/includes/admin/tabs/class-developer-tab.php:115
+msgid "User email address"
+msgstr "使用者 Email 位址"
+
+#: includes/admin/views/tab-login-settings.php:132
+#: line-hub/includes/admin/views/tab-login-settings.php:132
+msgid "Username Prefix"
+msgstr "使用者名稱前綴"
+
+#: includes/admin/views/tab-webhook.php:78
+#: line-hub/includes/admin/views/tab-webhook.php:78
+msgid "View Payload"
+msgstr "檢視 Payload"
+
+#: includes/admin/views/tab-webhook.php:19
+#: line-hub/includes/admin/views/tab-webhook.php:19
+msgid "Webhook Event Log"
+msgstr "Webhook 事件記錄"
+
+#: includes/admin/views/tab-login-settings.php:153
+#: line-hub/includes/admin/views/tab-login-settings.php:153
+msgid ""
+"When LINE display name cannot be used as username, this prefix + random code"
+" is used"
+msgstr "當 LINE 顯示名稱無法作為使用者名稱時，使用此前綴 + 隨機碼"
+
+#: includes/admin/views/partials/login-button-positions.php:68
+#: line-hub/includes/admin/views/partials/login-button-positions.php:68
+msgid ""
+"When checked, the LINE login button will automatically appear at the "
+"corresponding position (only when not logged in)"
+msgstr "勾選後，LINE 登入按鈕將自動出現在對應位置（僅未登入時顯示）"
+
+#: includes/admin/views/tab-login-settings.php:219
+#: line-hub/includes/admin/views/tab-login-settings.php:219
+msgid ""
+"When fixed redirect is enabled, all LINE logins will redirect to this URL "
+"after completion"
+msgstr "啟用固定跳轉後，所有 LINE 登入完成後都會跳轉至此 URL"
+
+#: includes/admin/views/tab-developer.php:41
+#: includes/admin/views/tab-developer.php:113
+#: line-hub/includes/admin/views/tab-developer.php:41
+#: line-hub/includes/admin/views/tab-developer.php:113
+msgid "WordPress Hooks"
+msgstr "WordPress Hooks"
+
+#: includes/admin/views/partials/login-button-positions.php:53
+#: line-hub/includes/admin/views/partials/login-button-positions.php:53
+msgid "WordPress login page"
+msgstr "WordPress 登入頁面"
+
+#: includes/admin/views/tab-developer.php:115
+#: line-hub/includes/admin/views/tab-developer.php:115
+msgid ""
+"WordPress plugins on the same host can interact with LINE Hub via standard "
+"Hooks, no API Key required."
+msgstr "同一主機上的 WordPress 外掛可透過標準 Hooks 與 LINE Hub 互動，無需 API Key。"
+
+#: includes/admin/tabs/class-developer-tab.php:53
+#: includes/admin/tabs/class-developer-tab.php:69
+#: includes/admin/tabs/class-developer-tab.php:101
+#: includes/admin/tabs/class-developer-tab.php:169
+#: includes/admin/tabs/class-developer-tab.php:178
+#: line-hub/includes/admin/tabs/class-developer-tab.php:53
+#: line-hub/includes/admin/tabs/class-developer-tab.php:69
+#: line-hub/includes/admin/tabs/class-developer-tab.php:101
+#: line-hub/includes/admin/tabs/class-developer-tab.php:169
+#: line-hub/includes/admin/tabs/class-developer-tab.php:178
+msgid "WordPress user ID"
+msgstr "WordPress 使用者 ID"
+
+#: includes/admin/tabs/class-developer-tab.php:138
+#: includes/admin/tabs/class-developer-tab.php:147
+#: line-hub/includes/admin/tabs/class-developer-tab.php:138
+#: line-hub/includes/admin/tabs/class-developer-tab.php:147
+msgid "WordPress user ID (required)"
+msgstr "WordPress 使用者 ID（必填）"
+
+#: includes/admin/views/tab-login-settings.php:139
+#: line-hub/includes/admin/views/tab-login-settings.php:139
+msgid "WordPress username prefix for new users, e.g. line_U1234"
+msgstr "新使用者的 WordPress 使用者名稱前綴，例如 line_U1234"
+
+#: includes/admin/class-settings-page.php:76
+#: line-hub/includes/admin/class-settings-page.php:76
+msgid "You do not have permission to access this page."
+msgstr "您沒有權限存取此頁面。"
+
+#: includes/admin/class-settings-page.php:204
+#: line-hub/includes/admin/class-settings-page.php:204
+msgid "You do not have permission to perform this action."
+msgstr "您沒有權限執行此操作。"
+
+#: includes/admin/views/tab-wizard.php:52
+#: includes/admin/views/tab-wizard.php:52
+#: line-hub/includes/admin/views/tab-wizard.php:52
+#: line-hub/includes/admin/views/tab-wizard.php:52
+#, php-format
+msgid ""
+"You need two Channels: %1$s (for sending messages) and %2$s (for login)."
+msgstr "需要兩個 Channel：%1$s（用於發送訊息）和 %2$s（用於登入）。"
+
+#: includes/api/class-user-api.php:101
+#: line-hub/includes/api/class-user-api.php:101
+msgid "Your LINE account is not linked."
+msgstr "您的 LINE 帳號尚未綁定。"
+
+#: includes/admin/views/partials/connection-status.php:27
+#: includes/admin/views/partials/connection-status.php:27
+#: includes/admin/views/partials/connection-status.php:31
+#: includes/admin/views/partials/connection-status.php:31
+#: includes/admin/views/partials/connection-status.php:35
+#: includes/admin/views/partials/connection-status.php:35
+#: includes/admin/views/partials/connection-status.php:43
+#: includes/admin/views/partials/connection-status.php:43
+#: includes/admin/views/partials/connection-status.php:50
+#: includes/admin/views/partials/connection-status.php:50
+#: includes/admin/views/partials/connection-status.php:57
+#: includes/admin/views/partials/connection-status.php:57
+#: line-hub/includes/admin/views/partials/connection-status.php:27
+#: line-hub/includes/admin/views/partials/connection-status.php:27
+#: line-hub/includes/admin/views/partials/connection-status.php:31
+#: line-hub/includes/admin/views/partials/connection-status.php:31
+#: line-hub/includes/admin/views/partials/connection-status.php:35
+#: line-hub/includes/admin/views/partials/connection-status.php:35
+#: line-hub/includes/admin/views/partials/connection-status.php:43
+#: line-hub/includes/admin/views/partials/connection-status.php:43
+#: line-hub/includes/admin/views/partials/connection-status.php:50
+#: line-hub/includes/admin/views/partials/connection-status.php:50
+#: line-hub/includes/admin/views/partials/connection-status.php:57
+#: line-hub/includes/admin/views/partials/connection-status.php:57
+msgid "configured"
+msgstr "已設定"
+
+#: includes/admin/views/partials/developer-api-endpoints.php:57
+#: line-hub/includes/admin/views/partials/developer-api-endpoints.php:57
+msgid "curl Example"
+msgstr "curl 範例"
+
+#: includes/admin/views/tab-login-settings.php:217
+#: line-hub/includes/admin/views/tab-login-settings.php:217
+msgid "e.g. /my-account or https://example.com/dashboard"
+msgstr "例如 /my-account 或 https://example.com/dashboard"
+
+#: includes/admin/views/tab-line-settings.php:44
+#: line-hub/includes/admin/views/tab-line-settings.php:44
+msgid "e.g. 2008621590"
+msgstr "例如 2008621590"
+
+#: includes/admin/views/tab-line-settings.php:124
+#: line-hub/includes/admin/views/tab-line-settings.php:124
+msgid "e.g. 2008622068"
+msgstr "例如 2008622068"
+
+#: includes/admin/views/tab-line-settings.php:146
+#: line-hub/includes/admin/views/tab-line-settings.php:146
+msgid "e.g. 2008622068-iU4Z1lk4"
+msgstr "例如 2008622068-iU4Z1lk4"
+
+#: includes/admin/views/partials/connection-status.php:27
+#: includes/admin/views/partials/connection-status.php:27
+#: includes/admin/views/partials/connection-status.php:31
+#: includes/admin/views/partials/connection-status.php:31
+#: includes/admin/views/partials/connection-status.php:35
+#: includes/admin/views/partials/connection-status.php:35
+#: includes/admin/views/partials/connection-status.php:43
+#: includes/admin/views/partials/connection-status.php:43
+#: includes/admin/views/partials/connection-status.php:50
+#: includes/admin/views/partials/connection-status.php:50
+#: line-hub/includes/admin/views/partials/connection-status.php:27
+#: line-hub/includes/admin/views/partials/connection-status.php:27
+#: line-hub/includes/admin/views/partials/connection-status.php:31
+#: line-hub/includes/admin/views/partials/connection-status.php:31
+#: line-hub/includes/admin/views/partials/connection-status.php:35
+#: line-hub/includes/admin/views/partials/connection-status.php:35
+#: line-hub/includes/admin/views/partials/connection-status.php:43
+#: line-hub/includes/admin/views/partials/connection-status.php:43
+#: line-hub/includes/admin/views/partials/connection-status.php:50
+#: line-hub/includes/admin/views/partials/connection-status.php:50
+msgid "not configured"
+msgstr "未設定"
+
+#: includes/admin/views/partials/connection-status.php:57
+#: includes/admin/views/partials/connection-status.php:57
+#: line-hub/includes/admin/views/partials/connection-status.php:57
+#: line-hub/includes/admin/views/partials/connection-status.php:57
+msgid "not configured (optional)"
+msgstr "未設定（選填）"
+
+#: includes/admin/views/tab-developer.php:52
+#: line-hub/includes/admin/views/tab-developer.php:52
+msgid "to call the REST API endpoints below."
+msgstr "來呼叫下方的 REST API 端點。"
