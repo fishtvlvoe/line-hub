@@ -33,7 +33,9 @@ rsync -av \
     --exclude='.phpunit.result.cache' \
     --exclude='composer.json' \
     --exclude='composer.lock' \
-    --exclude='vendor' \
+    --exclude='vendor/yahnis-elsts/plugin-update-checker/.git' \
+    --exclude='vendor/yahnis-elsts/plugin-update-checker/tests' \
+    --exclude='vendor/yahnis-elsts/plugin-update-checker/.github' \
     --exclude='.vscode' \
     --exclude='.claude' \
     --exclude='.claude.json' \

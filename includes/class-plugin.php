@@ -84,10 +84,7 @@ final class Plugin {
 
         if (is_admin()) {
             Admin\SettingsPage::init();
-            $api_url = defined('LINE_HUB_UPDATE_API_URL')
-                ? LINE_HUB_UPDATE_API_URL
-                : 'https://buygo-plugin-updater.your-subdomain.workers.dev';
-            new AutoUpdater(LINE_HUB_VERSION, $api_url);
+            new Updater(LINE_HUB_FILE);
         }
     }
 
