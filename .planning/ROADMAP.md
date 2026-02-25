@@ -228,7 +228,7 @@ Plans:
 - [x] **Phase 12: 內嵌清除** - Class 中 CSS/JS/HTML 全部拆到獨立檔案
 - [x] **Phase 13: 樣式外部化** - Admin View 和 LIFF 模板的 inline style 移到 CSS 檔案
 - [x] **Phase 14: 檔案瘦身與方法重構** - 大檔案拆分 + 長方法縮短
-- [ ] **Phase 15: 命名統一與根目錄整理** - 類名 CamelCase 統一 + 開發文件歸檔
+- [x] **Phase 15: 命名統一與根目錄整理** - 類名 CamelCase 統一 + 開發文件歸檔
 - [ ] **Phase 16: 測試框架** - composer + phpunit + 核心服務基本覆蓋
 
 ## Phase Details
@@ -310,7 +310,12 @@ Plans:
   2. Autoloader 命名規則對應正確（CamelCase 類名 → `class-kebab-case.php` 檔名）
   3. 根目錄無散落的開發日誌或文件（`DAY-*.md`、`LINE-HUB-ROADMAP.md`、`CONFLICT-FIX-REPORT.md` 等全部歸入 `.planning/` 或刪除）
   4. 外掛啟動、LINE 登入、後台設定頁在命名變更後正常運作
-**Plans**: TBD
+**Status**: COMPLETE (2026-02-25)
+**Plans**: 2 plans (completed)
+
+Plans:
+- [x] 15-01 — 3 個底線類名統一為 CamelCase + autoloader 簡化
+- [x] 15-02 — 根目錄 5 個開發文件歸檔至 .planning/archives/ + 過時截圖刪除
 
 ### Phase 16: 測試框架
 **Goal**: 建立測試基礎設施，核心服務有基本單元測試覆蓋，`composer test` 一鍵可執行
@@ -346,5 +351,5 @@ v3.0: 11 → 12 → 13 → 14 → 15 → 16
 | 12. 內嵌清除 | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 13. 樣式外部化 | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 14. 檔案瘦身與方法重構 | v3.0 | 3/3 | Complete | 2026-02-25 |
-| 15. 命名統一與根目錄整理 | v3.0 | 0/? | Not started | - |
+| 15. 命名統一與根目錄整理 | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 16. 測試框架 | v3.0 | 0/? | Not started | - |

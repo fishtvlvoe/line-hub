@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 
 ## Current Position
 
-Phase: 14 - 檔案瘦身與方法重構
-Plan: 3 of 3
+Phase: 15 - 命名統一與根目錄整理
+Plan: 2 of 2
 Status: Complete
-Last activity: 2026-02-25 — Phase 14 全部完成（3/3 plans）
+Last activity: 2026-02-25 — Phase 15 全部完成（2/2 plans）
 
-Progress: █████████████░░░░░░░ 4/6 phases (Phase 14: COMPLETE)
+Progress: ████████████████░░░░ 5/6 phases (Phase 15: COMPLETE)
 
 ## Performance Metrics
 
@@ -84,6 +84,9 @@ Progress: █████████████░░░░░░░ 4/6 phase
 - [14-02]: 9 個 300-500 行檔案瘦身：FlexBuilder 重構、LoginService/MessagingService 方法提取、View Partial 拆分
 - [14-03]: 11 個 >50 行 PHP 方法全部重構至 ≤50 行；使用 match 表達式、hook map、context resolver 等模式
 - [14-03]: get_message_endpoints() 54 行（純資料陣列）和 startLiff() 109 行（JavaScript）為合理例外
+- [15-01]: 3 個底線類名統一為 CamelCase（Auto_Updater→AutoUpdater、Settings_API→SettingsAPI、User_API→UserAPI）
+- [15-01]: autoloader 移除 str_replace('_','') 底線相容層——統一後不再需要
+- [15-02]: 5 個根目錄開發文件歸檔至 .planning/archives/（DAY-01/02/03、CONFLICT-FIX、舊 ROADMAP）
 
 ### Pending Todos
 
@@ -96,6 +99,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Phase 14 全部完成（14-01 Class 拆分 + 14-02 檔案瘦身 + 14-03 方法重構）
+Stopped at: Phase 15 全部完成（15-01 類名統一 + 15-02 根目錄整理）
 Resume file: None
-Next action: 開始 Phase 15 — 命名統一與根目錄整理
+Next action: 開始 Phase 16 — 測試框架
