@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<phpunit
+    bootstrap="tests/bootstrap-unit.php"
+    backupGlobals="false"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+>
+    <testsuites>
+        <testsuite name="LINE Hub Unit Tests">
+            <directory>./tests/Unit/</directory>
+        </testsuite>
+    </testsuites>
+    <coverage>
+        <include>
+            <directory suffix=".php">./includes/services/</directory>
+            <directory suffix=".php">./includes/messaging/</directory>
+        </include>
+    </coverage>
+</phpunit>

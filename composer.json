@@ -1,0 +1,32 @@
+{
+    "name": "linehub/line-hub",
+    "description": "LINE Hub — WordPress LINE 整合中樞",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "yoast/phpunit-polyfills": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LineHub\\": "includes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LineHub\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit -c phpunit-unit.xml",
+        "test:unit": "phpunit -c phpunit-unit.xml --verbose"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
