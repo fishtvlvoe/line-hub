@@ -39,8 +39,7 @@ spl_autoload_register(function($class) {
     // 轉換類別名稱為 class-kebab-case.php 格式
     $class_name = array_pop($parts);
 
-    // 先移除底線，再轉換 CamelCase 為 kebab-case
-    $class_name = str_replace('_', '', $class_name);
+    // 轉換 CamelCase 為 kebab-case
     $class_name = strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $class_name));
     $class_name = 'class-' . $class_name . '.php';
 

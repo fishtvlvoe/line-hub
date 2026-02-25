@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class Settings_API {
+class SettingsAPI {
 
     /** @var string */
     private $namespace = 'line-hub/v1';

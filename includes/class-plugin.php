@@ -87,7 +87,7 @@ final class Plugin {
             $api_url = defined('LINE_HUB_UPDATE_API_URL')
                 ? LINE_HUB_UPDATE_API_URL
                 : 'https://buygo-plugin-updater.your-subdomain.workers.dev';
-            new Auto_Updater(LINE_HUB_VERSION, $api_url);
+            new AutoUpdater(LINE_HUB_VERSION, $api_url);
         }
     }
 
@@ -99,8 +99,8 @@ final class Plugin {
      * 註冊 REST API 路由
      */
     public function register_rest_routes(): void {
-        (new API\Settings_API())->register_routes();
-        (new API\User_API())->register_routes();
+        (new API\SettingsAPI())->register_routes();
+        (new API\UserAPI())->register_routes();
         (new Webhook\WebhookReceiver())->registerRoutes();
     }
 

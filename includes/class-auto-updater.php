@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class Auto_Updater {
+class AutoUpdater {
 
     private $plugin_slug = 'line-hub';
     private $plugin_file = 'line-hub/line-hub.php';

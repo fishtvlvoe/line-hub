@@ -16,11 +16,11 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * User_API 類別
+ * UserAPI 類別
  *
  * 提供用戶綁定查詢和管理的 REST API 端點
  */
-class User_API {
+class UserAPI {
     /**
      * API 命名空間
      *
