@@ -45,67 +45,72 @@ class WebhookReceiver {
      * @return \WP_REST_Response|\WP_Error
      */
     public function handleWebhook(\WP_REST_Request $request) {
-        // 1. 取得 raw body（必須在解析之前）
         $raw_body = $request->get_body();
 
-        // 2. 驗證 HMAC 簽名
+        // 驗證簽名
         $signature = $this->extractSignature($request);
         if (!$this->verifySignature($raw_body, $signature)) {
-            return new \WP_Error(
-                'invalid_signature',
-                __('HMAC 簽名驗證失敗', 'line-hub'),
-                ['status' => 401]
-            );
+            return new \WP_Error('invalid_signature', __('HMAC signature verification failed.', 'line-hub'), ['status' => 401]);
         }
 
-        // 3. 解析 JSON body
-        $body = json_decode($raw_body, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            return new \WP_Error(
-                'invalid_json',
-                __('JSON 格式錯誤', 'line-hub'),
-                ['status' => 400]
-            );
+        // 解析並驗證事件
+        $events = $this->parseAndValidateEvents($raw_body);
+        if ($events instanceof \WP_Error) {
+            return $events;
         }
-
-        // 4. 提取事件列表
-        $events = $body['events'] ?? [];
-        if (empty($events)) {
+        if ($events === null) {
             return new \WP_REST_Response(['success' => true], 200);
         }
 
-        // 5. 檢查是否為 Verify Event（replyToken 全是 0）
-        $first_event = $events[0] ?? [];
-        $reply_token = $first_event['replyToken'] ?? '';
-        if ($reply_token === str_repeat('0', 32) || $reply_token === str_repeat('0', 64)) {
-            // Verify Event，直接回應成功
-            return new \WP_REST_Response(['success' => true], 200);
-        }
-
-        // 6. 事件去重和記錄
-        $events_to_process = [];
-        foreach ($events as $event) {
-            $event_id = $event['webhookEventId'] ?? '';
-
-            // 檢查是否重複
-            if (!empty($event_id) && $this->isDuplicate($event_id)) {
-                continue;
-            }
-
-            // 先記錄到資料庫（標記為未處理）
-            $this->logEvent($event);
-
-            $events_to_process[] = $event;
-        }
-
-        // 7. 直接同步處理事件（不依賴 WP Cron）
+        // 去重並同步處理
+        $events_to_process = $this->deduplicateEvents($events);
         if (!empty($events_to_process)) {
             $dispatcher = new EventDispatcher();
             $dispatcher->processEvents($events_to_process);
         }
 
-        // 8. 回應 200 OK
         return new \WP_REST_Response(['success' => true], 200);
+    }
+
+    /**
+     * 解析 JSON body 並驗證事件（含 Verify Event 檢查）
+     *
+     * @return array|\WP_Error|null 事件陣列、錯誤、或 null（空事件/Verify）
+     */
+    private function parseAndValidateEvents(string $raw_body): array|\WP_Error|null {
+        $body = json_decode($raw_body, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return new \WP_Error('invalid_json', __('Invalid JSON format.', 'line-hub'), ['status' => 400]);
+        }
+
+        $events = $body['events'] ?? [];
+        if (empty($events)) {
+            return null;
+        }
+
+        // Verify Event（replyToken 全是 0）
+        $reply_token = $events[0]['replyToken'] ?? '';
+        if ($reply_token === str_repeat('0', 32) || $reply_token === str_repeat('0', 64)) {
+            return null;
+        }
+
+        return $events;
+    }
+
+    /**
+     * 事件去重：過濾已處理的事件並記錄新事件
+     */
+    private function deduplicateEvents(array $events): array {
+        $result = [];
+        foreach ($events as $event) {
+            $event_id = $event['webhookEventId'] ?? '';
+            if (!empty($event_id) && $this->isDuplicate($event_id)) {
+                continue;
+            }
+            $this->logEvent($event);
+            $result[] = $event;
+        }
+        return $result;
     }
 
     /**

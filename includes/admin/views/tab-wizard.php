@@ -16,37 +16,57 @@ if (!defined('ABSPATH')) {
 ?>
 
 <!-- 連線狀態總覽 -->
-<div class="card" style="max-width: 1000px;">
-    <h2>連線狀態總覽</h2>
+<div class="card lh-card-narrow">
+    <h2><?php esc_html_e('Connection Status Overview', 'line-hub'); ?></h2>
     <?php require __DIR__ . '/partials/connection-status.php'; ?>
 
-    <div style="margin-top: 20px;">
+    <div class="lh-mt-20">
         <a href="<?php echo esc_url(add_query_arg(['page' => 'line-hub-settings', 'tab' => 'line-settings'], admin_url('admin.php'))); ?>"
            class="button button-primary">
-            前往 LINE 設定
+            <?php esc_html_e('Go to LINE Settings', 'line-hub'); ?>
         </a>
         <a href="<?php echo esc_url(add_query_arg(['page' => 'line-hub-settings', 'tab' => 'login-settings'], admin_url('admin.php'))); ?>"
-           class="button button-secondary" style="margin-left: 8px;">
-            前往登入設定
+           class="button button-secondary lh-ml-8">
+            <?php esc_html_e('Go to Login Settings', 'line-hub'); ?>
         </a>
     </div>
 </div>
 
 <!-- 設定步驟說明 -->
-<div class="card" style="max-width: 1000px; margin-top: 20px;">
+<div class="card lh-card-narrow-spaced">
     <details open>
-        <summary style="cursor: pointer; font-weight: 600; font-size: 14px; padding: 8px 0;">
-            設定步驟說明
+        <summary class="lh-wizard-summary">
+            <?php esc_html_e('Setup Instructions', 'line-hub'); ?>
         </summary>
-        <ol style="margin-top: 15px; line-height: 2;">
-            <li>前往 <a href="https://developers.line.biz/console/" target="_blank">LINE Developers Console</a></li>
-            <li>你需要兩個 Channel：<strong>Messaging API</strong>（發訊息用）和 <strong>LINE Login</strong>（登入用）</li>
-            <li>在 <strong>Messaging API Channel</strong> 的 Basic settings 取得 Channel ID 和 Channel Secret，填入「<a href="<?php echo esc_url(add_query_arg(['page' => 'line-hub-settings', 'tab' => 'line-settings'], admin_url('admin.php'))); ?>">LINE 設定</a>」</li>
-            <li>在 <strong>Messaging API Channel</strong> 發行 Channel Access Token，填入「LINE 設定」</li>
-            <li>在 <strong>Messaging API Channel</strong> 設定 Webhook URL 為「LINE 設定」頁面顯示的網址，並啟用 Use webhook</li>
-            <li>在 <strong>LINE Login Channel</strong> 的 Basic settings 取得 Channel ID 和 Channel Secret，填入「LINE 設定」</li>
-            <li>在 <strong>LINE Login Channel</strong> 的 Callback URL 設定中加入「LINE 設定」頁面的 Callback URL</li>
-            <li>如使用 LIFF，在 <strong>LINE Login Channel</strong> 建立 LIFF App，將 Endpoint URL 設為「LINE 設定」頁面顯示的網址，並將 LIFF ID 填入</li>
+        <ol class="lh-wizard-steps">
+            <li><?php
+                printf(
+                    /* translators: %s: LINE Developers Console link */
+                    esc_html__('Go to %s', 'line-hub'),
+                    '<a href="https://developers.line.biz/console/" target="_blank">LINE Developers Console</a>'
+                );
+            ?></li>
+            <li><?php
+                printf(
+                    /* translators: 1: Messaging API, 2: LINE Login */
+                    esc_html__('You need two Channels: %1$s (for sending messages) and %2$s (for login).', 'line-hub'),
+                    '<strong>Messaging API</strong>',
+                    '<strong>LINE Login</strong>'
+                );
+            ?></li>
+            <li><?php
+                $line_settings_url = esc_url(add_query_arg(['page' => 'line-hub-settings', 'tab' => 'line-settings'], admin_url('admin.php')));
+                printf(
+                    /* translators: 1: LINE Settings link */
+                    esc_html__('In the Messaging API Channel Basic settings, get the Channel ID and Channel Secret, then enter them in "%1$s".', 'line-hub'),
+                    '<a href="' . $line_settings_url . '">' . esc_html__('LINE Settings', 'line-hub') . '</a>'
+                );
+            ?></li>
+            <li><?php esc_html_e('In the Messaging API Channel, issue a Channel Access Token and enter it in "LINE Settings".', 'line-hub'); ?></li>
+            <li><?php esc_html_e('In the Messaging API Channel, set the Webhook URL to the address shown on the "LINE Settings" page and enable "Use webhook".', 'line-hub'); ?></li>
+            <li><?php esc_html_e('In the LINE Login Channel Basic settings, get the Channel ID and Channel Secret, then enter them in "LINE Settings".', 'line-hub'); ?></li>
+            <li><?php esc_html_e('In the LINE Login Channel Callback URL settings, add the Callback URL shown on the "LINE Settings" page.', 'line-hub'); ?></li>
+            <li><?php esc_html_e('If using LIFF, create a LIFF App under the LINE Login Channel, set the Endpoint URL to the address shown on the "LINE Settings" page, and enter the LIFF ID.', 'line-hub'); ?></li>
         </ol>
     </details>
 </div>

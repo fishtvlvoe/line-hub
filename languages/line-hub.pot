@@ -1,0 +1,1270 @@
+# Copyright (C) 2026 BuyGo
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: LINE Hub 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/fishtvlvoe/line-hub\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Traditional Chinese (Taiwan)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-02-25T08:51:36+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: line-hub\n"
+
+#. Plugin Name of the plugin
+#: line-hub.php
+msgid "LINE Hub"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: line-hub.php
+msgid "https://github.com/fishtvlvoe/line-hub"
+msgstr ""
+
+#. Description of the plugin
+#: line-hub.php
+msgid "LINE integration hub for WordPress — LINE Login, email capture, account registration, multi-scenario messaging, and unified Webhook management."
+msgstr ""
+
+#. Author of the plugin
+#: line-hub.php
+msgid "BuyGo"
+msgstr ""
+
+#. Author URI of the plugin
+#: line-hub.php
+msgid "https://buygo.me"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:71
+msgid "LINE Hub Settings"
+msgstr ""
+
+#: includes/admin/class-settings-page.php:76
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:204
+msgid "You do not have permission to perform this action."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:207
+msgid "Security verification failed."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:217
+msgid "Settings saved."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:218
+msgid "An error occurred while saving settings."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:225
+msgid "Messaging API verification successful."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:226
+msgid "Messaging API verification failed. Please check if the Access Token is correct."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:232
+msgid "LINE Login verification successful — Channel ID and Secret are correct."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:233
+msgid "LINE Login verification failed — please check your Channel ID and Secret."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:234
+msgid "Please enter your LINE Login Channel ID and Channel Secret first."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:235
+msgid "Unable to connect to LINE API. Please try again later."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:238
+msgid "Unknown error."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:242
+msgid "API Key has been generated. Please copy and save it now."
+msgstr ""
+
+#: includes/admin/class-settings-page.php:245
+msgid "API Key has been revoked."
+msgstr ""
+
+#: includes/admin/class-users-column.php:63
+msgid "Not linked"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:26
+msgid "Developer"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:50
+msgid "Send Text Message"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:51
+msgid "Send a text message to a specified WordPress user (lookup by user_id or email)."
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:53
+#: includes/admin/tabs/class-developer-tab.php:54
+#: includes/admin/tabs/class-developer-tab.php:69
+#: includes/admin/tabs/class-developer-tab.php:70
+msgid "Either required"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:53
+#: includes/admin/tabs/class-developer-tab.php:69
+#: includes/admin/tabs/class-developer-tab.php:101
+#: includes/admin/tabs/class-developer-tab.php:169
+#: includes/admin/tabs/class-developer-tab.php:178
+msgid "WordPress user ID"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:54
+msgid "User email (system auto-lookup for user_id)"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:55
+#: includes/admin/tabs/class-developer-tab.php:72
+#: includes/admin/tabs/class-developer-tab.php:86
+#: includes/admin/tabs/class-developer-tab.php:87
+#: includes/admin/views/partials/developer-api-endpoints.php:40
+msgid "Required"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:55
+#: includes/admin/tabs/class-developer-tab.php:87
+msgid "Message text content"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:66
+msgid "Send Flex Message"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:67
+msgid "Send a LINE Flex Message to a specified user. Suitable for order notifications, cards, and other structured messages."
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:70
+msgid "User email"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:71
+msgid "Optional"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:71
+msgid "Alt text (default: Notification)"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:72
+msgid "Flex Message JSON structure"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:83
+msgid "Broadcast Messages"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:84
+#: includes/admin/tabs/class-developer-tab.php:155
+msgid "Send a text message to multiple users at once. Maximum 100 users per request."
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:86
+msgid "Array of WordPress user IDs (max 100)"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:98
+msgid "Query User Binding Status"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:99
+msgid "Query the LINE binding status and information for a specified WordPress user."
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:101
+msgid "Required (URL param)"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:112
+msgid "Lookup User by Email"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:113
+msgid "Look up a WordPress user and their LINE binding status by email address."
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:115
+msgid "Required (query param)"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:115
+msgid "User email address"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:136
+msgid "Send a text message to a specified user. Suitable for order notifications, welcome messages, etc."
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:138
+#: includes/admin/tabs/class-developer-tab.php:147
+msgid "WordPress user ID (required)"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:139
+#: includes/admin/tabs/class-developer-tab.php:158
+msgid "Message text (required)"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:145
+msgid "Send a Flex Message to a specified user. Suitable for structured notification cards."
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:148
+msgid "Alt text (optional, default: \"Notification\")"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:149
+msgid "Flex Message JSON structure (required)"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:157
+msgid "Array of WordPress user IDs (required, max 100)"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:166
+msgid "Check if a specified user has linked their LINE account."
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:168
+msgid "Default value (false)"
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:175
+msgid "Get the LINE UID for a specified user."
+msgstr ""
+
+#: includes/admin/tabs/class-developer-tab.php:177
+msgid "Default value (empty string)"
+msgstr ""
+
+#: includes/admin/tabs/class-line-settings-tab.php:26
+#: includes/admin/views/tab-wizard.php:62
+msgid "LINE Settings"
+msgstr ""
+
+#: includes/admin/tabs/class-login-settings-tab.php:26
+msgid "Login Settings"
+msgstr ""
+
+#: includes/admin/tabs/class-wizard-tab.php:26
+msgid "Setup Wizard"
+msgstr ""
+
+#: includes/admin/views/partials/connection-status.php:27
+#: includes/admin/views/partials/connection-status.php:31
+#: includes/admin/views/partials/connection-status.php:35
+#: includes/admin/views/partials/connection-status.php:43
+#: includes/admin/views/partials/connection-status.php:50
+#: includes/admin/views/partials/connection-status.php:57
+msgid "configured"
+msgstr ""
+
+#: includes/admin/views/partials/connection-status.php:27
+#: includes/admin/views/partials/connection-status.php:31
+#: includes/admin/views/partials/connection-status.php:35
+#: includes/admin/views/partials/connection-status.php:43
+#: includes/admin/views/partials/connection-status.php:50
+msgid "not configured"
+msgstr ""
+
+#: includes/admin/views/partials/connection-status.php:45
+msgid "(will fallback to Messaging API Channel ID)"
+msgstr ""
+
+#: includes/admin/views/partials/connection-status.php:52
+msgid "(will fallback to Messaging API Channel Secret)"
+msgstr ""
+
+#: includes/admin/views/partials/connection-status.php:57
+msgid "not configured (optional)"
+msgstr ""
+
+#: includes/admin/views/partials/developer-api-endpoints.php:14
+#: includes/admin/views/tab-developer.php:40
+msgid "REST API Endpoints"
+msgstr ""
+
+#: includes/admin/views/partials/developer-api-endpoints.php:16
+msgid "Base URL:"
+msgstr ""
+
+#: includes/admin/views/partials/developer-api-endpoints.php:17
+msgid "Authentication:"
+msgstr ""
+
+#: includes/admin/views/partials/developer-api-endpoints.php:38
+#: includes/admin/views/tab-developer.php:131
+#: includes/admin/views/tab-developer.php:170
+msgid "Parameter"
+msgstr ""
+
+#: includes/admin/views/partials/developer-api-endpoints.php:39
+#: includes/admin/views/tab-developer.php:132
+#: includes/admin/views/tab-developer.php:171
+msgid "Type"
+msgstr ""
+
+#: includes/admin/views/partials/developer-api-endpoints.php:41
+#: includes/admin/views/tab-developer.php:133
+#: includes/admin/views/tab-developer.php:172
+msgid "Description"
+msgstr ""
+
+#: includes/admin/views/partials/developer-api-endpoints.php:57
+msgid "curl Example"
+msgstr ""
+
+#: includes/admin/views/partials/developer-api-endpoints.php:60
+#: includes/admin/views/partials/login-button-positions.php:84
+#: includes/admin/views/partials/login-button-positions.php:97
+#: includes/admin/views/tab-developer.php:65
+#: includes/admin/views/tab-developer.php:150
+#: includes/admin/views/tab-developer.php:189
+#: includes/admin/views/tab-line-settings.php:77
+#: includes/admin/views/tab-line-settings.php:157
+#: includes/admin/views/tab-line-settings.php:168
+msgid "Copy"
+msgstr ""
+
+#: includes/admin/views/partials/developer-api-endpoints.php:65
+msgid "Response Example"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:13
+msgid "Login Button"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:17
+msgid "Button Text"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:22
+#: includes/templates/login-button.php:20
+msgid "Log in with LINE"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:27
+msgid "Button Size"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:31
+msgid "Small"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:32
+msgid "Medium"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:33
+msgid "Large"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:48
+msgid "Display Positions"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:53
+msgid "WordPress login page"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:54
+msgid "FluentCart checkout page (shown when not logged in)"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:55
+msgid "FluentCommunity login form"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:68
+msgid "When checked, the LINE login button will automatically appear at the corresponding position (only when not logged in)"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:75
+msgid "Button Embed (Shortcode)"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:78
+msgid "Shortcode"
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:86
+msgid "Paste this shortcode in any page or post to display the LINE login button."
+msgstr ""
+
+#: includes/admin/views/partials/login-button-positions.php:91
+msgid "Custom Parameters"
+msgstr ""
+
+#. translators: 1: text param, 2: size param, 3: redirect param
+#: includes/admin/views/partials/login-button-positions.php:102
+#, php-format
+msgid "Optional parameters: %1$s (button text), %2$s (small / medium / large), %3$s (redirect URL after login)"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:34
+msgid "Developer Tools"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:36
+msgid "All information needed to integrate with LINE Hub. Interact via REST API (external systems) or WordPress Hooks (same-host plugins)."
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:39
+#: includes/admin/views/tab-developer.php:48
+msgid "API Key Management"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:41
+#: includes/admin/views/tab-developer.php:113
+msgid "WordPress Hooks"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:42
+#: includes/admin/views/tab-developer.php:199
+msgid "API Usage Log"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:50
+msgid "External systems (e.g. SaaS, Zapier) authenticate via the HTTP Header"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:52
+msgid "to call the REST API endpoints below."
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:58
+msgid "API Key generated — please copy and save it now. This key will not be shown again!"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:73
+msgid "Current API Key"
+msgstr ""
+
+#. translators: %s: date when the API key was created
+#: includes/admin/views/tab-developer.php:80
+#, php-format
+msgid "Created on: %s"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:89
+msgid "Are you sure you want to revoke this API Key? All external systems using this key will lose access."
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:93
+msgid "Revoke API Key"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:103
+msgid "Generate API Key"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:115
+msgid "WordPress plugins on the same host can interact with LINE Hub via standard Hooks, no API Key required."
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:118
+msgid "Actions (Send Messages)"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:147
+#: includes/admin/views/tab-developer.php:186
+msgid "Usage Example"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:157
+msgid "Filters (Query Users)"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:201
+msgid "Recent 20 REST API calls (API Key authenticated). Use this to verify external system integration."
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:206
+msgid "No API call records yet. Records will appear here when external systems call REST API endpoints using an API Key."
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:212
+#: includes/admin/views/tab-webhook.php:37
+msgid "Time"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:213
+msgid "Source IP"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:214
+msgid "Method"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:215
+msgid "Endpoint"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:216
+msgid "Result"
+msgstr ""
+
+#. translators: %s: human-readable time difference
+#: includes/admin/views/tab-developer.php:228
+#: includes/admin/views/tab-webhook.php:65
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:247
+msgid "Success"
+msgstr ""
+
+#: includes/admin/views/tab-developer.php:249
+msgid "Failed"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:21
+msgid "LINE Messaging API Settings"
+msgstr ""
+
+#. translators: %s: Messaging API
+#: includes/admin/views/tab-line-settings.php:25
+#, php-format
+msgid "Used for sending messages and receiving Webhooks. Corresponds to the %s Channel in LINE Developers Console."
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:44
+msgid "e.g. 2008621590"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:45
+msgid "Channel ID of the Messaging API Channel"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:55
+#: includes/admin/views/tab-line-settings.php:135
+msgid "32-character string"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:56
+msgid "Used for Webhook signature verification (automatically encrypted)"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:66
+msgid "Long-lived or short-lived Access Token"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:67
+msgid "Used for sending messages (automatically encrypted)"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:78
+msgid "Enter this in the Webhook URL field of the Messaging API Channel"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:84
+#: includes/admin/views/tab-line-settings.php:175
+#: includes/admin/views/tab-line-settings.php:225
+#: includes/admin/views/tab-login-settings.php:257
+msgid "Save Settings"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:94
+#: includes/admin/views/tab-line-settings.php:185
+msgid "Test Connection"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:101
+msgid "LINE Login Settings"
+msgstr ""
+
+#. translators: %s: LINE Login
+#: includes/admin/views/tab-line-settings.php:105
+#, php-format
+msgid "Used for OAuth login and LIFF. Corresponds to the %s Channel in LINE Developers Console (different from the Messaging API Channel)."
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:124
+msgid "e.g. 2008622068"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:125
+msgid "Channel ID of the LINE Login Channel"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:136
+msgid "Channel Secret of the LINE Login Channel (automatically encrypted)"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:146
+msgid "e.g. 2008622068-iU4Z1lk4"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:147
+msgid "LIFF App ID (created under the LINE Login Channel)"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:158
+msgid "Register this URL in the Callback URL settings of the LINE Login Channel"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:169
+msgid "Enter this as the Endpoint URL of the LIFF App"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:192
+msgid "NSL (Nextend Social Login) Integration"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:193
+msgid "If you previously used NSL for LINE login, enable compatibility mode for a smooth transition to LINE Hub."
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:203
+msgid "NSL Compatibility Mode"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:208
+msgid "Enable NSL compatibility mode (also query users from wp_social_users)"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:213
+msgid "Auto Migration"
+msgstr ""
+
+#: includes/admin/views/tab-line-settings.php:218
+msgid "Automatically migrate NSL users to LINE Hub (auto-copy on new user login)"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:24
+msgid "Login Mode"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:27
+msgid "Login Method"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:34
+msgid "Auto"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:34
+msgid "Use LIFF when LIFF ID is available, otherwise use LINE OA login"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:39
+msgid "LINE OA Only"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:39
+msgid "Use OAuth 2.0 standard authorization flow"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:44
+msgid "LIFF Only"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:44
+msgid "Login via LIFF App (requires LIFF ID)"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:52
+msgid "LINE Login Behavior"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:55
+msgid "Initial Login Method"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:60
+msgid "Default (LINE auto-detect)"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:63
+msgid "QR Code scan login"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:66
+msgid "Auto login (when LINE App is installed)"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:70
+msgid "Controls which login method is displayed first on the LINE Login screen"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:75
+msgid "Force Re-authorization"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:80
+msgid "Require re-authorization on every login (do not use existing authorized session)"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:85
+msgid "Allow Method Switching"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:90
+msgid "Allow users to switch login methods on the login screen (QR Code / Email)"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:95
+msgid "Auto Login"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:100
+msgid "Allow auto login (automatically authenticate when already logged into LINE, without showing login screen)"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:105
+msgid "Add Friend Behavior"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:112
+msgid "Show add friend option after login (user can skip)"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:117
+msgid "Force display add friend prompt during login"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:121
+msgid "Requires \"Linked OA\" to be enabled in LINE Developers Console"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:128
+msgid "New User Settings"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:132
+msgid "Username Prefix"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:139
+msgid "WordPress username prefix for new users, e.g. line_U1234"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:145
+msgid "Display Name Prefix"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:153
+msgid "When LINE display name cannot be used as username, this prefix + random code is used"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:158
+msgid "Default Roles"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:177
+msgid "Roles automatically assigned to new LINE users after registration (multiple selections allowed)"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:182
+msgid "Auto Link by Email"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:187
+msgid "If the LINE account email matches an existing WordPress account, automatically link them"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:196
+msgid "Post-Login Redirect"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:199
+msgid "Redirect Method"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:204
+msgid "Use a fixed redirect URL (if unchecked, returns to the original page)"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:210
+msgid "Fixed URL"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:217
+msgid "e.g. /my-account or https://example.com/dashboard"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:219
+msgid "When fixed redirect is enabled, all LINE logins will redirect to this URL after completion"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:226
+msgid "Security Settings"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:229
+msgid "Email Verification"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:235
+msgid "Require email verification (new users must verify email before login)"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:241
+msgid "Allowed Domains"
+msgstr ""
+
+#: includes/admin/views/tab-login-settings.php:250
+msgid "Only allow registration from specific email domains (comma-separated, leave empty for no restriction)"
+msgstr ""
+
+#: includes/admin/views/tab-webhook.php:19
+msgid "Webhook Event Log"
+msgstr ""
+
+#: includes/admin/views/tab-webhook.php:23
+msgid "No Webhook events recorded yet. Events will appear here when LINE users interact with your Bot."
+msgstr ""
+
+#. translators: %d: number of events
+#: includes/admin/views/tab-webhook.php:28
+#, php-format
+msgid "Recent %d events"
+msgstr ""
+
+#: includes/admin/views/tab-webhook.php:35
+msgid "Event Type"
+msgstr ""
+
+#: includes/admin/views/tab-webhook.php:38
+msgid "Status"
+msgstr ""
+
+#: includes/admin/views/tab-webhook.php:39
+msgid "Action"
+msgstr ""
+
+#: includes/admin/views/tab-webhook.php:78
+msgid "View Payload"
+msgstr ""
+
+#: includes/admin/views/tab-wizard.php:20
+msgid "Connection Status Overview"
+msgstr ""
+
+#: includes/admin/views/tab-wizard.php:26
+msgid "Go to LINE Settings"
+msgstr ""
+
+#: includes/admin/views/tab-wizard.php:30
+msgid "Go to Login Settings"
+msgstr ""
+
+#: includes/admin/views/tab-wizard.php:39
+msgid "Setup Instructions"
+msgstr ""
+
+#. translators: %s: LINE Developers Console link
+#: includes/admin/views/tab-wizard.php:45
+#, php-format
+msgid "Go to %s"
+msgstr ""
+
+#. translators: 1: Messaging API, 2: LINE Login
+#: includes/admin/views/tab-wizard.php:52
+#, php-format
+msgid "You need two Channels: %1$s (for sending messages) and %2$s (for login)."
+msgstr ""
+
+#. translators: 1: LINE Settings link
+#: includes/admin/views/tab-wizard.php:61
+#, php-format
+msgid "In the Messaging API Channel Basic settings, get the Channel ID and Channel Secret, then enter them in \"%1$s\"."
+msgstr ""
+
+#: includes/admin/views/tab-wizard.php:65
+msgid "In the Messaging API Channel, issue a Channel Access Token and enter it in \"LINE Settings\"."
+msgstr ""
+
+#: includes/admin/views/tab-wizard.php:66
+msgid "In the Messaging API Channel, set the Webhook URL to the address shown on the \"LINE Settings\" page and enable \"Use webhook\"."
+msgstr ""
+
+#: includes/admin/views/tab-wizard.php:67
+msgid "In the LINE Login Channel Basic settings, get the Channel ID and Channel Secret, then enter them in \"LINE Settings\"."
+msgstr ""
+
+#: includes/admin/views/tab-wizard.php:68
+msgid "In the LINE Login Channel Callback URL settings, add the Callback URL shown on the \"LINE Settings\" page."
+msgstr ""
+
+#: includes/admin/views/tab-wizard.php:69
+msgid "If using LIFF, create a LIFF App under the LINE Login Channel, set the Endpoint URL to the address shown on the \"LINE Settings\" page, and enter the LIFF ID."
+msgstr ""
+
+#: includes/api/class-user-api.php:101
+msgid "Your LINE account is not linked."
+msgstr ""
+
+#: includes/api/class-user-api.php:111
+#: includes/class-plugin.php:170
+#: includes/integration/class-fluent-cart-connector.php:187
+msgid "LINE account has been unlinked."
+msgstr ""
+
+#: includes/api/class-user-api.php:117
+msgid "Failed to unlink. Please try again later."
+msgstr ""
+
+#: includes/api/class-user-api.php:137
+#: includes/services/class-login-service.php:214
+msgid "User does not exist."
+msgstr ""
+
+#: includes/api/class-user-api.php:212
+msgid "Invalid user ID."
+msgstr ""
+
+#: includes/auth/class-auth-callback.php:108
+msgid "LINE Login is not configured. Please contact the site administrator."
+msgstr ""
+
+#: includes/auth/class-auth-callback.php:161
+msgid "Token exchange failed. Please try again."
+msgstr ""
+
+#: includes/auth/class-auth-callback.php:174
+msgid "Unable to retrieve LINE user profile. Please try again."
+msgstr ""
+
+#: includes/auth/class-auth-callback.php:211
+msgid "An error occurred during login. Please try again."
+msgstr ""
+
+#: includes/auth/class-auth-callback.php:222
+msgid "Login Error"
+msgstr ""
+
+#: includes/auth/class-auth-callback.php:254
+#: includes/liff/class-liff-handler.php:132
+msgid "Login Failed"
+msgstr ""
+
+#: includes/auth/class-auth-callback.php:257
+msgid "Try Again"
+msgstr ""
+
+#: includes/auth/class-auth-callback.php:259
+msgid "Back to Home"
+msgstr ""
+
+#. translators: %s: error message
+#: includes/auth/class-oauth-client.php:114
+#, php-format
+msgid "LINE API connection failed: %s"
+msgstr ""
+
+#: includes/auth/class-oauth-client.php:122
+msgid "Token exchange failed."
+msgstr ""
+
+#. translators: %s: error message
+#: includes/auth/class-oauth-client.php:159
+#, php-format
+msgid "LINE Profile API connection failed: %s"
+msgstr ""
+
+#. translators: %d: HTTP status code
+#: includes/auth/class-oauth-client.php:167
+#, php-format
+msgid "LINE Profile API error (HTTP %d)."
+msgstr ""
+
+#: includes/auth/email-form-template.php:25
+msgid "Complete Registration"
+msgstr ""
+
+#: includes/auth/email-form-template.php:34
+msgid "Profile picture"
+msgstr ""
+
+#: includes/auth/email-form-template.php:38
+msgid "Almost Done!"
+msgstr ""
+
+#. translators: %s: user display name from LINE
+#: includes/auth/email-form-template.php:43
+#, php-format
+msgid "Hi %s, please enter your email to complete registration."
+msgstr ""
+
+#: includes/auth/email-form-template.php:47
+msgid "Please enter your email to complete registration."
+msgstr ""
+
+#: includes/auth/email-form-template.php:54
+msgid "Email Address"
+msgstr ""
+
+#: includes/auth/email-form-template.php:62
+msgid "Continue"
+msgstr ""
+
+#: includes/auth/email-form-template.php:67
+msgid "Re-authorize with LINE to grant email access"
+msgstr ""
+
+#: includes/class-plugin.php:131
+msgid "Logged in as {name}"
+msgstr ""
+
+#: includes/class-plugin.php:168
+msgid "Are you sure you want to unlink your LINE account? You will no longer receive LINE notifications."
+msgstr ""
+
+#: includes/class-plugin.php:169
+#: includes/integration/class-fluent-cart-connector.php:186
+msgid "Processing..."
+msgstr ""
+
+#: includes/class-plugin.php:171
+msgid "Failed to unlink account."
+msgstr ""
+
+#: includes/class-plugin.php:172
+#: includes/integration/class-fluent-cart-connector.php:189
+#: includes/templates/fluentcart-binding.php:57
+#: includes/templates/profile-binding.php:81
+msgid "Unlink"
+msgstr ""
+
+#: includes/class-plugin.php:173
+#: includes/integration/class-fluent-cart-connector.php:190
+msgid "Network error. Please try again later."
+msgstr ""
+
+#: includes/integration/class-fluent-cart-connector.php:94
+#: includes/integration/class-login-button.php:50
+#: includes/templates/login-button.php:23
+msgid "Log in to track orders and receive shipping notifications."
+msgstr ""
+
+#: includes/integration/class-fluent-cart-connector.php:95
+msgid "LINE Login"
+msgstr ""
+
+#: includes/integration/class-fluent-cart-connector.php:185
+msgid "Are you sure you want to unlink your LINE account?"
+msgstr ""
+
+#: includes/integration/class-fluent-cart-connector.php:188
+msgid "Failed to unlink LINE account."
+msgstr ""
+
+#: includes/liff/class-liff-api-client.php:33
+msgid "Access Token verification failed."
+msgstr ""
+
+#: includes/liff/class-liff-api-client.php:40
+#: includes/services/class-login-service.php:34
+msgid "Unable to retrieve LINE user profile."
+msgstr ""
+
+#: includes/liff/class-liff-handler.php:64
+msgid "LIFF is not configured. Please contact the administrator."
+msgstr ""
+
+#: includes/liff/class-liff-handler.php:65
+msgid "Configuration Error"
+msgstr ""
+
+#: includes/liff/class-liff-user-processor.php:36
+#: includes/liff/class-liff-user-processor.php:103
+#: includes/services/class-login-service.php:76
+msgid "Security verification failed. Please try again."
+msgstr ""
+
+#: includes/liff/class-liff-user-processor.php:42
+msgid "Missing Access Token."
+msgstr ""
+
+#: includes/liff/class-liff-user-processor.php:55
+msgid "Unable to retrieve LINE user ID."
+msgstr ""
+
+#: includes/liff/class-liff-user-processor.php:109
+msgid "Invalid request."
+msgstr ""
+
+#: includes/liff/class-liff-user-processor.php:115
+msgid "Link has expired. Please log in again."
+msgstr ""
+
+#: includes/liff/class-liff-user-processor.php:194
+msgid "Please enter your email address."
+msgstr ""
+
+#: includes/liff/class-liff-user-processor.php:198
+msgid "Invalid email format."
+msgstr ""
+
+#: includes/messaging/class-messaging-service.php:31
+#: includes/messaging/class-messaging-service.php:81
+#: includes/messaging/class-messaging-service.php:97
+msgid "LINE Channel Access Token is not configured."
+msgstr ""
+
+#. translators: %d: WordPress user ID
+#: includes/messaging/class-messaging-service.php:37
+#, php-format
+msgid "User %d has not linked a LINE account."
+msgstr ""
+
+#: includes/messaging/class-messaging-service.php:41
+#: includes/messaging/class-messaging-service.php:87
+#: includes/messaging/class-messaging-service.php:118
+msgid "Invalid message format."
+msgstr ""
+
+#: includes/messaging/class-messaging-service.php:46
+msgid "Message is missing the type field."
+msgstr ""
+
+#: includes/messaging/class-messaging-service.php:58
+msgid "Text message cannot be empty."
+msgstr ""
+
+#: includes/messaging/class-messaging-service.php:68
+msgid "Flex Message cannot be empty."
+msgstr ""
+
+#: includes/messaging/class-messaging-service.php:71
+msgid "Invalid Flex Message format."
+msgstr ""
+
+#: includes/messaging/class-messaging-service.php:84
+msgid "Reply token cannot be empty."
+msgstr ""
+
+#: includes/messaging/class-messaging-service.php:100
+msgid "Recipient list cannot be empty."
+msgstr ""
+
+#: includes/messaging/class-messaging-service.php:103
+msgid "Multicast recipients exceed the 500 user limit."
+msgstr ""
+
+#: includes/messaging/class-messaging-service.php:115
+msgid "None of the recipients have linked a LINE account."
+msgstr ""
+
+#. translators: %d: HTTP status code
+#: includes/messaging/class-messaging-service.php:193
+#, php-format
+msgid "LINE API error (HTTP %d)"
+msgstr ""
+
+#: includes/services/class-login-service.php:82
+#: includes/services/class-login-service.php:88
+msgid "Login session expired. Please log in again."
+msgstr ""
+
+#: includes/services/class-login-service.php:94
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: includes/services/class-user-service.php:168
+msgid "This LINE account is already linked to another WordPress account."
+msgstr ""
+
+#: includes/services/class-user-service.php:174
+msgid "This WordPress account is already linked to another LINE account. Please unlink first."
+msgstr ""
+
+#: includes/services/class-user-service.php:193
+msgid "Failed to update binding record."
+msgstr ""
+
+#: includes/services/class-user-service.php:201
+msgid "Failed to create binding record."
+msgstr ""
+
+#: includes/templates/fluentcart-binding.php:26
+#: includes/templates/profile-binding.php:24
+msgid "LINE Account Binding"
+msgstr ""
+
+#. translators: %s: date when the LINE account was linked
+#: includes/templates/fluentcart-binding.php:48
+#: includes/templates/profile-binding.php:69
+#, php-format
+msgid "Linked on: %s"
+msgstr ""
+
+#: includes/templates/fluentcart-binding.php:66
+msgid "Link your LINE account to receive order notifications and shipping updates."
+msgstr ""
+
+#: includes/templates/fluentcart-binding.php:73
+#: includes/templates/profile-binding.php:97
+msgid "Link LINE Account"
+msgstr ""
+
+#: includes/templates/profile-binding.php:32
+msgid "Unknown"
+msgstr ""
+
+#: includes/templates/profile-binding.php:90
+msgid "LINE account is not linked. Link your account to receive order notifications and shipping updates."
+msgstr ""
+
+#: includes/templates/profile-binding.php:103
+msgid "LINE Login is not configured. Please contact the administrator."
+msgstr ""
+
+#: includes/webhook/class-webhook-receiver.php:53
+msgid "HMAC signature verification failed."
+msgstr ""
+
+#: includes/webhook/class-webhook-receiver.php:83
+msgid "Invalid JSON format."
+msgstr ""
+
+#: line-hub.php:82
+msgid "Settings"
+msgstr ""
+
+#. translators: %s: current PHP version
+#: line-hub.php:96
+#, php-format
+msgid "Requires PHP 8.2 or higher. Current version: %s"
+msgstr ""
+
+#. translators: %s: current WordPress version
+#: line-hub.php:106
+#, php-format
+msgid "Requires WordPress 6.5 or higher. Current version: %s"
+msgstr ""
+
+#: line-hub.php:116
+msgid "Nextend Social Login (NSL) is active. Both plugins can coexist, but please ensure LINE OAuth settings do not conflict."
+msgstr ""
+
+#: line-hub.php:121
+msgid "BuyGo LINE Notify is active. We recommend disabling it after completing data migration."
+msgstr ""
+
+#: line-hub.php:126
+msgid "LINE Hub Compatibility Notice:"
+msgstr ""

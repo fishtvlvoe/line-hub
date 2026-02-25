@@ -3,7 +3,8 @@
 ## Milestones
 
 - ✅ **v1.0 LINE 登入中樞** - Phases 1-7 (shipped 2026-02-07)
-- 🚧 **v2.0 重構與擴展** - Phases 8-10 (in progress)
+- ✅ **v2.0 重構與擴展** - Phases 8-10 (complete 2026-02-24)
+- ✅ **v3.0 熵減重構** - Phases 11-16 (complete 2026-02-25)
 
 ## Phases
 
@@ -49,11 +50,11 @@ Plans:
 **Requirements**: USER-01, USER-02, USER-03, USER-04, USER-05
 **Status**: COMPLETE (2026-02-07)
 **Success Criteria** (what must be TRUE):
-  1. 系統可以儲存 LINE UID 與 WordPress User ID 的綁定關係 ✓
-  2. 用戶可以在前台查看自己的 LINE 綁定狀態（已綁定/未綁定） ✓
-  3. 用戶可以主動解除 LINE 綁定 ✓
-  4. 同一個 LINE UID 不能綁定多個 WordPress 帳號（防止重複綁定） ✓
-  5. 用戶綁定後，display_name 和 picture_url 自動同步 ✓
+  1. 系統可以儲存 LINE UID 與 WordPress User ID 的綁定關係
+  2. 用戶可以在前台查看自己的 LINE 綁定狀態（已綁定/未綁定）
+  3. 用戶可以主動解除 LINE 綁定
+  4. 同一個 LINE UID 不能綁定多個 WordPress 帳號（防止重複綁定）
+  5. 用戶綁定後，display_name 和 picture_url 自動同步
 **Plans**: 2 plans (completed)
 
 Plans:
@@ -66,11 +67,11 @@ Plans:
 **Requirements**: AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, AUTH-06, AUTH-07, AUTH-08, AUTH-09, AUTH-10
 **Status**: COMPLETE (2026-02-07)
 **Success Criteria** (what must be TRUE):
-  1. 用戶可以點擊「LINE 登入」按鈕完成 OAuth 認證 ✓
-  2. 系統可以從 ID Token 自動擷取用戶 Email ✓
-  3. Email 無效時，用戶可以選擇「強制重新授權」或「手動輸入 Email」 ✓
-  4. 新用戶登入後自動建立 WordPress 帳號（含 username, email, display_name）✓
-  5. 登入完成後自動重定向到原始頁面（非首頁或後台）✓
+  1. 用戶可以點擊「LINE 登入」按鈕完成 OAuth 認證
+  2. 系統可以從 ID Token 自動擷取用戶 Email
+  3. Email 無效時，用戶可以選擇「強制重新授權」或「手動輸入 Email」
+  4. 新用戶登入後自動建立 WordPress 帳號（含 username, email, display_name）
+  5. 登入完成後自動重定向到原始頁面（非首頁或後台）
 **Plans**: 3 plans (completed)
 
 Plans:
@@ -123,7 +124,7 @@ Plans:
   1. 其他外掛可以監聽 `line_hub/user_logged_in` Hook
   2. 其他外掛可以透過 `line_hub/message/before_send` Filter 修改訊息
   3. FluentCart 訂單建立時自動觸發通知（透過 Hook 監聽）
-  4. BuyGo 出貨時自動觸發通知（透過 Hook 監聽）
+  4. BuyGo 出貨時自動觸發通知（透過 Hook 監聯）
   5. LINE Hub 的 Hook 優先級不會與 NSL 衝突
 **Plans**: 3 plans (completed)
 
@@ -156,7 +157,8 @@ Plans:
 
 ---
 
-### ✅ v2.0 重構與擴展 (COMPLETE 2026-02-24)
+<details>
+<summary>✅ v2.0 重構與擴展 (Phases 8-10) - COMPLETE 2026-02-24</summary>
 
 **Milestone Goal:** 將 LineHub 從開發中的半成品升級為可上架的成熟 LINE 通訊平台——修復已知 bug、拆解過胖的設定頁、補齊開發者工具，讓 BuyGo/WebinarGo 等外掛可以無縫串接。
 
@@ -174,7 +176,8 @@ Plans:
   3. 使用 curl 呼叫 `POST /line-hub/v1/messages/text` 帶有效 API Key，訊息成功發送到 LINE（5 個 Hook 和 REST 端點端到端驗證通過）
   4. API Key 認證改用 `hash_equals()` 後，舊的 API Key 仍可正常驗證（向後相容）
   5. 發送超過 100 個 user_id 的 broadcast 請求時，API 回傳 HTTP 400 而非靜默執行
-**Plans**: 2 plans
+**Status**: COMPLETE (2026-02-24)
+**Plans**: 2 plans (completed)
 
 Plans:
 - [x] 08-01-PLAN.md — 安全修復與程式碼修正（hash_equals、broadcast 上限、回應格式 bug、N+1 快取）
@@ -213,11 +216,129 @@ Plans:
 - [x] 10-01: REST API 文件 Tab（端點清單、curl 範例、API Key 生成提示）
 - [x] 10-02: Hook 文件與 API 使用記錄（PHP 範例、呼叫 log 顯示）
 
+</details>
+
+---
+
+### v3.0 熵減重構 (Phases 11-16)
+
+**Milestone Goal:** 全面整理程式碼結構，將熵減評分從 52/100 提升至 85/100 以上，為 WebinarGo 開發打穩地基。所有檔案 < 300 行、Class 零內嵌、統一常數管理、安全補齊、基礎測試覆蓋。
+
+- [x] **Phase 11: 安全補齊與常數統一** - 基礎衛生和 LINE API URL 集中管理
+- [x] **Phase 12: 內嵌清除** - Class 中 CSS/JS/HTML 全部拆到獨立檔案
+- [x] **Phase 13: 樣式外部化** - Admin View 和 LIFF 模板的 inline style 移到 CSS 檔案
+- [x] **Phase 14: 檔案瘦身與方法重構** - 大檔案拆分 + 長方法縮短
+- [x] **Phase 15: 命名統一與根目錄整理** - 類名 CamelCase 統一 + 開發文件歸檔
+- [x] **Phase 16: 測試框架** - composer + phpunit + 核心服務基本覆蓋
+
+## Phase Details
+
+### Phase 11: 安全補齊與常數統一
+**Goal**: 外掛滿足 WordPress Plugin Handbook 基本安全要求，且所有 LINE API URL 由統一常數類別管理
+**Depends on**: Phase 10
+**Requirements**: SEC-08, SEC-09, SEC-10, CONST-01, CONST-02
+**Success Criteria** (what must be TRUE):
+  1. 停用並刪除外掛後，`wp_line_hub_users` 資料表、所有 `line_hub_*` options、所有相關 transients 被完整清除（uninstall.php 生效）
+  2. 直接訪問任何外掛子目錄的 URL（如 `/wp-content/plugins/line-hub/includes/`）回傳空白頁而非目錄列表（20 個 index.php 到位）
+  3. 在 LINE 登入 callback URL 中注入外部網址（如 `redirect_to=https://evil.com`），系統拒絕跳轉並導回首頁（Open Redirect 修正）
+  4. 用 `grep -r "https://api.line.me" includes/` 搜尋，結果為零（所有 LINE API URL 集中在常數類別）
+  5. 現有功能（LINE 登入、LIFF、通知發送、Webhook）在安全補齊後全部正常運作
+**Plans**: 3 plans in 2 waves
+
+Plans:
+- [x] 11-01-PLAN.md — uninstall.php 清理邏輯 + 20 個目錄 index.php 防護
+- [x] 11-02-PLAN.md — Open Redirect 漏洞修正 + 輸入 sanitize 補齊
+- [x] 11-03-PLAN.md — LINE API URL 統一常數類別 + 4 個檔案 URL 替換
+
+### Phase 12: 內嵌清除
+**Goal**: 所有 Class 檔案零內嵌 CSS/JS/HTML，前端資源全部透過 WordPress 標準機制載入
+**Depends on**: Phase 11
+**Requirements**: INLINE-01, INLINE-02, INLINE-03
+**Success Criteria** (what must be TRUE):
+  1. 用 `grep -rn '<style' includes/` 搜尋 Class 檔案，結果為零（CSS 全部使用 wp_enqueue_style）
+  2. 用 `grep -rn '<script' includes/` 搜尋 Class 檔案，結果為零（JS 全部使用 wp_enqueue_script）
+  3. Class 檔案中無大段 HTML echo/printf，HTML 全部移到 `includes/templates/` 或 `includes/views/` 模板
+  4. FluentCart 產品頁的 LINE 綁定區塊正常顯示且功能不變（renderBindingSection 拆分後驗證）
+  5. 後台設定頁、用戶列表欄位、歡迎 Toast 等 UI 元素外觀和行為不變
+**Status**: COMPLETE (2026-02-25)
+**Plans**: 2 plans in 1 wave (completed)
+
+Plans:
+- [x] 12-01-PLAN.md — UsersColumn CSS + Plugin Toast JS 提取到獨立檔案
+- [x] 12-02-PLAN.md — FluentCartConnector CSS/JS/HTML 全部提取（403→185 行）
+
+### Phase 13: 樣式外部化
+**Goal**: 所有 view 模板和 LIFF 模板的 inline style 移到獨立 CSS 檔案，實現樣式集中管理
+**Depends on**: Phase 12
+**Requirements**: STYLE-01, STYLE-02
+**Success Criteria** (what must be TRUE):
+  1. 用 `grep -rn 'style="' includes/admin/ includes/views/` 搜尋 Admin view 模板，結果為零（inline style 全部移到 CSS class）
+  2. LIFF 登入頁面（`liff-template.php`）和 Email 表單頁面載入獨立 CSS 檔案，頁面中無 `<style>` 區塊
+  3. 後台 5 個 Tab（嚮導、LINE 設定、登入設定、Webhook、開發者）的視覺排版與重構前完全一致
+  4. LIFF 在 LINE App 內開啟，登入頁面和 Email 表單的樣式正常顯示
+**Status**: COMPLETE (2026-02-25)
+**Plans**: 2 plans in 1 wave (completed)
+
+Plans:
+- [x] 13-01-PLAN.md — Admin view 模板 inline style 外部化到 admin-views.css（68 個 CSS class）
+- [x] 13-02-PLAN.md — LIFF/Auth 模板 `<style>` 區塊提取到 3 個獨立 CSS 檔案
+
+### Phase 14: 檔案瘦身與方法重構
+**Goal**: 所有 PHP 檔案控制在 300 行以內（零 500+ 行違規），所有方法控制在 50 行以內
+**Depends on**: Phase 13
+**Requirements**: SIZE-01, SIZE-02, METHOD-01
+**Success Criteria** (what must be TRUE):
+  1. 用靜態分析掃描所有 PHP 檔案，零個超過 500 行（絕對上限達標）
+  2. 用靜態分析掃描所有 PHP 檔案，零個超過 300 行（理想目標達標，或僅餘極少數 301-310 行邊界案例）
+  3. 用靜態分析掃描所有方法，零個超過 50 行（28 個長方法全部重構完成）
+  4. Autoloader 正確載入所有拆分後的新類別（無 class not found 錯誤）
+  5. LINE 登入完整流程（OAuth callback → 帳號建立 → 重定向）在拆分後正常運作
+**Status**: COMPLETE (2026-02-25)
+**Plans**: 3 plans in 2 waves (completed)
+
+Plans:
+- [x] 14-01-PLAN.md — 4 個 500+ 行 Class 拆分（LiffHandler→136, SettingsService→258, UserService→259, Plugin→250）
+- [x] 14-02-PLAN.md — 9 個 300-500 行檔案瘦身（FlexBuilder 重構、LoginService/MessagingService 方法提取、View Partial 拆分）
+- [x] 14-03-PLAN.md — 11 個 >50 行方法全部重構至 ≤50 行（match 表達式、hook map、context resolver）
+
+### Phase 15: 命名統一與根目錄整理
+**Goal**: PHP 類名風格統一為純 CamelCase，根目錄乾淨無散落開發文件
+**Depends on**: Phase 14
+**Requirements**: NAME-01, NAME-02
+**Success Criteria** (what must be TRUE):
+  1. 所有 PHP 類名使用純 CamelCase（如 `AutoUpdater`），無底線風格（如 `Auto_Updater`）
+  2. Autoloader 命名規則對應正確（CamelCase 類名 → `class-kebab-case.php` 檔名）
+  3. 根目錄無散落的開發日誌或文件（`DAY-*.md`、`LINE-HUB-ROADMAP.md`、`CONFLICT-FIX-REPORT.md` 等全部歸入 `.planning/` 或刪除）
+  4. 外掛啟動、LINE 登入、後台設定頁在命名變更後正常運作
+**Status**: COMPLETE (2026-02-25)
+**Plans**: 2 plans (completed)
+
+Plans:
+- [x] 15-01 — 3 個底線類名統一為 CamelCase + autoloader 簡化
+- [x] 15-02 — 根目錄 5 個開發文件歸檔至 .planning/archives/ + 過時截圖刪除
+
+### Phase 16: 測試框架
+**Goal**: 建立測試基礎設施，核心服務有基本單元測試覆蓋，`composer test` 一鍵可執行
+**Depends on**: Phase 15
+**Requirements**: TEST-01, TEST-02
+**Success Criteria** (what must be TRUE):
+  1. 執行 `composer test` 成功跑完所有測試，零失敗
+  2. UserService 測試覆蓋：綁定查詢、linkUser、unlinkUser 的基本場景
+  3. SettingsService 測試覆蓋：get/set/delete 和加密解密的基本場景
+  4. MessagingService 測試覆蓋：訊息發送邏輯的基本場景（mock LINE API）
+**Status**: COMPLETE (2026-02-25)
+**Plans**: 2 plans (completed)
+
+Plans:
+- [x] 16-01 — 測試基礎設施（composer.json + phpunit-unit.xml + bootstrap mock）
+- [x] 16-02 — 核心服務測試（SettingsService 10 + UserService 7 + MessagingService 7 = 24 tests）
+
 ## Progress
 
 **Execution Order:**
 v1.0: 1 → 2 → 3 → 4 → 5 → 6 → 7 (done)
-v2.0: 8 → 9 → 10
+v2.0: 8 → 9 → 10 (done)
+v3.0: 11 → 12 → 13 → 14 → 15 → 16
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -231,3 +352,9 @@ v2.0: 8 → 9 → 10
 | 8. 驗證與修復 | v2.0 | 2/2 | Complete | 2026-02-24 |
 | 9. Tab 重構 | v2.0 | 3/3 | Complete | 2026-02-24 |
 | 10. 開發者體驗 | v2.0 | 2/2 | Complete | 2026-02-24 |
+| 11. 安全補齊與常數統一 | v3.0 | 3/3 | Complete | 2026-02-24 |
+| 12. 內嵌清除 | v3.0 | 2/2 | Complete | 2026-02-25 |
+| 13. 樣式外部化 | v3.0 | 2/2 | Complete | 2026-02-25 |
+| 14. 檔案瘦身與方法重構 | v3.0 | 3/3 | Complete | 2026-02-25 |
+| 15. 命名統一與根目錄整理 | v3.0 | 2/2 | Complete | 2026-02-25 |
+| 16. 測試框架 | v3.0 | 2/2 | Complete | 2026-02-25 |

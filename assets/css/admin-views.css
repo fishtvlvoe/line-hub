@@ -1,0 +1,69 @@
+/**
+ * Admin View 模板共用樣式
+ *
+ * 取代 admin view 模板中的 inline style 屬性
+ *
+ * @package LineHub
+ * @since 3.0.0
+ */
+
+/* ── 佈局與卡片 ── */
+.lh-card-narrow { max-width: 1000px; }
+.lh-card-narrow-spaced { max-width: 1000px; margin-top: 20px; }
+
+/* ── 間距工具 ── */
+.lh-mt-0 { margin-top: 0; }
+.lh-mt-10 { margin-top: 10px; }
+.lh-mt-16 { margin-top: 16px; }
+.lh-mt-20 { margin-top: 20px; }
+.lh-ml-8 { margin-left: 8px; }
+.lh-form-offset { margin: -10px 0 0 0; }
+.lh-status-section { margin: 20px 0; }
+
+/* ── 文字顏色 ── */
+.lh-text-muted { color: #999; }
+.lh-text-secondary { color: #666; }
+.lh-text-warning { color: #996800; }
+.lh-text-success { color: #46b450; }
+.lh-text-danger { color: #dc2626; }
+.lh-text-info { color: #6b7280; }
+
+/* ── 程式碼區塊 ── */
+.lh-code-display { background: #f5f5f5; padding: 8px 12px; display: inline-block; }
+.lh-code-display-sm { font-size: 13px; }
+.lh-code-display-lg { font-size: 14px; }
+.lh-code-uid { font-size: 11px; }
+.lh-code-ip { font-size: 12px; }
+
+/* ── 表格欄寬 ── */
+.lh-col-60 { width: 60px; }
+.lh-col-80 { width: 80px; }
+.lh-col-120 { width: 120px; }
+.lh-col-130 { width: 130px; }
+.lh-col-140 { width: 140px; }
+.lh-col-160 { width: 160px; }
+.lh-col-180 { width: 180px; }
+
+/* ── 表單元素 ── */
+.lh-label-block { display: block; margin-bottom: 8px; }
+.lh-label-block-sm { display: block; margin-bottom: 4px; }
+.lh-label-block-md { display: block; margin-bottom: 6px; }
+.lh-radio-inline-spaced { margin-left: 15px; }
+
+/* ── 連線狀態 ── */
+.lh-status-list { list-style: none; padding-left: 0; }
+.lh-status-item { margin: 8px 0; }
+
+/* ── Webhook payload ── */
+.lh-payload-panel { display: none; margin-top: 10px; padding: 10px; background: #f5f5f5; border: 1px solid #ddd; border-radius: 3px; }
+.lh-payload-content { overflow-x: auto; font-size: 12px; max-height: 300px; }
+
+/* ── Developer tab 特有 ── */
+.lh-api-key-banner { background: #dcfce7; border: 1px solid #86efac; border-radius: 6px; padding: 16px; margin: 16px 0; }
+.lh-api-key-banner-title { margin: 0 0 8px 0; font-weight: 600; color: #166534; }
+.lh-api-key-code { font-size: 14px; background: #fff; padding: 8px 12px; display: inline-block; border: 1px solid #86efac; user-select: all; }
+.lh-endpoint-title { margin-left: auto; font-size: 13px; color: #6b7280; }
+
+/* ── 設定嚮導 ── */
+.lh-wizard-summary { cursor: pointer; font-weight: 600; font-size: 14px; padding: 8px 0; }
+.lh-wizard-steps { margin-top: 15px; line-height: 2; }

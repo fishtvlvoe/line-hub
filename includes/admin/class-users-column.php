@@ -60,7 +60,7 @@ class UsersColumn {
         $binding = self::get_binding_status($user_id);
 
         if ($binding === null) {
-            return '<span class="line-hub-binding-none" title="未綁定">—</span>';
+            return '<span class="line-hub-binding-none" title="' . esc_attr__('Not linked', 'line-hub') . '">—</span>';
         }
 
         $source_label = esc_html($binding['source']);
@@ -104,15 +104,15 @@ class UsersColumn {
             }
         }
 
-        // 3. buygo_line_users（舊 LINE Notify）
+        // 3. buygo_line_users（舊 LINE Notify，無 display_name 欄位）
         $bgo_table = $wpdb->prefix . 'buygo_line_users';
         if (self::table_exists($bgo_table)) {
-            $row = $wpdb->get_row($wpdb->prepare(
-                "SELECT display_name FROM {$bgo_table} WHERE user_id = %d LIMIT 1",
+            $exists = $wpdb->get_var($wpdb->prepare(
+                "SELECT user_id FROM {$bgo_table} WHERE user_id = %d LIMIT 1",
                 $user_id
             ));
-            if ($row) {
-                return ['source' => 'Legacy', 'display_name' => $row->display_name ?? ''];
+            if ($exists) {
+                return ['source' => 'Legacy', 'display_name' => ''];
             }
         }
 
@@ -138,14 +138,14 @@ class UsersColumn {
     }
 
     /**
-     * 內嵌最小 CSS
+     * 載入用戶列表 LINE 欄位樣式
      */
     public static function inline_css(): void {
-        echo '<style>
-            .column-line_binding { width: 60px; text-align: center; }
-            .line-hub-binding-linked { color: #06C755; font-size: 16px; }
-            .line-hub-binding-none { color: #ccc; }
-            .line-hub-binding-source { display: block; color: #888; font-size: 11px; }
-        </style>';
+        wp_enqueue_style(
+            'line-hub-users-column',
+            LINE_HUB_URL . 'assets/css/users-column.css',
+            [],
+            LINE_HUB_VERSION
+        );
     }
 }

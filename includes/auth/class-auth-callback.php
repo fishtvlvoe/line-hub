@@ -30,10 +30,10 @@ class AuthCallback {
      * @var array<string, string>
      */
     private const ERROR_MESSAGES = [
-        'access_denied'   => '您已取消登入',
-        'invalid_request' => '登入請求無效，請重試',
-        'server_error'    => 'LINE 伺服器暫時無法連線，請稍後再試',
-        'state_expired'   => '登入逾時，請重新登入',
+        'access_denied'   => 'Login was cancelled.',
+        'invalid_request' => 'Invalid login request. Please try again.',
+        'server_error'    => 'LINE server is temporarily unavailable. Please try again later.',
+        'state_expired'   => 'Login session expired. Please log in again.',
     ];
 
     /**
@@ -92,8 +92,9 @@ class AuthCallback {
     public function initiateAuth(): void {
         // 儲存原始頁面 URL（用於登入後重定向）
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-        $redirect = isset($_GET['redirect']) ? esc_url_raw(wp_unslash($_GET['redirect'])) : '';
+        $redirect = isset($_GET['redirect']) ? sanitize_text_field(wp_unslash($_GET['redirect'])) : '';
         if (!empty($redirect)) {
+            // OAuthState::storeRedirect 內部已有 wp_validate_redirect 驗證
             OAuthState::storeRedirect($redirect);
         }
 
@@ -104,7 +105,7 @@ class AuthCallback {
         if (!$client->isConfigured()) {
             $this->handleError(
                 'not_configured',
-                __('LINE 登入尚未設定，請聯繫網站管理員。', 'line-hub')
+                __('LINE Login is not configured. Please contact the site administrator.', 'line-hub')
             );
             return;
         }
@@ -133,7 +134,6 @@ class AuthCallback {
      * @throws \Exception 當驗證失敗時
      */
     public function processCallback(string $code, string $state): void {
-        // 驗證 State（CSRF 防護）
         if (!OAuthState::validate($state)) {
             throw new \Exception(self::ERROR_MESSAGES['state_expired']);
         }
@@ -141,54 +141,52 @@ class AuthCallback {
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
         error_log('[LINE Hub] State validated, exchanging code for tokens');
 
-        // 建立 OAuthClient
-        $client = new OAuthClient();
+        $result = $this->exchangeAndVerifyTokens($code);
 
-        // 交換 code 取得 tokens
+        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+        error_log('[LINE Hub] OAuth complete for user: ' . substr($result['user_data']['userId'], 0, 4) . '****' . substr($result['user_data']['userId'], -4));
+
+        $login_service = new \LineHub\Services\LoginService();
+        $login_service->handleUser($result['user_data'], $result['tokens']);
+    }
+
+    /**
+     * 交換 Token、驗證 ID Token、取得 Profile
+     */
+    private function exchangeAndVerifyTokens(string $code): array {
+        $client = new OAuthClient();
         $tokens = $client->authenticate($code);
 
-        // 確認有必要的 tokens
         if (empty($tokens['access_token'])) {
-            throw new \Exception(__('Token 交換失敗，請重試', 'line-hub'));
+            throw new \Exception(__('Token exchange failed. Please try again.', 'line-hub'));
         }
 
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
         error_log('[LINE Hub] Tokens received, verifying ID token and getting profile');
 
-        // 驗證 ID Token 取得用戶資料（可能包含 email）
         $id_token_data = [];
         if (!empty($tokens['id_token'])) {
             $id_token_data = $client->verifyIdToken($tokens['id_token']);
         }
 
-        // 取得 LINE Profile
         $profile = $client->getProfile($tokens['access_token']);
-
         if (empty($profile['userId'])) {
-            throw new \Exception(__('無法取得 LINE 用戶資料，請重試', 'line-hub'));
+            throw new \Exception(__('Unable to retrieve LINE user profile. Please try again.', 'line-hub'));
         }
 
-        // 合併資料準備給 LoginService
-        $user_data = [
-            'userId'      => $profile['userId'],
-            'displayName' => $profile['displayName'] ?? '',
-            'pictureUrl'  => $profile['pictureUrl'] ?? '',
-            'email'       => $id_token_data['email'] ?? '',
+        return [
+            'user_data' => [
+                'userId'      => $profile['userId'],
+                'displayName' => $profile['displayName'] ?? '',
+                'pictureUrl'  => $profile['pictureUrl'] ?? '',
+                'email'       => $id_token_data['email'] ?? '',
+            ],
+            'tokens' => [
+                'access_token'  => $tokens['access_token'],
+                'refresh_token' => $tokens['refresh_token'] ?? '',
+                'expires_in'    => $tokens['expires_in'] ?? 0,
+            ],
         ];
-
-        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-        error_log('[LINE Hub] OAuth complete for user: ' . substr($profile['userId'], 0, 4) . '****' . substr($profile['userId'], -4));
-
-        // 儲存 tokens 供 LoginService 使用
-        $tokens_for_service = [
-            'access_token'  => $tokens['access_token'],
-            'refresh_token' => $tokens['refresh_token'] ?? '',
-            'expires_in'    => $tokens['expires_in'] ?? 0,
-        ];
-
-        // 呼叫 LoginService 處理用戶登入/註冊
-        $login_service = new \LineHub\Services\LoginService();
-        $login_service->handleUser($user_data, $tokens_for_service);
     }
 
     /**
@@ -210,7 +208,7 @@ class AuthCallback {
         ));
 
         // 取得用戶友善訊息
-        $user_message = self::ERROR_MESSAGES[$error_code] ?? self::ERROR_MESSAGES['server_error'] ?? __('登入時發生錯誤，請重試', 'line-hub');
+        $user_message = self::ERROR_MESSAGES[$error_code] ?? self::ERROR_MESSAGES['server_error'] ?? __('An error occurred during login. Please try again.', 'line-hub');
 
         // 產生重新登入連結
         $retry_url = home_url('/line-hub/auth/');
@@ -221,7 +219,7 @@ class AuthCallback {
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         wp_die(
             $html,
-            __('登入錯誤', 'line-hub'),
+            __('Login Error', 'line-hub'),
             [
                 'response'  => 400,
                 'back_link' => false,
@@ -253,12 +251,12 @@ class AuthCallback {
                 <a href="%s" style="display: inline-block; padding: 12px 24px; background: #00B900; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; margin-right: 10px;">%s</a>
                 <a href="%s" style="display: inline-block; padding: 12px 24px; background: #f3f4f6; color: #374151; text-decoration: none; border-radius: 6px; font-weight: 500;">%s</a>
             </div>',
-            esc_html__('登入失敗', 'line-hub'),
+            esc_html__('Login Failed', 'line-hub'),
             esc_html($message),
             esc_url($retry_url),
-            esc_html__('重新登入', 'line-hub'),
+            esc_html__('Try Again', 'line-hub'),
             esc_url($home_url),
-            esc_html__('返回首頁', 'line-hub')
+            esc_html__('Back to Home', 'line-hub')
         );
     }
 

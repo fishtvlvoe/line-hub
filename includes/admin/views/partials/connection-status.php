@@ -19,42 +19,42 @@ $has_login_channel_secret = !empty($settings['login_channel_secret']);
 $has_liff_id            = !empty($settings['liff_id']);
 ?>
 
-<div style="margin: 20px 0;">
+<div class="lh-status-section">
     <h3>LINE Messaging API</h3>
-    <ul style="list-style: none; padding-left: 0;">
-        <li style="margin: 8px 0;">
+    <ul class="lh-status-list">
+        <li class="lh-status-item">
             <?php echo $has_channel_id ? '&#10003;' : '&#10007;'; ?>
-            Channel ID <?php echo $has_channel_id ? '已設定' : '尚未設定'; ?>
+            Channel ID <?php echo $has_channel_id ? esc_html__('configured', 'line-hub') : esc_html__('not configured', 'line-hub'); ?>
         </li>
-        <li style="margin: 8px 0;">
+        <li class="lh-status-item">
             <?php echo $has_channel_secret ? '&#10003;' : '&#10007;'; ?>
-            Channel Secret <?php echo $has_channel_secret ? '已設定' : '尚未設定'; ?>
+            Channel Secret <?php echo $has_channel_secret ? esc_html__('configured', 'line-hub') : esc_html__('not configured', 'line-hub'); ?>
         </li>
-        <li style="margin: 8px 0;">
+        <li class="lh-status-item">
             <?php echo $has_access_token ? '&#10003;' : '&#10007;'; ?>
-            Access Token <?php echo $has_access_token ? '已設定' : '尚未設定'; ?>
+            Access Token <?php echo $has_access_token ? esc_html__('configured', 'line-hub') : esc_html__('not configured', 'line-hub'); ?>
         </li>
     </ul>
 
-    <h3 style="margin-top: 20px;">LINE Login</h3>
-    <ul style="list-style: none; padding-left: 0;">
-        <li style="margin: 8px 0;">
+    <h3 class="lh-mt-20">LINE Login</h3>
+    <ul class="lh-status-list">
+        <li class="lh-status-item">
             <?php echo $has_login_channel_id ? '&#10003;' : '&#10007;'; ?>
-            Channel ID <?php echo $has_login_channel_id ? '已設定' : '尚未設定'; ?>
+            Channel ID <?php echo $has_login_channel_id ? esc_html__('configured', 'line-hub') : esc_html__('not configured', 'line-hub'); ?>
             <?php if (!$has_login_channel_id && $has_channel_id): ?>
-                <span style="color: #996800;">（將 fallback 到 Messaging API Channel ID）</span>
+                <span class="lh-text-warning"><?php esc_html_e('(will fallback to Messaging API Channel ID)', 'line-hub'); ?></span>
             <?php endif; ?>
         </li>
-        <li style="margin: 8px 0;">
+        <li class="lh-status-item">
             <?php echo $has_login_channel_secret ? '&#10003;' : '&#10007;'; ?>
-            Channel Secret <?php echo $has_login_channel_secret ? '已設定' : '尚未設定'; ?>
+            Channel Secret <?php echo $has_login_channel_secret ? esc_html__('configured', 'line-hub') : esc_html__('not configured', 'line-hub'); ?>
             <?php if (!$has_login_channel_secret && $has_channel_secret): ?>
-                <span style="color: #996800;">（將 fallback 到 Messaging API Channel Secret）</span>
+                <span class="lh-text-warning"><?php esc_html_e('(will fallback to Messaging API Channel Secret)', 'line-hub'); ?></span>
             <?php endif; ?>
         </li>
-        <li style="margin: 8px 0;">
+        <li class="lh-status-item">
             <?php echo $has_liff_id ? '&#10003;' : '&#9888;'; ?>
-            LIFF ID <?php echo $has_liff_id ? '已設定' : '尚未設定（選用）'; ?>
+            LIFF ID <?php echo $has_liff_id ? esc_html__('configured', 'line-hub') : esc_html__('not configured (optional)', 'line-hub'); ?>
         </li>
     </ul>
 </div>

@@ -23,7 +23,7 @@ class LoginSettingsTab extends AbstractTab {
     }
 
     public function get_label(): string {
-        return '登入設定';
+        return __('Login Settings', 'line-hub');
     }
 
     public function render(): void {

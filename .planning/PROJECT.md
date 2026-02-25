@@ -8,14 +8,19 @@ LINE Hub 是一個專為 WordPress 打造的 LINE 整合中樞外掛，提供 LI
 
 讓任何 WordPress 外掛都能透過標準化的 Hook 或 REST API 發送 LINE 通知給用戶，不需要自己處理 LINE API。
 
-## Current Milestone: v2.0 重構與擴展
+## Current Milestone: v3.0 熵減重構
 
-**Goal:** 將 LineHub 從開發中的半成品升級為可上架的成熟 LINE 通訊平台
+**Goal:** 全面整理程式碼結構，為 WebinarGo 開發打穩地基。所有檔案 < 300 行、Class 零內嵌、統一常數管理、安全補齊、基礎測試覆蓋。
 
 **Target features:**
-- Bug 修復（SettingsService 陣列存儲、用戶列表 LINE 欄位、移除空 Tab）
-- 後台 Tab 重構（5 Tab 重分類 + 熵減拆檔）
-- 擴張架構（標準 Hook 介面 + REST API + API Key 管理）
+- 安全補齊（uninstall.php + index.php + 輸入驗證）
+- 常數統一（LINE API URL 集中管理）
+- 內嵌清除（Class 中的 CSS/JS/HTML 全部拆到獨立檔案）
+- 大檔案拆分（4 個 500+ 行、11 個 300~500 行全部縮減）
+- Admin Views inline style 清理
+- 長方法重構（28 個 50+ 行方法拆短）
+- 命名統一 + 根目錄整理
+- 基礎測試框架
 
 ## Requirements
 
@@ -36,13 +41,16 @@ LINE Hub 是一個專為 WordPress 打造的 LINE 整合中樞外掛，提供 LI
 
 ### Active
 
-<!-- v2.0 Milestone scope -->
+<!-- v3.0 Milestone scope -->
 
-- [ ] Bug 修復（SettingsService、用戶列表、空 Tab）
-- [ ] 後台 Tab 重構 + 熵減
-- [ ] 標準化 Hook 介面
-- [ ] REST API 訊息端點
-- [ ] API Key 管理
+- [ ] 安全補齊（uninstall.php、index.php、輸入 sanitize）
+- [ ] LINE API 常數統一管理
+- [ ] Class 中內嵌 CSS/JS/HTML 清除（9 處）
+- [ ] 大檔案拆分（15 個超過 300 行）
+- [ ] Admin Views inline style → CSS 檔案
+- [ ] 長方法重構（28 個超過 50 行）
+- [ ] 類名統一 + 根目錄整理
+- [ ] 基礎測試框架（composer + phpunit）
 
 ### Out of Scope
 
@@ -83,17 +91,19 @@ WebinarGo（研討會通知）← 獨立外掛，透過 LineHub 發通知
 - `wp_buygo_line_users`（LINE Notify）— 已被 LineHub 取代
 - `wp_line_hub_users`（LineHub）— 主要系統
 
-### 已知問題（v2.0 要修）
+### 已知問題（v3.0 要修）
 
-- SettingsService `set()` 對 array 類型存入 `"Array"` 字串
-- WordPress 用戶列表沒有 LINE 綁定狀態欄位
-- 通知 Tab 是空殼（只有「待開發」文字）
-- `class-settings-page.php` 34KB，嚴重超過 300 行上限
-- Tab 分類不直覺（設定混雜、入門和設定重疊）
-- 各 Tab 共用一個 form，儲存時會互相干擾
-- Hook 介面未標準化（各外掛各自呼叫，沒有統一格式）
-- 無 REST API 給外部服務使用
-- 無 API Key 認證機制
+- 4 個檔案超過 500 行（最嚴重 670 行）
+- 11 個檔案介於 300~500 行
+- 28 個方法超過 50 行
+- Class 中 5 處 `<style>` + 5 處 `<script>` 內嵌
+- 8 處 Class 直接輸出 HTML
+- LINE API URL 重複定義 4 處
+- 21 個目錄缺 index.php、缺 uninstall.php
+- 8 處輸入未 sanitize（含 Open Redirect 風險）
+- 類名風格不統一（底線 vs CamelCase）
+- 0 個單元測試
+- 91 處 error_log 殘留
 
 ## Constraints
 
@@ -113,7 +123,8 @@ WebinarGo（研討會通知）← 獨立外掛，透過 LineHub 發通知
 | 通知模板歸業務外掛 | LineHub 不存業務模板，避免膨脹 | ✓ Good |
 | PHP inline include 繞過 WAF | InstaWP 目錄權限 700 導致 403 | ⚠️ Revisit（已修正權限） |
 | getPictureUrl() 不回傳 Gravatar | 避免 Gravatar URL 阻擋 NSL 頭像 fallback | ✓ Good |
-| v2.0 先做完 A+B+C 再開 WebinarGo | LineHub 要先成熟，WebinarGo 用戶才不會看到半成品 | — Pending |
+| v2.0 先做完 A+B+C 再開 WebinarGo | LineHub 要先成熟，WebinarGo 用戶才不會看到半成品 | ✓ Good（v2.0 已完成） |
+| v3.0 熵減優先於 WebinarGo | 地基穩了才往上蓋，避免每開新外掛都回來改 LineHub | — Active |
 
 ---
-*Last updated: 2026-02-24 after v2.0 milestone start*
+*Last updated: 2026-02-24 after v3.0 milestone start*

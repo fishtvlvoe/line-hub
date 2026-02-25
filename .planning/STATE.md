@@ -5,14 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** 讓任何 WordPress 外掛都能透過標準化的 Hook 或 REST API 發送 LINE 通知給用戶
-**Current focus:** v2.0 重構與擴展 — Phase 10 開發者體驗完成，v2.0 里程碑完結
+**Current focus:** v3.0 熵減重構 — 為 WebinarGo 開發打穩地基
 
 ## Current Position
 
-Phase: 10 (開發者體驗) -- 完成
+Phase: 16 - 測試框架
 Plan: 2 of 2
-Status: **v2.0 Milestone COMPLETE**
-Last activity: 2026-02-24 — 完成 Phase 10 開發者體驗（REST API 文件、Hook 文件、API 使用記錄）
+Status: Complete
+Last activity: 2026-02-25 — Phase 16 全部完成（2/2 plans）— v3.0 Milestone COMPLETE
+
+Progress: ████████████████████ 6/6 phases (v3.0 COMPLETE)
 
 ## Performance Metrics
 
@@ -25,6 +27,11 @@ Last activity: 2026-02-24 — 完成 Phase 10 開發者體驗（REST API 文件�
 - Total phases: 3 (Phase 8, 9, 10)
 - Total requirements: 13 — ALL COMPLETE
 - Total plans: 7 (Phase 8: 2, Phase 9: 3, Phase 10: 2)
+
+**v3.0 Scope:**
+- Total phases: 6 (Phase 11-16)
+- Total requirements: 18
+- Entropy score target: 52/100 → 85/100
 
 ## Accumulated Context
 
@@ -52,10 +59,40 @@ Last activity: 2026-02-24 — 完成 Phase 10 開發者體驗（REST API 文件�
 - [10-01]: DeveloperTab 用結構化資料（array）驅動 view 模板，不在模板中硬編碼
 - [10-02]: ApiLogger 用 wp_options 儲存（避免建新資料表），保留 100 筆
 - [10-02]: 僅記錄 API Key 認證的呼叫（管理員 Cookie 不記錄），避免 log 膨脹
+- [v3.0]: 熵減重構優先於 WebinarGo — 地基穩了才往上蓋（用戶決策）
+- [v3.0]: 掃描結果：熵減評分 52/100，目標 ≥ 85/100
+- [v3.0]: profile-binding 已完成拆分（CSS + JS + Template），作為 v3.0 前置工作
+- [v3.0]: Phase 結構：安全+常數(11) → 內嵌清除(12) → 樣式外部化(13) → 檔案瘦身+方法重構(14) → 命名整理(15) → 測試(16)
+- [v3.0]: 常數統一放在 Phase 11 而非獨立 Phase — 因為拆分檔案時會用到新常數類別，必須先就位
+- [11-01]: uninstall.php 使用 __DIR__ 取得路徑而非 LINE_HUB_PATH 常數，確保外掛停用後仍可正確載入
+- [11-01]: drop_tables() 後仍補刪 options，確保雙重保險
+- [11-02]: resolveRedirectUrl 改用 wp_validate_redirect 取代 esc_url_raw，從根源阻擋外部跳轉
+- [11-02]: OAuth redirect 入口改用 sanitize_text_field 而非 esc_url_raw，保留相對路徑格式
+- [11-03]: LineApiEndpoints 常數類別集中管理 6 個 LINE API URL
+- [11-03]: 使用 use 語句引用常數類別（而非完整命名空間路徑），保持可讀性
+- [11-03]: AUTH_ENDPOINT（access.line.me）保留在 OAuthClient — 這是授權端點而非 API 端點
+- [12-01]: UsersColumn inline CSS 改用 wp_enqueue_style，Plugin Toast 改用 wp_enqueue_script + wp_localize_script
+- [12-02]: FluentCartConnector 403→185 行：CSS/JS/HTML 全部拆出（4 個新檔案 + 1 個模板）
+- [12-02]: Admin notices（settings-page/auto-updater 的單行 echo）保留——WordPress 標準慣例，不需拆模板
+- [13-01]: Admin view 的 ~78 個 inline style 全部移到 admin-views.css（68 個 CSS class），透過 wp_enqueue_style 載入
+- [13-01]: 動態 PHP class 切換（如 radio margin）用條件 class 替代 inline style：`class="<?php echo $value !== 'small' ? 'lh-radio-inline-spaced' : ''; ?>"`
+- [13-02]: LIFF/Auth 模板的 `<style>` 區塊提取到 3 個獨立 CSS 檔案（liff-login.css、liff-email.css、auth-email-form.css）
+- [13-02]: LIFF 模板用 `<link>` 標籤載入（不是 wp_enqueue_style）——這些是獨立 HTML 頁面，不走 WordPress
+- [13-02]: PHP 動態 display 改用 CSS class toggle：`.form-error { display: none; }` + `.form-error.is-visible { display: block; }`
+- [13-02]: 功能性 `style="display:none;"` 保留（JS 控制的隱藏元素，不屬於樣式關注點）
+- [14-01]: 4 個 500+ 行 Class 拆分：LiffHandler(678→136)、SettingsService(653→258)、UserService(549→259)、Plugin(513→250)
+- [14-02]: 9 個 300-500 行檔案瘦身：FlexBuilder 重構、LoginService/MessagingService 方法提取、View Partial 拆分
+- [14-03]: 11 個 >50 行 PHP 方法全部重構至 ≤50 行；使用 match 表達式、hook map、context resolver 等模式
+- [14-03]: get_message_endpoints() 54 行（純資料陣列）和 startLiff() 109 行（JavaScript）為合理例外
+- [15-01]: 3 個底線類名統一為 CamelCase（Auto_Updater→AutoUpdater、Settings_API→SettingsAPI、User_API→UserAPI）
+- [15-01]: autoloader 移除 str_replace('_','') 底線相容層——統一後不再需要
+- [15-02]: 5 個根目錄開發文件歸檔至 .planning/archives/（DAY-01/02/03、CONFLICT-FIX、舊 ROADMAP）
+- [16-01]: 測試基礎設施：composer.json + phpunit-unit.xml + bootstrap-unit.php（可控 wpdb/transient/HTTP mock）
+- [16-02]: 24 個單元測試（SettingsService 10 + UserService 7 + MessagingService 7），34 assertions，全部通過
 
 ### Pending Todos
 
-None. v2.0 里程碑已完成。
+None.
 
 ### Blockers/Concerns
 
@@ -63,7 +100,7 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-02-24
-Stopped at: Completed Phase 10 (開發者體驗) — 2 plans, 3 commits, v2.0 milestone complete
+Last session: 2026-02-25
+Stopped at: v3.0 熵減重構 Milestone 全部完成（Phase 11-16，6/6 phases）
 Resume file: None
-Next action: 部署 v2.0 到 test.buygo.me 進行端到端驗證
+Next action: v3.0 收尾（合併分支、版本號更新）或開始 v4.0 規劃

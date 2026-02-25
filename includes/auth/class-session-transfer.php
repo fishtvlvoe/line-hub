@@ -132,19 +132,13 @@ class SessionTransfer {
             return false;
         }
 
-        // 驗證 token（不論是否已登入都要讀取 redirect URL）
         $result = self::validate($token);
 
-        // 如果已經登入（同瀏覽器 OAuth 流程會在 callback 時設 cookie）
+        // 已登入 → 從 token 取得 redirect URL
         if (is_user_logged_in()) {
-            // 從 token 取得 redirect URL，而非直接導向首頁
-            $redirect = ($result && !empty($result['redirect_url']))
-                ? $result['redirect_url']
-                : home_url('/');
-
+            $redirect = ($result && !empty($result['redirect_url'])) ? $result['redirect_url'] : home_url('/');
             // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('[LINE Hub] Session transfer: already logged in, redirecting to ' . $redirect);
-
             wp_safe_redirect($redirect);
             exit;
         }
@@ -152,17 +146,20 @@ class SessionTransfer {
         if (!$result) {
             // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('[LINE Hub] Session transfer failed: invalid or expired token');
-
-            // Token 無效 → 重定向到首頁（不顯示錯誤，避免混淆）
             wp_safe_redirect(home_url('/'));
             exit;
         }
 
-        // 設置 WordPress 登入 cookie
+        self::createSession($result);
+        return true;
+    }
+
+    /**
+     * 建立登入 Session 並重定向
+     */
+    private static function createSession(array $result): void {
         wp_set_current_user($result['user_id']);
         wp_set_auth_cookie($result['user_id'], true, is_ssl());
-
-        // 設置歡迎 cookie（觸發 Toast 通知）
         setcookie('line_hub_welcome', '1', 0, COOKIEPATH, COOKIE_DOMAIN, is_ssl(), false);
 
         $user = get_user_by('ID', $result['user_id']);
@@ -173,15 +170,7 @@ class SessionTransfer {
             $user ? $user->user_login : 'unknown'
         ));
 
-        /**
-         * Session transfer 完成後觸發
-         *
-         * @param int    $user_id      WordPress 用戶 ID
-         * @param string $redirect_url 最終重定向目標
-         */
         do_action('line_hub/session_transfer/completed', $result['user_id'], $result['redirect_url']);
-
-        // 重定向到目標 URL
         wp_safe_redirect($result['redirect_url']);
         exit;
     }

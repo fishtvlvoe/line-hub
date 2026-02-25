@@ -1,0 +1,129 @@
+/**
+ * FluentCart 客戶入口 LINE 綁定區塊樣式
+ *
+ * @package LineHub
+ * @since 3.0.0
+ */
+
+.lh-fc-binding {
+    margin: 24px 0;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+}
+.lh-fc-binding-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 16px 0;
+}
+.lh-fc-binding-title svg {
+    flex-shrink: 0;
+}
+.lh-fc-binding-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: #f9fafb;
+    border-radius: 10px;
+}
+.lh-fc-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 3px solid #06C755;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.lh-fc-avatar-empty {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.lh-fc-details {
+    flex: 1;
+    min-width: 0;
+}
+.lh-fc-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 2px 0;
+}
+.lh-fc-uid {
+    font-size: 12px;
+    color: #9ca3af;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    word-break: break-all;
+}
+.lh-fc-date {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 2px;
+}
+.lh-fc-actions {
+    margin-top: 16px;
+}
+.lh-fc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+.lh-fc-btn-bind {
+    background: #fff;
+    color: #06C755;
+    border: 1.5px solid #06C755;
+}
+.lh-fc-btn-bind:hover {
+    background: #06C755;
+    color: #fff;
+}
+.lh-fc-btn-unbind {
+    background: #fff;
+    color: #ef4444;
+    border: 1px solid #fca5a5;
+}
+.lh-fc-btn-unbind:hover {
+    background: #fef2f2;
+    color: #ef4444;
+}
+.lh-fc-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.lh-fc-unbound {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    color: #166534;
+    font-size: 14px;
+}
+.lh-fc-status {
+    margin-top: 12px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    display: none;
+}
