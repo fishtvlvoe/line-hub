@@ -109,21 +109,12 @@ final class Plugin {
     }
 
     /**
-     * 載入後台資源
+     * 載入後台資源（預留 hook，目前後台樣式由各 Tab PHP 模板內嵌）
      */
     public function enqueue_admin_assets(string $hook): void {
         if (strpos($hook, 'line-hub') === false) {
             return;
         }
-
-        wp_enqueue_style('line-hub-admin', LINE_HUB_URL . 'assets/css/admin.css', [], LINE_HUB_VERSION);
-        wp_enqueue_script('line-hub-admin', LINE_HUB_URL . 'assets/js/admin.js', ['jquery'], LINE_HUB_VERSION, true);
-        wp_localize_script('line-hub-admin', 'lineHubAdmin', [
-            'ajax_url'   => admin_url('admin-ajax.php'),
-            'nonce'      => wp_create_nonce('line_hub_admin'),
-            'rest_url'   => rest_url('line-hub/v1'),
-            'rest_nonce' => wp_create_nonce('wp_rest'),
-        ]);
     }
 
     /**
