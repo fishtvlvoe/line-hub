@@ -20,8 +20,7 @@ if (!defined('ABSPATH')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo esc_html(get_bloginfo('name')); ?> - LINE 登入</title>
-    <?php $lh_ver = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0'; ?>
-    <link rel="stylesheet" href="<?php echo esc_url(plugins_url('assets/css/liff-login.css', dirname(dirname(__FILE__)))); ?>?ver=<?php echo esc_attr($lh_ver); ?>">
+    <?php wp_head(); ?>
 </head>
 <body>
     <div class="liff-container">
@@ -73,7 +72,7 @@ if (!defined('ABSPATH')) {
         <div id="dbgLog"></div>
     </div>
 
-    <script src="https://static.line-scdn.net/liff/edge/versions/2.24.0/sdk.js"></script>
+    <?php wp_footer(); ?>
     <script>
         const LIFF_ID = <?php echo wp_json_encode($liff_id); ?>;
         const LIFF_REDIRECT = <?php echo wp_json_encode($redirect); ?>;

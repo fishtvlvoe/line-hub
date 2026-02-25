@@ -34,20 +34,31 @@ delete_option('line_hub_api_logs');
 
 // 3. 刪除所有 line_hub_* transients
 $wpdb->query(
-    "DELETE FROM {$wpdb->options}
-     WHERE option_name LIKE '_transient_line_hub_%'
-        OR option_name LIKE '_transient_timeout_line_hub_%'"
+    $wpdb->prepare(
+        "DELETE FROM {$wpdb->options}
+         WHERE option_name LIKE %s
+            OR option_name LIKE %s",
+        '_transient_line_hub_%',
+        '_transient_timeout_line_hub_%'
+    )
 );
 
 // 4. 刪除所有 line_hub_* site transients
 $wpdb->query(
-    "DELETE FROM {$wpdb->options}
-     WHERE option_name LIKE '_site_transient_line_hub_%'
-        OR option_name LIKE '_site_transient_timeout_line_hub_%'"
+    $wpdb->prepare(
+        "DELETE FROM {$wpdb->options}
+         WHERE option_name LIKE %s
+            OR option_name LIKE %s",
+        '_site_transient_line_hub_%',
+        '_site_transient_timeout_line_hub_%'
+    )
 );
 
 // 5. 刪除所有 line_hub_* user meta
 $wpdb->query(
-    "DELETE FROM {$wpdb->usermeta}
-     WHERE meta_key LIKE 'line_hub_%'"
+    $wpdb->prepare(
+        "DELETE FROM {$wpdb->usermeta}
+         WHERE meta_key LIKE %s",
+        'line_hub_%'
+    )
 );

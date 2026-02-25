@@ -84,6 +84,12 @@ class LiffHandler {
         }
 
         $nonce = wp_create_nonce('line_hub_liff_verify');
+
+        // 註冊樣式和腳本（模板中透過 wp_head/wp_footer 輸出）
+        $lh_ver = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0';
+        wp_enqueue_style('line-hub-liff-login', plugins_url('assets/css/liff-login.css', dirname(dirname(__FILE__))), [], $lh_ver);
+        wp_enqueue_script('line-sdk', 'https://static.line-scdn.net/liff/edge/versions/2.24.0/sdk.js', [], null, true);
+
         include LINE_HUB_PATH . 'includes/liff/liff-template.php';
         exit;
     }
@@ -99,6 +105,11 @@ class LiffHandler {
         string $error = ''
     ): void {
         $nonce = wp_create_nonce('line_hub_liff_email');
+
+        // 註冊樣式（模板中透過 wp_head 輸出）
+        $lh_ver = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0';
+        wp_enqueue_style('line-hub-liff-email', plugins_url('assets/css/liff-email.css', dirname(dirname(__FILE__))), [], $lh_ver);
+
         include LINE_HUB_PATH . 'includes/liff/liff-email-template.php';
         exit;
     }

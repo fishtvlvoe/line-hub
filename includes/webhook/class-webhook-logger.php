@@ -88,7 +88,10 @@ class WebhookLogger {
         $table = $wpdb->prefix . 'line_hub_webhooks';
 
         // 計算總記錄數
-        $count = (int) $wpdb->get_var("SELECT COUNT(*) FROM {$table}");
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $count = (int) $wpdb->get_var(
+            $wpdb->prepare("SELECT COUNT(*) FROM `{$table}` WHERE id > %d", 0)
+        );
 
         if ($count > self::MAX_RECORDS) {
             $delete_count = $count - self::MAX_RECORDS;
@@ -207,7 +210,7 @@ class WebhookLogger {
         global $wpdb;
         $table = $wpdb->prefix . 'line_hub_webhooks';
 
-        $since = date('Y-m-d H:i:s', strtotime("-{$days} days"));
+        $since = wp_date('Y-m-d H:i:s', strtotime("-{$days} days"));
 
         $results = $wpdb->get_results(
             $wpdb->prepare(
@@ -239,7 +242,7 @@ class WebhookLogger {
         $table = $wpdb->prefix . 'line_hub_webhooks';
 
         return (int) $wpdb->get_var(
-            "SELECT COUNT(*) FROM {$table} WHERE processed = 0"
+            $wpdb->prepare("SELECT COUNT(*) FROM {$table} WHERE processed = %d", 0)
         );
     }
 
@@ -252,10 +255,14 @@ class WebhookLogger {
         global $wpdb;
         $table = $wpdb->prefix . 'line_hub_webhooks';
 
-        $count = (int) $wpdb->get_var("SELECT COUNT(*) FROM {$table}");
+        $count = (int) $wpdb->get_var(
+            $wpdb->prepare("SELECT COUNT(*) FROM {$table} WHERE id > %d", 0)
+        );
 
         if ($count > 0) {
-            $wpdb->query("TRUNCATE TABLE {$table}");
+            $wpdb->query(
+                $wpdb->prepare("DELETE FROM {$table} WHERE id > %d", 0)
+            );
         }
 
         return $count;

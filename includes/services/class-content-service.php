@@ -108,7 +108,7 @@ class ContentService {
 
 		// 清理暫存檔（sideload 失敗時可能仍存在）
 		if ( file_exists( $tmp_file ) ) {
-			@unlink( $tmp_file );
+			wp_delete_file( $tmp_file );
 		}
 
 		return $attachment_id;

@@ -26,8 +26,7 @@ if (!defined('ABSPATH')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo esc_html(get_bloginfo('name')); ?> - 完成註冊</title>
-    <?php $lh_ver = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0'; ?>
-    <link rel="stylesheet" href="<?php echo esc_url(plugins_url('assets/css/liff-email.css', dirname(dirname(__FILE__)))); ?>?ver=<?php echo esc_attr($lh_ver); ?>">
+    <?php wp_head(); ?>
 </head>
 <body>
     <div class="email-container">
@@ -122,5 +121,6 @@ if (!defined('ABSPATH')) {
         });
     })();
     </script>
+    <?php wp_footer(); ?>
 </body>
 </html>

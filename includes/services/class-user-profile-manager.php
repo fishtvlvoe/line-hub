@@ -133,7 +133,9 @@ class UserProfileManager {
     public static function countLinkedUsers(): int {
         global $wpdb;
         $table_name = $wpdb->prefix . 'line_hub_users';
-        return (int) $wpdb->get_var("SELECT COUNT(*) FROM {$table_name} WHERE status = 'active'");
+        return (int) $wpdb->get_var(
+            $wpdb->prepare("SELECT COUNT(*) FROM {$table_name} WHERE status = %s", 'active')
+        );
     }
 
     // ── Private helpers ──────────────────────────────────

@@ -135,7 +135,7 @@ class AuthCallback {
      */
     public function processCallback(string $code, string $state): void {
         if (!OAuthState::validate($state)) {
-            throw new \Exception(self::ERROR_MESSAGES['state_expired']);
+            throw new \Exception(esc_html(self::ERROR_MESSAGES['state_expired']));
         }
 
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
@@ -158,7 +158,7 @@ class AuthCallback {
         $tokens = $client->authenticate($code);
 
         if (empty($tokens['access_token'])) {
-            throw new \Exception(__('Token exchange failed. Please try again.', 'line-hub'));
+            throw new \Exception(esc_html__('Token exchange failed. Please try again.', 'line-hub'));
         }
 
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
@@ -171,7 +171,7 @@ class AuthCallback {
 
         $profile = $client->getProfile($tokens['access_token']);
         if (empty($profile['userId'])) {
-            throw new \Exception(__('Unable to retrieve LINE user profile. Please try again.', 'line-hub'));
+            throw new \Exception(esc_html__('Unable to retrieve LINE user profile. Please try again.', 'line-hub'));
         }
 
         return [
@@ -216,9 +216,8 @@ class AuthCallback {
         // 顯示錯誤頁面
         $html = $this->renderErrorPage($user_message, $retry_url);
 
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         wp_die(
-            $html,
+            wp_kses_post($html),
             __('Login Error', 'line-hub'),
             [
                 'response'  => 400,

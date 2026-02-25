@@ -24,8 +24,6 @@ if (!defined('ABSPATH')) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php esc_html_e('Complete Registration', 'line-hub'); ?></title>
     <?php wp_head(); ?>
-    <?php $lh_ver = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0'; ?>
-    <link rel="stylesheet" href="<?php echo esc_url(plugins_url('assets/css/auth-email-form.css', dirname(dirname(__FILE__)))); ?>?ver=<?php echo esc_attr($lh_ver); ?>">
 </head>
 <body>
     <div class="line-hub-email-form">

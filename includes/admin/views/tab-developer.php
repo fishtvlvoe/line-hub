@@ -72,7 +72,7 @@ $rest_base = rest_url('line-hub/v1');
             <tr>
                 <th scope="row"><?php esc_html_e('Current API Key', 'line-hub'); ?></th>
                 <td>
-                    <code><?php echo esc_html($api_key_prefix); ?>...<?php echo str_repeat('*', 24); ?></code>
+                    <code><?php echo esc_html($api_key_prefix); ?>...<?php echo esc_html(str_repeat('*', 24)); ?></code>
                     <br>
                     <span class="description">
                         <?php

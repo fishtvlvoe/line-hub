@@ -93,7 +93,7 @@ add_action('admin_notices', function() {
     if (version_compare(PHP_VERSION, '8.2', '<')) {
         echo '<div class="notice notice-error"><p>';
         /* translators: %s: current PHP version */
-        echo '<strong>LINE Hub:</strong> ' . sprintf(esc_html__('Requires PHP 8.2 or higher. Current version: %s', 'line-hub'), PHP_VERSION);
+        echo '<strong>LINE Hub:</strong> ' . sprintf(esc_html__('Requires PHP 8.2 or higher. Current version: %s', 'line-hub'), esc_html(PHP_VERSION));
         echo '</p></div>';
         return;
     }
@@ -103,7 +103,7 @@ add_action('admin_notices', function() {
     if (version_compare($wp_version, '6.5', '<')) {
         echo '<div class="notice notice-error"><p>';
         /* translators: %s: current WordPress version */
-        echo '<strong>LINE Hub:</strong> ' . sprintf(esc_html__('Requires WordPress 6.5 or higher. Current version: %s', 'line-hub'), $wp_version);
+        echo '<strong>LINE Hub:</strong> ' . sprintf(esc_html__('Requires WordPress 6.5 or higher. Current version: %s', 'line-hub'), esc_html($wp_version));
         echo '</p></div>';
         return;
     }

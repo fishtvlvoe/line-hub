@@ -55,7 +55,7 @@ class ButtonPositions {
         if (is_user_logged_in()) {
             return;
         }
-        echo self::get_button_html();
+        echo wp_kses_post(self::get_button_html());
     }
 
     /**
@@ -65,7 +65,7 @@ class ButtonPositions {
         if (is_user_logged_in()) {
             return;
         }
-        echo self::get_button_html();
+        echo wp_kses_post(self::get_button_html());
     }
 
     /**

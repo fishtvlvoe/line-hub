@@ -7,6 +7,10 @@
  *
  * @package LineHub\Admin
  */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 ?>
 
 <!-- REST API 端點 -->

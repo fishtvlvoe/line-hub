@@ -257,6 +257,11 @@ class LoginService {
 
         $oauth_client = new OAuthClient();
         $reauth_url = $oauth_client->createReauthUrl();
+
+        // 註冊樣式（模板中透過 wp_head 輸出）
+        $lh_ver = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0';
+        wp_enqueue_style('line-hub-auth-email-form', plugins_url('assets/css/auth-email-form.css', dirname(dirname(__FILE__))), [], $lh_ver);
+
         include LINE_HUB_PATH . 'includes/auth/email-form-template.php';
         exit;
     }

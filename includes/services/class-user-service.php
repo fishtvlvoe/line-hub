@@ -44,7 +44,9 @@ class UserService {
             return [];
         }
 
-        $columns = $wpdb->get_col("SHOW COLUMNS FROM {$nsl_table}");
+        $columns = $wpdb->get_col( // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- table name from $wpdb->prefix
+            $wpdb->prepare("SHOW COLUMNS FROM `{$nsl_table}` WHERE Field LIKE %s", '%')
+        );
         $column_set = array_flip($columns);
 
         self::$nsl_columns = [
