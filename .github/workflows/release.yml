@@ -51,7 +51,7 @@ jobs:
           find . -maxdepth 1 \( -name "test-*.php" -o -name "check-*.php" -o -name "debug-*.php" -o -name "verify-*.php" \) -exec rm -f {} \;
 
           # 刪除建置工具
-          rm -f build-release.sh release.sh composer.json composer.lock
+          rm -f build-release.sh release.sh composer.lock
           rm -f phpunit.xml phpunit-unit.xml phpunit.xml.dist .phpunit.result.cache
           rm -f .zipignore .gitignore .gitattributes
 

@@ -65,10 +65,7 @@ register_deactivation_hook(__FILE__, function() {
  * 外掛載入後初始化
  */
 add_action('plugins_loaded', function() {
-    // 載入語言檔案
-    load_plugin_textdomain('line-hub', false, dirname(LINE_HUB_BASENAME) . '/languages');
-
-    // 初始化外掛
+    // 初始化外掛（翻譯由 WordPress 4.6+ 自動載入，依據 Text Domain / Domain Path header）
     Plugin::instance()->init();
 }, 20);
 

@@ -31,7 +31,6 @@ rsync -av \
     --exclude='tests' \
     --exclude='phpunit*.xml*' \
     --exclude='.phpunit.result.cache' \
-    --exclude='composer.json' \
     --exclude='composer.lock' \
     --exclude='vendor/yahnis-elsts/plugin-update-checker/.git' \
     --exclude='vendor/yahnis-elsts/plugin-update-checker/tests' \
