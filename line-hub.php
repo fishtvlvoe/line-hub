@@ -3,7 +3,7 @@
  * Plugin Name: LINE Hub
  * Plugin URI: https://github.com/fishtvlvoe/line-hub
  * Description: LINE integration hub for WordPress — LINE Login, email capture, account registration, multi-scenario messaging, and unified Webhook management.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 6.5
  * Requires PHP: 8.2
  * Author: BuyGo
@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
 }
 
 // 定義常數
-define('LINE_HUB_VERSION', '1.0.0');
+define('LINE_HUB_VERSION', '1.0.1');
 define('LINE_HUB_FILE', __FILE__);
 define('LINE_HUB_PATH', plugin_dir_path(__FILE__));
 define('LINE_HUB_URL', plugin_dir_url(__FILE__));
