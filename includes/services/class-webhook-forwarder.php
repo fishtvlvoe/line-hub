@@ -37,14 +37,13 @@ class WebhookForwarder {
      */
     public static function onWebhookEvent(array $event): void {
         // 檢查 OpenClaw 是否啟用
-        $settings = SettingsService::getInstance();
-        if (!$settings->get('integration', 'openclaw_enabled')) {
+        if (!SettingsService::get('integration', 'openclaw_enabled')) {
             return;
         }
 
         // 取得 OpenClaw 設定
-        $webhook_url = $settings->get('integration', 'openclaw_webhook_url');
-        $webhook_token = $settings->get('integration', 'openclaw_webhook_token');
+        $webhook_url = SettingsService::get('integration', 'openclaw_webhook_url');
+        $webhook_token = SettingsService::get('integration', 'openclaw_webhook_token');
 
         if (empty($webhook_url) || empty($webhook_token)) {
             error_log('[LineHub] WebhookForwarder: OpenClaw 配置不完整（URL 或 Token 缺失）');
