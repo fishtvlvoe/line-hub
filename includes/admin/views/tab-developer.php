@@ -37,6 +37,7 @@ $rest_base = rest_url('line-hub/v1');
     </p>
     <div class="lh-dev-section-nav">
         <a href="#lh-api-key"><?php esc_html_e('API Key Management', 'line-hub'); ?></a>
+        <a href="#lh-openclaw"><?php esc_html_e('OpenClaw Forwarding', 'line-hub'); ?></a>
         <a href="#lh-rest-api"><?php esc_html_e('REST API Endpoints', 'line-hub'); ?></a>
         <a href="#lh-hooks"><?php esc_html_e('WordPress Hooks', 'line-hub'); ?></a>
         <a href="#lh-api-logs"><?php esc_html_e('API Usage Log', 'line-hub'); ?></a>
@@ -104,6 +105,70 @@ $rest_base = rest_url('line-hub/v1');
             </button>
         </form>
     <?php endif; ?>
+</div>
+
+<!-- OpenClaw 轉發 -->
+<div class="lh-dev-card" id="lh-openclaw">
+    <h2><?php esc_html_e('OpenClaw Webhook Forwarding', 'line-hub'); ?></h2>
+    <p class="description">
+        <?php esc_html_e('Forward LINE events to OpenClaw to enable AI agent integration. LINE Hub acts as a relay station between LINE and OpenClaw.', 'line-hub'); ?>
+    </p>
+
+    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="lh-openclaw-form">
+        <?php wp_nonce_field('line_hub_openclaw_settings', 'line_hub_nonce'); ?>
+        <input type="hidden" name="action" value="line_hub_save_openclaw_settings">
+
+        <table class="form-table">
+            <tr>
+                <th scope="row"><?php esc_html_e('Enable Forwarding', 'line-hub'); ?></th>
+                <td>
+                    <label>
+                        <input type="checkbox" name="openclaw_enabled" value="1"
+                            <?php checked($openclaw_settings['enabled'], true); ?>>
+                        <?php esc_html_e('Enable OpenClaw event forwarding', 'line-hub'); ?>
+                    </label>
+                    <p class="description">
+                        <?php esc_html_e('When enabled, all LINE events are forwarded to your OpenClaw Webhook URL.', 'line-hub'); ?>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="openclaw_webhook_url"><?php esc_html_e('Webhook URL', 'line-hub'); ?></label></th>
+                <td>
+                    <input type="url" id="openclaw_webhook_url" name="openclaw_webhook_url"
+                           value="<?php echo esc_attr($openclaw_settings['url']); ?>"
+                           placeholder="https://your-openclaw-instance.com/hooks/agent"
+                           class="regular-text">
+                    <p class="description">
+                        <?php esc_html_e('The OpenClaw webhook endpoint URL (e.g., /hooks/agent).', 'line-hub'); ?>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row"><label for="openclaw_webhook_token"><?php esc_html_e('Webhook Token', 'line-hub'); ?></label></th>
+                <td>
+                    <input type="password" id="openclaw_webhook_token" name="openclaw_webhook_token"
+                           value="<?php echo esc_attr($openclaw_settings['token']); ?>"
+                           placeholder="<?php esc_attr_e('Token (encrypted)', 'line-hub'); ?>"
+                           class="regular-text">
+                    <p class="description">
+                        <?php esc_html_e('Bearer token for authentication (stored encrypted).', 'line-hub'); ?>
+                    </p>
+                </td>
+            </tr>
+        </table>
+
+        <div class="lh-mt-16">
+            <button type="submit" class="button button-primary">
+                <?php esc_html_e('Save Settings', 'line-hub'); ?>
+            </button>
+            <button type="button" class="button button-secondary lh-ml-8" id="lh-test-openclaw-btn">
+                <?php esc_html_e('Test Connection', 'line-hub'); ?>
+            </button>
+        </div>
+
+        <div id="lh-test-openclaw-result" class="lh-mt-16" style="display: none;"></div>
+    </form>
 </div>
 
 <?php require __DIR__ . '/partials/developer-api-endpoints.php'; ?>
@@ -193,6 +258,60 @@ $rest_base = rest_url('line-hub/v1');
         </div>
     <?php endforeach; ?>
 </div>
+
+<script>
+// OpenClaw 測試連線按鈕處理
+document.addEventListener('DOMContentLoaded', function() {
+    const testBtn = document.getElementById('lh-test-openclaw-btn');
+    const resultDiv = document.getElementById('lh-test-openclaw-result');
+
+    if (!testBtn) return;
+
+    testBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const url = document.getElementById('openclaw_webhook_url').value;
+        const token = document.getElementById('openclaw_webhook_token').value;
+
+        if (!url || !token) {
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="notice notice-error"><p><?php esc_html_e('URL and Token are required', 'line-hub'); ?></p></div>';
+            return;
+        }
+
+        testBtn.disabled = true;
+        testBtn.innerText = '<?php esc_html_e('Testing...', 'line-hub'); ?>';
+
+        const formData = new FormData();
+        formData.append('action', 'line_hub_test_openclaw');
+        formData.append('nonce', '<?php echo esc_js(wp_create_nonce('line_hub_openclaw_test')); ?>');
+        formData.append('url', url);
+        formData.append('token', token);
+
+        fetch(ajaxurl, {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            resultDiv.style.display = 'block';
+            if (data.success) {
+                resultDiv.innerHTML = '<div class="notice notice-success"><p>' + data.data.message + '</p></div>';
+            } else {
+                resultDiv.innerHTML = '<div class="notice notice-error"><p>' + data.data.message + '</p></div>';
+            }
+        })
+        .catch(err => {
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="notice notice-error"><p><?php esc_html_e('Request failed', 'line-hub'); ?>: ' + err.message + '</p></div>';
+        })
+        .finally(() => {
+            testBtn.disabled = false;
+            testBtn.innerText = '<?php esc_html_e('Test Connection', 'line-hub'); ?>';
+        });
+    });
+});
+</script>
 
 <!-- API 使用記錄 -->
 <div class="lh-dev-card" id="lh-api-logs">

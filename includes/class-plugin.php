@@ -77,6 +77,7 @@ final class Plugin {
      */
     private function init_services(): void {
         Services\IntegrationHooks::init();
+        Services\WebhookForwarder::init();
         API\PublicAPI::init();
         Integration\LoginButton::init();
         Integration\ButtonPositions::init();

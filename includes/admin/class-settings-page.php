@@ -34,6 +34,8 @@ class SettingsPage {
         add_action('admin_post_line_hub_test_login', [$instance, 'handle_test_login']);
         add_action('admin_post_line_hub_generate_api_key', [$instance, 'handle_generate_api_key']);
         add_action('admin_post_line_hub_revoke_api_key', [$instance, 'handle_revoke_api_key']);
+        add_action('admin_post_line_hub_save_openclaw_settings', [$instance, 'handle_save_openclaw_settings']);
+        add_action('wp_ajax_line_hub_test_openclaw', [$instance, 'handle_test_openclaw_ajax']);
         add_action('admin_enqueue_scripts', [$instance, 'enqueue_assets']);
     }
 
@@ -199,6 +201,74 @@ class SettingsPage {
      * @param string $nonce_field POST 欄位名稱
      * @param string $nonce_action Nonce action
      */
+    /** 處理 OpenClaw 設定儲存 */
+    public function handle_save_openclaw_settings(): void {
+        $this->verify_admin('line_hub_nonce', 'line_hub_openclaw_settings');
+
+        $enabled = isset($_POST['openclaw_enabled']) ? (bool) $_POST['openclaw_enabled'] : false;
+        $url = isset($_POST['openclaw_webhook_url']) ? sanitize_url($_POST['openclaw_webhook_url']) : '';
+        $token = isset($_POST['openclaw_webhook_token']) ? sanitize_text_field($_POST['openclaw_webhook_token']) : '';
+
+        SettingsService::set('integration', 'openclaw_enabled', $enabled);
+        SettingsService::set('integration', 'openclaw_webhook_url', $url);
+        SettingsService::set('integration', 'openclaw_webhook_token', $token);
+
+        wp_redirect(add_query_arg(['page' => 'line-hub-settings', 'tab' => 'developer', 'openclaw_saved' => '1'], admin_url('admin.php')));
+        exit;
+    }
+
+    /** 處理 OpenClaw 連線測試（AJAX） */
+    public function handle_test_openclaw_ajax(): void {
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(['message' => __('Permission denied', 'line-hub')]);
+        }
+
+        check_ajax_referer('line_hub_openclaw_test', 'nonce');
+
+        $url = isset($_POST['url']) ? sanitize_url($_POST['url']) : '';
+        $token = isset($_POST['token']) ? sanitize_text_field($_POST['token']) : '';
+
+        if (empty($url) || empty($token)) {
+            wp_send_json_error(['message' => __('URL and Token are required', 'line-hub')]);
+        }
+
+        $test_payload = [
+            'message'   => __('Test message from LINE Hub', 'line-hub'),
+            'sessionKey' => 'line:test',
+            'agentId'   => '',
+        ];
+
+        $response = wp_remote_post($url, [
+            'blocking'    => true,
+            'timeout'     => 10,
+            'redirection' => 3,
+            'httpversion' => '1.1',
+            'headers'     => [
+                'Content-Type'  => 'application/json',
+                'Authorization' => 'Bearer ' . $token,
+            ],
+            'body'        => wp_json_encode($test_payload),
+        ]);
+
+        if (is_wp_error($response)) {
+            wp_send_json_error(['message' => __('Connection failed: ', 'line-hub') . $response->get_error_message()]);
+        }
+
+        $status_code = wp_remote_retrieve_response_code($response);
+
+        if ($status_code >= 200 && $status_code < 300) {
+            wp_send_json_success([
+                'message' => sprintf(__('Connection successful! OpenClaw received the test payload (HTTP %d)', 'line-hub'), $status_code),
+                'status_code' => $status_code,
+            ]);
+        } else {
+            wp_send_json_error([
+                'message' => sprintf(__('Connection failed: HTTP %d', 'line-hub'), $status_code),
+                'status_code' => $status_code,
+            ]);
+        }
+    }
+
     private function verify_admin(string $nonce_field, string $nonce_action): void {
         if (!current_user_can('manage_options')) {
             wp_die(__('You do not have permission to perform this action.', 'line-hub'));

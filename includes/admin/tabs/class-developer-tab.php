@@ -31,6 +31,7 @@ class DeveloperTab extends AbstractTab {
         $api_endpoints = $this->get_api_endpoints();
         $hooks_data    = $this->get_hooks_data();
         $api_logs      = $this->get_api_logs();
+        $openclaw_settings = $this->get_openclaw_settings();
 
         require $this->get_view_path('tab-developer.php');
     }
@@ -193,5 +194,18 @@ class DeveloperTab extends AbstractTab {
             return [];
         }
         return \LineHub\Services\ApiLogger::get_recent(20);
+    }
+
+    /**
+     * 取得 OpenClaw 設定資料
+     *
+     * @return array{enabled: bool, url: string, token: string}
+     */
+    private function get_openclaw_settings(): array {
+        return [
+            'enabled' => SettingsService::get('integration', 'openclaw_enabled') ?? false,
+            'url'     => SettingsService::get('integration', 'openclaw_webhook_url') ?? '',
+            'token'   => SettingsService::get('integration', 'openclaw_webhook_token') ?? '',
+        ];
     }
 }

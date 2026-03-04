@@ -172,6 +172,18 @@ class SettingsSchema {
                 'type' => 'string', 'required' => false, 'encrypted' => false,
                 'default' => '', 'description' => 'API Key 建立時間',
             ],
+            'openclaw_enabled' => [
+                'type' => 'boolean', 'required' => false, 'encrypted' => false,
+                'default' => false, 'description' => 'OpenClaw 轉發開關',
+            ],
+            'openclaw_webhook_url' => [
+                'type' => 'string', 'required' => false, 'encrypted' => true,
+                'default' => '', 'description' => 'OpenClaw Webhook URL',
+            ],
+            'openclaw_webhook_token' => [
+                'type' => 'string', 'required' => false, 'encrypted' => true,
+                'default' => '', 'description' => 'OpenClaw Webhook Token',
+            ],
         ],
     ];
 
