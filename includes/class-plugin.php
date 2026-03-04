@@ -90,6 +90,11 @@ final class Plugin {
     }
 
     public function on_init(): void {
+        // 提供 OpenClaw 狀態 filter hook（給 Webinar Go 等外掛查詢）
+        add_filter('line_hub/openclaw/enabled', function(): bool {
+            return (bool) Services\SettingsService::get('integration', 'openclaw_enabled');
+        });
+
         do_action('line_hub/init');
     }
 
