@@ -50,10 +50,25 @@ class UserAPI {
         ]);
 
         // GET /line-hub/v1/user/{user_id}/binding - 管理員查詢指定用戶的綁定狀態
+        // DELETE /line-hub/v1/user/{user_id}/binding - 管理員解除指定用戶的綁定
         register_rest_route($this->namespace, '/user/(?P<user_id>\d+)/binding', [
             [
                 'methods' => \WP_REST_Server::READABLE,
                 'callback' => [$this, 'get_user_binding'],
+                'permission_callback' => [$this, 'check_admin_permission'],
+                'args' => [
+                    'user_id' => [
+                        'required' => true,
+                        'type' => 'integer',
+                        'description' => 'WordPress 用戶 ID',
+                        'validate_callback' => [$this, 'validate_user_id'],
+                        'sanitize_callback' => 'absint',
+                    ],
+                ],
+            ],
+            [
+                'methods' => \WP_REST_Server::DELETABLE,
+                'callback' => [$this, 'delete_user_binding'],
                 'permission_callback' => [$this, 'check_admin_permission'],
                 'args' => [
                     'user_id' => [
@@ -139,6 +154,51 @@ class UserAPI {
         }
 
         return $this->get_binding_response($user_id);
+    }
+
+    /**
+     * 管理員解除指定用戶的 LINE 綁定
+     *
+     * DELETE /line-hub/v1/user/{user_id}/binding
+     *
+     * @param \WP_REST_Request $request 請求物件
+     * @return \WP_REST_Response
+     */
+    public function delete_user_binding($request) {
+        $user_id = (int) $request->get_param('user_id');
+
+        // 檢查用戶是否存在
+        $user = get_user_by('ID', $user_id);
+        if (!$user) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('User does not exist.', 'line-hub'),
+            ], 404);
+        }
+
+        // 檢查是否有綁定
+        $binding = UserService::getBinding($user_id);
+        if (!$binding) {
+            return new \WP_REST_Response([
+                'success' => false,
+                'message' => __('This user has no LINE account linked.', 'line-hub'),
+            ], 400);
+        }
+
+        // 執行解除綁定
+        $result = UserService::unlinkUser($user_id);
+
+        if ($result) {
+            return new \WP_REST_Response([
+                'success' => true,
+                'message' => __('LINE account has been unlinked.', 'line-hub'),
+            ], 200);
+        }
+
+        return new \WP_REST_Response([
+            'success' => false,
+            'message' => __('Failed to unlink. Please try again later.', 'line-hub'),
+        ], 500);
     }
 
     /**

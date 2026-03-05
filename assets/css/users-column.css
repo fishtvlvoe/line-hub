@@ -5,7 +5,9 @@
  * @since 3.0.0
  */
 
-.column-line_binding { width: 60px; text-align: center; }
+.column-line_binding { width: 100px; text-align: center; }
+.line-hub-admin-unbind { color: #a00; font-size: 11px; cursor: pointer; background: none; border: none; padding: 2px 0; }
+.line-hub-admin-unbind:hover { color: #f00; text-decoration: underline; }
 .line-hub-binding-linked { color: #06C755; font-size: 16px; }
 .line-hub-binding-none { color: #ccc; }
 .line-hub-binding-source { display: block; color: #888; font-size: 11px; }

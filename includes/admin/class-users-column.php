@@ -29,6 +29,7 @@ class UsersColumn {
         add_filter('manage_users_columns', [self::class, 'add_column']);
         add_filter('manage_users_custom_column', [self::class, 'render_column'], 10, 3);
         add_action('admin_head-users.php', [self::class, 'inline_css']);
+        add_action('admin_footer-users.php', [self::class, 'inline_js']);
     }
 
     /**
@@ -67,8 +68,23 @@ class UsersColumn {
         $display_name = esc_html($binding['display_name']);
         $title = $display_name ? "{$display_name} ({$source_label})" : $source_label;
 
+        // 只有 LINE Hub 來源才支援 API 解除綁定
+        $unbind_btn = '';
+        if ($binding['source'] === 'LINE Hub') {
+            $rest_url  = esc_url(rest_url('line-hub/v1/user/' . $user_id . '/binding'));
+            $nonce     = esc_attr(wp_create_nonce('wp_rest'));
+            $confirm   = esc_js(__('Unlink this user\'s LINE account?', 'line-hub'));
+            $unbind_btn = '<br><button type="button" class="button-link line-hub-admin-unbind"'
+                        . ' data-rest-url="' . $rest_url . '"'
+                        . ' data-nonce="' . $nonce . '"'
+                        . ' data-confirm="' . $confirm . '">'
+                        . esc_html__('Unlink', 'line-hub')
+                        . '</button>';
+        }
+
         return '<span class="line-hub-binding-linked" title="' . esc_attr($title) . '">&#x2714;</span>'
-             . '<small class="line-hub-binding-source">' . $source_label . '</small>';
+             . '<small class="line-hub-binding-source">' . $source_label . '</small>'
+             . $unbind_btn;
     }
 
     /**
@@ -147,5 +163,48 @@ class UsersColumn {
             [],
             LINE_HUB_VERSION
         );
+    }
+
+    /**
+     * 管理員解除綁定的 JS
+     */
+    public static function inline_js(): void {
+        ?>
+        <script>
+        document.addEventListener('click', function(e) {
+            var btn = e.target.closest('.line-hub-admin-unbind');
+            if (!btn) return;
+
+            if (!confirm(btn.dataset.confirm)) return;
+
+            btn.disabled = true;
+            btn.textContent = '...';
+
+            fetch(btn.dataset.restUrl, {
+                method: 'DELETE',
+                headers: {
+                    'X-WP-Nonce': btn.dataset.nonce,
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    var cell = btn.closest('td');
+                    cell.innerHTML = '<span class="line-hub-binding-none">—</span>';
+                } else {
+                    alert(data.message || 'Failed');
+                    btn.disabled = false;
+                    btn.textContent = <?php echo wp_json_encode(__('Unlink', 'line-hub')); ?>;
+                }
+            })
+            .catch(function() {
+                alert('Network error');
+                btn.disabled = false;
+                btn.textContent = <?php echo wp_json_encode(__('Unlink', 'line-hub')); ?>;
+            });
+        });
+        </script>
+        <?php
     }
 }
