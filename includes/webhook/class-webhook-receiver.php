@@ -53,6 +53,9 @@ class WebhookReceiver {
             return new \WP_Error('invalid_signature', __('HMAC signature verification failed.', 'line-hub'), ['status' => 401]);
         }
 
+        // 轉發原始 webhook（在事件處理之前，讓 OpenClaw 等外部系統收到完整的 LINE 格式）
+        do_action('line_hub/webhook/raw', $raw_body, $signature);
+
         // 解析並驗證事件
         $events = $this->parseAndValidateEvents($raw_body);
         if ($events instanceof \WP_Error) {
