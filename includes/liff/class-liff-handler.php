@@ -38,7 +38,7 @@ class LiffHandler {
      */
     public function handleRequest(): void {
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-        error_log('[LINE Hub] LIFF handleRequest: method=' . ($_SERVER['REQUEST_METHOD'] ?? 'unknown') . ' redirect=' . ($_GET['redirect'] ?? $_POST['redirect'] ?? 'NONE') . ' logged_in=' . (is_user_logged_in() ? 'yes' : 'no'));
+        error_log('[LINE Hub] LIFF handleRequest: method=' . sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD'] ?? 'unknown')) . ' redirect=' . sanitize_text_field(wp_unslash($_GET['redirect'] ?? $_POST['redirect'] ?? 'NONE')) . ' logged_in=' . (is_user_logged_in() ? 'yes' : 'no'));
 
         // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

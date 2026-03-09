@@ -1,10 +1,10 @@
-=== LINE Hub ===
+=== BuyGo LINE Hub ===
 Contributors: fishandy1213
 Tags: line, login, messaging, webhook, liff
 Requires at least: 6.5
 Tested up to: 6.9
 Requires PHP: 8.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,14 @@ LINE Hub can coexist with Nextend Social Login (NSL) and other social login plug
 
 == Changelog ==
 
+= 1.0.2 =
+* Security: sanitize $_COOKIE inputs before hashing in OAuth state handler
+* Security: sanitize $_SERVER['REQUEST_URI'] with esc_url_raw() in login button
+* Security: sanitize $_SERVER/$_GET/$_POST inputs in LIFF handler debug log
+* Security: add sanitize_text_field(wp_unslash()) before wp_verify_nonce() in settings page
+* Plugin renamed to "BuyGo LINE Hub" to comply with WordPress.org trademark guidelines
+* Added External Services documentation to readme.txt
+
 = 1.0.0 =
 * Initial release
 * LINE Login via OAuth 2.0
@@ -85,6 +93,36 @@ LINE Hub can coexist with Nextend Social Login (NSL) and other social login plug
 * WordPress profile LINE binding section
 * Complete zh_TW translation (280 strings)
 * Auto-update from GitHub Releases
+
+== External Services ==
+
+This plugin connects to LINE's APIs to provide LINE Login, messaging, and webhook functionality. These connections are initiated only when the corresponding features are used by site visitors or administrators.
+
+**LINE API (api.line.me)**
+
+* Used for: Sending messages via LINE Messaging API, fetching bot info, verifying OAuth tokens
+* Data sent: LINE channel access token (for authentication), user LINE IDs (for targeted messaging), message content
+* When: When a notification is triggered, or an admin tests the API connection
+* Terms of Service: https://terms2.line.me/AAAIWqa/
+* Privacy Policy: https://line.me/en/terms/policy/
+
+**LINE OAuth (access.line.me)**
+
+* Used for: LINE Login — redirecting users to LINE's authorization page
+* Data sent: Channel ID, redirect URI, requested permission scopes
+* When: When a visitor clicks the "Log in with LINE" button
+* Terms of Service: https://terms2.line.me/AAAIWqa/
+* Privacy Policy: https://line.me/en/terms/policy/
+
+**LINE LIFF (liff.line.me)**
+
+* Used for: In-app login experience within the LINE app
+* Data sent: LIFF app ID, redirect URL
+* When: When a visitor opens the LIFF login page inside the LINE app
+* Terms of Service: https://terms2.line.me/AAAIWqa/
+* Privacy Policy: https://line.me/en/terms/policy/
+
+No personal data is stored on external servers by this plugin. All LINE user data (user ID, display name, avatar URL) is stored locally in your WordPress database.
 
 == Upgrade Notice ==
 

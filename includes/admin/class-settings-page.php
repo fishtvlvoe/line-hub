@@ -273,7 +273,7 @@ class SettingsPage {
         if (!current_user_can('manage_options')) {
             wp_die(__('You do not have permission to perform this action.', 'line-hub'));
         }
-        if (!isset($_POST[$nonce_field]) || !wp_verify_nonce($_POST[$nonce_field], $nonce_action)) {
+        if (!isset($_POST[$nonce_field]) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST[$nonce_field])), $nonce_action)) {
             wp_die(__('Security verification failed.', 'line-hub'));
         }
     }

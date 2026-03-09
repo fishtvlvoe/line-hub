@@ -124,7 +124,7 @@ class OAuthState {
      */
     private static function getOrCreateSessionId(): string {
         if (isset($_COOKIE[self::SESSION_COOKIE_NAME])) {
-            return self::hashSessionId($_COOKIE[self::SESSION_COOKIE_NAME]);
+            return self::hashSessionId(sanitize_text_field(wp_unslash($_COOKIE[self::SESSION_COOKIE_NAME])));
         }
 
         $unique = uniqid('linehub_', true);
@@ -139,7 +139,7 @@ class OAuthState {
 
     private static function getSessionId(): ?string {
         if (isset($_COOKIE[self::SESSION_COOKIE_NAME])) {
-            return self::hashSessionId($_COOKIE[self::SESSION_COOKIE_NAME]);
+            return self::hashSessionId(sanitize_text_field(wp_unslash($_COOKIE[self::SESSION_COOKIE_NAME])));
         }
         return null;
     }
