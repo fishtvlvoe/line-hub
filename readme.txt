@@ -12,7 +12,7 @@ LINE integration hub for WordPress — LINE Login, email capture, account regist
 
 == Description ==
 
-LINE Hub is an all-in-one LINE integration plugin for WordPress. It connects your WordPress site to the LINE ecosystem, providing seamless user login, account binding, automated messaging, and centralized Webhook management.
+BuyGo LINE Hub is an all-in-one LINE integration plugin for WordPress. It connects your WordPress site to the LINE ecosystem, providing seamless user login, account binding, automated messaging, and centralized Webhook management.
 
 **Key Features:**
 
@@ -75,11 +75,17 @@ LINE Hub can coexist with Nextend Social Login (NSL) and other social login plug
 
 = 1.0.2 =
 * Security: sanitize $_COOKIE inputs before hashing in OAuth state handler
-* Security: sanitize $_SERVER['REQUEST_URI'] with esc_url_raw() in login button
+* Security: sanitize $_SERVER['REQUEST_URI'] with esc_url_raw() in login button and FluentCart connector
 * Security: sanitize $_SERVER/$_GET/$_POST inputs in LIFF handler debug log
 * Security: add sanitize_text_field(wp_unslash()) before wp_verify_nonce() in settings page
+* Security: sanitize X-Line-Signature header read in webhook receiver
 * Plugin renamed to "BuyGo LINE Hub" to comply with WordPress.org trademark guidelines
 * Added External Services documentation to readme.txt
+
+= 1.0.1 =
+* Admin can unbind any user's LINE account from the user list
+* Added OpenClaw webhook forwarding integration
+* Added Developer tab in settings for OpenClaw configuration
 
 = 1.0.0 =
 * Initial release

@@ -34,7 +34,9 @@ class WebhookReceiver {
         register_rest_route('line-hub/v1', '/webhook', [
             'methods' => 'POST',
             'callback' => [$this, 'handleWebhook'],
-            'permission_callback' => '__return_true', // 公開端點，靠簽名驗證
+            // LINE's servers call this endpoint without authentication.
+            // Access is restricted by verifying the X-Line-Signature header instead.
+            'permission_callback' => '__return_true',
         ]);
     }
 
@@ -134,7 +136,7 @@ class WebhookReceiver {
 
         // Fallback: 從 $_SERVER 讀取
         if (empty($signature) && isset($_SERVER['HTTP_X_LINE_SIGNATURE'])) {
-            $signature = $_SERVER['HTTP_X_LINE_SIGNATURE'];
+            $signature = sanitize_text_field(wp_unslash($_SERVER['HTTP_X_LINE_SIGNATURE']));
         }
 
         return $signature ?: '';

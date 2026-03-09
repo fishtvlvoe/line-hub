@@ -74,7 +74,7 @@ class FluentCartConnector {
 
         // 取得登入 URL
         $redirect = isset($_SERVER['REQUEST_URI'])
-            ? wp_unslash($_SERVER['REQUEST_URI']) // phpcs:ignore
+            ? esc_url_raw(wp_unslash($_SERVER['REQUEST_URI']))
             : '/';
         $login_url = LoginButton::getLoginUrl($redirect);
 
