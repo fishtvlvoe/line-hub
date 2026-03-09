@@ -85,7 +85,6 @@ final class Plugin {
 
         if (is_admin()) {
             Admin\SettingsPage::init();
-            new Updater(LINE_HUB_FILE);
         }
     }
 
