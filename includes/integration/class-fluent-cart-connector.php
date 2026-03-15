@@ -91,8 +91,8 @@ class FluentCartConnector {
             true
         );
         wp_localize_script('line-hub-fluentcart-login-banner', 'lineHubLoginBanner', [
-            'bannerText' => esc_html__('Log in to track orders and receive shipping notifications.', 'line-hub'),
-            'buttonText' => esc_html__('LINE Login', 'line-hub'),
+            'bannerText' => esc_html__('Log in to track orders and receive shipping notifications.', 'buygo-hub-for-line'),
+            'buttonText' => esc_html__('LINE Login', 'buygo-hub-for-line'),
             'loginUrl'   => esc_url($login_url),
         ]);
     }
@@ -182,12 +182,12 @@ class FluentCartConnector {
         wp_enqueue_style('line-hub-fluentcart-binding', LINE_HUB_URL . 'assets/css/fluentcart-binding.css', [], LINE_HUB_VERSION);
         wp_enqueue_script('line-hub-fluentcart-binding', LINE_HUB_URL . 'assets/js/fluentcart-binding.js', [], LINE_HUB_VERSION, true);
         wp_localize_script('line-hub-fluentcart-binding', 'lineHubFcBinding', [
-            'confirmUnbind' => __('Are you sure you want to unlink your LINE account?', 'line-hub'),
-            'processing'    => __('Processing...', 'line-hub'),
-            'unbindSuccess' => __('LINE account has been unlinked.', 'line-hub'),
-            'unbindFail'    => __('Failed to unlink LINE account.', 'line-hub'),
-            'unbindLabel'   => __('Unlink', 'line-hub'),
-            'networkError'  => __('Network error. Please try again later.', 'line-hub'),
+            'confirmUnbind' => __('Are you sure you want to unlink your LINE account?', 'buygo-hub-for-line'),
+            'processing'    => __('Processing...', 'buygo-hub-for-line'),
+            'unbindSuccess' => __('LINE account has been unlinked.', 'buygo-hub-for-line'),
+            'unbindFail'    => __('Failed to unlink LINE account.', 'buygo-hub-for-line'),
+            'unbindLabel'   => __('Unlink', 'buygo-hub-for-line'),
+            'networkError'  => __('Network error. Please try again later.', 'buygo-hub-for-line'),
         ]);
     }
 }

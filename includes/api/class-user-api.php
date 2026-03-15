@@ -113,7 +113,7 @@ class UserAPI {
         if (!$binding) {
             return new \WP_REST_Response([
                 'success' => false,
-                'message' => __('Your LINE account is not linked.', 'line-hub'),
+                'message' => __('Your LINE account is not linked.', 'buygo-hub-for-line'),
             ], 400);
         }
 
@@ -123,13 +123,13 @@ class UserAPI {
         if ($result) {
             return new \WP_REST_Response([
                 'success' => true,
-                'message' => __('LINE account has been unlinked.', 'line-hub'),
+                'message' => __('LINE account has been unlinked.', 'buygo-hub-for-line'),
             ], 200);
         }
 
         return new \WP_REST_Response([
             'success' => false,
-            'message' => __('Failed to unlink. Please try again later.', 'line-hub'),
+            'message' => __('Failed to unlink. Please try again later.', 'buygo-hub-for-line'),
         ], 500);
     }
 
@@ -149,7 +149,7 @@ class UserAPI {
         if (!$user) {
             return new \WP_REST_Response([
                 'success' => false,
-                'message' => __('User does not exist.', 'line-hub'),
+                'message' => __('User does not exist.', 'buygo-hub-for-line'),
             ], 404);
         }
 
@@ -172,7 +172,7 @@ class UserAPI {
         if (!$user) {
             return new \WP_REST_Response([
                 'success' => false,
-                'message' => __('User does not exist.', 'line-hub'),
+                'message' => __('User does not exist.', 'buygo-hub-for-line'),
             ], 404);
         }
 
@@ -181,7 +181,7 @@ class UserAPI {
         if (!$binding) {
             return new \WP_REST_Response([
                 'success' => false,
-                'message' => __('This user has no LINE account linked.', 'line-hub'),
+                'message' => __('This user has no LINE account linked.', 'buygo-hub-for-line'),
             ], 400);
         }
 
@@ -191,13 +191,13 @@ class UserAPI {
         if ($result) {
             return new \WP_REST_Response([
                 'success' => true,
-                'message' => __('LINE account has been unlinked.', 'line-hub'),
+                'message' => __('LINE account has been unlinked.', 'buygo-hub-for-line'),
             ], 200);
         }
 
         return new \WP_REST_Response([
             'success' => false,
-            'message' => __('Failed to unlink. Please try again later.', 'line-hub'),
+            'message' => __('Failed to unlink. Please try again later.', 'buygo-hub-for-line'),
         ], 500);
     }
 
@@ -269,7 +269,7 @@ class UserAPI {
         if ($user_id <= 0) {
             return new \WP_Error(
                 'invalid_user_id',
-                __('Invalid user ID.', 'line-hub'),
+                __('Invalid user ID.', 'buygo-hub-for-line'),
                 ['status' => 400]
             );
         }

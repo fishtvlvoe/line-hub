@@ -22,34 +22,34 @@ if (!defined('ABSPATH')) {
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php esc_html_e('Complete Registration', 'line-hub'); ?></title>
+    <title><?php esc_html_e('Complete Registration', 'buygo-hub-for-line'); ?></title>
     <?php wp_head(); ?>
 </head>
 <body>
     <div class="line-hub-email-form">
         <?php if (!empty($user_data['pictureUrl'])): ?>
             <img src="<?php echo esc_url($user_data['pictureUrl']); ?>"
-                 alt="<?php esc_attr_e('Profile picture', 'line-hub'); ?>"
+                 alt="<?php esc_attr_e('Profile picture', 'buygo-hub-for-line'); ?>"
                  class="line-hub-avatar">
         <?php endif; ?>
 
-        <h2><?php esc_html_e('Almost Done!', 'line-hub'); ?></h2>
+        <h2><?php esc_html_e('Almost Done!', 'buygo-hub-for-line'); ?></h2>
 
         <?php if (!empty($user_data['displayName'])): ?>
             <p class="description"><?php printf(
                 /* translators: %s: user display name from LINE */
-                esc_html__('Hi %s, please enter your email to complete registration.', 'line-hub'),
+                esc_html__('Hi %s, please enter your email to complete registration.', 'buygo-hub-for-line'),
                 esc_html($user_data['displayName'])
             ); ?></p>
         <?php else: ?>
-            <p class="description"><?php esc_html_e('Please enter your email to complete registration.', 'line-hub'); ?></p>
+            <p class="description"><?php esc_html_e('Please enter your email to complete registration.', 'buygo-hub-for-line'); ?></p>
         <?php endif; ?>
 
         <form method="POST" action="<?php echo esc_url(home_url('/line-hub/auth/email-submit')); ?>">
             <?php wp_nonce_field('line_hub_email_submit', '_wpnonce'); ?>
             <input type="hidden" name="temp_key" value="<?php echo esc_attr($temp_key); ?>">
 
-            <label for="line-hub-email"><?php esc_html_e('Email Address', 'line-hub'); ?></label>
+            <label for="line-hub-email"><?php esc_html_e('Email Address', 'buygo-hub-for-line'); ?></label>
             <input type="email"
                    name="email"
                    id="line-hub-email"
@@ -57,12 +57,12 @@ if (!defined('ABSPATH')) {
                    autocomplete="email"
                    placeholder="your@email.com">
 
-            <button type="submit"><?php esc_html_e('Continue', 'line-hub'); ?></button>
+            <button type="submit"><?php esc_html_e('Continue', 'buygo-hub-for-line'); ?></button>
         </form>
 
         <!-- AUTH-03: Force re-authorization link -->
         <a href="<?php echo esc_url($reauth_url); ?>" class="line-hub-reauth-link">
-            <?php esc_html_e('Re-authorize with LINE to grant email access', 'line-hub'); ?>
+            <?php esc_html_e('Re-authorize with LINE to grant email access', 'buygo-hub-for-line'); ?>
         </a>
 
         <p class="line-hub-site-name"><?php echo esc_html(get_bloginfo('name')); ?></p>

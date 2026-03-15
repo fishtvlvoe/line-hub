@@ -23,7 +23,7 @@ class WizardTab extends AbstractTab {
     }
 
     public function get_label(): string {
-        return __('Setup Wizard', 'line-hub');
+        return __('Setup Wizard', 'buygo-hub-for-line');
     }
 
     public function render(): void {

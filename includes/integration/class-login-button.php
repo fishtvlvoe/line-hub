@@ -47,7 +47,7 @@ class LoginButton {
             'text'        => SettingsService::get('general', 'login_button_text', '用 LINE 帳號登入'),
             'size'        => SettingsService::get('general', 'login_button_size', 'medium'),
             'style'       => 'button',
-            'banner_text' => __('Log in to track orders and receive shipping notifications.', 'line-hub'),
+            'banner_text' => __('Log in to track orders and receive shipping notifications.', 'buygo-hub-for-line'),
             'redirect'    => '',
             'class'       => '',
         ];
@@ -109,8 +109,7 @@ class LoginButton {
      * @return void
      */
     public static function actionHandler(array $args = []): void {
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo self::render($args);
+        echo wp_kses_post(self::render($args));
     }
 
     /**

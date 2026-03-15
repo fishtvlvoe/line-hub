@@ -1,10 +1,10 @@
-=== BuyGo LINE Hub ===
+=== BuyGo Hub for Line ===
 Contributors: fishandy1213
 Tags: line, login, messaging, webhook, liff
 Requires at least: 6.5
 Tested up to: 6.9
 Requires PHP: 8.2
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ LINE integration hub for WordPress — LINE Login, email capture, account regist
 
 == Description ==
 
-BuyGo LINE Hub is an all-in-one LINE integration plugin for WordPress. It connects your WordPress site to the LINE ecosystem, providing seamless user login, account binding, automated messaging, and centralized Webhook management.
+BuyGo Hub for Line is an all-in-one LINE integration plugin for WordPress. It connects your WordPress site to the LINE ecosystem, providing seamless user login, account binding, automated messaging, and centralized Webhook management.
 
 **Key Features:**
 
@@ -44,7 +44,7 @@ BuyGo LINE Hub is an all-in-one LINE integration plugin for WordPress. It connec
 **Requirements:**
 
 * WordPress 6.5 or higher
-* PHP 8.2 or higher
+* PHP 8.1 or higher
 * LINE Developers account with Messaging API and Login channels
 
 == Frequently Asked Questions ==
@@ -73,13 +73,24 @@ LINE Hub can coexist with Nextend Social Login (NSL) and other social login plug
 
 == Changelog ==
 
+= 1.0.3 =
+* Fix: text domain changed from "line-hub" to "buygo-hub-for-line" to match plugin slug
+* Fix: removed Plugin Update Checker library (not permitted on WordPress.org)
+* Fix: moved inline `<script>` blocks to enqueued JS files via wp_enqueue_script()
+* Fix: SQL column names validated against whitelist before use in queries
+* Fix: settings page no longer passes entire $_POST to tab save methods
+* Fix: echo output wrapped with wp_kses_post() in login button action handler
+* Fix: vendor/bin, vendor/phpunit, vendor/nikic excluded from release archive
+* Fix: added .distignore for wp dist-archive compatibility
+* Docs: added LINE LIFF CDN and Webhook Forwarder to External Services documentation
+
 = 1.0.2 =
 * Security: sanitize $_COOKIE inputs before hashing in OAuth state handler
 * Security: sanitize $_SERVER['REQUEST_URI'] with esc_url_raw() in login button and FluentCart connector
 * Security: sanitize $_SERVER/$_GET/$_POST inputs in LIFF handler debug log
 * Security: add sanitize_text_field(wp_unslash()) before wp_verify_nonce() in settings page
 * Security: sanitize X-Line-Signature header read in webhook receiver
-* Plugin renamed to "BuyGo LINE Hub" to comply with WordPress.org trademark guidelines
+* Plugin renamed to "BuyGo Hub for Line" to comply with WordPress.org trademark guidelines
 * Added External Services documentation to readme.txt
 
 = 1.0.1 =
@@ -129,6 +140,21 @@ This plugin connects to LINE's APIs to provide LINE Login, messaging, and webhoo
 * Privacy Policy: https://line.me/en/terms/policy/
 
 No personal data is stored on external servers by this plugin. All LINE user data (user ID, display name, avatar URL) is stored locally in your WordPress database.
+
+**LINE LIFF SDK CDN (static.line-scdn.net)**
+
+* Used for: Loading the LINE Front-end Framework (LIFF) JavaScript SDK
+* Data sent: No user data is sent to this CDN — it serves only the JavaScript SDK file
+* When: When a visitor accesses the LIFF login page (/line-hub/liff/)
+* Terms of Service: https://terms2.line.me/AAAIWqa/
+* Privacy Policy: https://line.me/en/terms/policy/
+
+**Webhook Forwarder (user-configured URL)**
+
+* Used for: Forwarding LINE webhook events to an additional endpoint (e.g., OpenClaw)
+* Data sent: Raw LINE webhook payload including event type, user LINE UID, and message content
+* When: Only when the administrator has enabled webhook forwarding and configured a target URL in Settings > Developer
+* The target URL is entirely configured by the site administrator; no data is sent to a fixed third-party server
 
 == Upgrade Notice ==
 

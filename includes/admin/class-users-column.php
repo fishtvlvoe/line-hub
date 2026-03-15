@@ -29,7 +29,27 @@ class UsersColumn {
         add_filter('manage_users_columns', [self::class, 'add_column']);
         add_filter('manage_users_custom_column', [self::class, 'render_column'], 10, 3);
         add_action('admin_head-users.php', [self::class, 'inline_css']);
-        add_action('admin_footer-users.php', [self::class, 'inline_js']);
+        add_action('admin_enqueue_scripts', [self::class, 'enqueue_scripts']);
+    }
+
+    /**
+     * 載入管理後台腳本
+     */
+    public static function enqueue_scripts(string $hook): void {
+        if ($hook !== 'users.php') {
+            return;
+        }
+        $lh_ver = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0';
+        wp_enqueue_script(
+            'line-hub-admin-users',
+            plugins_url('assets/js/admin-users-column.js', dirname(dirname(__FILE__))),
+            [],
+            $lh_ver,
+            true
+        );
+        wp_localize_script('line-hub-admin-users', 'lineHubUsersColumn', [
+            'unlinkLabel' => __('Unlink', 'buygo-hub-for-line'),
+        ]);
     }
 
     /**
@@ -61,7 +81,7 @@ class UsersColumn {
         $binding = self::get_binding_status($user_id);
 
         if ($binding === null) {
-            return '<span class="line-hub-binding-none" title="' . esc_attr__('Not linked', 'line-hub') . '">—</span>';
+            return '<span class="line-hub-binding-none" title="' . esc_attr__('Not linked', 'buygo-hub-for-line') . '">—</span>';
         }
 
         $source_label = esc_html($binding['source']);
@@ -73,12 +93,12 @@ class UsersColumn {
         if ($binding['source'] === 'LINE Hub') {
             $rest_url  = esc_url(rest_url('line-hub/v1/user/' . $user_id . '/binding'));
             $nonce     = esc_attr(wp_create_nonce('wp_rest'));
-            $confirm   = esc_js(__('Unlink this user\'s LINE account?', 'line-hub'));
+            $confirm   = esc_js(__('Unlink this user\'s LINE account?', 'buygo-hub-for-line'));
             $unbind_btn = '<br><button type="button" class="button-link line-hub-admin-unbind"'
                         . ' data-rest-url="' . $rest_url . '"'
                         . ' data-nonce="' . $nonce . '"'
                         . ' data-confirm="' . $confirm . '">'
-                        . esc_html__('Unlink', 'line-hub')
+                        . esc_html__('Unlink', 'buygo-hub-for-line')
                         . '</button>';
         }
 
@@ -165,46 +185,5 @@ class UsersColumn {
         );
     }
 
-    /**
-     * 管理員解除綁定的 JS
-     */
-    public static function inline_js(): void {
-        ?>
-        <script>
-        document.addEventListener('click', function(e) {
-            var btn = e.target.closest('.line-hub-admin-unbind');
-            if (!btn) return;
 
-            if (!confirm(btn.dataset.confirm)) return;
-
-            btn.disabled = true;
-            btn.textContent = '...';
-
-            fetch(btn.dataset.restUrl, {
-                method: 'DELETE',
-                headers: {
-                    'X-WP-Nonce': btn.dataset.nonce,
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                if (data.success) {
-                    var cell = btn.closest('td');
-                    cell.innerHTML = '<span class="line-hub-binding-none">—</span>';
-                } else {
-                    alert(data.message || 'Failed');
-                    btn.disabled = false;
-                    btn.textContent = <?php echo wp_json_encode(__('Unlink', 'line-hub')); ?>;
-                }
-            })
-            .catch(function() {
-                alert('Network error');
-                btn.disabled = false;
-                btn.textContent = <?php echo wp_json_encode(__('Unlink', 'line-hub')); ?>;
-            });
-        });
-        </script>
-        <?php
-    }
 }

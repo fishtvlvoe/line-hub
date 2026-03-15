@@ -48,3 +48,5 @@ temp/
 *.bak
 *.swp
 *~
+build-release.sh
+line-hub-line-hub-php-*.md

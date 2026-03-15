@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name: BuyGo LINE Hub
+ * Plugin Name: BuyGo Hub for Line
  * Plugin URI: https://github.com/fishtvlvoe/line-hub
  * Description: LINE integration hub for WordPress — LINE Login, email capture, account registration, multi-scenario messaging, and unified Webhook management.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Requires at least: 6.5
- * Requires PHP: 8.2
+ * Requires PHP: 8.1
  * Author: BuyGo
  * Author URI: https://buygo.me
  * License: GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: line-hub
+ * Text Domain: buygo-hub-for-line
  * Domain Path: /languages
  *
  * @package LineHub
@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
 }
 
 // 定義常數
-define('LINE_HUB_VERSION', '1.0.2');
+define('LINE_HUB_VERSION', '1.0.3');
 define('LINE_HUB_FILE', __FILE__);
 define('LINE_HUB_PATH', plugin_dir_path(__FILE__));
 define('LINE_HUB_URL', plugin_dir_url(__FILE__));
@@ -76,7 +76,7 @@ add_filter('plugin_action_links_' . LINE_HUB_BASENAME, function($links) {
     $settings_link = sprintf(
         '<a href="%s">%s</a>',
         admin_url('admin.php?page=line-hub-settings'),
-        __('Settings', 'line-hub')
+        __('Settings', 'buygo-hub-for-line')
     );
     array_unshift($links, $settings_link);
     return $links;
@@ -87,10 +87,10 @@ add_filter('plugin_action_links_' . LINE_HUB_BASENAME, function($links) {
  */
 add_action('admin_notices', function() {
     // 檢查 PHP 版本
-    if (version_compare(PHP_VERSION, '8.2', '<')) {
+    if (version_compare(PHP_VERSION, '8.1', '<')) {
         echo '<div class="notice notice-error"><p>';
         /* translators: %s: current PHP version */
-        echo '<strong>LINE Hub:</strong> ' . sprintf(esc_html__('Requires PHP 8.2 or higher. Current version: %s', 'line-hub'), esc_html(PHP_VERSION));
+        echo '<strong>LINE Hub:</strong> ' . sprintf(esc_html__('Requires PHP 8.1 or higher. Current version: %s', 'buygo-hub-for-line'), esc_html(PHP_VERSION));
         echo '</p></div>';
         return;
     }
@@ -100,7 +100,7 @@ add_action('admin_notices', function() {
     if (version_compare($wp_version, '6.5', '<')) {
         echo '<div class="notice notice-error"><p>';
         /* translators: %s: current WordPress version */
-        echo '<strong>LINE Hub:</strong> ' . sprintf(esc_html__('Requires WordPress 6.5 or higher. Current version: %s', 'line-hub'), esc_html($wp_version));
+        echo '<strong>LINE Hub:</strong> ' . sprintf(esc_html__('Requires WordPress 6.5 or higher. Current version: %s', 'buygo-hub-for-line'), esc_html($wp_version));
         echo '</p></div>';
         return;
     }
@@ -110,17 +110,17 @@ add_action('admin_notices', function() {
 
     // 檢查 NSL
     if (class_exists('NextendSocialLogin')) {
-        $warnings[] = __('Nextend Social Login (NSL) is active. Both plugins can coexist, but please ensure LINE OAuth settings do not conflict.', 'line-hub');
+        $warnings[] = __('Nextend Social Login (NSL) is active. Both plugins can coexist, but please ensure LINE OAuth settings do not conflict.', 'buygo-hub-for-line');
     }
 
     // 檢查 buygo-line-notify
     if (class_exists('BuygoLineNotify\\Plugin')) {
-        $warnings[] = __('BuyGo LINE Notify is active. We recommend disabling it after completing data migration.', 'line-hub');
+        $warnings[] = __('BuyGo LINE Notify is active. We recommend disabling it after completing data migration.', 'buygo-hub-for-line');
     }
 
     if (!empty($warnings)) {
         echo '<div class="notice notice-warning"><p>';
-        echo '<strong>' . esc_html__('LINE Hub Compatibility Notice:', 'line-hub') . '</strong><br>';
+        echo '<strong>' . esc_html__('LINE Hub Compatibility Notice:', 'buygo-hub-for-line') . '</strong><br>';
         echo implode('<br>', array_map('esc_html', $warnings));
         echo '</p></div>';
     }

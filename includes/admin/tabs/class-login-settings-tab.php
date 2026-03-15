@@ -23,7 +23,7 @@ class LoginSettingsTab extends AbstractTab {
     }
 
     public function get_label(): string {
-        return __('Login Settings', 'line-hub');
+        return __('Login Settings', 'buygo-hub-for-line');
     }
 
     public function render(): void {
@@ -35,7 +35,7 @@ class LoginSettingsTab extends AbstractTab {
     /**
      * 儲存登入設定
      */
-    public function save(array $post_data): bool {
+    public function save(): bool {
         $success = true;
 
         // general group 的登入相關欄位
@@ -45,38 +45,38 @@ class LoginSettingsTab extends AbstractTab {
             'allowed_email_domains',
         ];
         foreach ($general_strings as $field) {
-            $value = isset($post_data[$field]) ? sanitize_text_field($post_data[$field]) : '';
+            $value = isset($_POST[$field]) ? sanitize_text_field($_POST[$field]) : '';
             SettingsService::set('general', $field, $value);
         }
 
         $general_booleans = ['auto_link_by_email', 'login_redirect_fixed', 'require_email_verification'];
         foreach ($general_booleans as $field) {
-            $value = isset($post_data[$field]) && $post_data[$field] === '1';
+            $value = isset($_POST[$field]) && $_POST[$field] === '1';
             SettingsService::set('general', $field, $value);
         }
 
         // 預設角色（陣列，可多選）
-        $default_roles = isset($post_data['default_roles']) && is_array($post_data['default_roles'])
-            ? array_map('sanitize_key', $post_data['default_roles'])
+        $default_roles = isset($_POST['default_roles']) && is_array($_POST['default_roles'])
+            ? array_map('sanitize_key', $_POST['default_roles'])
             : ['subscriber'];
         SettingsService::set('general', 'default_roles', $default_roles);
 
         // 登入按鈕位置（陣列）
-        $positions = isset($post_data['login_button_positions']) && is_array($post_data['login_button_positions'])
-            ? array_map('sanitize_text_field', $post_data['login_button_positions'])
+        $positions = isset($_POST['login_button_positions']) && is_array($_POST['login_button_positions'])
+            ? array_map('sanitize_text_field', $_POST['login_button_positions'])
             : [];
         SettingsService::set('general', 'login_button_positions', $positions);
 
         // login group 欄位
         $login_strings = ['bot_prompt', 'initial_amr'];
         foreach ($login_strings as $field) {
-            $value = isset($post_data[$field]) ? sanitize_text_field($post_data[$field]) : '';
+            $value = isset($_POST[$field]) ? sanitize_text_field($_POST[$field]) : '';
             SettingsService::set('login', $field, $value);
         }
 
         $login_booleans = ['force_reauth', 'switch_amr', 'allow_auto_login'];
         foreach ($login_booleans as $field) {
-            $value = isset($post_data[$field]) && $post_data[$field] === '1';
+            $value = isset($_POST[$field]) && $_POST[$field] === '1';
             SettingsService::set('login', $field, $value);
         }
 

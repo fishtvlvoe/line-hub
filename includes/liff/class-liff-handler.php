@@ -38,7 +38,7 @@ class LiffHandler {
      */
     public function handleRequest(): void {
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-        error_log('[LINE Hub] LIFF handleRequest: method=' . sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD'] ?? 'unknown')) . ' redirect=' . sanitize_text_field(wp_unslash($_GET['redirect'] ?? $_POST['redirect'] ?? 'NONE')) . ' logged_in=' . (is_user_logged_in() ? 'yes' : 'no'));
+        error_log('[LINE Hub] LIFF handleRequest: method=' . sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD'] ?? 'unknown')) . ' logged_in=' . (is_user_logged_in() ? 'yes' : 'no'));
 
         // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -61,8 +61,8 @@ class LiffHandler {
 
         if (empty($liff_id)) {
             wp_die(
-                esc_html__('LIFF is not configured. Please contact the administrator.', 'line-hub'),
-                esc_html__('Configuration Error', 'line-hub'),
+                esc_html__('LIFF is not configured. Please contact the administrator.', 'buygo-hub-for-line'),
+                esc_html__('Configuration Error', 'buygo-hub-for-line'),
                 ['response' => 500]
             );
         }
@@ -89,6 +89,11 @@ class LiffHandler {
         $lh_ver = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0';
         wp_enqueue_style('line-hub-liff-login', plugins_url('assets/css/liff-login.css', dirname(dirname(__FILE__))), [], $lh_ver);
         wp_enqueue_script('line-sdk', 'https://static.line-scdn.net/liff/edge/versions/2.24.0/sdk.js', [], null, true);
+        wp_enqueue_script('line-hub-liff-login', plugins_url('assets/js/liff-login.js', dirname(dirname(__FILE__))), ['line-sdk'], $lh_ver, true);
+        wp_localize_script('line-hub-liff-login', 'liffConfig', [
+            'liffId'   => $liff_id,
+            'redirect' => $redirect,
+        ]);
 
         include LINE_HUB_PATH . 'includes/liff/liff-template.php';
         exit;
@@ -106,9 +111,10 @@ class LiffHandler {
     ): void {
         $nonce = wp_create_nonce('line_hub_liff_email');
 
-        // 註冊樣式（模板中透過 wp_head 輸出）
+        // 註冊樣式和腳本（模板中透過 wp_head/wp_footer 輸出）
         $lh_ver = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0';
         wp_enqueue_style('line-hub-liff-email', plugins_url('assets/css/liff-email.css', dirname(dirname(__FILE__))), [], $lh_ver);
+        wp_enqueue_script('line-hub-liff-email', plugins_url('assets/js/liff-email.js', dirname(dirname(__FILE__))), [], $lh_ver, true);
 
         include LINE_HUB_PATH . 'includes/liff/liff-email-template.php';
         exit;
@@ -140,7 +146,7 @@ class LiffHandler {
 
         wp_die(
             esc_html($message),
-            esc_html__('Login Failed', 'line-hub'),
+            esc_html__('Login Failed', 'buygo-hub-for-line'),
             ['response' => 400, 'back_link' => true]
         );
     }

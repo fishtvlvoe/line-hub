@@ -30,14 +30,14 @@ class LiffApiClient {
         if (is_wp_error($verify)) {
             // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('[LINE Hub] LIFF token verify failed: ' . $verify->get_error_message());
-            return new \WP_Error('verify_failed', __('Access Token verification failed.', 'line-hub'));
+            return new \WP_Error('verify_failed', __('Access Token verification failed.', 'buygo-hub-for-line'));
         }
 
         $profile = $this->getProfile($access_token);
         if (is_wp_error($profile)) {
             // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('[LINE Hub] LIFF profile fetch failed: ' . $profile->get_error_message());
-            return new \WP_Error('profile_failed', __('Unable to retrieve LINE user profile.', 'line-hub'));
+            return new \WP_Error('profile_failed', __('Unable to retrieve LINE user profile.', 'buygo-hub-for-line'));
         }
 
         return $profile;

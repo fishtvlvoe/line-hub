@@ -16,27 +16,27 @@ if (!defined('ABSPATH')) {
 ?>
 
 <div class="card lh-card-narrow">
-    <h2><?php esc_html_e('Webhook Event Log', 'line-hub'); ?></h2>
+    <h2><?php esc_html_e('Webhook Event Log', 'buygo-hub-for-line'); ?></h2>
 
     <?php if (empty($events)) : ?>
         <p class="lh-text-muted">
-            <?php esc_html_e('No Webhook events recorded yet. Events will appear here when LINE users interact with your Bot.', 'line-hub'); ?>
+            <?php esc_html_e('No Webhook events recorded yet. Events will appear here when LINE users interact with your Bot.', 'buygo-hub-for-line'); ?>
         </p>
     <?php else : ?>
         <p class="lh-text-secondary"><?php
             /* translators: %d: number of events */
-            printf(esc_html__('Recent %d events', 'line-hub'), count($events));
+            printf(esc_html__('Recent %d events', 'buygo-hub-for-line'), count($events));
         ?></p>
 
         <table class="wp-list-table widefat fixed striped lh-mt-16">
             <thead>
                 <tr>
                     <th class="lh-col-60">ID</th>
-                    <th class="lh-col-140"><?php esc_html_e('Event Type', 'line-hub'); ?></th>
+                    <th class="lh-col-140"><?php esc_html_e('Event Type', 'buygo-hub-for-line'); ?></th>
                     <th class="lh-col-180">LINE UID</th>
-                    <th class="lh-col-160"><?php esc_html_e('Time', 'line-hub'); ?></th>
-                    <th class="lh-col-60"><?php esc_html_e('Status', 'line-hub'); ?></th>
-                    <th><?php esc_html_e('Action', 'line-hub'); ?></th>
+                    <th class="lh-col-160"><?php esc_html_e('Time', 'buygo-hub-for-line'); ?></th>
+                    <th class="lh-col-60"><?php esc_html_e('Status', 'buygo-hub-for-line'); ?></th>
+                    <th><?php esc_html_e('Action', 'buygo-hub-for-line'); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -62,7 +62,7 @@ if (!defined('ABSPATH')) {
                                 time()
                             );
                             /* translators: %s: human-readable time difference */
-                            printf(esc_html__('%s ago', 'line-hub'), esc_html($time_diff));
+                            printf(esc_html__('%s ago', 'buygo-hub-for-line'), esc_html($time_diff));
                             ?>
                         </td>
                         <td>
@@ -75,7 +75,7 @@ if (!defined('ABSPATH')) {
                         <td>
                             <button type="button" class="button button-small"
                                     data-toggle-payload="<?php echo esc_attr($event['id']); ?>">
-                                <?php esc_html_e('View Payload', 'line-hub'); ?>
+                                <?php esc_html_e('View Payload', 'buygo-hub-for-line'); ?>
                             </button>
                             <div id="payload-<?php echo esc_attr($event['id']); ?>"
                                  class="lh-payload-panel">

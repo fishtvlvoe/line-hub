@@ -31,39 +31,39 @@ $rest_base = rest_url('line-hub/v1');
 
 <!-- 快速導航 -->
 <div class="lh-dev-card lh-mt-0">
-    <h2><?php esc_html_e('Developer Tools', 'line-hub'); ?></h2>
+    <h2><?php esc_html_e('Developer Tools', 'buygo-hub-for-line'); ?></h2>
     <p class="description">
-        <?php esc_html_e('All information needed to integrate with LINE Hub. Interact via REST API (external systems) or WordPress Hooks (same-host plugins).', 'line-hub'); ?>
+        <?php esc_html_e('All information needed to integrate with LINE Hub. Interact via REST API (external systems) or WordPress Hooks (same-host plugins).', 'buygo-hub-for-line'); ?>
     </p>
     <div class="lh-dev-section-nav">
-        <a href="#lh-api-key"><?php esc_html_e('API Key Management', 'line-hub'); ?></a>
-        <a href="#lh-openclaw"><?php esc_html_e('OpenClaw Forwarding', 'line-hub'); ?></a>
-        <a href="#lh-rest-api"><?php esc_html_e('REST API Endpoints', 'line-hub'); ?></a>
-        <a href="#lh-hooks"><?php esc_html_e('WordPress Hooks', 'line-hub'); ?></a>
-        <a href="#lh-api-logs"><?php esc_html_e('API Usage Log', 'line-hub'); ?></a>
+        <a href="#lh-api-key"><?php esc_html_e('API Key Management', 'buygo-hub-for-line'); ?></a>
+        <a href="#lh-openclaw"><?php esc_html_e('OpenClaw Forwarding', 'buygo-hub-for-line'); ?></a>
+        <a href="#lh-rest-api"><?php esc_html_e('REST API Endpoints', 'buygo-hub-for-line'); ?></a>
+        <a href="#lh-hooks"><?php esc_html_e('WordPress Hooks', 'buygo-hub-for-line'); ?></a>
+        <a href="#lh-api-logs"><?php esc_html_e('API Usage Log', 'buygo-hub-for-line'); ?></a>
     </div>
 </div>
 
 <!-- API Key 管理 -->
 <div class="lh-dev-card" id="lh-api-key">
-    <h2><?php esc_html_e('API Key Management', 'line-hub'); ?></h2>
+    <h2><?php esc_html_e('API Key Management', 'buygo-hub-for-line'); ?></h2>
     <p class="description">
-        <?php esc_html_e('External systems (e.g. SaaS, Zapier) authenticate via the HTTP Header', 'line-hub'); ?>
+        <?php esc_html_e('External systems (e.g. SaaS, Zapier) authenticate via the HTTP Header', 'buygo-hub-for-line'); ?>
         <code>X-LineHub-API-Key</code>
-        <?php esc_html_e('to call the REST API endpoints below.', 'line-hub'); ?>
+        <?php esc_html_e('to call the REST API endpoints below.', 'buygo-hub-for-line'); ?>
     </p>
 
     <?php if ($new_api_key) : ?>
         <div class="lh-api-key-banner">
             <p class="lh-api-key-banner-title">
-                <?php esc_html_e('API Key generated — please copy and save it now. This key will not be shown again!', 'line-hub'); ?>
+                <?php esc_html_e('API Key generated — please copy and save it now. This key will not be shown again!', 'buygo-hub-for-line'); ?>
             </p>
             <code class="lh-api-key-code">
                 <?php echo esc_html($new_api_key); ?>
             </code>
             <button type="button" class="button button-small line-hub-copy-btn lh-ml-8"
                     data-copy="<?php echo esc_attr($new_api_key); ?>">
-                <?php esc_html_e('Copy', 'line-hub'); ?>
+                <?php esc_html_e('Copy', 'buygo-hub-for-line'); ?>
             </button>
         </div>
     <?php endif; ?>
@@ -71,14 +71,14 @@ $rest_base = rest_url('line-hub/v1');
     <?php if ($has_api_key) : ?>
         <table class="form-table">
             <tr>
-                <th scope="row"><?php esc_html_e('Current API Key', 'line-hub'); ?></th>
+                <th scope="row"><?php esc_html_e('Current API Key', 'buygo-hub-for-line'); ?></th>
                 <td>
                     <code><?php echo esc_html($api_key_prefix); ?>...<?php echo esc_html(str_repeat('*', 24)); ?></code>
                     <br>
                     <span class="description">
                         <?php
                         /* translators: %s: date when the API key was created */
-                        printf(esc_html__('Created on: %s', 'line-hub'), esc_html($api_key_date));
+                        printf(esc_html__('Created on: %s', 'buygo-hub-for-line'), esc_html($api_key_date));
                         ?>
                     </span>
                 </td>
@@ -87,11 +87,11 @@ $rest_base = rest_url('line-hub/v1');
         <form method="post"
               action="<?php echo esc_url(admin_url('admin-post.php')); ?>"
               class="lh-mt-10"
-              onsubmit="return confirm('<?php echo esc_js(__('Are you sure you want to revoke this API Key? All external systems using this key will lose access.', 'line-hub')); ?>');">
+              onsubmit="return confirm('<?php echo esc_js(__('Are you sure you want to revoke this API Key? All external systems using this key will lose access.', 'buygo-hub-for-line')); ?>');">
             <?php wp_nonce_field('line_hub_api_key_action', 'line_hub_api_nonce'); ?>
             <input type="hidden" name="action" value="line_hub_revoke_api_key">
             <button type="submit" class="button button-secondary lh-text-danger">
-                <?php esc_html_e('Revoke API Key', 'line-hub'); ?>
+                <?php esc_html_e('Revoke API Key', 'buygo-hub-for-line'); ?>
             </button>
         </form>
     <?php else : ?>
@@ -101,7 +101,7 @@ $rest_base = rest_url('line-hub/v1');
             <?php wp_nonce_field('line_hub_api_key_action', 'line_hub_api_nonce'); ?>
             <input type="hidden" name="action" value="line_hub_generate_api_key">
             <button type="submit" class="button button-primary">
-                <?php esc_html_e('Generate API Key', 'line-hub'); ?>
+                <?php esc_html_e('Generate API Key', 'buygo-hub-for-line'); ?>
             </button>
         </form>
     <?php endif; ?>
@@ -109,9 +109,9 @@ $rest_base = rest_url('line-hub/v1');
 
 <!-- OpenClaw 轉發 -->
 <div class="lh-dev-card" id="lh-openclaw">
-    <h2><?php esc_html_e('OpenClaw Webhook Forwarding', 'line-hub'); ?></h2>
+    <h2><?php esc_html_e('OpenClaw Webhook Forwarding', 'buygo-hub-for-line'); ?></h2>
     <p class="description">
-        <?php esc_html_e('Forward LINE events to OpenClaw to enable AI agent integration. LINE Hub acts as a relay station between LINE and OpenClaw.', 'line-hub'); ?>
+        <?php esc_html_e('Forward LINE events to OpenClaw to enable AI agent integration. LINE Hub acts as a relay station between LINE and OpenClaw.', 'buygo-hub-for-line'); ?>
     </p>
 
     <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="lh-openclaw-form">
@@ -120,39 +120,39 @@ $rest_base = rest_url('line-hub/v1');
 
         <table class="form-table">
             <tr>
-                <th scope="row"><?php esc_html_e('Enable Forwarding', 'line-hub'); ?></th>
+                <th scope="row"><?php esc_html_e('Enable Forwarding', 'buygo-hub-for-line'); ?></th>
                 <td>
                     <label>
                         <input type="checkbox" name="openclaw_enabled" value="1"
                             <?php checked($openclaw_settings['enabled'], true); ?>>
-                        <?php esc_html_e('Enable OpenClaw event forwarding', 'line-hub'); ?>
+                        <?php esc_html_e('Enable OpenClaw event forwarding', 'buygo-hub-for-line'); ?>
                     </label>
                     <p class="description">
-                        <?php esc_html_e('When enabled, all LINE events are forwarded to your OpenClaw Webhook URL.', 'line-hub'); ?>
+                        <?php esc_html_e('When enabled, all LINE events are forwarded to your OpenClaw Webhook URL.', 'buygo-hub-for-line'); ?>
                     </p>
                 </td>
             </tr>
             <tr>
-                <th scope="row"><label for="openclaw_webhook_url"><?php esc_html_e('Webhook URL', 'line-hub'); ?></label></th>
+                <th scope="row"><label for="openclaw_webhook_url"><?php esc_html_e('Webhook URL', 'buygo-hub-for-line'); ?></label></th>
                 <td>
                     <input type="url" id="openclaw_webhook_url" name="openclaw_webhook_url"
                            value="<?php echo esc_attr($openclaw_settings['url']); ?>"
                            placeholder="https://your-openclaw-instance.com/hooks/agent"
                            class="regular-text">
                     <p class="description">
-                        <?php esc_html_e('The OpenClaw webhook endpoint URL (e.g., /hooks/agent).', 'line-hub'); ?>
+                        <?php esc_html_e('The OpenClaw webhook endpoint URL (e.g., /hooks/agent).', 'buygo-hub-for-line'); ?>
                     </p>
                 </td>
             </tr>
             <tr>
-                <th scope="row"><label for="openclaw_webhook_token"><?php esc_html_e('Webhook Token', 'line-hub'); ?></label></th>
+                <th scope="row"><label for="openclaw_webhook_token"><?php esc_html_e('Webhook Token', 'buygo-hub-for-line'); ?></label></th>
                 <td>
                     <input type="password" id="openclaw_webhook_token" name="openclaw_webhook_token"
                            value="<?php echo esc_attr($openclaw_settings['token']); ?>"
-                           placeholder="<?php esc_attr_e('Token (encrypted)', 'line-hub'); ?>"
+                           placeholder="<?php esc_attr_e('Token (encrypted)', 'buygo-hub-for-line'); ?>"
                            class="regular-text">
                     <p class="description">
-                        <?php esc_html_e('Bearer token for authentication (stored encrypted).', 'line-hub'); ?>
+                        <?php esc_html_e('Bearer token for authentication (stored encrypted).', 'buygo-hub-for-line'); ?>
                     </p>
                 </td>
             </tr>
@@ -160,10 +160,10 @@ $rest_base = rest_url('line-hub/v1');
 
         <div class="lh-mt-16">
             <button type="submit" class="button button-primary">
-                <?php esc_html_e('Save Settings', 'line-hub'); ?>
+                <?php esc_html_e('Save Settings', 'buygo-hub-for-line'); ?>
             </button>
             <button type="button" class="button button-secondary lh-ml-8" id="lh-test-openclaw-btn">
-                <?php esc_html_e('Test Connection', 'line-hub'); ?>
+                <?php esc_html_e('Test Connection', 'buygo-hub-for-line'); ?>
             </button>
         </div>
 
@@ -175,12 +175,12 @@ $rest_base = rest_url('line-hub/v1');
 
 <!-- WordPress Hooks -->
 <div class="lh-dev-card" id="lh-hooks">
-    <h2><?php esc_html_e('WordPress Hooks', 'line-hub'); ?></h2>
+    <h2><?php esc_html_e('WordPress Hooks', 'buygo-hub-for-line'); ?></h2>
     <p class="description">
-        <?php esc_html_e('WordPress plugins on the same host can interact with LINE Hub via standard Hooks, no API Key required.', 'line-hub'); ?>
+        <?php esc_html_e('WordPress plugins on the same host can interact with LINE Hub via standard Hooks, no API Key required.', 'buygo-hub-for-line'); ?>
     </p>
 
-    <h3><?php esc_html_e('Actions (Send Messages)', 'line-hub'); ?></h3>
+    <h3><?php esc_html_e('Actions (Send Messages)', 'buygo-hub-for-line'); ?></h3>
 
     <?php foreach ($hooks_data['actions'] as $action) : ?>
         <div class="lh-dev-hook-card">
@@ -193,9 +193,9 @@ $rest_base = rest_url('line-hub/v1');
                 <table class="lh-dev-params-table">
                     <thead>
                         <tr>
-                            <th class="lh-col-120"><?php esc_html_e('Parameter', 'line-hub'); ?></th>
-                            <th class="lh-col-80"><?php esc_html_e('Type', 'line-hub'); ?></th>
-                            <th><?php esc_html_e('Description', 'line-hub'); ?></th>
+                            <th class="lh-col-120"><?php esc_html_e('Parameter', 'buygo-hub-for-line'); ?></th>
+                            <th class="lh-col-80"><?php esc_html_e('Type', 'buygo-hub-for-line'); ?></th>
+                            <th><?php esc_html_e('Description', 'buygo-hub-for-line'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -209,17 +209,17 @@ $rest_base = rest_url('line-hub/v1');
                     </tbody>
                 </table>
 
-                <div class="lh-dev-response-label"><?php esc_html_e('Usage Example', 'line-hub'); ?></div>
+                <div class="lh-dev-response-label"><?php esc_html_e('Usage Example', 'buygo-hub-for-line'); ?></div>
                 <div class="lh-dev-code-block lh-dev-code-block-light">
                     <button type="button" class="lh-dev-copy-btn lh-dev-copy-btn-light line-hub-copy-btn"
-                            data-copy="<?php echo esc_attr($action['example']); ?>"><?php esc_html_e('Copy', 'line-hub'); ?></button>
+                            data-copy="<?php echo esc_attr($action['example']); ?>"><?php esc_html_e('Copy', 'buygo-hub-for-line'); ?></button>
 <?php echo esc_html($action['example']); ?>
                 </div>
             </div>
         </div>
     <?php endforeach; ?>
 
-    <h3><?php esc_html_e('Filters (Query Users)', 'line-hub'); ?></h3>
+    <h3><?php esc_html_e('Filters (Query Users)', 'buygo-hub-for-line'); ?></h3>
 
     <?php foreach ($hooks_data['filters'] as $filter) : ?>
         <div class="lh-dev-hook-card">
@@ -232,9 +232,9 @@ $rest_base = rest_url('line-hub/v1');
                 <table class="lh-dev-params-table">
                     <thead>
                         <tr>
-                            <th class="lh-col-120"><?php esc_html_e('Parameter', 'line-hub'); ?></th>
-                            <th class="lh-col-80"><?php esc_html_e('Type', 'line-hub'); ?></th>
-                            <th><?php esc_html_e('Description', 'line-hub'); ?></th>
+                            <th class="lh-col-120"><?php esc_html_e('Parameter', 'buygo-hub-for-line'); ?></th>
+                            <th class="lh-col-80"><?php esc_html_e('Type', 'buygo-hub-for-line'); ?></th>
+                            <th><?php esc_html_e('Description', 'buygo-hub-for-line'); ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -248,10 +248,10 @@ $rest_base = rest_url('line-hub/v1');
                     </tbody>
                 </table>
 
-                <div class="lh-dev-response-label"><?php esc_html_e('Usage Example', 'line-hub'); ?></div>
+                <div class="lh-dev-response-label"><?php esc_html_e('Usage Example', 'buygo-hub-for-line'); ?></div>
                 <div class="lh-dev-code-block lh-dev-code-block-light">
                     <button type="button" class="lh-dev-copy-btn lh-dev-copy-btn-light line-hub-copy-btn"
-                            data-copy="<?php echo esc_attr($filter['example']); ?>"><?php esc_html_e('Copy', 'line-hub'); ?></button>
+                            data-copy="<?php echo esc_attr($filter['example']); ?>"><?php esc_html_e('Copy', 'buygo-hub-for-line'); ?></button>
 <?php echo esc_html($filter['example']); ?>
                 </div>
             </div>
@@ -259,80 +259,26 @@ $rest_base = rest_url('line-hub/v1');
     <?php endforeach; ?>
 </div>
 
-<script>
-// OpenClaw 測試連線按鈕處理
-document.addEventListener('DOMContentLoaded', function() {
-    const testBtn = document.getElementById('lh-test-openclaw-btn');
-    const resultDiv = document.getElementById('lh-test-openclaw-result');
-
-    if (!testBtn) return;
-
-    testBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        const url = document.getElementById('openclaw_webhook_url').value;
-        const token = document.getElementById('openclaw_webhook_token').value;
-
-        if (!url || !token) {
-            resultDiv.style.display = 'block';
-            resultDiv.innerHTML = '<div class="notice notice-error"><p><?php esc_html_e('URL and Token are required', 'line-hub'); ?></p></div>';
-            return;
-        }
-
-        testBtn.disabled = true;
-        testBtn.innerText = '<?php esc_html_e('Testing...', 'line-hub'); ?>';
-
-        const formData = new FormData();
-        formData.append('action', 'line_hub_test_openclaw');
-        formData.append('nonce', '<?php echo esc_js(wp_create_nonce('line_hub_openclaw_test')); ?>');
-        formData.append('url', url);
-        formData.append('token', token);
-
-        fetch(ajaxurl, {
-            method: 'POST',
-            body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
-            resultDiv.style.display = 'block';
-            if (data.success) {
-                resultDiv.innerHTML = '<div class="notice notice-success"><p>' + data.data.message + '</p></div>';
-            } else {
-                resultDiv.innerHTML = '<div class="notice notice-error"><p>' + data.data.message + '</p></div>';
-            }
-        })
-        .catch(err => {
-            resultDiv.style.display = 'block';
-            resultDiv.innerHTML = '<div class="notice notice-error"><p><?php esc_html_e('Request failed', 'line-hub'); ?>: ' + err.message + '</p></div>';
-        })
-        .finally(() => {
-            testBtn.disabled = false;
-            testBtn.innerText = '<?php esc_html_e('Test Connection', 'line-hub'); ?>';
-        });
-    });
-});
-</script>
-
 <!-- API 使用記錄 -->
 <div class="lh-dev-card" id="lh-api-logs">
-    <h2><?php esc_html_e('API Usage Log', 'line-hub'); ?></h2>
+    <h2><?php esc_html_e('API Usage Log', 'buygo-hub-for-line'); ?></h2>
     <p class="description">
-        <?php esc_html_e('Recent 20 REST API calls (API Key authenticated). Use this to verify external system integration.', 'line-hub'); ?>
+        <?php esc_html_e('Recent 20 REST API calls (API Key authenticated). Use this to verify external system integration.', 'buygo-hub-for-line'); ?>
     </p>
 
     <?php if (empty($api_logs)) : ?>
         <p class="lh-text-muted lh-mt-16">
-            <?php esc_html_e('No API call records yet. Records will appear here when external systems call REST API endpoints using an API Key.', 'line-hub'); ?>
+            <?php esc_html_e('No API call records yet. Records will appear here when external systems call REST API endpoints using an API Key.', 'buygo-hub-for-line'); ?>
         </p>
     <?php else : ?>
         <table class="lh-dev-log-table lh-mt-16">
             <thead>
                 <tr>
-                    <th class="lh-col-160"><?php esc_html_e('Time', 'line-hub'); ?></th>
-                    <th class="lh-col-130"><?php esc_html_e('Source IP', 'line-hub'); ?></th>
-                    <th class="lh-col-80"><?php esc_html_e('Method', 'line-hub'); ?></th>
-                    <th><?php esc_html_e('Endpoint', 'line-hub'); ?></th>
-                    <th class="lh-col-80"><?php esc_html_e('Result', 'line-hub'); ?></th>
+                    <th class="lh-col-160"><?php esc_html_e('Time', 'buygo-hub-for-line'); ?></th>
+                    <th class="lh-col-130"><?php esc_html_e('Source IP', 'buygo-hub-for-line'); ?></th>
+                    <th class="lh-col-80"><?php esc_html_e('Method', 'buygo-hub-for-line'); ?></th>
+                    <th><?php esc_html_e('Endpoint', 'buygo-hub-for-line'); ?></th>
+                    <th class="lh-col-80"><?php esc_html_e('Result', 'buygo-hub-for-line'); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -344,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             if ($log_time) {
                                 $diff = human_time_diff($log_time, time());
                                 /* translators: %s: human-readable time difference */
-                                printf(esc_html__('%s ago', 'line-hub'), esc_html($diff));
+                                printf(esc_html__('%s ago', 'buygo-hub-for-line'), esc_html($diff));
                             } else {
                                 echo esc_html($log['time'] ?? '-');
                             }
@@ -363,9 +309,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         </td>
                         <td>
                             <?php if (($log['status'] ?? '') === 'success') : ?>
-                                <span class="lh-dev-status-badge lh-dev-status-success"><?php esc_html_e('Success', 'line-hub'); ?></span>
+                                <span class="lh-dev-status-badge lh-dev-status-success"><?php esc_html_e('Success', 'buygo-hub-for-line'); ?></span>
                             <?php else : ?>
-                                <span class="lh-dev-status-badge lh-dev-status-error"><?php esc_html_e('Failed', 'line-hub'); ?></span>
+                                <span class="lh-dev-status-badge lh-dev-status-error"><?php esc_html_e('Failed', 'buygo-hub-for-line'); ?></span>
                             <?php endif; ?>
                         </td>
                     </tr>

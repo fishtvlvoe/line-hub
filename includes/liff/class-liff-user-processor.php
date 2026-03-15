@@ -33,13 +33,13 @@ class LiffUserProcessor {
      */
     public function handleVerify(): void {
         if (!$this->verifyNonce('line_hub_liff_verify')) {
-            $this->handler->respondError(__('Security verification failed. Please try again.', 'line-hub'));
+            $this->handler->respondError(__('Security verification failed. Please try again.', 'buygo-hub-for-line'));
             return;
         }
 
         $access_token = $this->getPostField('liff_access_token');
         if (empty($access_token)) {
-            $this->handler->respondError(__('Missing Access Token.', 'line-hub'));
+            $this->handler->respondError(__('Missing Access Token.', 'buygo-hub-for-line'));
             return;
         }
 
@@ -52,7 +52,7 @@ class LiffUserProcessor {
 
         $line_uid = $profile['userId'] ?? '';
         if (empty($line_uid)) {
-            $this->handler->respondError(__('Unable to retrieve LINE user ID.', 'line-hub'));
+            $this->handler->respondError(__('Unable to retrieve LINE user ID.', 'buygo-hub-for-line'));
             return;
         }
 
@@ -100,19 +100,19 @@ class LiffUserProcessor {
      */
     public function handleEmailSubmit(): void {
         if (!$this->verifyNonce('line_hub_liff_email')) {
-            $this->handler->respondError(__('Security verification failed. Please try again.', 'line-hub'));
+            $this->handler->respondError(__('Security verification failed. Please try again.', 'buygo-hub-for-line'));
             return;
         }
 
         $token = $this->getPostField('liff_email_token');
         if (empty($token)) {
-            $this->handler->respondError(__('Invalid request.', 'line-hub'));
+            $this->handler->respondError(__('Invalid request.', 'buygo-hub-for-line'));
             return;
         }
 
         $data = get_transient('line_hub_liff_' . $token);
         if (empty($data)) {
-            $this->handler->respondError(__('Link has expired. Please log in again.', 'line-hub'));
+            $this->handler->respondError(__('Link has expired. Please log in again.', 'buygo-hub-for-line'));
             return;
         }
 
@@ -123,7 +123,9 @@ class LiffUserProcessor {
         $access_token = $data['access_token'];
         $is_friend    = !empty($data['is_friend']);
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified via verifyNonce('line_hub_liff_email') above
         $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified via verifyNonce('line_hub_liff_email') above
         $skip_email = !empty($_POST['skip_email']);
 
         // Email 驗證與帳號合併
@@ -191,11 +193,11 @@ class LiffUserProcessor {
 
     private function validateAndMergeEmail(string $email, string $token, string $line_uid, string $display_name, string $picture_url, string $redirect, string $access_token, bool $is_friend): ?bool {
         if (empty($email)) {
-            $this->handler->renderEmailForm($token, $display_name, $picture_url, $redirect, __('Please enter your email address.', 'line-hub'));
+            $this->handler->renderEmailForm($token, $display_name, $picture_url, $redirect, __('Please enter your email address.', 'buygo-hub-for-line'));
             return true;
         }
         if (!is_email($email)) {
-            $this->handler->renderEmailForm($token, $display_name, $picture_url, $redirect, __('Invalid email format.', 'line-hub'));
+            $this->handler->renderEmailForm($token, $display_name, $picture_url, $redirect, __('Invalid email format.', 'buygo-hub-for-line'));
             return true;
         }
 
@@ -227,6 +229,7 @@ class LiffUserProcessor {
     }
 
     private function getPostField(string $name): string {
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce is verified in all calling methods before getPostField() is invoked
         return isset($_POST[$name]) ? sanitize_text_field(wp_unslash($_POST[$name])) : '';
     }
 

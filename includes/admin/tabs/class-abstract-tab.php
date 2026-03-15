@@ -57,7 +57,7 @@ abstract class AbstractTab {
      * @param array $post_data $_POST 資料
      * @return bool 儲存是否成功
      */
-    public function save(array $post_data): bool {
+    public function save(): bool {
         return true;
     }
 

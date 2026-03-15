@@ -22,6 +22,14 @@ class UserService {
     private static ?array $nsl_columns = null;
 
     /**
+     * 驗證 NSL 欄位名稱符合白名單，防止 SQL injection
+     */
+    private static function validateNslColumn(string $col, string $fallback): string {
+        $allowed = ['user_id', 'ID', 'register_date', 'date', 'login_date'];
+        return in_array($col, $allowed, true) ? $col : $fallback;
+    }
+
+    /**
      * 動態檢測 NSL 表的列名
      */
     private static function detectNslColumns(): ?array {
@@ -83,9 +91,10 @@ class UserService {
         }
 
         $nsl_table = $wpdb->prefix . 'social_users';
-        $nsl_user_id = $wpdb->get_var(
+        $uid_col_safe = self::validateNslColumn($nsl_cols['wp_user_id'], 'user_id');
+        $nsl_user_id = $wpdb->get_var( // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- column name validated against whitelist
             $wpdb->prepare(
-                "SELECT `{$nsl_cols['wp_user_id']}` FROM {$nsl_table} WHERE identifier = %s AND type = 'line' LIMIT 1",
+                "SELECT `{$uid_col_safe}` FROM {$nsl_table} WHERE identifier = %s AND type = 'line' LIMIT 1",
                 $line_uid
             )
         );
@@ -137,11 +146,11 @@ class UserService {
         }
 
         $nsl_table = $wpdb->prefix . 'social_users';
-        $uid_col = $nsl_cols['wp_user_id'];
-        $created_col = $nsl_cols['created'];
-        $updated_col = $nsl_cols['updated'];
+        $uid_col = self::validateNslColumn($nsl_cols['wp_user_id'], 'user_id');
+        $created_col = self::validateNslColumn($nsl_cols['created'], 'register_date');
+        $updated_col = self::validateNslColumn($nsl_cols['updated'], 'login_date');
 
-        $nsl_binding = $wpdb->get_row(
+        $nsl_binding = $wpdb->get_row( // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- column names validated against whitelist
             $wpdb->prepare(
                 "SELECT social_users_id as id, `{$uid_col}` as user_id, identifier as line_uid,
                         NULL as display_name, NULL as picture_url,
@@ -167,13 +176,13 @@ class UserService {
         $existing_user_id = self::getUserByLineUid($line_uid);
         if ($existing_user_id && $existing_user_id !== $user_id) {
             return new \WP_Error('line_uid_already_bound',
-                __('This LINE account is already linked to another WordPress account.', 'line-hub'), ['status' => 409]);
+                __('This LINE account is already linked to another WordPress account.', 'buygo-hub-for-line'), ['status' => 409]);
         }
 
         $existing_binding = self::getBinding($user_id);
         if ($existing_binding && $existing_binding->line_uid !== $line_uid) {
             return new \WP_Error('user_already_bound',
-                __('This WordPress account is already linked to another LINE account. Please unlink first.', 'line-hub'), ['status' => 409]);
+                __('This WordPress account is already linked to another LINE account. Please unlink first.', 'buygo-hub-for-line'), ['status' => 409]);
         }
 
         $data = [
@@ -192,7 +201,7 @@ class UserService {
             $result = $wpdb->update($table_name, $data, ['id' => $existing_binding->id],
                 ['%d', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s'], ['%d']);
             if ($result === false) {
-                return new \WP_Error('update_failed', __('Failed to update binding record.', 'line-hub'), ['status' => 500]);
+                return new \WP_Error('update_failed', __('Failed to update binding record.', 'buygo-hub-for-line'), ['status' => 500]);
             }
         } else {
             $data['register_date'] = current_time('mysql');
@@ -200,7 +209,7 @@ class UserService {
             $result = $wpdb->insert($table_name, $data,
                 ['%d', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%s', '%s']);
             if ($result === false) {
-                return new \WP_Error('insert_failed', __('Failed to create binding record.', 'line-hub'), ['status' => 500]);
+                return new \WP_Error('insert_failed', __('Failed to create binding record.', 'buygo-hub-for-line'), ['status' => 500]);
             }
         }
 

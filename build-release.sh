@@ -6,7 +6,7 @@
 set -e
 
 PLUGIN_NAME="line-hub"
-VERSION="1.0.0"
+VERSION="1.0.3"
 BUILD_DIR="/tmp/${PLUGIN_NAME}-build"
 ZIP_NAME="${PLUGIN_NAME}-${VERSION}.zip"
 DESKTOP="$HOME/Desktop"
@@ -27,14 +27,13 @@ echo "📦 複製檔案（排除開發文件）..."
 rsync -av \
     --exclude='.git' \
     --exclude='.gitignore' \
+    --exclude='.distignore' \
     --exclude='.planning' \
     --exclude='tests' \
     --exclude='phpunit*.xml*' \
     --exclude='.phpunit.result.cache' \
     --exclude='composer.lock' \
-    --exclude='vendor/yahnis-elsts/plugin-update-checker/.git' \
-    --exclude='vendor/yahnis-elsts/plugin-update-checker/tests' \
-    --exclude='vendor/yahnis-elsts/plugin-update-checker/.github' \
+    --exclude='vendor' \
     --exclude='.vscode' \
     --exclude='.claude' \
     --exclude='.claude.json' \

@@ -52,7 +52,7 @@ class WebhookReceiver {
         // 驗證簽名
         $signature = $this->extractSignature($request);
         if (!$this->verifySignature($raw_body, $signature)) {
-            return new \WP_Error('invalid_signature', __('HMAC signature verification failed.', 'line-hub'), ['status' => 401]);
+            return new \WP_Error('invalid_signature', __('HMAC signature verification failed.', 'buygo-hub-for-line'), ['status' => 401]);
         }
 
         // 轉發原始 webhook（在事件處理之前，讓 OpenClaw 等外部系統收到完整的 LINE 格式）
@@ -85,7 +85,7 @@ class WebhookReceiver {
     private function parseAndValidateEvents(string $raw_body): array|\WP_Error|null {
         $body = json_decode($raw_body, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            return new \WP_Error('invalid_json', __('Invalid JSON format.', 'line-hub'), ['status' => 400]);
+            return new \WP_Error('invalid_json', __('Invalid JSON format.', 'buygo-hub-for-line'), ['status' => 400]);
         }
 
         $events = $body['events'] ?? [];

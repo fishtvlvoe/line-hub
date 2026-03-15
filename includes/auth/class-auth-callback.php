@@ -105,7 +105,7 @@ class AuthCallback {
         if (!$client->isConfigured()) {
             $this->handleError(
                 'not_configured',
-                __('LINE Login is not configured. Please contact the site administrator.', 'line-hub')
+                __('LINE Login is not configured. Please contact the site administrator.', 'buygo-hub-for-line')
             );
             return;
         }
@@ -158,7 +158,7 @@ class AuthCallback {
         $tokens = $client->authenticate($code);
 
         if (empty($tokens['access_token'])) {
-            throw new \Exception(esc_html__('Token exchange failed. Please try again.', 'line-hub'));
+            throw new \Exception(esc_html__('Token exchange failed. Please try again.', 'buygo-hub-for-line'));
         }
 
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
@@ -171,7 +171,7 @@ class AuthCallback {
 
         $profile = $client->getProfile($tokens['access_token']);
         if (empty($profile['userId'])) {
-            throw new \Exception(esc_html__('Unable to retrieve LINE user profile. Please try again.', 'line-hub'));
+            throw new \Exception(esc_html__('Unable to retrieve LINE user profile. Please try again.', 'buygo-hub-for-line'));
         }
 
         return [
@@ -208,7 +208,7 @@ class AuthCallback {
         ));
 
         // 取得用戶友善訊息
-        $user_message = self::ERROR_MESSAGES[$error_code] ?? self::ERROR_MESSAGES['server_error'] ?? __('An error occurred during login. Please try again.', 'line-hub');
+        $user_message = self::ERROR_MESSAGES[$error_code] ?? self::ERROR_MESSAGES['server_error'] ?? __('An error occurred during login. Please try again.', 'buygo-hub-for-line');
 
         // 產生重新登入連結
         $retry_url = home_url('/line-hub/auth/');
@@ -218,7 +218,7 @@ class AuthCallback {
 
         wp_die(
             wp_kses_post($html),
-            __('Login Error', 'line-hub'),
+            __('Login Error', 'buygo-hub-for-line'),
             [
                 'response'  => 400,
                 'back_link' => false,
@@ -250,12 +250,12 @@ class AuthCallback {
                 <a href="%s" style="display: inline-block; padding: 12px 24px; background: #00B900; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; margin-right: 10px;">%s</a>
                 <a href="%s" style="display: inline-block; padding: 12px 24px; background: #f3f4f6; color: #374151; text-decoration: none; border-radius: 6px; font-weight: 500;">%s</a>
             </div>',
-            esc_html__('Login Failed', 'line-hub'),
+            esc_html__('Login Failed', 'buygo-hub-for-line'),
             esc_html($message),
             esc_url($retry_url),
-            esc_html__('Try Again', 'line-hub'),
+            esc_html__('Try Again', 'buygo-hub-for-line'),
             esc_url($home_url),
-            esc_html__('Back to Home', 'line-hub')
+            esc_html__('Back to Home', 'buygo-hub-for-line')
         );
     }
 

@@ -28,22 +28,22 @@ class MessagingService {
      */
     public function pushMessage(int $userId, array $messages) {
         if (empty($this->channelAccessToken)) {
-            return new \WP_Error('no_channel_access_token', __('LINE Channel Access Token is not configured.', 'line-hub'));
+            return new \WP_Error('no_channel_access_token', __('LINE Channel Access Token is not configured.', 'buygo-hub-for-line'));
         }
 
         $lineUid = UserService::getLineUid($userId);
         if (empty($lineUid)) {
             /* translators: %d: WordPress user ID */
-            return new \WP_Error('no_line_binding', sprintf(__('User %d has not linked a LINE account.', 'line-hub'), $userId));
+            return new \WP_Error('no_line_binding', sprintf(__('User %d has not linked a LINE account.', 'buygo-hub-for-line'), $userId));
         }
 
         if (empty($messages) || !is_array($messages)) {
-            return new \WP_Error('invalid_messages', __('Invalid message format.', 'line-hub'));
+            return new \WP_Error('invalid_messages', __('Invalid message format.', 'buygo-hub-for-line'));
         }
 
         foreach ($messages as $message) {
             if (!isset($message['type'])) {
-                return new \WP_Error('invalid_message_type', __('Message is missing the type field.', 'line-hub'));
+                return new \WP_Error('invalid_message_type', __('Message is missing the type field.', 'buygo-hub-for-line'));
             }
         }
 
@@ -55,7 +55,7 @@ class MessagingService {
      */
     public function pushText(int $userId, string $text) {
         if (empty(trim($text))) {
-            return new \WP_Error('empty_text', __('Text message cannot be empty.', 'line-hub'));
+            return new \WP_Error('empty_text', __('Text message cannot be empty.', 'buygo-hub-for-line'));
         }
         return $this->pushMessage($userId, [['type' => 'text', 'text' => $text]]);
     }
@@ -65,10 +65,10 @@ class MessagingService {
      */
     public function pushFlex(int $userId, array $flexMessage) {
         if (empty($flexMessage)) {
-            return new \WP_Error('empty_flex', __('Flex Message cannot be empty.', 'line-hub'));
+            return new \WP_Error('empty_flex', __('Flex Message cannot be empty.', 'buygo-hub-for-line'));
         }
         if (!isset($flexMessage['type']) || $flexMessage['type'] !== 'flex') {
-            return new \WP_Error('invalid_flex_format', __('Invalid Flex Message format.', 'line-hub'));
+            return new \WP_Error('invalid_flex_format', __('Invalid Flex Message format.', 'buygo-hub-for-line'));
         }
         return $this->pushMessage($userId, [$flexMessage]);
     }
@@ -78,13 +78,13 @@ class MessagingService {
      */
     public function replyMessage(string $replyToken, array $messages) {
         if (empty($this->channelAccessToken)) {
-            return new \WP_Error('no_channel_access_token', __('LINE Channel Access Token is not configured.', 'line-hub'));
+            return new \WP_Error('no_channel_access_token', __('LINE Channel Access Token is not configured.', 'buygo-hub-for-line'));
         }
         if (empty($replyToken)) {
-            return new \WP_Error('invalid_reply_token', __('Reply token cannot be empty.', 'line-hub'));
+            return new \WP_Error('invalid_reply_token', __('Reply token cannot be empty.', 'buygo-hub-for-line'));
         }
         if (empty($messages) || !is_array($messages)) {
-            return new \WP_Error('invalid_messages', __('Invalid message format.', 'line-hub'));
+            return new \WP_Error('invalid_messages', __('Invalid message format.', 'buygo-hub-for-line'));
         }
         return $this->sendRequest('reply', ['replyToken' => $replyToken, 'messages' => $messages]);
     }
@@ -94,13 +94,13 @@ class MessagingService {
      */
     public function multicast(array $userIds, array $messages) {
         if (empty($this->channelAccessToken)) {
-            return new \WP_Error('no_channel_access_token', __('LINE Channel Access Token is not configured.', 'line-hub'));
+            return new \WP_Error('no_channel_access_token', __('LINE Channel Access Token is not configured.', 'buygo-hub-for-line'));
         }
         if (empty($userIds)) {
-            return new \WP_Error('no_recipients', __('Recipient list cannot be empty.', 'line-hub'));
+            return new \WP_Error('no_recipients', __('Recipient list cannot be empty.', 'buygo-hub-for-line'));
         }
         if (count($userIds) > 500) {
-            return new \WP_Error('too_many_recipients', __('Multicast recipients exceed the 500 user limit.', 'line-hub'));
+            return new \WP_Error('too_many_recipients', __('Multicast recipients exceed the 500 user limit.', 'buygo-hub-for-line'));
         }
 
         $lineUids = [];
@@ -112,10 +112,10 @@ class MessagingService {
         }
 
         if (empty($lineUids)) {
-            return new \WP_Error('no_line_users', __('None of the recipients have linked a LINE account.', 'line-hub'));
+            return new \WP_Error('no_line_users', __('None of the recipients have linked a LINE account.', 'buygo-hub-for-line'));
         }
         if (empty($messages) || !is_array($messages)) {
-            return new \WP_Error('invalid_messages', __('Invalid message format.', 'line-hub'));
+            return new \WP_Error('invalid_messages', __('Invalid message format.', 'buygo-hub-for-line'));
         }
 
         return $this->sendRequest('multicast', ['to' => $lineUids, 'messages' => $messages]);
@@ -190,7 +190,7 @@ class MessagingService {
         if ($statusCode !== 200) {
             return new \WP_Error('line_api_error',
                 /* translators: %d: HTTP status code */
-                $responseData['message'] ?? sprintf(__('LINE API error (HTTP %d)', 'line-hub'), $statusCode),
+                $responseData['message'] ?? sprintf(__('LINE API error (HTTP %d)', 'buygo-hub-for-line'), $statusCode),
                 ['status_code' => $statusCode, 'response' => $responseData]
             );
         }

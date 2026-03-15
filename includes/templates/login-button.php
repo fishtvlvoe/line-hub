@@ -17,10 +17,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$button_text = $button_text ?? __('Log in with LINE', 'line-hub');
+$button_text = $button_text ?? __('Log in with LINE', 'buygo-hub-for-line');
 $style = $style ?? 'button';
 $class = $class ?? '';
-$banner_text = $banner_text ?? __('Log in to track orders and receive shipping notifications.', 'line-hub');
+$banner_text = $banner_text ?? __('Log in to track orders and receive shipping notifications.', 'buygo-hub-for-line');
 $is_line_browser = $is_line_browser ?? false;
 
 // LINE logo SVG

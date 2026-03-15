@@ -70,12 +70,12 @@ class SettingsPage {
     }
 
     public function register_menu(): void {
-        add_menu_page(__('LINE Hub Settings', 'line-hub'), 'LINE Hub', 'manage_options', 'line-hub-settings', [$this, 'render_page'], 'dashicons-format-chat', 30);
+        add_menu_page(__('LINE Hub Settings', 'buygo-hub-for-line'), 'LINE Hub', 'manage_options', 'line-hub-settings', [$this, 'render_page'], 'dashicons-format-chat', 30);
     }
 
     public function render_page(): void {
         if (!current_user_can('manage_options')) {
-            wp_die(__('You do not have permission to access this page.', 'line-hub'));
+            wp_die(__('You do not have permission to access this page.', 'buygo-hub-for-line'));
         }
         // 舊 slug redirect（向後相容書籤和快取的 URL）
         $requested_tab = sanitize_key($_GET['tab'] ?? '');
@@ -114,7 +114,7 @@ class SettingsPage {
     public function handle_save(): void {
         $this->verify_admin('line_hub_nonce', 'line_hub_save_settings');
         $tab_slug = sanitize_key($_POST['tab'] ?? '');
-        $success = isset($this->tabs[$tab_slug]) ? $this->tabs[$tab_slug]->save($_POST) : true;
+        $success = isset($this->tabs[$tab_slug]) ? $this->tabs[$tab_slug]->save() : true;
         wp_redirect(add_query_arg(
             ['page' => 'line-hub-settings', 'tab' => $tab_slug, 'updated' => $success ? 'true' : 'false'],
             admin_url('admin.php')
@@ -220,7 +220,7 @@ class SettingsPage {
     /** 處理 OpenClaw 連線測試（AJAX） */
     public function handle_test_openclaw_ajax(): void {
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(['message' => __('Permission denied', 'line-hub')]);
+            wp_send_json_error(['message' => __('Permission denied', 'buygo-hub-for-line')]);
         }
 
         check_ajax_referer('line_hub_openclaw_test', 'nonce');
@@ -229,11 +229,11 @@ class SettingsPage {
         $token = isset($_POST['token']) ? sanitize_text_field($_POST['token']) : '';
 
         if (empty($url) || empty($token)) {
-            wp_send_json_error(['message' => __('URL and Token are required', 'line-hub')]);
+            wp_send_json_error(['message' => __('URL and Token are required', 'buygo-hub-for-line')]);
         }
 
         $test_payload = [
-            'message'   => __('Test message from LINE Hub', 'line-hub'),
+            'message'   => __('Test message from LINE Hub', 'buygo-hub-for-line'),
             'sessionKey' => 'line:test',
             'agentId'   => '',
         ];
@@ -251,19 +251,19 @@ class SettingsPage {
         ]);
 
         if (is_wp_error($response)) {
-            wp_send_json_error(['message' => __('Connection failed: ', 'line-hub') . $response->get_error_message()]);
+            wp_send_json_error(['message' => __('Connection failed: ', 'buygo-hub-for-line') . $response->get_error_message()]);
         }
 
         $status_code = wp_remote_retrieve_response_code($response);
 
         if ($status_code >= 200 && $status_code < 300) {
             wp_send_json_success([
-                'message' => sprintf(__('Connection successful! OpenClaw received the test payload (HTTP %d)', 'line-hub'), $status_code),
+                'message' => sprintf(__('Connection successful! OpenClaw received the test payload (HTTP %d)', 'buygo-hub-for-line'), $status_code),
                 'status_code' => $status_code,
             ]);
         } else {
             wp_send_json_error([
-                'message' => sprintf(__('Connection failed: HTTP %d', 'line-hub'), $status_code),
+                'message' => sprintf(__('Connection failed: HTTP %d', 'buygo-hub-for-line'), $status_code),
                 'status_code' => $status_code,
             ]);
         }
@@ -271,10 +271,10 @@ class SettingsPage {
 
     private function verify_admin(string $nonce_field, string $nonce_action): void {
         if (!current_user_can('manage_options')) {
-            wp_die(__('You do not have permission to perform this action.', 'line-hub'));
+            wp_die(__('You do not have permission to perform this action.', 'buygo-hub-for-line'));
         }
         if (!isset($_POST[$nonce_field]) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST[$nonce_field])), $nonce_action)) {
-            wp_die(__('Security verification failed.', 'line-hub'));
+            wp_die(__('Security verification failed.', 'buygo-hub-for-line'));
         }
     }
 
@@ -284,35 +284,35 @@ class SettingsPage {
         if ($updated !== '') {
             $class = $updated === 'true' ? 'notice-success' : 'notice-error';
             $msg = $updated === 'true'
-                ? __('Settings saved.', 'line-hub')
-                : __('An error occurred while saving settings.', 'line-hub');
+                ? __('Settings saved.', 'buygo-hub-for-line')
+                : __('An error occurred while saving settings.', 'buygo-hub-for-line');
             printf('<div class="notice %s is-dismissible"><p>%s</p></div>', esc_attr($class), esc_html($msg));
         }
         $test = sanitize_key($_GET['test_result'] ?? '');
         if ($test !== '') {
             $class = $test === 'success' ? 'notice-success' : 'notice-error';
             $msg = $test === 'success'
-                ? __('Messaging API verification successful.', 'line-hub')
-                : __('Messaging API verification failed. Please check if the Access Token is correct.', 'line-hub');
+                ? __('Messaging API verification successful.', 'buygo-hub-for-line')
+                : __('Messaging API verification failed. Please check if the Access Token is correct.', 'buygo-hub-for-line');
             printf('<div class="notice %s is-dismissible"><p>%s</p></div>', esc_attr($class), esc_html($msg));
         }
         $login_test = sanitize_key($_GET['login_test_result'] ?? '');
         if ($login_test !== '') {
             $messages = [
-                'success'       => __('LINE Login verification successful — Channel ID and Secret are correct.', 'line-hub'),
-                'error'         => __('LINE Login verification failed — please check your Channel ID and Secret.', 'line-hub'),
-                'empty'         => __('Please enter your LINE Login Channel ID and Channel Secret first.', 'line-hub'),
-                'network_error' => __('Unable to connect to LINE API. Please try again later.', 'line-hub'),
+                'success'       => __('LINE Login verification successful — Channel ID and Secret are correct.', 'buygo-hub-for-line'),
+                'error'         => __('LINE Login verification failed — please check your Channel ID and Secret.', 'buygo-hub-for-line'),
+                'empty'         => __('Please enter your LINE Login Channel ID and Channel Secret first.', 'buygo-hub-for-line'),
+                'network_error' => __('Unable to connect to LINE API. Please try again later.', 'buygo-hub-for-line'),
             ];
             $class = $login_test === 'success' ? 'notice-success' : 'notice-error';
-            $msg = $messages[$login_test] ?? __('Unknown error.', 'line-hub');
+            $msg = $messages[$login_test] ?? __('Unknown error.', 'buygo-hub-for-line');
             printf('<div class="notice %s is-dismissible"><p>%s</p></div>', esc_attr($class), esc_html($msg));
         }
         if (isset($_GET['api_key_generated'])) {
-            printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html__('API Key has been generated. Please copy and save it now.', 'line-hub'));
+            printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html__('API Key has been generated. Please copy and save it now.', 'buygo-hub-for-line'));
         }
         if (isset($_GET['api_key_revoked'])) {
-            printf('<div class="notice notice-warning is-dismissible"><p>%s</p></div>', esc_html__('API Key has been revoked.', 'line-hub'));
+            printf('<div class="notice notice-warning is-dismissible"><p>%s</p></div>', esc_html__('API Key has been revoked.', 'buygo-hub-for-line'));
         }
     }
 }

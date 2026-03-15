@@ -23,7 +23,7 @@ class LineSettingsTab extends AbstractTab {
     }
 
     public function get_label(): string {
-        return __('LINE Settings', 'line-hub');
+        return __('LINE Settings', 'buygo-hub-for-line');
     }
 
     public function render(): void {
@@ -35,43 +35,43 @@ class LineSettingsTab extends AbstractTab {
     /**
      * 儲存 LINE 設定（按 section 隔離）
      */
-    public function save(array $post_data): bool {
-        $section = sanitize_key($post_data['section'] ?? '');
+    public function save(): bool {
+        $section = sanitize_key($_POST['section'] ?? '');
 
         switch ($section) {
             case 'messaging':
-                return $this->save_messaging_section($post_data);
+                return $this->save_messaging_section();
             case 'login':
-                return $this->save_login_section($post_data);
+                return $this->save_login_section();
             case 'nsl':
-                return $this->save_nsl_section($post_data);
+                return $this->save_nsl_section();
             default:
-                $this->save_messaging_section($post_data);
-                $this->save_login_section($post_data);
-                $this->save_nsl_section($post_data);
+                $this->save_messaging_section();
+                $this->save_login_section();
+                $this->save_nsl_section();
                 return true;
         }
     }
 
-    private function save_messaging_section(array $post_data): bool {
+    private function save_messaging_section(): bool {
         $success = true;
         foreach (['channel_id', 'channel_secret'] as $field) {
-            $value = isset($post_data[$field]) ? sanitize_text_field($post_data[$field]) : '';
+            $value = isset($_POST[$field]) ? sanitize_text_field($_POST[$field]) : '';
             if (!SettingsService::set('general', $field, $value)) {
                 $success = false;
             }
         }
-        $access_token = isset($post_data['access_token']) ? sanitize_textarea_field($post_data['access_token']) : '';
+        $access_token = isset($_POST['access_token']) ? sanitize_textarea_field($_POST['access_token']) : '';
         if (!SettingsService::set('general', 'access_token', $access_token)) {
             $success = false;
         }
         return $success;
     }
 
-    private function save_login_section(array $post_data): bool {
+    private function save_login_section(): bool {
         $success = true;
         foreach (['login_channel_id', 'login_channel_secret', 'liff_id'] as $field) {
-            $value = isset($post_data[$field]) ? sanitize_text_field($post_data[$field]) : '';
+            $value = isset($_POST[$field]) ? sanitize_text_field($_POST[$field]) : '';
             if (!SettingsService::set('general', $field, $value)) {
                 $success = false;
             }
@@ -79,9 +79,9 @@ class LineSettingsTab extends AbstractTab {
         return $success;
     }
 
-    private function save_nsl_section(array $post_data): bool {
+    private function save_nsl_section(): bool {
         foreach (['nsl_compat_mode', 'nsl_auto_migrate'] as $field) {
-            $value = isset($post_data[$field]) && $post_data[$field] === '1';
+            $value = isset($_POST[$field]) && $_POST[$field] === '1';
             SettingsService::set('general', $field, $value);
         }
         return true;

@@ -31,7 +31,7 @@ class LoginService {
 
         if (empty($line_uid)) {
             error_log('[LINE Hub] LoginService error: missing LINE userId'); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-            $this->redirectWithError(__('Unable to retrieve LINE user profile.', 'line-hub'));
+            $this->redirectWithError(__('Unable to retrieve LINE user profile.', 'buygo-hub-for-line'));
             return;
         }
 
@@ -73,25 +73,25 @@ class LoginService {
 
         if (!isset($_POST['_wpnonce']) ||
             !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'line_hub_email_submit')) {
-            $this->redirectWithError(__('Security verification failed. Please try again.', 'line-hub'));
+            $this->redirectWithError(__('Security verification failed. Please try again.', 'buygo-hub-for-line'));
             return;
         }
 
         $temp_key = isset($_POST['temp_key']) ? sanitize_text_field(wp_unslash($_POST['temp_key'])) : '';
         if (empty($temp_key)) {
-            $this->redirectWithError(__('Login session expired. Please log in again.', 'line-hub'));
+            $this->redirectWithError(__('Login session expired. Please log in again.', 'buygo-hub-for-line'));
             return;
         }
 
         $temp_data = get_transient(self::EMAIL_TEMP_PREFIX . $temp_key);
         if (!$temp_data || !is_array($temp_data)) {
-            $this->redirectWithError(__('Login session expired. Please log in again.', 'line-hub'));
+            $this->redirectWithError(__('Login session expired. Please log in again.', 'buygo-hub-for-line'));
             return;
         }
 
         $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
         if (empty($email) || !is_email($email)) {
-            $this->redirectWithError(__('Please enter a valid email address.', 'line-hub'));
+            $this->redirectWithError(__('Please enter a valid email address.', 'buygo-hub-for-line'));
             return;
         }
 
@@ -211,7 +211,7 @@ class LoginService {
     private function loginUser(int $user_id, array $user_data, array $tokens): void {
         $user = get_user_by('ID', $user_id);
         if (!$user) {
-            $this->redirectWithError(__('User does not exist.', 'line-hub'));
+            $this->redirectWithError(__('User does not exist.', 'buygo-hub-for-line'));
             return;
         }
 

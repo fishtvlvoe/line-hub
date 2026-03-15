@@ -18,11 +18,11 @@ if (!defined('ABSPATH')) {
 
 <!-- 區塊 A：LINE Messaging API 設定 -->
 <div class="card lh-card-narrow">
-    <h2><?php esc_html_e('LINE Messaging API Settings', 'line-hub'); ?></h2>
+    <h2><?php esc_html_e('LINE Messaging API Settings', 'buygo-hub-for-line'); ?></h2>
     <p class="description"><?php
         printf(
             /* translators: %s: Messaging API */
-            esc_html__('Used for sending messages and receiving Webhooks. Corresponds to the %s Channel in LINE Developers Console.', 'line-hub'),
+            esc_html__('Used for sending messages and receiving Webhooks. Corresponds to the %s Channel in LINE Developers Console.', 'buygo-hub-for-line'),
             '<strong>Messaging API</strong>'
         );
     ?></p>
@@ -41,8 +41,8 @@ if (!defined('ABSPATH')) {
                 <td>
                     <input type="text" id="channel_id" name="channel_id"
                            value="<?php echo esc_attr($settings['channel_id'] ?? ''); ?>"
-                           class="regular-text" placeholder="<?php esc_attr_e('e.g. 2008621590', 'line-hub'); ?>">
-                    <p class="description"><?php esc_html_e('Channel ID of the Messaging API Channel', 'line-hub'); ?></p>
+                           class="regular-text" placeholder="<?php esc_attr_e('e.g. 2008621590', 'buygo-hub-for-line'); ?>">
+                    <p class="description"><?php esc_html_e('Channel ID of the Messaging API Channel', 'buygo-hub-for-line'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -52,8 +52,8 @@ if (!defined('ABSPATH')) {
                 <td>
                     <input type="text" id="channel_secret" name="channel_secret"
                            value="<?php echo esc_attr($settings['channel_secret'] ?? ''); ?>"
-                           class="regular-text" placeholder="<?php esc_attr_e('32-character string', 'line-hub'); ?>">
-                    <p class="description"><?php esc_html_e('Used for Webhook signature verification (automatically encrypted)', 'line-hub'); ?></p>
+                           class="regular-text" placeholder="<?php esc_attr_e('32-character string', 'buygo-hub-for-line'); ?>">
+                    <p class="description"><?php esc_html_e('Used for Webhook signature verification (automatically encrypted)', 'buygo-hub-for-line'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -63,8 +63,8 @@ if (!defined('ABSPATH')) {
                 <td>
                     <textarea id="access_token" name="access_token" rows="3"
                               class="large-text"
-                              placeholder="<?php esc_attr_e('Long-lived or short-lived Access Token', 'line-hub'); ?>"><?php echo esc_textarea($settings['access_token'] ?? ''); ?></textarea>
-                    <p class="description"><?php esc_html_e('Used for sending messages (automatically encrypted)', 'line-hub'); ?></p>
+                              placeholder="<?php esc_attr_e('Long-lived or short-lived Access Token', 'buygo-hub-for-line'); ?>"><?php echo esc_textarea($settings['access_token'] ?? ''); ?></textarea>
+                    <p class="description"><?php esc_html_e('Used for sending messages (automatically encrypted)', 'buygo-hub-for-line'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -74,14 +74,14 @@ if (!defined('ABSPATH')) {
                         <?php echo esc_html(rest_url('line-hub/v1/webhook')); ?>
                     </code>
                     <button type="button" class="button button-small line-hub-copy-btn"
-                            data-copy="<?php echo esc_attr(rest_url('line-hub/v1/webhook')); ?>"><?php esc_html_e('Copy', 'line-hub'); ?></button>
-                    <p class="description"><?php esc_html_e('Enter this in the Webhook URL field of the Messaging API Channel', 'line-hub'); ?></p>
+                            data-copy="<?php echo esc_attr(rest_url('line-hub/v1/webhook')); ?>"><?php esc_html_e('Copy', 'buygo-hub-for-line'); ?></button>
+                    <p class="description"><?php esc_html_e('Enter this in the Webhook URL field of the Messaging API Channel', 'buygo-hub-for-line'); ?></p>
                 </td>
             </tr>
         </table>
 
         <p class="submit">
-            <button type="submit" class="button button-primary"><?php esc_html_e('Save Settings', 'line-hub'); ?></button>
+            <button type="submit" class="button button-primary"><?php esc_html_e('Save Settings', 'buygo-hub-for-line'); ?></button>
         </p>
     </form>
 
@@ -91,18 +91,18 @@ if (!defined('ABSPATH')) {
         <input type="hidden" name="action" value="line_hub_test_connection">
         <button type="submit" class="button button-secondary"
                 <?php echo !$has_access_token ? 'disabled' : ''; ?>>
-            <?php esc_html_e('Test Connection', 'line-hub'); ?>
+            <?php esc_html_e('Test Connection', 'buygo-hub-for-line'); ?>
         </button>
     </form>
 </div>
 
 <!-- 區塊 B：LINE Login 設定 -->
 <div class="card lh-card-narrow-spaced">
-    <h2><?php esc_html_e('LINE Login Settings', 'line-hub'); ?></h2>
+    <h2><?php esc_html_e('LINE Login Settings', 'buygo-hub-for-line'); ?></h2>
     <p class="description"><?php
         printf(
             /* translators: %s: LINE Login */
-            esc_html__('Used for OAuth login and LIFF. Corresponds to the %s Channel in LINE Developers Console (different from the Messaging API Channel).', 'line-hub'),
+            esc_html__('Used for OAuth login and LIFF. Corresponds to the %s Channel in LINE Developers Console (different from the Messaging API Channel).', 'buygo-hub-for-line'),
             '<strong>LINE Login</strong>'
         );
     ?></p>
@@ -121,8 +121,8 @@ if (!defined('ABSPATH')) {
                 <td>
                     <input type="text" id="login_channel_id" name="login_channel_id"
                            value="<?php echo esc_attr($settings['login_channel_id'] ?? ''); ?>"
-                           class="regular-text" placeholder="<?php esc_attr_e('e.g. 2008622068', 'line-hub'); ?>">
-                    <p class="description"><?php esc_html_e('Channel ID of the LINE Login Channel', 'line-hub'); ?></p>
+                           class="regular-text" placeholder="<?php esc_attr_e('e.g. 2008622068', 'buygo-hub-for-line'); ?>">
+                    <p class="description"><?php esc_html_e('Channel ID of the LINE Login Channel', 'buygo-hub-for-line'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -132,8 +132,8 @@ if (!defined('ABSPATH')) {
                 <td>
                     <input type="text" id="login_channel_secret" name="login_channel_secret"
                            value="<?php echo esc_attr($settings['login_channel_secret'] ?? ''); ?>"
-                           class="regular-text" placeholder="<?php esc_attr_e('32-character string', 'line-hub'); ?>">
-                    <p class="description"><?php esc_html_e('Channel Secret of the LINE Login Channel (automatically encrypted)', 'line-hub'); ?></p>
+                           class="regular-text" placeholder="<?php esc_attr_e('32-character string', 'buygo-hub-for-line'); ?>">
+                    <p class="description"><?php esc_html_e('Channel Secret of the LINE Login Channel (automatically encrypted)', 'buygo-hub-for-line'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -143,8 +143,8 @@ if (!defined('ABSPATH')) {
                 <td>
                     <input type="text" id="liff_id" name="liff_id"
                            value="<?php echo esc_attr($settings['liff_id'] ?? ''); ?>"
-                           class="regular-text" placeholder="<?php esc_attr_e('e.g. 2008622068-iU4Z1lk4', 'line-hub'); ?>">
-                    <p class="description"><?php esc_html_e('LIFF App ID (created under the LINE Login Channel)', 'line-hub'); ?></p>
+                           class="regular-text" placeholder="<?php esc_attr_e('e.g. 2008622068-iU4Z1lk4', 'buygo-hub-for-line'); ?>">
+                    <p class="description"><?php esc_html_e('LIFF App ID (created under the LINE Login Channel)', 'buygo-hub-for-line'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -154,8 +154,8 @@ if (!defined('ABSPATH')) {
                         <?php echo esc_html($site_url . '/line-hub/auth/callback'); ?>
                     </code>
                     <button type="button" class="button button-small line-hub-copy-btn"
-                            data-copy="<?php echo esc_attr($site_url . '/line-hub/auth/callback'); ?>"><?php esc_html_e('Copy', 'line-hub'); ?></button>
-                    <p class="description"><?php esc_html_e('Register this URL in the Callback URL settings of the LINE Login Channel', 'line-hub'); ?></p>
+                            data-copy="<?php echo esc_attr($site_url . '/line-hub/auth/callback'); ?>"><?php esc_html_e('Copy', 'buygo-hub-for-line'); ?></button>
+                    <p class="description"><?php esc_html_e('Register this URL in the Callback URL settings of the LINE Login Channel', 'buygo-hub-for-line'); ?></p>
                 </td>
             </tr>
             <tr>
@@ -165,14 +165,14 @@ if (!defined('ABSPATH')) {
                         <?php echo esc_html($site_url . '/line-hub/liff/'); ?>
                     </code>
                     <button type="button" class="button button-small line-hub-copy-btn"
-                            data-copy="<?php echo esc_attr($site_url . '/line-hub/liff/'); ?>"><?php esc_html_e('Copy', 'line-hub'); ?></button>
-                    <p class="description"><?php esc_html_e('Enter this as the Endpoint URL of the LIFF App', 'line-hub'); ?></p>
+                            data-copy="<?php echo esc_attr($site_url . '/line-hub/liff/'); ?>"><?php esc_html_e('Copy', 'buygo-hub-for-line'); ?></button>
+                    <p class="description"><?php esc_html_e('Enter this as the Endpoint URL of the LIFF App', 'buygo-hub-for-line'); ?></p>
                 </td>
             </tr>
         </table>
 
         <p class="submit">
-            <button type="submit" class="button button-primary"><?php esc_html_e('Save Settings', 'line-hub'); ?></button>
+            <button type="submit" class="button button-primary"><?php esc_html_e('Save Settings', 'buygo-hub-for-line'); ?></button>
         </p>
     </form>
 
@@ -182,15 +182,15 @@ if (!defined('ABSPATH')) {
         <input type="hidden" name="action" value="line_hub_test_login">
         <button type="submit" class="button button-secondary"
                 <?php echo !$has_login_credentials ? 'disabled' : ''; ?>>
-            <?php esc_html_e('Test Connection', 'line-hub'); ?>
+            <?php esc_html_e('Test Connection', 'buygo-hub-for-line'); ?>
         </button>
     </form>
 </div>
 
 <!-- 區塊 C：NSL 整合 -->
 <div class="card lh-card-narrow-spaced">
-    <h2><?php esc_html_e('NSL (Nextend Social Login) Integration', 'line-hub'); ?></h2>
-    <p class="description"><?php esc_html_e('If you previously used NSL for LINE login, enable compatibility mode for a smooth transition to LINE Hub.', 'line-hub'); ?></p>
+    <h2><?php esc_html_e('NSL (Nextend Social Login) Integration', 'buygo-hub-for-line'); ?></h2>
+    <p class="description"><?php esc_html_e('If you previously used NSL for LINE login, enable compatibility mode for a smooth transition to LINE Hub.', 'buygo-hub-for-line'); ?></p>
 
     <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <?php wp_nonce_field('line_hub_save_settings', 'line_hub_nonce'); ?>
@@ -200,29 +200,29 @@ if (!defined('ABSPATH')) {
 
         <table class="form-table">
             <tr>
-                <th scope="row"><?php esc_html_e('NSL Compatibility Mode', 'line-hub'); ?></th>
+                <th scope="row"><?php esc_html_e('NSL Compatibility Mode', 'buygo-hub-for-line'); ?></th>
                 <td>
                     <label>
                         <input type="checkbox" name="nsl_compat_mode" value="1"
                                <?php checked($settings['nsl_compat_mode'] ?? false); ?>>
-                        <?php esc_html_e('Enable NSL compatibility mode (also query users from wp_social_users)', 'line-hub'); ?>
+                        <?php esc_html_e('Enable NSL compatibility mode (also query users from wp_social_users)', 'buygo-hub-for-line'); ?>
                     </label>
                 </td>
             </tr>
             <tr>
-                <th scope="row"><?php esc_html_e('Auto Migration', 'line-hub'); ?></th>
+                <th scope="row"><?php esc_html_e('Auto Migration', 'buygo-hub-for-line'); ?></th>
                 <td>
                     <label>
                         <input type="checkbox" name="nsl_auto_migrate" value="1"
                                <?php checked($settings['nsl_auto_migrate'] ?? false); ?>>
-                        <?php esc_html_e('Automatically migrate NSL users to LINE Hub (auto-copy on new user login)', 'line-hub'); ?>
+                        <?php esc_html_e('Automatically migrate NSL users to LINE Hub (auto-copy on new user login)', 'buygo-hub-for-line'); ?>
                     </label>
                 </td>
             </tr>
         </table>
 
         <p class="submit">
-            <button type="submit" class="button button-primary"><?php esc_html_e('Save Settings', 'line-hub'); ?></button>
+            <button type="submit" class="button button-primary"><?php esc_html_e('Save Settings', 'buygo-hub-for-line'); ?></button>
         </p>
     </form>
 </div>
