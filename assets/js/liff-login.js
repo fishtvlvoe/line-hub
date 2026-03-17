@@ -1,9 +1,9 @@
-/* global liff, liffConfig */
+/* global liff, lineHubLiffConfig */
 (function() {
     'use strict';
 
-    var LIFF_ID = liffConfig.liffId;
-    var LIFF_REDIRECT = liffConfig.redirect;
+    var LIFF_ID = lineHubLiffConfig.liffId;
+    var LIFF_REDIRECT = lineHubLiffConfig.redirect;
     var DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
 
     // Debug 模式時顯示面板

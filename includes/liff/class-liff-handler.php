@@ -42,6 +42,7 @@ class LiffHandler {
 
         // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Routing only; nonce verified in LiffUserProcessor::handleEmailSubmit() / handleVerify()
             if (!empty($_POST['liff_email_token'])) {
                 $this->processor->handleEmailSubmit();
                 return;
@@ -67,6 +68,7 @@ class LiffHandler {
             );
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Public LIFF page, redirect is validated by resolveRedirectUrl() via wp_validate_redirect()
         $redirect = isset($_GET['redirect']) ? sanitize_text_field(wp_unslash($_GET['redirect'])) : '';
         if (empty($redirect) && !empty($_COOKIE['liff_redirect'])) {
             $redirect = sanitize_text_field(wp_unslash($_COOKIE['liff_redirect']));
@@ -90,7 +92,7 @@ class LiffHandler {
         wp_enqueue_style('line-hub-liff-login', plugins_url('assets/css/liff-login.css', dirname(dirname(__FILE__))), [], $lh_ver);
         wp_enqueue_script('line-sdk', 'https://static.line-scdn.net/liff/edge/versions/2.24.0/sdk.js', [], null, true);
         wp_enqueue_script('line-hub-liff-login', plugins_url('assets/js/liff-login.js', dirname(dirname(__FILE__))), ['line-sdk'], $lh_ver, true);
-        wp_localize_script('line-hub-liff-login', 'liffConfig', [
+        wp_localize_script('line-hub-liff-login', 'lineHubLiffConfig', [
             'liffId'   => $liff_id,
             'redirect' => $redirect,
         ]);

@@ -36,7 +36,10 @@ class LoginSettingsTab extends AbstractTab {
      * 儲存登入設定
      */
     public function save(): bool {
+        // Nonce 和權限已在 SettingsPage::handle_save() → verify_admin() 驗證
         $success = true;
+
+        // phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce verified in SettingsPage::handle_save()
 
         // general group 的登入相關欄位
         $general_strings = [
@@ -79,6 +82,8 @@ class LoginSettingsTab extends AbstractTab {
             $value = isset($_POST[$field]) && $_POST[$field] === '1';
             SettingsService::set('login', $field, $value);
         }
+
+        // phpcs:enable WordPress.Security.NonceVerification.Missing
 
         return $success;
     }

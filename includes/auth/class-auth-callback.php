@@ -48,11 +48,14 @@ class AuthCallback {
      */
     public function handleRequest(): void {
         try {
+            // OAuth 回調：GET 參數由 LINE 授權伺服器回傳，無法附加 WordPress nonce。
+            // CSRF 防護透過 OAuthState::validate($state) 實現（見 processCallback）。
+
             // 檢查是否有 LINE 回傳的錯誤
-            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- OAuth callback from LINE, CSRF protected by state parameter
             $error = isset($_GET['error']) ? sanitize_text_field(wp_unslash($_GET['error'])) : '';
             if (!empty($error)) {
-                // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- OAuth callback from LINE
                 $error_description = isset($_GET['error_description'])
                     ? sanitize_text_field(wp_unslash($_GET['error_description']))
                     : $error;
@@ -61,9 +64,9 @@ class AuthCallback {
             }
 
             // 檢查是否是 OAuth 回調（有 code 和 state）
-            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- OAuth callback from LINE, state validated below
             $code = isset($_GET['code']) ? sanitize_text_field(wp_unslash($_GET['code'])) : '';
-            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- OAuth callback from LINE, state validated below
             $state = isset($_GET['state']) ? sanitize_text_field(wp_unslash($_GET['state'])) : '';
 
             if (!empty($code) && !empty($state)) {
@@ -91,7 +94,7 @@ class AuthCallback {
      */
     public function initiateAuth(): void {
         // 儲存原始頁面 URL（用於登入後重定向）
-        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Public OAuth entry point; redirect is validated by OAuthState::storeRedirect() via wp_validate_redirect()
         $redirect = isset($_GET['redirect']) ? sanitize_text_field(wp_unslash($_GET['redirect'])) : '';
         if (!empty($redirect)) {
             // OAuthState::storeRedirect 內部已有 wp_validate_redirect 驗證
