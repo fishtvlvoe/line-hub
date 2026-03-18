@@ -90,7 +90,8 @@ class LiffHandler {
         // 註冊樣式和腳本（模板中透過 wp_head/wp_footer 輸出）
         $lh_ver = defined('LINE_HUB_VERSION') ? LINE_HUB_VERSION : '1.0.0';
         wp_enqueue_style('line-hub-liff-login', plugins_url('assets/css/liff-login.css', dirname(dirname(__FILE__))), [], $lh_ver);
-        wp_enqueue_script('line-sdk', 'https://static.line-scdn.net/liff/edge/versions/2.24.0/sdk.js', [], null, true);
+        // 使用本地 LIFF SDK，避免依賴外部 CDN（提升可靠性與 CSP 相容性）
+        wp_enqueue_script('line-sdk', plugins_url('assets/js/vendor/liff-sdk-2.24.0.js', dirname(dirname(__FILE__))), [], '2.24.0', true);
         wp_enqueue_script('line-hub-liff-login', plugins_url('assets/js/liff-login.js', dirname(dirname(__FILE__))), ['line-sdk'], $lh_ver, true);
         wp_localize_script('line-hub-liff-login', 'lineHubLiffConfig', [
             'liffId'   => $liff_id,

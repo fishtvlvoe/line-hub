@@ -141,14 +141,6 @@ This plugin connects to LINE's APIs to provide LINE Login, messaging, and webhoo
 
 No personal data is stored on external servers by this plugin. All LINE user data (user ID, display name, avatar URL) is stored locally in your WordPress database.
 
-**LINE LIFF SDK CDN (static.line-scdn.net)**
-
-* Used for: Loading the LINE Front-end Framework (LIFF) JavaScript SDK
-* Data sent: No user data is sent to this CDN — it serves only the JavaScript SDK file
-* When: When a visitor accesses the LIFF login page (/line-hub/liff/)
-* Terms of Service: https://terms2.line.me/AAAIWqa/
-* Privacy Policy: https://line.me/en/terms/policy/
-
 **Webhook Forwarder (user-configured URL)**
 
 * Used for: Forwarding LINE webhook events to an additional endpoint (e.g., OpenClaw)

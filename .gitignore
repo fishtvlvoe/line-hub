@@ -19,6 +19,7 @@ package-lock.json
 
 # Composer
 vendor/
+!assets/js/vendor/
 composer.lock
 
 # IDE

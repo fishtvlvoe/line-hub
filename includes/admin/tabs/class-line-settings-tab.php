@@ -36,8 +36,13 @@ class LineSettingsTab extends AbstractTab {
      * 儲存 LINE 設定（按 section 隔離）
      */
     public function save(): bool {
-        // Nonce 和權限已在 SettingsPage::handle_save() → verify_admin() 驗證
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified in SettingsPage::handle_save()
+        // 顯式 nonce 驗證（防禦性檢查，上游 SettingsPage::handle_save() 亦會驗證）
+        if (!current_user_can('manage_options') ||
+            !isset($_POST['line_hub_nonce']) ||
+            !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['line_hub_nonce'])), 'line_hub_save_settings')) {
+            return false;
+        }
+
         $section = sanitize_key($_POST['section'] ?? '');
 
         switch ($section) {
@@ -54,8 +59,6 @@ class LineSettingsTab extends AbstractTab {
                 return true;
         }
     }
-
-    // phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce verified in SettingsPage::handle_save()
 
     private function save_messaging_section(): bool {
         $success = true;
@@ -91,5 +94,4 @@ class LineSettingsTab extends AbstractTab {
         return true;
     }
 
-    // phpcs:enable WordPress.Security.NonceVerification.Missing
 }
